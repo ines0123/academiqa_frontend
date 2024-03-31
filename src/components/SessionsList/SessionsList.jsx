@@ -1,6 +1,6 @@
 import "./SessionsList.css";
 import SessionButton from "../SessionButton/SessionButton";
-import Scrollbar from "../Scrollbar/Scrollbar";
+import Scrollbar from "../Common/Scrollbar/Scrollbar";
 import noSessions from "../../assets/images/no_sessions.png";
 function SessionsList() {
   const sessions = [
