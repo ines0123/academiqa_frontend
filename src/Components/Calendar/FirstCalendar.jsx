@@ -12,8 +12,8 @@ import "./styles.css";
 
 import { Internationalization } from "@syncfusion/ej2-base";
 import { useNavigate } from "react-router-dom";
-import { sessionsData } from "../../data/data";
 import { registerLicense } from '@syncfusion/ej2-base';
+import { Sessions } from "../../data/sessionsData";
 
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
 
@@ -38,7 +38,7 @@ const FirstCalendar = () => {
   };
 
   const eventSettings = {
-    dataSource: sessionsData,
+    dataSource: Sessions,
     template: eventTemplate,
   };
 
