@@ -4,10 +4,17 @@
     color: rgba(0, 0, 0, 0.721) !important;
     font-size: 12px;
     font-weight: 500;
-    width: 100% !important;
+    width: 99% !important;
+    height: 95%;
     padding: 0;
     border: none !important;
 }
+
+.e-appointment:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.07);
+
+}
+
 
 
 .subject,
@@ -28,6 +35,10 @@
 .blue {
     padding: 10px;
     background: #ADD8E6 !important;
+}
+
+.e-add {
+    display: none !important;
 }
 
 /* .e-schedule,

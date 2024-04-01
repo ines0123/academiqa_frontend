@@ -1,18 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap');
 
 
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: white;
-    width: 100%;
-    height: 70px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .2);
-    z-index: 2;
-    padding: 0 20px;
-
-}
 
 .side-bar {
     /* sticky means it will stick to the top of the page */
@@ -44,9 +32,9 @@
     border-radius: 10px;
 }
 
-.side-bar-link-closed{
+.side-bar-link-closed {
     padding: 10px 45px;
-  
+
 }
 
 .side-bar .active:hover {
@@ -55,15 +43,15 @@
 
 .logo-large {
     width: auto;
-    height: 110px;
-    margin: 20px 5px 10px 5px;
+    height: 100px;
+    margin: 20px 0px 10px 0px;
     transition: all 0.6s ease-in
 }
 
 .logo-small {
     width: auto;
-    height: 110px;
-    margin: 20px 8px 10px 2px;
+    height: 100px;
+    margin: 20px 0px 10px 0px;
     transition: all 0.6s ease-in
 }
 
@@ -94,6 +82,29 @@
 .recommend-icon {
     width: 50px;
     height: 55px;
-    
     margin-left: -15px;
 }
+
+.chatbot-div {
+    margin: 0 12px;
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in-out;
+}
+
+.chatbot-div:hover {
+    transform: scale(1.05);
+}
+
+.chatbot-text{
+    color: #fff;
+    font-size: 20px;
+    margin: 0 0 0 10px;
+    display: block;
+    transition: all 0.5s ease-in-out;
+}
+ 

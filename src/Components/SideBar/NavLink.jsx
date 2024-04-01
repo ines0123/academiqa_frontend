@@ -3,41 +3,53 @@ import { faPlus, faUserPlus, faUsers, faCartShopping, faCartPlus, faUserPen, faI
 export const links = [
     {
         name: "Home",
-        path: "home",
+        path: "student/",
         icon: faHouse,
-        role: '1995'
+        role: 'student',
+    },
+    {
+        name: "Home",
+        path: "teacher/",
+        icon: faHouse,
+        role: 'teacher'
     },
     {
         name: "My Courses",
-        path: "courses",
+        path: "student/courses",
         icon: faBookOpenReader,
-        role: '1995'
+        role: 'student'
     },
     {
-        name: "Contact Teachers",
-        path: "contact",
+      name: "My Courses",
+        path: "teacher/courses",
+        icon: faBookOpenReader,
+        role: 'teacher' 
+    },
+    {
+        name: "My Messages",
+        path: "chat",
         icon: faComments,
-        role: ['1995', '1992'],
+        role: ['student', 'teacher'],
         className: "icon-button-messages"
     },
     {
         name: "My Notes",
-        path: "notes",
+        path: "student/notes",
         icon: faNoteSticky,
-        role: ['1995', '1999']
+        role: 'student'
     },
     {
         name: "My Calendar",
         path: "calendar",
         icon: faCalendarDays,
-        role: ['1995', '1999']
+        role: ['student', 'teacher']
     },
     {
         name: "See More Courses",
-        path: "recommend",
+        path: "student/recommend",
         icon: "",
         image: "../../public/BotIcon.png",
-        role: ['1995', '1999']
+        role: 'student'
     }
 
 
