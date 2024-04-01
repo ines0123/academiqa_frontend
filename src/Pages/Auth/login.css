@@ -1,0 +1,55 @@
+.login-logo {
+    width: 330px;
+    height: 130px;
+    margin: 40px 0px 0 25px;
+}
+
+.login-side-bar {
+    left: 0;
+    background-image: url(../../Assets/Login/background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: -8px;
+    margin-top: -8px;
+    font-family: "Inika", serif;
+    width: 95%;
+    height: 101vh;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.07);
+    padding: 70px 20px 20px 20px;
+}
+
+.login-layout-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+}
+
+.login-logo-description {
+    color: #ffffffc9;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 600;
+    margin: -10px 0 0 50%;
+}
+
+.login-bar-text {
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.login-bar-content {
+    margin-left: 70px;
+    margin-top: 10px;
+}
+
+.login-bar-text:hover {
+    transform: scale(1.05);
+    transition: 0.5s;
+}

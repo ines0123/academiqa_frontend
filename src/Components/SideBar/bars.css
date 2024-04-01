@@ -41,14 +41,14 @@
     color: #ffffffec;
 }
 
-.logo-large {
+.sidebar-logo-large {
     width: auto;
     height: 100px;
     margin: 20px 0px 10px 0px;
     transition: all 0.6s ease-in
 }
 
-.logo-small {
+.sidebar-logo-small {
     width: auto;
     height: 100px;
     margin: 20px 0px 10px 0px;
@@ -67,25 +67,25 @@
 }
 
 
-.icon-button {
+.sidebar-icon-button {
     font-size: 25px;
 }
 
-.resize-button {
+.sidebar-resize-button {
     font-size: 20px;
 }
 
-.icon-button-messages {
+.sidebar-icon-button-messages {
     font-size: 20px
 }
 
-.recommend-icon {
+.sidebar-recommend-icon {
     width: 50px;
     height: 55px;
     margin-left: -15px;
 }
 
-.chatbot-div {
+.sidebar-chatbot-div {
     margin: 0 12px;
     position: fixed;
     bottom: 20px;
@@ -96,11 +96,11 @@
     transition: all 0.5s ease-in-out;
 }
 
-.chatbot-div:hover {
+.sidebar-chatbot-div:hover {
     transform: scale(1.05);
 }
 
-.chatbot-text{
+.sidebar-chatbot-text{
     color: #fff;
     font-size: 20px;
     margin: 0 0 0 10px;

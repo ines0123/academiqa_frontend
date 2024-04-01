@@ -44,14 +44,14 @@ export default function SideBar() {
       }}>
 
         {/* Logo */}
-        <img src={logo} alt="Logo" className={isOpen ? 'logo-large' : 'logo-small'}/>
+        <img src={logo} alt="Logo" className={isOpen ? 'sidebar-logo-large' : 'sidebar-logo-small'}/>
 
         {/* Bar Content */}
         <div style={{position: 'fixed', top: '150px'}}>
 
           {/*  Resize Button */}
           <FontAwesomeIcon
-            className="d-flex align-items-center gap-2 side-bar-link resize-button"
+            className="d-flex align-items-center gap-2 side-bar-link sidebar-resize-button"
             cursor={"pointer"}
             style={{ marginLeft: isOpen ? "180px" : "28px" }}
             icon={menu.isOpen ? faAnglesLeft : faAnglesRight}
@@ -73,8 +73,8 @@ export default function SideBar() {
                 >
                   {/* Recommend Courses Icon */}
                   {link.icon? (
-                  <FontAwesomeIcon icon={link.icon} className= {link.className?link.className:'icon-button'}  />):(
-                    <img src={BotIcon} alt={link.name} className='recommend-icon' />                  
+                  <FontAwesomeIcon icon={link.icon} className= {link.className?link.className:'sidebar-icon-button'}  />):(
+                    <img src={BotIcon} alt={link.name} className='sidebar-recommend-icon' />                  
                   )}
                   
                   {/*  Text */}
@@ -91,9 +91,9 @@ export default function SideBar() {
             // );
           })}
         </div>
-        <div className='chatbot-div'>
+        <div className='sidebar-chatbot-div'>
           <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '130px'}} />
-          <p className='chatbot-text'>AI help ?</p>
+          <p className='sidebar-chatbot-text'>AI help ?</p>
         </div>
       </div>
     </>
