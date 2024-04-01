@@ -15,12 +15,30 @@ import ProfileTeacher from './Pages/Teacher/ProfileTeacher.jsx'
 import SessionTeacher from './Pages/Teacher/SessionTeacher.jsx'
 import Calendar from './Pages/Common/Calendar.jsx'
 import Chat from './Pages/Common/Chat.jsx'
+import Attendance from './Pages/Teacher/Attendance.jsx'
+import { registerLicense } from '@syncfusion/ej2-base';
+import SideBar from './Components/SideBar/SideBar.jsx'
+import WindowContext from './Context/WindowContext.jsx'
+import MenuContext from './Context/MenuContext.jsx'
+
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVgWn5eeXBSQ2VcUkdw');
 
 const Layout = () => {
   return (
-    <div>
+    <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
+        <SideBar />
+
       <Outlet />
-    </div>
+      </div>
+    </>
   )
 }
 
@@ -28,41 +46,51 @@ const router = createBrowserRouter([
   // Public Routes
   { path: '/login', element: <Login /> },
   {
-    path: '/',
-    element: <Layout />,
+
+    element: <WindowContext/>,
     children: [
-      { path: '/', element: <App /> },
-      // Protected Routes
-
-      // Student Routes
-      { element: <RequireAuth allowedRole={['student']} />, 
+      {
+        element : <MenuContext/>,
         children: [
-          { path: 'student/', element: <HomeStudent /> },
-          { path: 'student/courses', element: <Courses /> },
-          { path: 'student/notes', element: <Notes /> },
-          { path: 'student/profile', element: <ProfileStudent /> },
-          { path: 'student/session/:id', element: <SessionStudent /> }
+          {
+            element: <Layout />,
+            children: [
+              { path: '/', element: <App /> },
+
+              // Protected Routes
+
+              // Student Routes
+              { element: <RequireAuth allowedRole={['student']} />, 
+                children: [
+                  { path: 'student/', element: <HomeStudent /> },
+                  { path: 'student/courses', element: <Courses /> },
+                  { path: 'student/notes', element: <Notes /> },
+                  { path: 'student/profile', element: <ProfileStudent /> },
+                  { path: 'student/session/:id', element: <SessionStudent /> }
+                ]
+              },
+
+              // Teacher Routes
+              {  element: <RequireAuth allowedRole={['teacher']} />, 
+                children: [
+                  { path: 'teacher/', element: <HomeTeacher /> },
+                  { path: 'teacher/profile', element: <ProfileTeacher /> },
+                  { path: 'teacher/session/:id', element: <SessionTeacher /> },
+                  { path: 'teacher/attendance', element: <Attendance /> }]
+              },
+      
+              // common routes
+              {  element: <RequireAuth allowedRole={['student', 'teacher']} />, 
+                children: [
+                  { path: '/calendar', element: <Calendar /> },
+                  { path: '/chat', element: <Chat /> },]
+              }
+            ]
+          }
         ]
-      },
-
-      // Teacher Routes
-      {  element: <RequireAuth allowedRole={['teacher']} />, 
-        children: [
-          { path: 'teacher/', element: <HomeTeacher /> },
-          { path: 'teacher/profile', element: <ProfileTeacher /> },
-          { path: 'teacher/session/:id', element: <SessionTeacher /> },
-      ]
-      },
-
-      // common routes
-      {  element: <RequireAuth allowedRole={['student, teacher']} />, 
-        children: [
-          { path: '/calendar', element: <Calendar /> },
-          { path: '/chat', element: <Chat /> },
-      ]
-      }
-
+        }
     ]
+    
   }
 ])
 
