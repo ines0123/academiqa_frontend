@@ -37,7 +37,7 @@ export default function SideBar() {
         style={{
           left:
             windowContext.windowSize < "768" ? (isOpen ? 0 : "-100%") : "0px",
-          width: isOpen ? "225px" : "fit-content",
+          width: isOpen ? "345px" : "157px",
           position: windowContext.windowSize < "768" ? "fixed" : "sticky",
           transition: "all 0.5s ease-in-out",
           display: windowContext.windowSize > "768" ? "block" : "none",
