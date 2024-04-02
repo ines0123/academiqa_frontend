@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './index.css'
 import { Outlet, Route, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom'
 import Login from './Pages/Auth/Login.jsx'
@@ -15,6 +15,7 @@ import Calendar from './Pages/Common/Calendar.jsx'
 import Chat from './Pages/Common/Chat.jsx'
 import Chatbot from "./Components/Chatbot/Chatbot.jsx";
 import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
+import Course from "./Components/Course/Course.jsx";
 
 
 const Layout = () => {
@@ -36,6 +37,17 @@ const Layout = () => {
 
 
 export default function App() {
+    const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+        const coursesArray = [];
+        for (let i = 0; i < 5; i++) {
+            const colorIndex = i % colors.length;
+            coursesArray.push(<Course key={i} color={colors[colorIndex]} placement={'absence'}/>);
+        }
+        setCourses(coursesArray);
+    }, []);
   return (
     <>
         {/*<Routes>*/}
@@ -60,7 +72,10 @@ export default function App() {
         {/*  </Route>*/}
         {/*</Routes>*/}
         {/*<Chatbot/>*/}
-        <CoursesRecommender/>
+        {/*<CoursesRecommender/>*/}
+        <div className="d-flex">
+            {courses}
+        </div>
     </>
   );
 }
