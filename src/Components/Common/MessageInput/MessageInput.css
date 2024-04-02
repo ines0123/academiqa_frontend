@@ -1,0 +1,50 @@
+.box-container {
+    background-color: #FDFDFD;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 0 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.send-input-chatbot textarea::placeholder {
+    color: #bdbdbd;
+    font-size: 14px;
+    width: 100% !important;
+}
+
+.sendIconButton {
+    transition: transform 0.2s;
+    background-color: transparent;
+    border: none;
+}
+
+.sendIconButton:hover {
+    transform: scale(1.1);
+}
+
+
+.send-input-chatbot textarea {
+    width: 98%;
+    resize: none;
+    border: 0;
+    padding-left: 12px;
+    outline: none;
+    line-height: 1.5;
+    height: 40px;
+    border-radius: 2em;
+}
+.send-prompt {
+    margin-left: -5px;
+}
+
+.formatting .image-prompt{
+    display: none;
+}
+
+.emoji-picker {
+    position: absolute; /* Position the picker absolutely */
+    bottom: 19%;
+    left: 60%;
+    z-index: 9999; /* Set a high z-index to ensure it's on top of other components */
+    width: fit-content;
+}
