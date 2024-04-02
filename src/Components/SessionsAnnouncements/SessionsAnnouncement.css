@@ -6,6 +6,8 @@
     border-radius: 20px ;
     box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.1);
     padding-top: 8px ;
+    display: grid;
+    align-content: space-around;
 }
 
 .sessionsAnnouncement-title {
@@ -19,11 +21,12 @@
 .sessionsAnnouncement-content {
     margin-top: -18px;
     padding: 15px;
+    height: 320px;
 }
 
 .no-announcement {
-    width: 50%;
-    margin-left: 23%;
+    width: 45%;
+    margin-left: 25%;
     margin-top: 10%;
     margin-bottom: 10%
 }

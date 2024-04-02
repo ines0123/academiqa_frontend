@@ -1,4 +1,4 @@
-.box-container {
+.box-announcement-container {
     margin-left: 17px;
     width: 628px;
     background-color: #FDFDFD;
@@ -6,26 +6,27 @@
     border: 1px solid #ccc;
     padding: 0 10px;
     height: 55px;
+    max-height: 80px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.send-input-chatbot textarea::placeholder {
+.send-input-announcement textarea::placeholder {
     color: #bdbdbd;
     font-size: 14px;
 }
 
-.sendIconButton {
+.send-icon-button {
     transition: transform 0.2s;
     margin-top: 5px;
     margin-left: 60px;
 }
 
-.sendIconButton:hover {
+.send-icon-button:hover {
     transform: scale(1.1);
 }
 
 
-.send-input-chatbot textarea {
+.send-input-announcement textarea {
     width: 98%;
     resize: none;
     border: 0;
@@ -33,11 +34,5 @@
     outline: none;
     line-height: 1.5;
     height: 40px;
-}
-.add-image {
-    margin-left: -10px;
-}
-
-.formatting .image-prompt{
-    display: none;
+    max-height: 80px;
 }
