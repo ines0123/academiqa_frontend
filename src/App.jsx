@@ -14,6 +14,7 @@ import SessionTeacher from './Pages/Teacher/SessionTeacher.jsx'
 import Calendar from './Pages/Common/Calendar.jsx'
 import Chat from './Pages/Common/Chat.jsx'
 import Chatbot from "./Components/Chatbot/Chatbot.jsx";
+import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
 
 
 const Layout = () => {
@@ -58,7 +59,8 @@ export default function App() {
         {/*    </Route>*/}
         {/*  </Route>*/}
         {/*</Routes>*/}
-        <Chatbot/>
+        {/*<Chatbot/>*/}
+        <CoursesRecommender/>
     </>
   );
 }
