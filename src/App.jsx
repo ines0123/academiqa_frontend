@@ -12,7 +12,7 @@ import HomeTeacher from './Pages/Teacher/HomeTeacher.jsx'
 import ProfileTeacher from './Pages/Teacher/ProfileTeacher.jsx'
 import SessionTeacher from './Pages/Teacher/SessionTeacher.jsx'
 import Calendar from './Pages/Common/Calendar.jsx'
-import Chat from './Pages/Common/Chat.jsx'
+import Chat from './Components/CommonSessionChat/Chat.jsx'
 import Chatbot from "./Components/Chatbot/Chatbot.jsx";
 import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
 import Course from "./Components/Course/Course.jsx";
@@ -73,9 +73,10 @@ export default function App() {
         {/*</Routes>*/}
         {/*<Chatbot/>*/}
         {/*<CoursesRecommender/>*/}
-        <div className="d-flex">
-            {courses}
-        </div>
+        {/*<div className="d-flex">*/}
+        {/*    {courses}*/}
+        {/*</div>*/}
+        <Chat/>
     </>
   );
 }

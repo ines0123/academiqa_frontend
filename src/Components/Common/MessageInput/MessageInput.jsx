@@ -27,17 +27,36 @@ const MessageInput = (
     const onEmojiClick = (emojiObject)=>{
         const newPrompt = prompt + emojiObject.native;
         setPrompt(newPrompt);
-        openClosePicker();
+        // openClosePicker();
     }
     return (
         <form className="prompt-form" onSubmit={handleSubmit}>
+            {showPicker && <div className="emoji-picker">
+                <Picker
+                    set='apple'
+                    onSelect={onEmojiClick}
+                    title='Pick your emoji…'
+                    emoji='point_up'
+                    showPreview={false}
+                    style={{
+                        backgroundColor:'#FFFEFC',
+                        width:'300px',
+                        fontSize:'.8rem',
+                        borderRadius:'20px',
+                        padding:'10px',
+                        position:'absolute',
+                        bottom:'33%',
+                        right:'5%',
+                    }}
+                />
+            </div>}
             <div className="container box-container d-flex flex-column">
                 {selectedImage && (
                     <img src={URL.createObjectURL(selectedImage)} alt="Selected Image" style={{width:"15%",height:"auto"}} />
                 )}
                 <div className="row mt-1">
                         <div
-                            className="col-sm-9 send-input-chatbot mb-1 p-0 d-flex align-items-center justify-content-center">
+                            className="col-8 col-sm-9 send-input-chatbot mb-1 p-0 d-flex align-items-center justify-content-center">
                                 <textarea
                                     autoFocus
                                     rows="1"
@@ -46,7 +65,7 @@ const MessageInput = (
                                     onChange={handlePromptChange}
                                 />
                         </div>
-                        <div className="col-sm-3 d-flex justify-content-end">
+                        <div className="col-4 col-sm-3 d-flex justify-content-end">
                             {fromChatBot ? (<div
                                     className="add-image p-2 formatting sendIconButton d-flex justify-content-center align-items-center">
                                     <MdOutlineAddPhotoAlternate size={27} onClick={handleIconClick}/>
@@ -58,21 +77,11 @@ const MessageInput = (
                                         onChange={handleFileChange}
                                     />
                                 </div>)
-                                : <>
-                                    {showPicker && <div className="emoji-picker">
-                                        {/*<Picker*/}
-                                        {/*    data={data}*/}
-                                        {/*    previewPosition={"top"}*/}
-                                        {/*    onEmojiSelect={onEmojiClick}*/}
-                                        {/*    theme={'dark'}*/}
-                                        {/*/>*/}
-                                        <Picker set='apple' />
-                                    </div>}
+                                :
                                     <div
                                         className=" p-2 formatting sendIconButton d-flex justify-content-center align-items-center">
                                         <MdOutlineEmojiEmotions size={27} onClick={openClosePicker}/>
                                     </div>
-                                </>
                             }
                             <div
                                 className="send-prompt  p-0 formatting d-flex justify-content-center align-items-center">
