@@ -20,7 +20,7 @@ root.render(
     <WindowContext>
       <MenuContext>
         <Router>
-          {/*<SessionsAnnouncement />*/}
+          {/*<SessionsAnnouncement role="teacher"/>*/}
           <App />
         </Router>
       </MenuContext>

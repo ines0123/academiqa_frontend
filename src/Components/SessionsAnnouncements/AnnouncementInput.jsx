@@ -18,11 +18,11 @@ function AnnouncementInput({ onChange, onAdd }) {
 
   return (
       <>
-        <form className="announcement-form" onSubmit={handleSubmit}>
-          <div className="box-announcement-container d-flex flex-column">
-            <div className="row mt-2.5">
-              <div className="col-lg-10 col-md-10 col-sm-10 send-input-announcement mb-1 p-0 d-flex justify-content-center">
+        <form className="announcement-form container mb-1.5" onSubmit={handleSubmit}>
+
+              <div className="col-10 send-input-announcement mb-1 ">
               <textarea
+                    className=" pt-3"
                     ref={inputRef}
                   rows="1"
                   placeholder={"Type an announcement ..."}
@@ -30,14 +30,10 @@ function AnnouncementInput({ onChange, onAdd }) {
                   onKeyDown={handleKeyPress}
               />
               </div>
-
-              <div className="col-lg-1 col-md-1 col-sm-1 p-0 justify-content-center">
-                <button type="submit" className="send-icon-button">
+                <button type="submit" className="send-icon-button w-7 ">
                   <PiPaperPlaneTiltBold size={23} />
                 </button>
-              </div>
-            </div>
-          </div>
+
         </form>
       </>
   );

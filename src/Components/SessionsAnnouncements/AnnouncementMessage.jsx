@@ -3,7 +3,7 @@ import { FaScroll } from "react-icons/fa";
 
 function AnnouncementMessage({ Announcement }) {
   return (
-    <div className="announcement-item">
+    <div className="announcement-item container">
       <div className="announcement-icon">
           <FaScroll size={33}/>
       </div>

@@ -4,7 +4,7 @@ import teacherPhoto from "../../assets/images/teacher-photo.svg";
 
 function CourseName({role}) {
   return (
-    <div className="course-name-box">
+    <div className="course-name-box container">
       <div>
         <FaBookOpen className="course-icon" />
       </div>

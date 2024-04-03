@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useState} from "react";
 import "./SessionsAnnouncement.css";
 import Scrollbar from "../Common/Scrollbar/Scrollbar";
 import AnnouncementMessage from "./AnnouncementMessage";
@@ -6,9 +6,9 @@ import AnnouncementInput from "./AnnouncementInput";
 import CourseName from "./CourseName";
 import noAnnouncement from "../../assets/images/noAnnouncement.svg";
 
-function SessionsAnnouncement() {
+function SessionsAnnouncement({role}) {
   // Define initial state for announcements
-  const [announcements, setAnnouncements] = useState([
+  const [announcements] = useState([
     {
       teacher: "Ayşe Özdemir",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -57,15 +57,14 @@ function SessionsAnnouncement() {
 
   return (
     <>
-      {/*<CourseName role="teacher" />*/}
-      <div className="sessionsAnnouncement-box">
-        <div>
+      {/*<CourseName role="student" />*/}
+      <div className="sessionsAnnouncement-box container">
+
           <div className="sessionsAnnouncement-title font-IstokWebBold">
             Announcements
           </div>
           <div className="sessionsAnnouncement-content">
             <Scrollbar
-
               trackColor={"#DBDBDBFF"}
               thumbColor={"#B5B5B5FF"}
               maxHeight={"300px"}
@@ -81,11 +80,12 @@ function SessionsAnnouncement() {
               ))}
             </Scrollbar>
           </div>
-        </div>
+
+        {(role === "teacher") &&
         <AnnouncementInput
           // onChange={handleInputChange}
           // onAdd={addAnnouncement}
-        />
+        />}
       </div>
     </>
   );
