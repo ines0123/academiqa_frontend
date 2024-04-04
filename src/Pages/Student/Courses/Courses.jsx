@@ -3,6 +3,7 @@ import { FaBookOpenReader } from "react-icons/fa6";
 import './Courses.css';
 import Course from "../../../Components/Course/Course.jsx";
 import axios from "axios";
+import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 export default function Courses() {
     const[date, setDate] = useState();
     const[modulo, setModulo] = useState(4);
@@ -42,6 +43,7 @@ export default function Courses() {
     },[])
     return (
         <div className="container mt-4 courses-page">
+            <MidNavbar/>
             <div className="date">
                 {date}
             </div>
