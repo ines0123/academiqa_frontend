@@ -71,9 +71,9 @@ export default function App() {
         {/*<div className="d-flex">*/}
         {/*    {courses}*/}
         {/*</div>*/}
-        <Chat/>
+        {/*<Chat/>*/}
         {/*<NotificationCard/>*/}
-        {/*<Courses/>*/}
+        <Courses/>
     </>
   );
 }
