@@ -4,7 +4,7 @@ import { Outlet, Route, RouterProvider, Routes, createBrowserRouter } from 'reac
 import Login from './Pages/Auth/Login.jsx'
 import RequireAuth from './Pages/Auth/RequireAuth.jsx'
 import HomeStudent from './Pages/Student/HomeStudent.jsx'
-import Courses from './Pages/Student/Courses/Courses.jsx'
+import Courses from './Pages/Student/Courses.jsx'
 import Notes from './Pages/Student/Notes.jsx'
 import ProfileStudent from './Pages/Student/ProfileStudent.jsx'
 import SessionStudent from './Pages/Student/SessionStudent.jsx'
@@ -19,20 +19,18 @@ import Course from "./Components/Course/Course.jsx";
 import NotificationCard from "./Components/Notification/NotificationCard.jsx";
 import EmptyNavbar from "./Components/Navbar/EmptyNavbar.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx"
+import Chat from './Pages/Common/Chat.jsx'
+import SideBar from './Components/SideBar/SideBar.jsx'
+import RecommendCourse from './Pages/Student/RecommendCourse.jsx'
 
 
 const Layout = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        width: "100%",
-      }}
-    >
-      {/* <SideBar /> */}
-      <Outlet />
+    <div className='layout-container'>
+    <SideBar />
+      <div className='layout-content'>
+        <Outlet />
+      </div>
     </div>
   );
 };
