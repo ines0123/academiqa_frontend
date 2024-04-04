@@ -6,7 +6,7 @@ import './Message.css'
 import Sellaouti from "../../../assets/images/Sellaouti.jpg";
 
 // eslint-disable-next-line react/prop-types
-const Message = ({message, isStudent, send,getAllMessages,emitTyping}) => {
+const Message = ({message, isStudent, send,getAllMessages,emitTyping,nbNestedReplies}) => {
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
@@ -62,12 +62,12 @@ const Message = ({message, isStudent, send,getAllMessages,emitTyping}) => {
                             </span>
                         </div>)}
 
-                    <div className="reply-button d-flex align-items-center" onClick={handleViewReplyForm}>
+                    {nbNestedReplies < 3 &&(<div className="reply-button d-flex align-items-center" onClick={handleViewReplyForm}>
                         <div className={`reply me-1 mb-1 ${viewReplyForm ? '' : 'active'}`}>
                             <AiOutlineMessage size={20}/>
                         </div>
                         <span style={{color: `${viewReplyForm ? '' : '#717171'}`}}>Reply</span>
-                    </div>
+                    </div>)}
 
                 </div>
                 {message?.replies?.length > 0 && (
@@ -77,13 +77,17 @@ const Message = ({message, isStudent, send,getAllMessages,emitTyping}) => {
                                 <Message
                                     key={index}
                                     message={reply}
+                                    emitTyping={emitTyping}
+                                    send={send}
+                                    getAllMessages={getAllMessages}
+                                    nbNestedReplies={nbNestedReplies + 1}
                                 />
                             ))}
                     </div>
 
                 )}
                 <div className="reply-input">
-                    {viewReplyForm && (
+                    {viewReplyForm && nbNestedReplies < 3 && (
                         <MessageInput
                             handleSubmit={handleSubmit}
                             handlePromptChange={handleValueChange}

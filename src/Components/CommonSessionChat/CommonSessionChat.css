@@ -1,3 +1,10 @@
+.common-chat {
+    height: 93%;
+}
+.common-chat .messages {
+    margin-top: -20px;
+
+}
 .typing {
     color:  #717171 !important;
 }

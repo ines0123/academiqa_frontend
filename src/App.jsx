@@ -17,27 +17,9 @@ import Chatbot from "./Components/Chatbot/Chatbot.jsx";
 import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
 import Course from "./Components/Course/Course.jsx";
 import NotificationCard from "./Components/Notification/NotificationCard.jsx";
+import EmptyNavbar from "./Components/Navbar/EmptyNavbar.jsx";
+import Navbar from "./Components/Navbar/Navbar.jsx"
 
-import "./index.css";
-import {
-  Outlet,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom";
-import Login from "./Pages/Auth/Login.jsx";
-import RequireAuth from "./Pages/Auth/RequireAuth.jsx";
-import HomeStudent from "./Pages/Student/HomeStudent.jsx";
-import Courses from "./Pages/Student/Courses.jsx";
-import Notes from "./Pages/Student/Notes.jsx";
-import ProfileStudent from "./Pages/Student/ProfileStudent.jsx";
-import SessionStudent from "./Pages/Student/SessionStudent.jsx";
-import HomeTeacher from "./Pages/Teacher/HomeTeacher.jsx";
-import ProfileTeacher from "./Pages/Teacher/ProfileTeacher.jsx";
-import SessionTeacher from "./Pages/Teacher/SessionTeacher.jsx";
-import Calendar from "./Pages/Common/Calendar.jsx";
-import Chat from "./Pages/Common/Chat.jsx";
 
 const Layout = () => {
   return (

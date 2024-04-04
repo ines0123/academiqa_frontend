@@ -6,6 +6,7 @@ import NotificationCard from "../Notification/NotificationCard.jsx";
 import MessageInput from "../Common/MessageInput/MessageInput.jsx";
 import Message from "./Message/Message.jsx";
 import './CommonSessionChat.css';
+import EmptyNavbar from "../Navbar/EmptyNavbar.jsx";
 
 const Chat = () => {
     const [value, setValue] = useState("");
@@ -15,6 +16,7 @@ const Chat = () => {
     const [sender, setSender] = useState("mongia");
     const [typing, setTyping] = useState('');
     const messagesEndRef = useRef(null);
+    const [nbNestedReplies, setNbNestedReplies] = useState(0);
 
     const join = () => {
         socket?.emit('join', sender,() => {
@@ -93,58 +95,60 @@ const Chat = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages, typing]);
+    }, [typing]);
 
     return (
-        <div className="container d-flex flex-column align-items-center">
-            <NotificationCard socket={socket}/>
-            <h1 className="text-center fs-1 fw-bold">
-                Questions & Answers
-            </h1>
-            <hr className="mt-2 mb-2" style={{width: "50%"}}/>
-            <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={"60vh"}>
-                <div className="container" style={{backgroundColor: "#D1C4D8"}}>
-                    {messages.map((message, index) => (
-                        <Message
-                            key={index}
-                            message={message}
-                            isStudent={true}
-                            send={send}
-                            getAllMessages={getAllMessages}
-                            emitTyping={emitTyping}
-                        />
-                    ))}
-                    {typing && (
-                    <div className="typing d-flex">
-                        <div className="typing d-flex align-items-center">
-                            {typing} is typing
-                        </div>
-                        <div className="typing-indicator">
-                            <div className="typing-circle"></div>
-                            <div className="typing-circle"></div>
-                            <div className="typing-circle"></div>
-                            <div className="typing-shadow"></div>
-                            <div className="typing-shadow"></div>
-                            <div className="typing-shadow"></div>
-                        </div>
+        <EmptyNavbar>
+            <div className="common-chat d-flex flex-column align-items-center justify-content-around">
+                <h1 className="text-center fs-1 fw-bold">
+                    Questions & Answers
+                </h1>
+                <hr className="mt-2" style={{width: "70%"}}/>
+                <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={"65vh"}>
+                    <div className="messages">
+                        {messages.map((message, index) => (
+                            <Message
+                                key={index}
+                                message={message}
+                                isStudent={true}
+                                send={send}
+                                getAllMessages={getAllMessages}
+                                emitTyping={emitTyping}
+                                nbNestedReplies={nbNestedReplies}
+                            />
+                        ))}
+                        {typing && (
+                            <div className="typing d-flex">
+                                <div className="typing d-flex align-items-center">
+                                    {typing} is typing
+                                </div>
+                                <div className="typing-indicator">
+                                    <div className="typing-circle"></div>
+                                    <div className="typing-circle"></div>
+                                    <div className="typing-circle"></div>
+                                    <div className="typing-shadow"></div>
+                                    <div className="typing-shadow"></div>
+                                    <div className="typing-shadow"></div>
+                                </div>
+                            </div>
+                        )}
+                        <div ref={messagesEndRef}></div>
                     </div>
-                    )}
-                    <div ref={messagesEndRef}></div>
-                </div>
-            </Scrollbar>
+                </Scrollbar>
 
-            <div className="container">
-                <hr className="mb-2 mt-2"/>
-                <MessageInput
-                    handleSubmit={handleSubmit}
-                    handlePromptChange={handleValueChange}
-                    prompt={value}
-                    setPrompt={setValue}
-                    // setPrompt={setValue}
-                    fromChatBot={false}
-                />
+                <div className="container">
+                    <hr className="mb-3 mt-2"/>
+                    <MessageInput
+                        handleSubmit={handleSubmit}
+                        handlePromptChange={handleValueChange}
+                        prompt={value}
+                        setPrompt={setValue}
+                        // setPrompt={setValue}
+                        fromChatBot={false}
+                    />
+                </div>
             </div>
-        </div>
+        </EmptyNavbar>
     );
 };
 
