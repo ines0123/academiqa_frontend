@@ -60,7 +60,6 @@ const FirstCalendar = () => {
         <ViewDirective option="Day" />
         <ViewDirective option="Week" startHour="05:00" endHour="23:00" />
         <ViewDirective option="WorkWeek" startHour="08:00" endHour="18:00" />
-        <ViewDirective option="Month" showWeekend={false} />
       </ViewsDirective>
       <Inject services={[Day, Week, WorkWeek, Month]} />
     </ScheduleComponent>
