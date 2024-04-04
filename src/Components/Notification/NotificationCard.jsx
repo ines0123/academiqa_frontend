@@ -20,7 +20,7 @@ const NotificationCard = ({socket}) => {
         getNotifications();
         console.log(notifications)
     }, [socket]);
-    ²const messageListener = () => {
+    const messageListener = () => {
         getNotifications();
     }
     useEffect(()=> {
