@@ -55,6 +55,7 @@
     font-size: 1.2em;
     transition: transform 0.3s ease;
     cursor: pointer;
+    width: fit-content;
 }
 .old-discussion:hover {
     transform: scale(1.04);
@@ -80,6 +81,12 @@
 .discussion .prompt {
     background-color: #F0EDF2;
     border-radius: 18px;
+}
+
+.response-ul ul{
+    list-style: initial !important;
+    margin: 8px 0 0 23px!important;
+    padding: 3px !important;
 }
 
 

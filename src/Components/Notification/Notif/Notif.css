@@ -1,0 +1,12 @@
+.notif {
+    border-radius: 1.5rem;
+    height: 80px;
+    font-size: .9rem;
+    padding: 5px;
+    cursor: pointer;
+
+}
+.notif .img {
+    width: 40px;
+    height: auto;
+}

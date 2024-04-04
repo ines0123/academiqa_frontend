@@ -16,6 +16,7 @@ import Chat from './Components/CommonSessionChat/Chat.jsx'
 import Chatbot from "./Components/Chatbot/Chatbot.jsx";
 import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
 import Course from "./Components/Course/Course.jsx";
+import NotificationCard from "./Components/Notification/NotificationCard.jsx";
 
 
 const Layout = () => {
@@ -68,15 +69,20 @@ export default function App() {
         {/*    <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>*/}
         {/*      <Route path="/calendar" element={<Calendar />}></Route>*/}
         {/*      <Route path="/chat" element={<Chat />}></Route>*/}
+        {/*      <Route path="/notification" element={<NotificationCard />}></Route>*/}
+
         {/*    </Route>*/}
         {/*  </Route>*/}
         {/*</Routes>*/}
-        {/*<Chatbot/>*/}
+
+
+        <Chatbot/>
         {/*<CoursesRecommender/>*/}
         {/*<div className="d-flex">*/}
         {/*    {courses}*/}
         {/*</div>*/}
-        <Chat/>
+        {/*<Chat/>*/}
+        {/*<NotificationCard/>*/}
     </>
   );
 }

@@ -54,9 +54,7 @@ const MessageInput = (
                 {selectedImage && (
                     <img src={URL.createObjectURL(selectedImage)} alt="Selected Image" style={{width:"15%",height:"auto"}} />
                 )}
-                <div className="row mt-1">
-                        <div
-                            className="col-8 col-sm-9 send-input-chatbot mb-1 p-0 d-flex align-items-center justify-content-center">
+                <div className="d-flex justify-content-between mt-1">
                                 <textarea
                                     autoFocus
                                     rows="1"
@@ -64,8 +62,8 @@ const MessageInput = (
                                     value={prompt}
                                     onChange={handlePromptChange}
                                 />
-                        </div>
-                        <div className="col-4 col-sm-3 d-flex justify-content-end">
+
+                        <div className=" d-flex justify-content-end">
                             {fromChatBot ? (<div
                                     className="add-image p-2 formatting sendIconButton d-flex justify-content-center align-items-center">
                                     <MdOutlineAddPhotoAlternate size={27} onClick={handleIconClick}/>

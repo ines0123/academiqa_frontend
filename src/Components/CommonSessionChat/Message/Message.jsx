@@ -6,21 +6,23 @@ import './Message.css'
 import Sellaouti from "../../../assets/images/Sellaouti.jpg";
 
 // eslint-disable-next-line react/prop-types
-const Message = ({message, isStudent}) => {
+const Message = ({message, isStudent, send,getAllMessages,emitTyping}) => {
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        setValue("");
-        if(!message.replies){
-            message.replies = [];
+        if (value !== "") {
+            send({message:value, parentId:message.id});
+            getAllMessages();
+            setValue("");
+            setViewReplies(true);
+            setViewReplyForm(false);
         }
-        message.replies.push({message: value, sender: "user"});
-        setViewReplies(true);
-        setViewReplyForm(false);
     }
+
     const handleValueChange = (e) => {
+        emitTyping();
         setValue(e.target.value);
     }
 
@@ -32,7 +34,6 @@ const Message = ({message, isStudent}) => {
     }
     return (
         <div className="message p-2 px-3 me-1 d-flex flex-column">
-
             <div className="d-flex">
                 <img
                     className="rounded-circle img "
@@ -40,7 +41,7 @@ const Message = ({message, isStudent}) => {
                     alt="sender"
                 />
                 <div>
-                    <div className="message-sender ms-3">
+                    <div className="message-sender ms-3 mb-1">
                         {message.sender}
                     </div>
                     <div className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}>

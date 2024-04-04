@@ -4,32 +4,26 @@ import OldDiscussions from "./OldDiscussions.jsx";
 import ChatbotDiscussion from "./ChatbotDiscussion.jsx";
 import './Chatbot.css';
 import chatbotChatbot from "../../assets/images/chatbot-chatbot.svg";
+import axios from "axios";
 
 const Chatbot = () => {
-    const [discussionId, setDiscussionId] = useState(1);
-    const [discussions, setDiscussions] = useState([
-        {
-            id: 1,
-            conversationHistory: [
-                {
-                    id: 1,
-                    prompt: 'Hello',
-                    response: 'Hello, how can I help you?',
-                },
-            ]
-        },
-        {
-            id: 2,
-            conversationHistory: [
-                {
-                    id: 1,
-                    prompt: 'I need help with my assignment I need help with my assignment I need help with my assignment ',
-                    response: 'Sure, I can help you with that. Please provide me with the assignment details. Sure, I can help you with that. Please provide me with the assignment details. Sure, I can help you with that. Please provide me with the assignment details.',
-                }
-            ]
-        }
-    ]);
+    const [discussions, setDiscussions] = useState([]);
+    const [discussionId, setDiscussionId] = useState();
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < 906);
+
+    //get all discussions from the server
+    const getDiscussions = async () => {
+        try{
+            const res = await axios.get('http://localhost:5000/GetAllDiscussions');
+            setDiscussions(res.data);
+            setDiscussionId(res.data[res?.data.length-1]?.id)
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    useEffect(() => {
+        getDiscussions();
+    }, []);
 
     useEffect(() => {
         const handleResize = () => setIsMediumScreen(window.innerWidth < 906);
@@ -71,12 +65,13 @@ const Chatbot = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-2 col-md-2 ps-0 pe-1 mb-1">
-                            <OldDiscussions onDiscussionSelect={setDiscussionId} />
+                            <OldDiscussions discussions={discussions} onDiscussionSelect={setDiscussionId} />
                         </div>
                         <div className="col-lg-10 col-md-10 pe-0 ps-1 mb-1">
                             <ChatbotDiscussion
                                 discussion={discussions.find(item => item.id === discussionId)}
                                 onUpdateDiscussion={updateDiscussion}
+                                getDiscussions={getDiscussions}
                             />
                         </div>
                     </div>

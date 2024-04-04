@@ -6,7 +6,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.send-input-chatbot textarea::placeholder {
+textarea::placeholder {
     color: #bdbdbd;
     font-size: 14px;
     width: 100% !important;
@@ -23,15 +23,16 @@
 }
 
 
-.send-input-chatbot textarea {
-    width: 98%;
+ textarea {
+    width: 98% ;
     resize: none;
     border: 0;
     padding-left: 12px;
     outline: none;
     line-height: 1.5;
-    height: 40px;
+    height: 37px;
     border-radius: 2em;
+     margin: 2px 0;
 }
 .send-prompt {
     margin-left: -5px;
@@ -41,13 +42,6 @@
     display: none;
 }
 
-/*.emoji-picker {*/
-/*    position: absolute; !* Position the picker absolutely *!*/
-/*    bottom: 19%;*/
-/*    left: 60%;*/
-/*    z-index: 9999; !* Set a high z-index to ensure it's on top of other components *!*/
-/*    width: fit-content;*/
-/*}*/
 .emoji-mart-category-label span {
     background-color: #692E5F !important;
     color: white !important;
