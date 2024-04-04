@@ -35,7 +35,7 @@ const Navbar = () => {
           <EmptyNavbar>
             <div className="profileNav">
               <img src={teacherPhoto} alt="teacher" className="profilePhoto" />
-              <div className="accountName">Mohamed Aziz Ben Ghorbel</div>
+              <div className="accountName">Aymen Sellaouti</div>
               <Link to="/profile" className="nameButton">
                 My Profile
               </Link>

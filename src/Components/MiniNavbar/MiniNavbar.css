@@ -37,11 +37,11 @@
 }
 
 .Bellbutton:hover .bellM {
-  animation: bellRing 0.9s both;
+  animation: bellRing 1s both infinite alternate;
 }
 
 .Logoutbutton:hover .logoutt {
-  animation: shake 0.5s ease forwards;
+  animation: shake 1s ease infinite alternate;
 }
 /* bell ringing animation keyframes*/
 @keyframes bellRing {

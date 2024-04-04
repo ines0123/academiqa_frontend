@@ -99,7 +99,7 @@
 
 @media (max-width: 900px) {
   .profileNav {
-    height: 16.5rem;
+    height: 16rem;
   }
 
   .profilePhoto {
@@ -160,7 +160,7 @@
 
 @media (max-width: 700px) {
   .profileNav {
-    height: 15.5rem;
+    height: 15rem;
   }
 
   .profilePhoto {
