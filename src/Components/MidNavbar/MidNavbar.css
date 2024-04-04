@@ -83,9 +83,11 @@
   transition-duration: 0.3s;
   padding: 0.3rem;
 }
+
 .BellbuttonMid {
   padding-right: 0;
 }
+
 .LogoutbuttonMid {
   padding-left: 0;
 }
@@ -101,11 +103,11 @@
 }
 
 .BellbuttonMid:hover .bellMid {
-  animation: bellRing 0.9s both;
+  animation: bellRing 1s both infinite alternate;
 }
 
 .LogoutbuttonMid:hover .logouttMid {
-  animation: shake 0.5s ease forwards;
+  animation: shake 1s ease infinite alternate;
 }
 /* bell ringing animation keyframes*/
 @keyframes bellRing {
@@ -176,6 +178,44 @@
   .accountNameMid {
     display: none;
   }
+
+  .BellbuttonMid{
+    padding-left: 0;
+  }
+
+  .CalendarbuttonNav {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transition-duration: 0.3s;
+    padding: 0.3rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+  }
+
+  .calendarNav {
+    width: 26px;
+  }
+
+  .calendarNav path {
+    fill: #262626;
+  }
+
+  .CalendarbuttonNav:hover .calendarNav {
+    animation: draw 0.5s ease  infinite alternate;
+  }
+
+  @keyframes draw {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-2px);
+  }
+  }
 }
 
 @media (max-width: 400px) {
@@ -203,8 +243,10 @@
     padding: 0;
     padding-left: 0.5rem;
   }
+
   .profilePhotoMid {
     width: 35px;
     height: 35px;
+    margin-right: 0.2rem;
   }
 }
