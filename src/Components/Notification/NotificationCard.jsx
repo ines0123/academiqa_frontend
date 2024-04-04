@@ -5,35 +5,30 @@ import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
 import io from "socket.io-client";
 
 const NotificationCard = ({socket}) => {
-    const notificationTypes = {
-        "absence-limit": 1,
-        "content": 2,
-        "message": 3,
-        "absent": 4
-    };
-
-    const [notifications, setNotifications] = useState([
-        {
-            message: "You have reached the absence limit in Co Design, please contact the administration",
-            type: "absence-limit",
-        },
-        {
-            message: "New content has been added to the course",
-            type: "content",
-        },
-        {
-            message: "You have a new message",
-            type: "message",
-        },
-        {
-            message: "You have been marked absent",
-            type: "absent",
-        },
-    ]);
+    const [notifications, setNotifications] = useState([]);
 
     const [isVisible, setIsVisible] = useState(false);
     const notificationCardRef = useRef(null);
     const buttonRef = useRef(null);
+
+    const getNotifications = () => {
+        socket?.emit('getAllNotifications','1',(notifications) => {
+                    setNotifications(notifications);
+                });
+    }
+    useEffect(() => {
+        getNotifications();
+        console.log(notifications)
+    }, [socket]);
+    ²const messageListener = () => {
+        getNotifications();
+    }
+    useEffect(()=> {
+        socket?.on('message', messageListener);
+        return () => {
+            socket?.off('message', messageListener);
+        }
+    },[messageListener])
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
@@ -52,6 +47,7 @@ const NotificationCard = ({socket}) => {
             document.removeEventListener('click', handleDocumentClick);
         };
     }, [isVisible]);
+
     const notifyListener = (notif) => {
         setNotifications(prevMessages => [...prevMessages, notif]);
     }
@@ -70,15 +66,14 @@ const NotificationCard = ({socket}) => {
             {isVisible && (
                 <div ref={notificationCardRef} className="notification-card m-5 px-3 pt-1">
                     <Scrollbar thumbColor={'#B5B5B5'} trackColor={'#DBDBDB'} maxHeight={'230px'}>
-                        {notifications.map((notification, index) => (
+                        {notifications?.map((notification, index) => (
                             <div className="px-1" key={index}>
                                 <Notif
-                                    message={notification.message}
-                                    color={notificationTypes[notification.type]}
+                                    notification={notification}
                                 />
-                                {index < notifications.length - 1 && (<hr className="mt-1 mb-1"/>)}
+                                {index !== 0  && (<hr className="mt-1 mb-1"/>)}
                             </div>
-                        ))}
+                        )).reverse()}
                     </Scrollbar>
                 </div>
             )}

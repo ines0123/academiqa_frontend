@@ -56,7 +56,6 @@ const MessageInput = (
                 )}
                 <div className="d-flex justify-content-between mt-1">
                                 <textarea
-                                    autoFocus
                                     rows="1"
                                     placeholder={`${fromChatBot? 'Ask AcademIQa Bot ...' : 'Type a message ...'}`}
                                     value={prompt}

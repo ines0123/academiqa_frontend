@@ -1,5 +1,5 @@
 .card {
-    width: 290px;
+    width: 260px;
     height: 125px;
     position: relative;
     border-radius: 3.3em;
@@ -9,7 +9,6 @@
 }
 
 .card-title {
-    width: 75%;
     padding-bottom: 0.5px;
 }
 
@@ -29,7 +28,10 @@
 }
 
 
-.card .card-bottom .img{
+.card .card-bottom .img.img-for-absence{
+    margin-top: -4px;
+}
+.card .card-bottom .img.img-for-course {
     margin-top: -20px;
 }
 .card:hover {
@@ -42,5 +44,8 @@
 }
 
 .card:active {
-    transform: scale(0.94);
+    transform: scale(0.95);
+}
+.absence {
+    margin-top: -8px !important;
 }

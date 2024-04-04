@@ -1,0 +1,42 @@
+
+.date {
+    color: #5e5e5e !important;
+}
+.my-courses {
+    background-color: #FEF7EF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    border-radius: 1.5em;
+}
+.all-courses {
+    width: 90%;
+}
+
+/* Define default column styles */
+.custom-col {
+    /* Add your default styles here */
+}
+
+@media (min-width: 1370px) {
+    .custom-col {
+        width: 25%;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1369px) {
+    .custom-col {
+        width: 33.33%;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1024px) {
+    .custom-col {
+        width: 50%;
+    }
+}
+
+@media (max-width: 799px) {
+    .custom-col {
+        width: 100%;
+    }
+}

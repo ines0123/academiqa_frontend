@@ -4,7 +4,7 @@ import { Outlet, Route, RouterProvider, Routes, createBrowserRouter } from 'reac
 import Login from './Pages/Auth/Login.jsx'
 import RequireAuth from './Pages/Auth/RequireAuth.jsx'
 import HomeStudent from './Pages/Student/HomeStudent.jsx'
-import Courses from './Pages/Student/Courses.jsx'
+import Courses from './Pages/Student/Courses/Courses.jsx'
 import Notes from './Pages/Student/Notes.jsx'
 import ProfileStudent from './Pages/Student/ProfileStudent.jsx'
 import SessionStudent from './Pages/Student/SessionStudent.jsx'
@@ -38,17 +38,7 @@ const Layout = () => {
 
 
 export default function App() {
-    const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
-    const [courses, setCourses] = useState([]);
 
-    useEffect(() => {
-        const coursesArray = [];
-        for (let i = 0; i < 5; i++) {
-            const colorIndex = i % colors.length;
-            coursesArray.push(<Course key={i} color={colors[colorIndex]} placement={'absence'}/>);
-        }
-        setCourses(coursesArray);
-    }, []);
   return (
     <>
         {/*<Routes>*/}
@@ -76,13 +66,14 @@ export default function App() {
         {/*</Routes>*/}
 
 
-        <Chatbot/>
+        {/*<Chatbot/>*/}
         {/*<CoursesRecommender/>*/}
         {/*<div className="d-flex">*/}
         {/*    {courses}*/}
         {/*</div>*/}
-        {/*<Chat/>*/}
+        <Chat/>
         {/*<NotificationCard/>*/}
+        {/*<Courses/>*/}
     </>
   );
 }
