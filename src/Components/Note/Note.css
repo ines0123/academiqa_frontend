@@ -1,0 +1,51 @@
+.note {
+  width: 300px;
+  height: 310px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px;
+  background-color: rgba(221, 233, 176,0.36);
+  display: grid;
+}
+
+.noteHeader {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.noteSubjectType h2 {
+  margin: 0;
+}
+
+.noteSubjectType p {
+  margin: 0;
+}
+
+.noteContent {
+  /* margin-top: 10px; */
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.noteFooter {
+  display: flex;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  justify-content: flex-start;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #e6ebc6;
+}
+
+.noteSessionTime {
+  display: flex;
+  align-items: center;
+}
+
+.noteSessionTime i {
+  margin-right: 5px;
+}
+
