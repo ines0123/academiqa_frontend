@@ -99,7 +99,7 @@ export default function SideBar() {
                   // );
               })}
               <div onClick={SeeMoreCourses}
-                   className="d-flex gap-1 justify-content-center align-items-center cursor-pointer"
+                   className="see-courses d-flex gap-1 justify-content-center align-items-center cursor-pointer"
                    style={{padding: !menu.isOpen ? "10px 0" : "10px 0 0 25px"}}
               >
                   <img src={BotIcon} alt={"See More Courses"} className='recommend-icon' />

@@ -1,6 +1,10 @@
 .common-chat {
     height: 93%;
 }
+.common-chat h1 {
+    font-size: 35px;
+
+}
 .common-chat .messages {
     margin-top: -20px;
 

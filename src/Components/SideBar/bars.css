@@ -43,7 +43,7 @@
 
 }
 
-.side-bar .active:hover {
+.side-bar .active:hover{
     color: #ffffffec;
 }
 
@@ -69,10 +69,10 @@
     font-weight: bolder;
 }
 
-.side-bar-link:hover {
+.side-bar-link:hover path,
+.side-bar-link:hover p, .see-courses:hover .recommend-text{
     color: #7ddceb;
 }
-
 
 .icon-button {
     font-size: 25px;
@@ -93,7 +93,7 @@
 }
 
 .chatbot-div {
-    margin: 0 12px;
+    margin: 0 12px ;
     position: fixed;
     bottom: 20px;
     display: flex;
@@ -114,4 +114,3 @@
     display: block;
     transition: all 0.5s ease-in-out;
 }
- 

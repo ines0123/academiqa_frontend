@@ -99,7 +99,7 @@ const Chat = () => {
     return (
         <EmptyNavbar width={'27rem'}>
             <div className="common-chat d-flex flex-column align-items-center justify-content-around">
-                <h1 className="text-center fs-1 fw-bold">
+                <h1 className="text-center fw-bold">
                     Questions & Answers
                 </h1>
                 <hr className="mt-2" style={{width: "70%"}}/>

@@ -16,25 +16,25 @@
 
 
 @media (min-width: 1370px) {
-    .custom-col {
+    .custom-col-c {
         width: 25%;
     }
 }
 
 @media (min-width: 1025px) and (max-width: 1369px) {
-    .custom-col {
+    .custom-col-c {
         width: 33.33%;
     }
 }
 
 @media (min-width: 800px) and (max-width: 1024px) {
-    .custom-col {
+    .custom-col-c {
         width: 50%;
     }
 }
 
 @media (max-width: 799px) {
-    .custom-col {
+    .custom-col-c {
         width: 60%;
     }
 }

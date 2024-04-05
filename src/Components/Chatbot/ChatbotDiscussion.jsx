@@ -121,17 +121,19 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
                                 </div>
                             </div>
                         </div>
-                    )) : <div className="mt-4 d-flex justify-content-center">
-                        <img src={NoDiscussions} alt={"kk"} style=
-                            {{
-                                filter: 'grayscale(100%)',
-                                opacity: '0.4',
-                                width: '30%',
-                                height: 'auto'
-                            }}
-                        />
-                    </div>
-                    }
+                    )) :null}
+                    {!discussion && !isLoading && (
+                        <div className="mt-4 d-flex justify-content-center">
+                            <img src={NoDiscussions} alt={"kk"} style=
+                                {{
+                                    filter: 'grayscale(100%)',
+                                    opacity: '0.4',
+                                    width: '30%',
+                                    height: 'auto'
+                                }}
+                            />
+                        </div>
+                    )}
                     {isLoading && (
                         <div ref={messagesEndRef} className="row prompt p-2 px-3 me-1 mb-3">
                             <div className="d-flex align-items-center">

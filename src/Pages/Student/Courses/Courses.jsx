@@ -53,7 +53,7 @@ export default function Courses() {
 
     },[])
     return (
-        <div className="container courses-page">
+        <div className="container courses-page pt-3">
             <MidNavbar/>
             <div className="date ms-3">
                 {date}
@@ -72,7 +72,7 @@ export default function Courses() {
                                 <>
                                     <hr style={{width: '95%'}}/>
                                 </>}
-                            <div className="custom-col mt-4 mb-4 d-flex flex-column justify-content-center align-items-center">
+                            <div className="custom-col-c mt-4 mb-4 d-flex flex-column justify-content-center align-items-center">
                                 <Course course={course} color={colors[index % colors.length]} placement="course"/>
                             </div>
                         </React.Fragment>
