@@ -32,7 +32,7 @@ const Navbar = () => {
         </MidNavbar>
       ) : (
         <>
-          <EmptyNavbar>
+          <EmptyNavbar width={'22rem'}>
             <div className="profileNav">
               <img src={teacherPhoto} alt="teacher" className="profilePhoto" />
               <div className="accountName">Aymen Sellaouti</div>

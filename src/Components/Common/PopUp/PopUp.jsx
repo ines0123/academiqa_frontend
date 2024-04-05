@@ -5,16 +5,10 @@ import { IconContext } from "react-icons";
 import './popup.css'
 import Scrollbar from "../Scrollbar/Scrollbar.jsx";
 // eslint-disable-next-line react/prop-types
-const PopUp = ({children, width}) => {
-    const [modalIsOpen, setModalOpen] = useState(true);
-
-    function openModal() {
-        setModalOpen(true);
-    }
-
+const PopUp = ({children, width, isOpen, setIsOpen}) => {
     function closeModal() {
         setTimeout(() => {
-            setModalOpen(false);
+            setIsOpen(false);
         }, 150);
     }
     const customStyles = {
@@ -34,7 +28,7 @@ const PopUp = ({children, width}) => {
             width: width,
             // maxHeight: "94vh",
         }, overlay: {
-            backgroundColor: "rgba(15, 19, 30, 0.6)",
+            backgroundColor: "rgba(15, 19, 30, 0.65)",
         },
     };
     return (
@@ -42,7 +36,7 @@ const PopUp = ({children, width}) => {
 
                 <Modal
                     ariaHideApp={false}
-                    isOpen={modalIsOpen}
+                    isOpen={isOpen}
                     onRequestClose={closeModal}
                     style={customStyles}>
                     <Scrollbar thumbColor={"#692E5F"} trackColor={"#D1C4D8"} maxHeight={"81vh"}>

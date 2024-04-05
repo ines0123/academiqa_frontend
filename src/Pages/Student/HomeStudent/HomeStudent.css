@@ -1,0 +1,68 @@
+.student-home-page {
+    height: 100%;
+}
+
+.student-home-page .Welcoming {
+    background-color: #FEF7EF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    border-radius: 1.5em;
+    height: fit-content;
+}
+.student-home-page .date {
+    height: fit-content;
+}
+
+@media (min-width: 1370px) {
+    .student-home-page .body {
+        width: 70%;
+    }
+    .custom-col-1 {
+        width: 75%;
+    }
+    .custom-col-2 {
+        width: 25%;
+    }
+}
+
+@media (min-width: 1127px) and (max-width: 1369px) {
+    .student-home-page .body {
+        width: 65%;
+    }
+    .custom-col-1 {
+        width: 70%;
+    }
+    .custom-col-2 {
+        width: 30%;
+    }
+}
+
+@media (min-width: 1050px) and (max-width: 1126px) {
+    .student-home-page .body {
+        width: 62%;
+    }
+    .custom-col-1 {
+        width: 60%;
+    }
+    .custom-col-2 {
+        width: 40%;
+    }
+}
+
+@media (max-width: 1049px) {
+    .student-home-page .body {
+        width: 59%;
+    }
+    .custom-col-1 {
+        width: 100%;
+    }
+    .custom-col-2 {
+        width: 100%;
+    }
+    #firstColumn {
+        order: 2;
+    }
+    #secondColumn {
+        order: 1;
+    }
+}

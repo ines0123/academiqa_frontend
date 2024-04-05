@@ -11,9 +11,9 @@
     margin-top: -8px;
     background-color: #0D525D;
     /* width: fit-content; */
-    font-family: "Inika", serif;
+    /*font-family: "Inika", serif;*/
     width: 310px;
-    height: 101vh;
+    /*height: 101vh;*/
     /* height: calc(100vh - 70px); */
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.07);
     /* padding: 0 20px; */
@@ -81,7 +81,7 @@
 
 .recommend-icon {
     width: 50px;
-    height: 55px;
+    height: auto;
     margin-left: -15px;
 }
 

@@ -7,10 +7,11 @@ import MessageInput from "../Common/MessageInput/MessageInput.jsx";
 import Message from "./Message/Message.jsx";
 import './CommonSessionChat.css';
 import EmptyNavbar from "../Navbar/EmptyNavbar.jsx";
+import {useSocket} from "../../Context/SocketContext.jsx";
 
 const Chat = () => {
     const [value, setValue] = useState("");
-    const [socket, setSocket] = useState();
+    const socket = useSocket();
     const [messages, setMessages] = useState([]);
     const [joined, setJoined] = useState(false);
     const [sender, setSender] = useState("mongia");
@@ -44,12 +45,10 @@ const Chat = () => {
     }
 
     useEffect(()=>{
-        const socket = io('http://localhost:8001');
-        setSocket(socket);
         socket?.emit('findAllMessages', (messages) => {
             setMessages(messages);
         });
-    }, [setSocket]);
+    }, [socket]);
 
     useEffect(() => {
         join();
@@ -98,7 +97,7 @@ const Chat = () => {
     }, [typing]);
 
     return (
-        <EmptyNavbar>
+        <EmptyNavbar width={'27rem'}>
             <div className="common-chat d-flex flex-column align-items-center justify-content-around">
                 <h1 className="text-center fs-1 fw-bold">
                     Questions & Answers

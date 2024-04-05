@@ -6,7 +6,7 @@ import './Chatbot.css';
 import chatbotChatbot from "../../assets/images/chatbot-chatbot.svg";
 import axios from "axios";
 
-const Chatbot = () => {
+const Chatbot = ({isOpen, setIsOpen}) => {
     const [discussions, setDiscussions] = useState([]);
     const [discussionId, setDiscussionId] = useState();
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < 906);
@@ -41,7 +41,7 @@ const Chatbot = () => {
     };
 
     return (
-        <PopUp width={"77vw"}>
+        <PopUp width={"77vw"} isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className="mx-2">
                 <div className="container d-flex flex-column justify-content-center align-items-center ">
                     <div

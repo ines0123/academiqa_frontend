@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 const Course = ({course,color,placement}) => {
     const [type,setType] = useState(placement);
+
     return (
         <div className="card ps-4 pe-3 pb-3 pt-4" style={{background: `${color}`}}>
             <NavLink to={`/course/${course.id}`} className="text-decoration-none">

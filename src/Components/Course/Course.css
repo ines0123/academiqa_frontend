@@ -1,5 +1,6 @@
 .card {
-    width: 260px;
+    /*width: 260px;*/
+    width: 95%;
     height: 125px;
     position: relative;
     border-radius: 3.3em;
@@ -44,7 +45,7 @@
 }
 
 .card:active {
-    transform: scale(0.95);
+    transform: scale(0.93);
 }
 .absence {
     margin-top: -8px !important;

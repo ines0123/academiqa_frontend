@@ -8,14 +8,12 @@
     width: fit-content;
     border-radius: 1.5em;
 }
-.all-courses {
-    width: 90%;
+
+.my-courses.more-margin {
+    margin-top: 35px !important;
+
 }
 
-/* Define default column styles */
-.custom-col {
-    /* Add your default styles here */
-}
 
 @media (min-width: 1370px) {
     .custom-col {
@@ -37,6 +35,6 @@
 
 @media (max-width: 799px) {
     .custom-col {
-        width: 100%;
+        width: 60%;
     }
 }

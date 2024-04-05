@@ -4,6 +4,8 @@ import './Courses.css';
 import Course from "../../../Components/Course/Course.jsx";
 import axios from "axios";
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
+import NotificationCard from "../../../Components/Notification/NotificationCard.jsx";
+import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
 export default function Courses() {
     const[date, setDate] = useState();
     const[modulo, setModulo] = useState(4);
@@ -22,6 +24,15 @@ export default function Courses() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth < 860);
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     useEffect(() => {
         const today = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -42,24 +53,24 @@ export default function Courses() {
 
     },[])
     return (
-        <div className="container mt-4 courses-page">
+        <div className="container courses-page">
             <MidNavbar/>
-            <div className="date">
+            <div className="date ms-3">
                 {date}
             </div>
-            <div className="my-courses d-flex p-3 mt-4">
+            <div className={`my-courses d-flex mt-4 p-3 ${isSmallScreen ? 'more-margin':''}`}>
                 <div className="courses-icon">
                     <FaBookOpenReader size={40} />
                 </div>
                 <h1 className="fs-1 ms-4 fw-bold">My Courses</h1>
             </div>
             <div className="container all-courses mt-4">
-                <div className="row">
+                <div className="row d-flex justify-content-center">
                     {courses.map((course, index) => (
                         <React.Fragment key={index}>
                             {index % modulo === 0 && index !== 0 &&
                                 <>
-                                    <hr/>
+                                    <hr style={{width: '95%'}}/>
                                 </>}
                             <div className="custom-col mt-4 mb-4 d-flex flex-column justify-content-center align-items-center">
                                 <Course course={course} color={colors[index % colors.length]} placement="course"/>

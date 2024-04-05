@@ -2,15 +2,14 @@ import './NotificationCard.css';
 import { useEffect, useRef, useState } from "react";
 import Notif from "./Notif/Notif.jsx";
 import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
-import io from "socket.io-client";
+import {useSocket} from "../../Context/SocketContext.jsx";
+import {useNotification} from "../../Context/NotificationContext.jsx";
 
-const NotificationCard = ({socket}) => {
+const NotificationCard = () => {
     const [notifications, setNotifications] = useState([]);
-
-    const [isVisible, setIsVisible] = useState(false);
+    const {isVisible, setIsVisible,toggleVisibility} = useNotification();
     const notificationCardRef = useRef(null);
-    const buttonRef = useRef(null);
-
+    const socket = useSocket();
     const getNotifications = () => {
         socket?.emit('getAllNotifications','1',(notifications) => {
                     setNotifications(notifications);
@@ -30,15 +29,31 @@ const NotificationCard = ({socket}) => {
         }
     },[messageListener])
 
-    const toggleVisibility = () => {
-        setIsVisible(!isVisible);
-    };
+
 
     const handleDocumentClick = (event) => {
-        if (!notificationCardRef.current?.contains(event.target) && !buttonRef.current?.contains(event.target)) {
+        const clickedButtonClasses = ["BellbuttonMid", "BellbuttonNav"];
+
+        // Function to check if any ancestor of the clicked element has the specified class
+        const hasClass = (element, className) => {
+            if (element.classList.contains(className)) {
+                return true;
+            }
+            if (element.parentElement) {
+                return hasClass(element.parentElement, className);
+            }
+            return false;
+        };
+
+        if (
+            !notificationCardRef.current?.contains(event.target) &&
+            !clickedButtonClasses.some(className => hasClass(event.target, className))
+        ) {
             setIsVisible(false);
         }
     };
+
+
 
     useEffect(() => {
         document.addEventListener('click', handleDocumentClick);
@@ -60,9 +75,6 @@ const NotificationCard = ({socket}) => {
 
     return (
         <div className="notification-card-container">
-            <button ref={buttonRef} className="btn btn-primary" onClick={toggleVisibility}>
-                {isVisible ? 'Hide Notifications' : 'Show Notifications'}
-            </button>
             {isVisible && (
                 <div ref={notificationCardRef} className="notification-card m-5 px-3 pt-1">
                     <Scrollbar thumbColor={'#B5B5B5'} trackColor={'#DBDBDB'} maxHeight={'230px'}>

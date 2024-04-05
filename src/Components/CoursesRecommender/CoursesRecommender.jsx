@@ -9,7 +9,7 @@ import {FaStar} from "react-icons/fa";
 import chatbotRecommend from "../../assets/images/chatbotRecommend.svg";
 // Modal.setAppElement(document.getElementById('__next'));
 
-const CoursesRecommender = () => {
+const CoursesRecommender = ({isOpen, setIsOpen}) => {
     const [course, setCourse] = useState('')
     const [courses, setCourses] = useState([])
     const [numRec, setNumRec] = useState(0);
@@ -50,7 +50,7 @@ const CoursesRecommender = () => {
 
 
     return (
-        <PopUp width={!isMediumScreen ? "45vw": "65vw"}>
+        <PopUp width={!isMediumScreen ? "45vw": "65vw"} isOpen={isOpen} setIsOpen={setIsOpen}>
             <div
                 className="container d-flex flex-column justify-content-center align-items-center"
             >
