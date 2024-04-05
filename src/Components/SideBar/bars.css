@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap');
+
+
+
+.side-bar {
+    /* sticky means it will stick to the top of the page */
+    /* the difference between sticky and fixed is that sticky will stick to the top of the page when the page is scrolled to the top, but fixed will stick to the top of the page even if the page is scrolled down */
+    /* top: 70px; */
+    left: 0;
+    margin-left: -8px;
+    margin-top: -8px;
+    background-color: #0D525D;
+    /* width: fit-content; */
+    /*font-family: "Inika", serif;*/
+    width: 310px;
+    /*height: 101vh;*/
+    /* height: calc(100vh - 70px); */
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.07);
+    /* padding: 0 20px; */
+    /* display:block means it will take the whole width of the page, but inline-block means it will take the width of the content */
+}
+
+
+.side-bar-link{
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.5s;
+    /* margin: 10px; */
+    border-radius: 10px;
+}
+.side-bar-link path, .side-bar-link p, .link-icons path {
+    color: #ffffffec;
+}
+.recommend-text {
+    font-size: 18px;
+    color: #ffffffec;
+}
+
+.side-bar-link-closed {
+    padding: 10px 45px;
+
+}
+
+.side-bar .active:hover{
+    color: #ffffffec;
+}
+
+.logo-large {
+    width: auto;
+    height: 100px;
+    margin: 20px 0px 10px 0px;
+    transition: all 0.6s ease-in
+}
+
+.logo-small {
+    width: auto;
+    height: 100px;
+    margin: 20px 0px 10px 0px;
+    transition: all 0.6s ease-in
+}
+
+.side-bar .active {
+    background-color: rgb(242, 243, 254, 0.08);
+    color: white;
+    /* color: #038edc; */
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.side-bar-link:hover path,
+.side-bar-link:hover p, .see-courses:hover .recommend-text{
+    color: #7ddceb;
+}
+
+.icon-button {
+    font-size: 25px;
+}
+
+.resize-button {
+    font-size: 20px;
+}
+
+.icon-button-messages {
+    font-size: 20px
+}
+
+.recommend-icon {
+    width: 50px;
+    height: auto;
+    margin-left: -15px;
+}
+
+.chatbot-div {
+    margin: 0 12px ;
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in-out;
+}
+
+.chatbot-div:hover {
+    transform: scale(1.05);
+}
+
+.chatbot-text{
+    color: #fff;
+    font-size: 20px;
+    /*margin: 0 0 0 10px;*/
+    display: block;
+    transition: all 0.5s ease-in-out;
+}

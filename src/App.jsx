@@ -1,10 +1,9 @@
-import React from 'react'
-import './index.css'
+import React, {useEffect, useState} from 'react'
+import './App.css'
 import { Outlet, Route, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom'
 import Login from './Pages/Auth/Login.jsx'
 import RequireAuth from './Pages/Auth/RequireAuth.jsx'
-import HomeStudent from './Pages/Student/HomeStudent.jsx'
-import Courses from './Pages/Student/Courses.jsx'
+import HomeStudent from './Pages/Student/HomeStudent/HomeStudent.jsx'
 import Notes from './Pages/Student/Notes.jsx'
 import ProfileStudent from './Pages/Student/ProfileStudent.jsx'
 import SessionStudent from './Pages/Student/SessionStudent.jsx'
@@ -12,28 +11,33 @@ import HomeTeacher from './Pages/Teacher/HomeTeacher.jsx'
 import ProfileTeacher from './Pages/Teacher/ProfileTeacher.jsx'
 import SessionTeacher from './Pages/Teacher/SessionTeacher.jsx'
 import Calendar from './Pages/Common/Calendar.jsx'
-import Chat from './Pages/Common/Chat.jsx'
+import Chatbot from "./Components/Chatbot/Chatbot.jsx";
+import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
+import Course from "./Components/Course/Course.jsx";
+import NotificationCard from "./Components/Notification/NotificationCard.jsx";
+import EmptyNavbar from "./Components/Navbar/EmptyNavbar.jsx";
+import Navbar from "./Components/Navbar/Navbar.jsx"
+import SideBar from './Components/SideBar/SideBar.jsx'
+import RecommendCourse from './Pages/Student/RecommendCourse.jsx'
+import Courses from "./Pages/Student/Courses/Courses.jsx";
+import Chat from "./Components/CommonSessionChat/Chat.jsx";
+
 
 
 const Layout = () => {
   return (
-    <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      width: "100%",
-    }}
-  >
-    {/* <SideBar /> */}
-      <Outlet />
+    <div className='layout-container'>
+    <SideBar />
+      <div className='layout-content'>
+        <Outlet />
+      </div>
+      <NotificationCard/>
     </div>
-  )
-}
-
-
+  );
+};
 
 export default function App() {
+
   return (
     <>
         <Routes>
@@ -54,9 +58,20 @@ export default function App() {
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
               <Route path="/calendar" element={<Calendar />}></Route>
               <Route path="/chat" element={<Chat />}></Route>
+              <Route path="/notification" element={<NotificationCard />}></Route>
+
             </Route>
           </Route>
         </Routes>
+
+
+        {/*<Chatbot/>*/}
+        {/*<CoursesRecommender/>*/}
+        {/*<div className="d-flex">*/}
+        {/*    {courses}*/}
+        {/*</div>*/}
+        {/*<Chat/>*/}
+        {/*<Courses/>*/}
     </>
   );
 }

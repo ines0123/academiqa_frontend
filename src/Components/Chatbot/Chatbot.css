@@ -1,0 +1,92 @@
+.Welcome {
+    background-color: #FEF7EF;
+    box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.13);
+    /*width: 70%;*/
+    /*width: fit-content;*/
+}
+
+.Welcome h1 {
+    font-size: 2.2rem;
+    width: fit-content;
+}
+.Welcome .title {
+    margin: 5vh -2vw 0 0;
+    width: fit-content;
+}
+.Welcome .title span {
+    margin-top: -1vw;
+}
+.historique, .discussion {
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.12);
+
+}
+.historique.large, .discussion {
+    height: 57vh;
+}
+
+.historique.small {
+    height: 25vh ;
+}
+
+.historique {
+    background-color: #F0EDF2;
+}
+.discussion {
+    background-color: #D1C4D8;
+}
+.course {
+    background-color: #F0EDF2;
+    transition: transform 0.2s ease;
+}
+
+.course:hover {
+    background-color: #E3E0E7;
+    transform: scale(1.004);
+}
+.historique .new-discussion {
+    font-size: 1.8em;
+}
+.historique p {
+    font-size: .9em;
+}
+.old-discussion {
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    width: fit-content;
+}
+.old-discussion:hover {
+    transform: scale(1.04);
+}
+.old-discussion p {
+    font-size: .7em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow-wrap: break-word;
+}
+.historique.small p {
+    font-size: .9rem;
+    margin: 0;
+}
+.historique.small .old-discussion {
+    margin-left:  50px !important;
+    margin-right: 50px !important
+}
+
+.discussion .prompt {
+    background-color: #F0EDF2;
+    border-radius: 18px;
+}
+
+.response-ul ul{
+    list-style: initial !important;
+    margin: 8px 0 0 23px!important;
+    padding: 3px !important;
+}
+
+
