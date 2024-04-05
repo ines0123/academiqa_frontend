@@ -1,7 +1,10 @@
 .student-home-page {
     height: 100%;
+    width: 100% !important;
 }
-
+.body.smaller{
+    /*margin-left: 4.5vw;*/
+}
 .student-home-page .Welcoming {
     background-color: #FEF7EF;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -12,7 +15,9 @@
 .student-home-page .date {
     height: fit-content;
 }
-
+.some-courses {
+    margin-top: 2.5rem;
+}
 @media (min-width: 1370px) {
     .student-home-page .body {
         width: 70%;
@@ -23,9 +28,12 @@
     .custom-col-2 {
         width: 25%;
     }
+    .custom-col {
+        width: 33% !important;
+    }
 }
 
-@media (min-width: 1127px) and (max-width: 1369px) {
+@media (min-width: 1250px) and (max-width: 1369px) {
     .student-home-page .body {
         width: 65%;
     }
@@ -35,9 +43,12 @@
     .custom-col-2 {
         width: 30%;
     }
+    .custom-col {
+        width: 33% !important;
+    }
 }
 
-@media (min-width: 1050px) and (max-width: 1126px) {
+@media (min-width: 1075px) and (max-width: 1249px) {
     .student-home-page .body {
         width: 62%;
     }
@@ -47,9 +58,15 @@
     .custom-col-2 {
         width: 40%;
     }
+    .course-2 {
+        display: none !important;
+    }
+    .custom-col {
+        width: 50% !important;
+    }
 }
 
-@media (max-width: 1049px) {
+@media (max-width: 1074px) {
     .student-home-page .body {
         width: 59%;
     }
@@ -65,4 +82,52 @@
     #secondColumn {
         order: 1;
     }
+    .course-2, .course-1 {
+        display: none !important;
+    }
+    .custom-col{
+        width: 80% !important;
+    }
 }
+
+@media (min-width: 1467px) {
+    .student-home-page .body.smaller {
+        width: 80% !important;
+    }
+}
+
+@media (min-width: 1404px) and (max-width: 1467px) {
+    .student-home-page .body.smaller {
+        width: 75% !important;
+    }
+}
+
+@media (min-width: 1281px) and (max-width: 1403px) {
+    .student-home-page .body.smaller {
+        width: 70% !important;
+    }
+}
+@media (min-width: 1184px) and (max-width: 1280px) {
+    .student-home-page .body.smaller {
+        width: 75% !important;
+    }
+    .course-2 {
+        display:flex !important;
+    }
+    .custom-col {
+        width: 33% !important;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1184px) {
+    .student-home-page .body.smaller {
+        width: 75% !important;
+    }
+    .course-2 {
+        display: none !important;
+    }
+    .custom-col {
+        width: 50% !important;
+    }
+}
+

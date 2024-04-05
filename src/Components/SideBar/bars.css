@@ -21,15 +21,21 @@
 }
 
 
-.side-bar-link {
+.side-bar-link{
     display: block;
     padding: 10px 20px;
-    color: #ffffffec;
     text-decoration: none;
     font-size: 18px;
     transition: 0.5s;
     /* margin: 10px; */
     border-radius: 10px;
+}
+.side-bar-link path, .side-bar-link p, .link-icons path {
+    color: #ffffffec;
+}
+.recommend-text {
+    font-size: 18px;
+    color: #ffffffec;
 }
 
 .side-bar-link-closed {
@@ -60,6 +66,7 @@
     color: white;
     /* color: #038edc; */
     font-size: 18px;
+    font-weight: bolder;
 }
 
 .side-bar-link:hover {
@@ -103,7 +110,7 @@
 .chatbot-text{
     color: #fff;
     font-size: 20px;
-    margin: 0 0 0 10px;
+    /*margin: 0 0 0 10px;*/
     display: block;
     transition: all 0.5s ease-in-out;
 }

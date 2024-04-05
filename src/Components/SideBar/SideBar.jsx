@@ -7,7 +7,7 @@ import { WindowSize } from '../../Context/WindowContext'
 import { links } from './NavLink'
 import './bars.css'
 import BotIcon from '../../assets/SideBar/BotIcon.png'
-import BigLogo from '../../assets/SideBar/Logo.png'
+import BigLogo from '../../assets/SideBar/academIQa.png'
 import SmallLogo from '../../assets/SideBar/SmallLogo.png'
 import Chatbot from '../../assets/SideBar/Chatbot.png'
 import CoursesRecommender from "../CoursesRecommender/CoursesRecommender.jsx";
@@ -78,12 +78,12 @@ export default function SideBar() {
                       <NavLink
                           to={link.path}
                           className="d-flex align-items-center gap-2 side-bar-link"
-                          style={{padding: !menu.isOpen ? "10px 45px" : "10px 20px"}}
+                          style={{padding: !menu.isOpen ? "10px 43px" : "10px 43px"}}
                           key={key}
                       >
                           {/* Recommend Courses Icon */}
                           <FontAwesomeIcon icon={link.icon}
-                                           className={link.className ? link.className : 'icon-button'}/>
+                                           className={` link-icons ${link.className ? link.className : 'icon-button'}`}/>
 
                           {/*  Text */}
                           <p
@@ -98,9 +98,13 @@ export default function SideBar() {
                   )
                   // );
               })}
-              <div onClick={SeeMoreCourses} className="d-flex justify-content-center align-items-center gap-2 side-bar-link cursor-pointer">
-                  <img src={BotIcon} alt={"See More Courses"} className='recommend-icon'/>
+              <div onClick={SeeMoreCourses}
+                   className="d-flex gap-1 justify-content-center align-items-center cursor-pointer"
+                   style={{padding: !menu.isOpen ? "10px 0" : "10px 0 0 25px"}}
+              >
+                  <img src={BotIcon} alt={"See More Courses"} className='recommend-icon' />
                   <p
+                      className="recommend-text"
                       style={{
                           display: isOpen ? "block" : "none",
                           margin: "0",
@@ -111,9 +115,9 @@ export default function SideBar() {
               </div>
               <CoursesRecommender isOpen={recommend} setIsOpen={setRecommend}/>
           </div>
-          <div onClick={SeeChatbot} className='chatbot-div'>
-              <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '120px'}}/>
-              <p className='chatbot-text'>AI help ?</p>
+          <div onClick={SeeChatbot} className='chatbot-div cursor-pointer'>
+              <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '115px'}}/>
+              <p className='chatbot-text mt-3'>Need AI help?</p>
           </div>
           <ChatbotDiscussion isOpen={chatbot} setIsOpen={setChatbot} />
       </div>
