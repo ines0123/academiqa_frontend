@@ -15,7 +15,6 @@ import Chatbot from '../../Assets/SideBar/Chatbot.png'
 
 export default function SideBar() {
   const menu = useContext(Menu);
-  const [logo, setLogo] = useState(BigLogo);
   const isOpen = menu.isOpen;
 
   const windowContext = useContext(WindowSize);
@@ -23,28 +22,35 @@ export default function SideBar() {
 
   function handleClick() {
     if (!menu.isOpen) {
-      setLogo(BigLogo);
+      // setLogo(BigLogo);
       menu.setIsOpen(!menu.isOpen);
     }
   }
 
+  useEffect(() => {
+    if (windowContext.windowSize < "768") {
+      if (menu.isOpen) {
+        menu.setIsOpen(false);
+      }
+    }
+  }
+  , [windowContext.windowSize]);
+
   return (
     <>
     {/* SideBar */}
+
       <div
         className=" side-bar pt-3"
         onClick={handleClick}
         style={{
-          left:
-            windowContext.windowSize < "768" ? (isOpen ? 0 : "-100%") : "0px",
-          width: isOpen ? "345px" : "157px",
-          position: windowContext.windowSize < "768" ? "fixed" : "sticky",
-          transition: "all 0.5s ease-in-out",
-          display: windowContext.windowSize > "768" ? "block" : "none",
+          width: isOpen ? (windowContext.windowSize < "768" ? "245px" :"350px") : "185px",
+          zIndex: (windowContext.windowSize < "768" && isOpen) ? '101' : '99',
+          transition: (windowContext.windowSize < "768" ) ? "all 0.1s" : "all 0.5s",
       }}>
 
         {/* Logo */}
-        <img src={logo} alt="Logo" className={isOpen ? 'sidebar-logo-large' : 'sidebar-logo-small'}/>
+        <img src={isOpen ? BigLogo : SmallLogo} alt="Logo" className={isOpen ? 'sidebar-logo-large' : 'sidebar-logo-small'}/>
 
         {/* Bar Content */}
         <div style={{position: 'fixed', top: '150px'}}>
@@ -56,7 +62,6 @@ export default function SideBar() {
             style={{ marginLeft: isOpen ? "180px" : "28px" }}
             icon={menu.isOpen ? faAnglesLeft : faAnglesRight}
             onClick={() => {
-              menu.isOpen ? setLogo(SmallLogo) : setLogo(BigLogo);
               menu.setIsOpen(!menu.isOpen);
             }}
           />
@@ -96,6 +101,14 @@ export default function SideBar() {
           <p className='sidebar-chatbot-text'>AI help ?</p>
         </div>
       </div>
+      {
+            windowContext.windowSize < "768" && isOpen && (
+                <div
+                style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: '100' }}
+                onClick={() => menu.setIsOpen(false)}
+                ></div>
+            )
+            }
     </>
   );
 }

@@ -13,22 +13,8 @@ import ProfileTeacher from './Pages/Teacher/ProfileTeacher.jsx'
 import SessionTeacher from './Pages/Teacher/SessionTeacher.jsx'
 import Calendar from './Pages/Common/Calendar.jsx'
 import Chat from './Pages/Common/Chat.jsx'
-import SideBar from './Components/SideBar/SideBar.jsx'
 import RecommendCourse from './Pages/Student/RecommendCourse.jsx'
-
-
-const Layout = () => {
-  return (
-    <div className='layout-container'>
-    <SideBar />
-      <div className='layout-content'>
-        <Outlet />
-      </div>
-    </div>
-  )
-}
-
-
+import Layout from './Layouts/Layout.jsx'
 
 export default function App() {
   return (
