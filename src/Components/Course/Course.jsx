@@ -12,7 +12,7 @@ const Course = ({course,color,placement}) => {
             <NavLink to={`/course/${course.id}`} className="text-decoration-none">
                 <div className="card-content d-flex flex-column justify-content-evenly">
                     <div className="card-top">
-                        <h3 className="card-title m-0  fw-bold fs-4">{course?.name}</h3>
+                        <h3 className="card-title m-0  fw-bold">{course?.name}</h3>
                         {type === 'course' ? (<h6 className="m-0 font-bold">{course?.class}</h6>) : null}
                     </div>
                     <div className="card-bottom d-flex justify-content-between align-items-center">
@@ -23,7 +23,7 @@ const Course = ({course,color,placement}) => {
                             alt="Chatbot"
                             width={75}
                             height={75}
-                            style={{width: '60px', height: '60px'}}
+                            style={{width: '55px', height: '55px'}}
                         />
                     </div>
                     {type === 'absence' ? (

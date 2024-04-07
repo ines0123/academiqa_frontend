@@ -42,8 +42,8 @@ const OldDiscussions = ({onDiscussionSelect, discussions}) => {
             <div className="container px-1 old-ones d-flex justify-content-center">
                 <Scrollbar thumbColor={"#692E5F"} trackColor={"#D1C4D8"} maxHeight={`${isMediumScreen ? '65px' : '200px'}`}>
                     {/*<div className="d-flex flex-column align-items-center">*/}
-                        {discussions?.reverse().map((discussion, index) => (
-                                <div key={index} className="old-discussion m-1 d-flex justify-content-center"
+                        {discussions?.map((discussion, index) => (
+                                <div key={index} className="old-discussion m-1 mt-2 d-flex justify-content-center"
                                      onClick={() => handleDiscussionClick(discussion.id)}>
                                     <img src={Discussion} alt={"discussion"} width={15} height={15}/>
                                     <p className="mb-0 ms-1">

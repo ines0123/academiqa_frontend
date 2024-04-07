@@ -6,8 +6,9 @@ import axios from "axios";
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 import NotificationCard from "../../../Components/Notification/NotificationCard.jsx";
 import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
+import {useDate} from "../../../Context/DateContext.jsx";
 export default function Courses() {
-    const[date, setDate] = useState();
+    const date = useDate();
     const[modulo, setModulo] = useState(4);
     useEffect(() => {
         const handleResize = () => {
@@ -33,11 +34,7 @@ export default function Courses() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    useEffect(() => {
-        const today = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        setDate(today.toLocaleDateString('en-US', options));
-    }, []);
+
 
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const [courses, setCourses] = useState([]);
@@ -58,11 +55,11 @@ export default function Courses() {
             <div className="date ms-3">
                 {date}
             </div>
-            <div className={`my-courses d-flex mt-4 p-3 ${isSmallScreen ? 'more-margin':''}`}>
+            <div className={`my-courses d-flex mt-4 p-3 ms-4 ${isSmallScreen ? 'more-margin':''}`}>
                 <div className="courses-icon">
-                    <FaBookOpenReader size={40} />
+                    <FaBookOpenReader size={35} />
                 </div>
-                <h1 className="fs-1 ms-4 fw-bold">My Courses</h1>
+                <h1 className="ms-2 fw-bold">My Courses</h1>
             </div>
             <div className="container all-courses mt-4">
                 <div className="row d-flex justify-content-center">

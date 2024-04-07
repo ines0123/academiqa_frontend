@@ -1,0 +1,65 @@
+.student-session-page {
+    height: 100%;
+}
+
+.date, .num-session {
+    color: #5e5e5e !important;
+}
+.the-course {
+    background-color: #FEF7EF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    border-radius: 1.5em;
+}
+.the-course h1 {
+    font-size: 35px;
+}
+
+.student-session-page .new-note {
+    width: 2.2rem;
+    height: auto;
+}
+
+.student-session-page .add-note h3 {
+    font-size: 25px;
+}
+.student-session-page .add-note {
+    width: fit-content;
+    transition: transform 0.5s ease;
+}
+.student-session-page .add-note:hover {
+    transform: scale(1.05);
+}
+
+.slider {
+    padding: 20px 30px;
+}
+.slick-slider {
+    position: relative!important;
+    height: 300px!important;
+    width: 95%!important;
+    padding: 0!important;
+}
+.slick-list {
+    position: absolute !important;
+    z-index: 9999 !important;
+    width: 95% !important;
+}
+
+.slick-slider button::before {
+    color: #B5B5B5;
+    font-size: 50px;
+    margin-left: -25px;
+}
+.slick-slide > div {
+
+}
+.slick-prev {
+    display: none !important;
+}
+.note {
+    background-color: #0D525D;
+    height: 300px;
+    width: 250px !important;
+    margin: 0 20px;
+}

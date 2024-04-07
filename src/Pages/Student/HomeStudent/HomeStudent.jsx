@@ -5,9 +5,10 @@ import SeeMoreButton from "../../../Components/Common/SeeMoreButton/SeeMoreButto
 import axios from "axios";
 import Course from "../../../Components/Course/Course.jsx";
 import {Menu} from "../../../Context/MenuContext.jsx";
+import {useDate} from "../../../Context/DateContext.jsx";
 
 export default function HomeStudent() {
-    const [date, setDate] = useState();
+    const date = useDate();
     const [courses, setCourses] = useState([]);
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const menu = useContext(Menu);
@@ -23,22 +24,18 @@ export default function HomeStudent() {
         )
 
     },[])
-    useEffect(() => {
-        const today = new Date();
-        const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-        setDate(today.toLocaleDateString('en-US', options));
-    }, []);
+
     return (
-        <div className="d-flex container student-home-page m-0">
-            <div className={`body mt-4 px-2 ${menu.isOpen? '':'smaller'}`}>
-                <div className="row px-3 d-flex justify-content-between">
-                    <div className={`custom-col-1 p-0`} id="firstColumn">
+        <div className="d-flex justify-content-between  student-home-page m-0 pe-0">
+            <div className="body mt-4 px-4 flex-grow-1">
+                <div className="px-3 d-flex justify-content-between">
+                    <div className={`p-0`}>
                         <div className="Welcoming d-flex flex-column p-3">
                             <h5 className="fs-5 ms-2 fw-bold">Welcome back, Rym!</h5>
                             <p className="fs-6 ms-2">Hope you're ready for another awesome day with us!</p>
                         </div>
                     </div>
-                    <div className="date custom-col-2 text-end" id="secondColumn">
+                    <div className="date text-end" >
                         {date}
                     </div>
                 </div>
@@ -52,7 +49,7 @@ export default function HomeStudent() {
                             <div className="row d-flex justify-content-center">
                                 {courses.map((course, index) => (
                                     <React.Fragment key={index}>
-                                        <div className={`custom-col course-${index} mt-4 mb-4 p-0 d-flex flex-column justify-content-center align-items-center`}>
+                                        <div className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-4 mb-4 p-0 d-flex flex-column justify-content-center align-items-center`}>
                                             <Course course={course} color={colors[index % colors.length]} placement="course"/>
                                         </div>
                                     </React.Fragment>

@@ -45,8 +45,9 @@ const MessageInput = (
                         borderRadius:'20px',
                         padding:'10px',
                         position:'absolute',
-                        bottom:'33%',
-                        right:'5%',
+                        bottom:'115%',
+                        right:'2%',
+                        boxShadow:'0 0 10px rgba(0,0,0,0.3)',
                     }}
                 />
             </div>}

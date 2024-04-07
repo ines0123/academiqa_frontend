@@ -54,7 +54,7 @@ export default function SideBar() {
       }}>
 
         {/* Logo */}
-        <img src={logo} alt="Logo" className={isOpen ? 'logo-large' : 'logo-small'}/>
+        <img src={logo} alt="Logo" className={isOpen ? 'logo-large' : 'logo-small'} style={{position: 'fixed'}}/>
 
         {/* Bar Content */}
           <div style={{position: 'fixed', top: '150px'}}>
@@ -117,7 +117,7 @@ export default function SideBar() {
           </div>
           <div onClick={SeeChatbot} className='chatbot-div cursor-pointer'>
               <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '115px'}}/>
-              <p className='chatbot-text mt-3'>Need AI help?</p>
+              <p className='chatbot-text mt-3 ms-1'>Need AI help?</p>
           </div>
           <ChatbotDiscussion isOpen={chatbot} setIsOpen={setChatbot} />
       </div>

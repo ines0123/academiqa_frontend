@@ -3,19 +3,19 @@ import { faPlus, faUserPlus, faUsers, faCartShopping, faCartPlus, faUserPen, faI
 export const links = [
     {
         name: "Home",
-        path: "student/",
+        path: "/",
         icon: faHouse,
         role: 'student',
     },
     {
         name: "Home",
-        path: "teacher/",
+        path: "/",
         icon: faHouse,
         role: 'teacher'
     },
     {
         name: "My Courses",
-        path: "student/courses",
+        path: "/student/courses",
         icon: faBookOpenReader,
         role: 'student'
     },
@@ -23,7 +23,7 @@ export const links = [
       name: "My Courses",
         path: "teacher/courses",
         icon: faBookOpenReader,
-        role: 'teacher' 
+        role: 'teacher'
     },
     {
         name: "My Messages",
@@ -34,7 +34,7 @@ export const links = [
     },
     {
         name: "My Notes",
-        path: "student/notes",
+        path: "/student/notes",
         icon: faNoteSticky,
         role: 'student'
     },

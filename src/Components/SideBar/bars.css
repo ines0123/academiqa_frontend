@@ -69,10 +69,10 @@
     font-weight: bolder;
 }
 
-.side-bar-link:hover path,
-.side-bar-link:hover p, .see-courses:hover .recommend-text{
-    color: #7ddceb;
-}
+/*.side-bar-link:hover path,*/
+/*.side-bar-link:hover p, .see-courses:hover .recommend-text{*/
+/*    color: #7ddceb;*/
+/*}*/
 
 .icon-button {
     font-size: 25px;

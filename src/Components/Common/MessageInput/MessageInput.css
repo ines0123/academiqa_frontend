@@ -66,3 +66,9 @@ textarea::placeholder {
     border: 1px solid #ccc !important;
     padding: 5px !important;
 }
+
+
+.prompt-form {
+    position: relative; /* Make the container relative */
+}
+
