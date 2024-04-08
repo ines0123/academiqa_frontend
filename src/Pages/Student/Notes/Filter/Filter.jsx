@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { MdOutlineClear } from "react-icons/md";
 import "./Filter.css";
 
 export default function Filter({
@@ -8,6 +9,8 @@ export default function Filter({
   children,
   className,
   dropdownClassName,
+  onClear,
+  isFilterApplied,
 }) {
   const [isActive, setIsActive] = useState(false);
   const dropdownRef = useRef(null);
@@ -39,6 +42,16 @@ export default function Filter({
         <div>{title}</div>
         <IoIosArrowDown />
       </button>
+      {onClear && (
+        <button
+          className={`clearButton ${
+            isFilterApplied ? "clearButton-active" : ""
+          }`}
+          onClick={onClear}
+        >
+          <MdOutlineClear />
+        </button>
+      )}
       {isActive && (
         <div className={`dropdown-contentFilter ${dropdownClassName}`}>
           {typeof children === "function" ? children() : children}

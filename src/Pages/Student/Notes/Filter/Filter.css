@@ -1,28 +1,60 @@
 .paste-buttonFilter {
   position: relative;
-  display: block;
+  display: flex;
   margin-left: 15px;
+  background-color: #fef7ef;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 10px;
+  padding-right: 5px;
+  align-items: center;
+  justify-items: center;
+}
+
+.clearButton {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clearButton:hover {
+  animation: grow-shrink 1.5s infinite;
+}
+
+.clearButton-active {
+  background-color: #fdd5a9;
+}
+
+@keyframes grow-shrink {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .buttonFilterD,
 .buttonFilterS {
-  background-color: #fef7ef;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
-  padding: 10px 12px;
   font-size: 15px;
   font-weight: 500;
-  border-radius: 15px;
   justify-content: space-around;
 }
 
 .buttonFilterD {
-  width: 106px;
+  width: 80px;
 }
 
 .buttonFilterS {
-  width: 120px;
+  width: 100px;
 }
 
 .buttonFilterD svg:first-of-type {
@@ -52,6 +84,7 @@
   right: 0;
   font-size: 12px;
   position: absolute;
+  top: 100%;
   z-index: 5;
   background-color: #fef7ef;
   border-radius: 15px 0px 15px 15px;
@@ -118,6 +151,7 @@
   border: 5px solid transparent;
   right: 0;
   position: absolute;
+  top: 100%;
   z-index: 5;
   background-color: #fef7ef;
   border-radius: 15px 0px 15px 15px;
