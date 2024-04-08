@@ -15,8 +15,9 @@ import Chat from './Pages/Common/Chat.jsx'
 import RecommendCourse from './Pages/Student/RecommendCourse.jsx'
 import Layout from './Layouts/Layout.jsx'
 import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
-import TeacherCalendar from './Pages/Common/TeacherCalendar.jsx'
+import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
+import Attendance from './Pages/Teacher/Attendance.jsx'
 
 export default function App() {
   return (
@@ -25,7 +26,7 @@ export default function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route element={<Layout />}>
             <Route element={<RequireAuth allowedRole={['student']} />}>
-              <Route path="student/" element={<HomeStudent />}></Route>
+              <Route path="student/home" element={<HomeStudent />}></Route>
               <Route path="student/courses" element={<Courses />}></Route>
               <Route path="student/notes" element={<Notes />}></Route>
               <Route path="student/profile" element={<ProfileStudent />}></Route>
@@ -35,9 +36,10 @@ export default function App() {
 
             </Route>
             <Route element={<RequireAuth allowedRole={['teacher']} />}>
-              <Route path="teacher/" element={<HomeTeacher />}></Route>
+              <Route path="teacher/home" element={<HomeTeacher />}></Route>
               <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
               <Route path="teacher/session/:id" element={<SessionTeacher />}></Route>
+              <Route path="teacher/session/:id/attendance" element={<Attendance />}></Route>
               <Route path="teacher/calendar/:id?" element={<TeacherCalendar />}></Route>
 
             </Route>
