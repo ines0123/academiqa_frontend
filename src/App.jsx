@@ -15,6 +15,7 @@ import Calendar from './Pages/Common/Calendar.jsx'
 import Chat from './Pages/Common/Chat.jsx'
 import RecommendCourse from './Pages/Student/RecommendCourse.jsx'
 import Layout from './Layouts/Layout.jsx'
+import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
 
 export default function App() {
   return (
@@ -38,6 +39,9 @@ export default function App() {
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
               <Route path="/calendar" element={<Calendar />}></Route>
               <Route path="/chat" element={<Chat />}></Route>
+            </Route>
+            <Route element={<RequireAuth allowedRole={['admin']} />}>
+              <Route path="admin/calendar" element={<CalendarAdmin />}></Route>
             </Route>
           </Route>
         </Routes>

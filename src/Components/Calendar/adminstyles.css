@@ -1,13 +1,12 @@
 .e-appointment {
-    /* margin-left: -3%; */
     border-radius: 10px !important;
-    background: #dff3de8f !important;
+    background: white !important;
     color: rgba(0, 0, 0, 0.721) !important;
     font-size: 12px;
     font-weight: 500;
-    width: 98% !important;
-    height: 99%;
-
+    width: 99% !important;
+    height: 95%;
+    padding: 0;
     border: none !important;
 }
 
@@ -16,17 +15,7 @@
 
 }
 
-.e-quick-popup-wrapper {
-    border-radius: 20px;
-}
 
-.e-popup-header {
-    border-radius: 20px 20px 0 0;
-}
-
-.e-quick-popup-wrapper .e-event-popup .e-popup-header {
-    background: #0D525D;
-}
 
 .subject,
 .time {
@@ -35,27 +24,17 @@
 
 .green {
     padding: 10px;
-    margin-left: -5%;
     background: #D8ECD6 !important;
-    height: 100% !important;
-    width: 105% !important;
 }
 
 .beige {
     background: #F5F5DC !important;
     padding: 10px;
-    margin-left: -5%;
-    width: 105% !important;
-
 }
 
 .blue {
     padding: 10px;
     background: #ADD8E6 !important;
-    height: 100% !important;
-    width: 105% !important;
-    margin-left: -5%;
-
 }
 
 .e-add {
