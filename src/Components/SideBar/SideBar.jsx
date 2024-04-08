@@ -13,7 +13,7 @@ import Chatbot from '../../Assets/SideBar/Chatbot.png'
 
 
 
-export default function SideBar() {
+export default function SideBar({role}) {
   const menu = useContext(Menu);
   const isOpen = menu.isOpen;
 
@@ -67,7 +67,7 @@ export default function SideBar() {
           />
 
           {/* Links */}
-          {links.filter(link => link.role.includes('student')).map((link, key) => {
+          {links.filter(link => link.role.includes(role)).map((link, key) => {
             return (        
                 //Buttons 
                 <NavLink

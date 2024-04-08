@@ -28,6 +28,16 @@
     background: #0D525D;
 }
 
+.e-schedule-dialog .e-dlg-header-content {
+    border-radius: 20px;
+}
+.e-popup.e-popup-open.e-dialog {
+    border-radius: 20px;
+}
+.e-schedule-dialog .e-footer-content {
+    border-radius: 20px;
+}
+
 .subject,
 .time {
     /* color: black; */
@@ -61,6 +71,15 @@
 .e-add {
     display: none !important;
 }
+/* 
+.e-schedule-dialog .e-dlg-header-content {
+    border-radius: 20px !important;
+}
+
+.e-schedule-dialog .e-footer-content {
+    margin-top: 4px;
+    border-radius: 0px 0px 20px 20px !important;
+} */
 
 /* .e-schedule,
 .e-schedule-toolbar,

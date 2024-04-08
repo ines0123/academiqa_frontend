@@ -40,9 +40,21 @@ export const links = [
     },
     {
         name: "My Calendar",
-        path: "calendar",
+        path: "student/calendar",
         icon: faCalendarDays,
-        role: ['student', 'teacher']
+        role: 'student'
+    },
+    {
+        name: "My Calendar",
+        path: "teacher/calendar",
+        icon: faCalendarDays,
+        role: 'teacher'
+    },
+    {
+        name: "Calendar",
+        path: "admin/calendar",
+        icon: faCalendarDays,
+        role: 'admin',
     },
     {
         name: "See More Courses",
@@ -50,7 +62,6 @@ export const links = [
         icon: "",
         image: "../../public/BotIcon.png",
         role: 'student'
-    }
-
+    },
 
 ]

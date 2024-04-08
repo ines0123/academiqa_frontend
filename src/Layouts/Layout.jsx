@@ -14,7 +14,7 @@ export default function Layout(){
   
     return (
       <div className='layout-container'>
-      <SideBar />
+      <SideBar role='teacher' />
         {/* {
             windowContext.windowSize < "768" && isOpen && (
                 <div
