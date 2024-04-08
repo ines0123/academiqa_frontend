@@ -1,10 +1,10 @@
 .note {
-  width: 320px;
+  width: 95%;
   height: 320px;
   border-radius: 50px;
   cursor: pointer;
   margin: 10px;
-  background-color: rgba(221, 233, 176, 0.36);
+  /* background-color: rgba(221, 233, 176, 0.36); */
   display: grid;
   grid-template-rows: 0.8fr 0.8fr 0.2fr 2.7fr 0.5fr;
 }
@@ -108,7 +108,7 @@
   width: 10px;
   height: 1.5px;
   position: absolute;
-  bottom: 7.5px;
+  bottom: 7px;
   left: -5px;
   background-color: #262626;
   z-index: 2;
@@ -133,7 +133,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.3;
-  max-height: 150px;
+  max-height: 146px;
 }
 
 .noteFooter {
@@ -144,7 +144,7 @@
   justify-content: flex-start;
   padding-left: 25px;
   padding-right: 25px;
-  background-color: #e6ebc6;
+  /* background-color: rgb(230, 235, 198); */
 }
 
 .noteSessionTime {
@@ -203,8 +203,7 @@
   animation: shake 0.8s ease-in-out infinite;
 }
 
-
-    /* <Note
+/* <Note
       subject="Developpement web"
       type="TP"
       date="12 Novembre 2024, Thursday"
