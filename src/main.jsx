@@ -20,6 +20,7 @@ root.render(
     <WindowContext>
       <MenuContext>
         <Router>
+            <SessionsList />
           <App />
         </Router>
       </MenuContext>
