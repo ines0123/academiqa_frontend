@@ -40,7 +40,7 @@ export default function SessionStudent() {
                         <div className="courses-icon">
                             <FaBookOpenReader size={35}/>
                         </div>
-                        <h1 className="ms-2 fw-bold">Developpement Web</h1>
+                        <h1 className="ms-2 fw-bold" >Developpement Web</h1>
                     </div>
                     <div className="ms-3 d-flex flex-column justify-content-center">
                         <div className="date mb-2">
