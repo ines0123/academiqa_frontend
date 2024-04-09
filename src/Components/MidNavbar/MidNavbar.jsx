@@ -9,6 +9,7 @@ const MidNavbar = ({ children }) => {
   return (
     <nav className="midnavbar">
       <div className="cont">
+        {/* <Link to={`/${role}/profile`} className="profileMid"> */}
         <Link to="/profile" className="profileMid">
           <img src={teacherPhoto} alt="teacher" className="profilePhotoMid" />
           <div className="accountNameMid">Aymen Sellaouti</div>
