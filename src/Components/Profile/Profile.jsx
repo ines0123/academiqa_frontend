@@ -27,6 +27,7 @@ const Profile = ({role}) => {
             <div className="flex mx-auto">
                 <img
                     src={studentImage}
+                    alt="photo"
                     className="w-32 h-32 rounded-full"
                 />
                 <button className="edit-photo-button relative">
