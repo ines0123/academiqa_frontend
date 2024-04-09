@@ -30,6 +30,9 @@
 .student-session-page .add-note:hover {
     transform: scale(1.05);
 }
+.student-session-page .add-note:active  {
+    transform: scale(0.96);
+}
 
 .slider {
     padding: 20px 30px;

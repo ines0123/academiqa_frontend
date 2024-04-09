@@ -17,7 +17,7 @@ const NotificationCard = () => {
     }
     useEffect(() => {
         getNotifications();
-        console.log(notifications)
+        console.log('notif',notifications)
     }, [socket]);
     const messageListener = () => {
         getNotifications();

@@ -14,7 +14,7 @@ const Chatbot = ({isOpen, setIsOpen}) => {
     //get all discussions from the server
     const getDiscussions = async () => {
         try{
-            const res = await axios.get('http://localhost:5000/chatbot/GetAllDiscussions');
+            const res = await axios.get('http://localhost:5000/GetAllDiscussions');
             setDiscussions(res.data);
             setDiscussionId(res.data[res?.data.length-1]?.id)
         } catch (error) {

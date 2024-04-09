@@ -7,9 +7,13 @@
     transition: transform 0.5s;
 }
 .notif .img {
-    width: 40px;
-    height: auto;
+    width: 40px !important;
 }
+.notif img {
+    width: 40px !important;
+    height: 40px !important;
+}
+
 
 .notif:hover {
     transform: scale(1.016);
