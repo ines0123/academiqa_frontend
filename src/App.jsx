@@ -29,6 +29,8 @@ import Courses from "./Pages/Student/Courses/Courses.jsx";
 import Chat from "./Components/CommonSessionChat/Chat.jsx";
 import Note from "./Components/Note/Note.jsx";
 
+import Task from "./Components/Task/Task.jsx";
+
 const Layout = () => {
   return (
     <div className="layout-container">
@@ -82,6 +84,7 @@ export default function App() {
       {/*</div>*/}
       {/*<Chat/>*/}
       {/*<Courses/>*/}
+      {/* <Task role="teacher" /> */}
     </>
   );
 }

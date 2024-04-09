@@ -1,5 +1,6 @@
 .note {
   width: 95%;
+  /* max-width: 350px; */
   height: 320px;
   border-radius: 50px;
   cursor: pointer;

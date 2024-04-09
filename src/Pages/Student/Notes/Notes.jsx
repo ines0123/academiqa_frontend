@@ -21,6 +21,7 @@ export default function Notes() {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredNotes, setFilteredNotes] = useState([]);
+  const [paginationUsed, setPaginationUsed] = useState(false);
   const itemsPerPage = 12;
   const totalPages = Math.ceil(filteredNotes.length / itemsPerPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -90,9 +91,16 @@ export default function Notes() {
   }, []);
 
   const bottomRef = useRef();
+  // useEffect(() => {
+  //   bottomRef.current.scrollIntoView({ behavior: "instant" });
+  // }, [currentPage]);
+
   useEffect(() => {
-    bottomRef.current.scrollIntoView({ behavior: "instant" });
-  }, [currentPage]);
+    if (paginationUsed) {
+      bottomRef.current.scrollIntoView({ behavior: "instant" });
+      setPaginationUsed(false); // Reset the flag
+    }
+  }, [currentPage, paginationUsed]);
 
   const getUniqueSubjects = (notes) => {
     const subjects = new Set(notes.map((note) => note.subject));
@@ -193,7 +201,10 @@ export default function Notes() {
               {totalPages > 1 && (
                 <Pagination
                   currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
+                  setCurrentPage={(page) => {
+                    setCurrentPage(page);
+                    setPaginationUsed(true);
+                  }}
                   pageNumbers={pageNumbers}
                   totalPages={totalPages}
                 />
