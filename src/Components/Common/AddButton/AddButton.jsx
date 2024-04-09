@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import './AddButton.css';
 const AddButton = ({ onFileSelect, onLinkAdd }) => {
     const inputRef = useRef(null);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
     const handleFileSelect = () => {
         inputRef.current.click();
