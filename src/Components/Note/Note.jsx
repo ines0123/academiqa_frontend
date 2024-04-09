@@ -1,7 +1,7 @@
 import "../Note/Note.css";
 import { NavLink } from "react-router-dom";
 
-const Note = ({ note, baseColor }) => {
+const Note = ({ maxWidth, note, baseColor }) => {
   const noteStyle = {
     backgroundColor: `rgba(${baseColor},0.36)`,
   };
@@ -12,7 +12,7 @@ const Note = ({ note, baseColor }) => {
 
   return (
     <NavLink to={`/note/${note.id}`}>
-      <div className="note" style={noteStyle}>
+      <div className={`note ${maxWidth?'max-width':''}`} style={noteStyle}>
         <div className="noteHeader">
           <div className="noteSubjectType">
             <div>{note?.subject}</div>

@@ -1,5 +1,5 @@
 .note {
-  width: 95%;
+  width:95%;
   height: 320px;
   border-radius: 50px;
   cursor: pointer;
@@ -7,6 +7,9 @@
   /* background-color: rgba(221, 233, 176, 0.36); */
   display: grid;
   grid-template-rows: 0.8fr 0.8fr 0.2fr 2.7fr 0.5fr;
+}
+.note.max-width {
+  max-width: 255px;
 }
 
 .noteHeader {
@@ -128,7 +131,7 @@
   padding-left: 25px;
   font-size: medium;
   font-weight: 400;
-  white-space: wrap;
+  /*white-space: wrap;*/
   white-space-collapse: preserve;
   overflow: hidden;
   text-overflow: ellipsis;

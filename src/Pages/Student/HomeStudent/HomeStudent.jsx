@@ -6,11 +6,23 @@ import axios from "axios";
 import Course from "../../../Components/Course/Course.jsx";
 import {Menu} from "../../../Context/MenuContext.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
+import notesData from "../Notes/noteData.json";
+import Note from "../../../Components/Note/Note.jsx";
 
 export default function HomeStudent() {
     const date = useDate();
     const [courses, setCourses] = useState([]);
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
+    const NoteColors = [
+        "192, 222, 189", // green
+        "198, 206, 235", // blue
+        "230, 235, 198", // light yellow
+        "179, 159, 209", // purple
+        "228, 235, 188", // light green
+        "237, 203, 199", // light pink
+        "247, 226, 224", // pink
+        "246, 232, 214", // light orange
+    ];
     const menu = useContext(Menu);
 
     useEffect(()=>{
@@ -27,7 +39,7 @@ export default function HomeStudent() {
 
     return (
         <div className="d-flex justify-content-between  student-home-page m-0 pe-0">
-            <div className="body mt-4 px-4 flex-grow-1">
+            <div className="body mt-3 px-4 flex-grow-1">
                 <div className="px-3 d-flex justify-content-between">
                     <div className={`p-0`}>
                         <div className="Welcoming d-flex flex-column p-3">
@@ -39,17 +51,17 @@ export default function HomeStudent() {
                         {date}
                     </div>
                 </div>
-                <div className="content ">
-                    <div className="some-courses">
+                <div className="content">
+                    <div className="some-courses mt-4">
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My Courses</h5>
                             <SeeMoreButton/>
                         </div>
-                        <div className="container all-courses-home">
+                        <div className="container">
                             <div className="row d-flex justify-content-center">
                                 {courses.map((course, index) => (
                                     <React.Fragment key={index}>
-                                        <div className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-4 mb-4 p-0 d-flex flex-column justify-content-center align-items-center`}>
+                                        <div className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2 mb-4 p-0 d-flex flex-column justify-content-center align-items-center`}>
                                             <Course course={course} color={colors[index % colors.length]} placement="course"/>
                                         </div>
                                     </React.Fragment>
@@ -63,7 +75,22 @@ export default function HomeStudent() {
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My notes</h5>
                             <SeeMoreButton/>
+                        </div>
+                        <div className="container">
+                            <div className="row d-flex justify-content-center">
+                                {notesData && notesData.slice(0,3).map((note, index) => (
+                                    <React.Fragment key={index}>
+                                        <div className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2  p-0 d-flex flex-column justify-content-center align-items-center`}>
+                                            <Note
+                                                maxWidth={true}
+                                                note={note}
+                                                baseColor={NoteColors[index % NoteColors.length]}
+                                            />
+                                        </div>
+                                    </React.Fragment>
+                                ))}
 
+                            </div>
                         </div>
 
                     </div>

@@ -11,9 +11,10 @@ import { LuCalendar } from "react-icons/lu";
 import { FaRegStickyNote } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Notes.css";
+import {useDate} from "../../../Context/DateContext.jsx";
 
 export default function Notes() {
-  const [date, setDate] = useState();
+  const date = useDate();
   const [modulo, setModulo] = useState(4);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
   const [notes, setNotes] = useState([]);
@@ -74,16 +75,6 @@ export default function Notes() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const today = new Date();
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    setDate(today.toLocaleDateString("en-US", options));
-  }, []);
 
   useEffect(() => {
     setNotes(notesData);
@@ -104,7 +95,7 @@ export default function Notes() {
       <MidNavbar />
       <div className="date ms-3">{date}</div>
       <div
-        className={`my-notes d-flex mt-4 p-3 ${
+        className={`my-notes d-flex mt-4 ms-3 p-3 ${
           isSmallScreen ? "more-margin" : ""
         }`}
       >

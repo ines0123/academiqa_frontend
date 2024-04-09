@@ -55,7 +55,7 @@ export default function Courses() {
             <div className="date ms-3">
                 {date}
             </div>
-            <div className={`my-courses d-flex mt-4 p-3 ms-4 ${isSmallScreen ? 'more-margin':''}`}>
+            <div className={`my-courses d-flex mt-4 p-3 ms-3 ${isSmallScreen ? 'more-margin':''}`}>
                 <div className="courses-icon">
                     <FaBookOpenReader size={35} />
                 </div>

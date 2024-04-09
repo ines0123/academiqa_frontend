@@ -4,7 +4,7 @@ import { Outlet, Route, RouterProvider, Routes, createBrowserRouter } from 'reac
 import Login from './Pages/Auth/Login.jsx'
 import RequireAuth from './Pages/Auth/RequireAuth.jsx'
 import HomeStudent from './Pages/Student/HomeStudent/HomeStudent.jsx'
-import Notes from './Pages/Student/Notes.jsx'
+import Notes from './Pages/Student/Notes/Notes.jsx'
 import ProfileStudent from './Pages/Student/ProfileStudent.jsx'
 import SessionStudent from './Pages/Student/Session/SessionStudent.jsx'
 import HomeTeacher from './Pages/Teacher/HomeTeacher.jsx'
@@ -39,34 +39,6 @@ export default function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/login" element={<Login />}></Route>
-        <Route element={<Layout />}>
-          <Route element={<RequireAuth allowedRole={["student"]} />}>
-            <Route path="student/" element={<HomeStudent />}></Route>
-            <Route path="student/courses" element={<Courses />}></Route>
-            <Route path="student/notes" element={<Notes />}></Route>
-            <Route path="student/profile" element={<ProfileStudent />}></Route>
-            <Route
-              path="student/session/:id"
-              element={<SessionStudent />}
-            ></Route>
-          </Route>
-          <Route element={<RequireAuth allowedRole={["teacher"]} />}>
-            <Route path="teacher/" element={<HomeTeacher />}></Route>
-            <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
-            <Route
-              path="teacher/session/:id"
-              element={<SessionTeacher />}
-            ></Route>
-          </Route>
-          <Route element={<RequireAuth allowedRole={["student", "teacher"]} />}>
-            <Route path="/calendar" element={<Calendar />}></Route>
-            <Route path="/chat" element={<Chat />}></Route>
-            <Route path="/notification" element={<NotificationCard />}></Route>
-          </Route>
-        </Route>
-      </Routes>
         <Routes>
           <Route path="/login" element={<Login />}></Route>
           <Route element={<Layout />}>
