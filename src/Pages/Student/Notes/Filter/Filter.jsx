@@ -11,6 +11,7 @@ export default function Filter({
   dropdownClassName,
   onClear,
   isFilterApplied,
+  isClearButtonDisabled,
 }) {
   const [isActive, setIsActive] = useState(false);
   const dropdownRef = useRef(null);
@@ -48,6 +49,7 @@ export default function Filter({
             isFilterApplied ? "clearButton-active" : ""
           }`}
           onClick={onClear}
+          disabled={isClearButtonDisabled}
         >
           <MdOutlineClear />
         </button>

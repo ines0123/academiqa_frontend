@@ -124,6 +124,7 @@ export default function Notes() {
             setCurrentPage(1);
           }}
           isFilterApplied={!!selectedDate}
+          isClearButtonDisabled={!selectedDate}
         >
           {() => (
             <DatePicker
@@ -148,6 +149,7 @@ export default function Notes() {
             setCurrentPage(1);
           }}
           isFilterApplied={!!selectedSubject}
+          isClearButtonDisabled={!selectedSubject}
         >
           {() =>
             getUniqueSubjects(notes).map((subject) => (
