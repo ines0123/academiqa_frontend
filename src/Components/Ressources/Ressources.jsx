@@ -6,6 +6,7 @@ import {FaRegFile} from "react-icons/fa6";
 import {TbWorldWww} from "react-icons/tb";
 import {RxDownload} from "react-icons/rx";
 import {FaDeleteLeft} from "react-icons/fa6";
+import noRessources from "../../assets/images/no-ressources.svg";
 
 function Ressources({role}) {
 
@@ -37,8 +38,12 @@ function Ressources({role}) {
 
     return (
         <div className="ressources-box h-60 ">
-            <div className="ressources-title pl-10 pr-5 flex font-IstokWebRegular font-semibold">
-                Ressources
+            <div className="ressources-title pl-10 pr-5 flex font-IstokWebRegular font-semibold ">
+                <div className="overflow-hidden max-w-40 mr-2.5"
+                     title="Ressources"
+                >
+                    Ressources
+                </div>
                 <AddButton onFileSelect={handleFileSelect} onLinkAdd={handleFileSelect}/>
             </div>
             <div className="ressources-content container ">
@@ -47,6 +52,11 @@ function Ressources({role}) {
                     thumbColor="rgba(233, 177, 176, 0.60)"
                     maxHeight="150px"
                 >
+                    {files.length === 0 && (
+                        <div className="no-ressources max-h-52 max-w-40 mx-auto mt-10 ">
+                            <img src={noRessources} alt="No ressources"/>
+                        </div>
+                    )}
                     {files.map((file, index) => (
 
                         <div key={index}>
