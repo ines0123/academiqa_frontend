@@ -190,12 +190,14 @@ export default function Notes() {
                     </div>
                   </React.Fragment>
                 ))}
-              <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                pageNumbers={pageNumbers}
-                totalPages={totalPages}
-              />
+              {totalPages > 1 && (
+                <Pagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  pageNumbers={pageNumbers}
+                  totalPages={totalPages}
+                />
+              )}
             </>
           ) : (
             <div className="emptyNotes">No notes to display</div>
