@@ -1,0 +1,50 @@
+.delete.btn {
+    background-color: transparent;
+    position: relative;
+    border: none;
+    height: fit-content;
+}
+.delete.btn > .icon path {
+    fill: #717171;
+}
+.delete.btn::after {
+    content: 'delete';
+    position: absolute;
+    top: -130%;
+    left: 50%;
+    z-index: 9999;
+    transform: translateX(-50%);
+    width: fit-content;
+    height: fit-content;
+    background-color: #692E5F;
+    padding: 4px 6px;
+    border-radius: 5px;
+    transition: .2s linear;
+    transition-delay: .2s;
+    color: white;
+    text-transform: uppercase;
+    font-size: 10px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.delete .icon {
+    transform: scale(.9);
+    transition: .2s linear;
+}
+
+.delete.btn:hover > .icon {
+    transform: scale(1.1);
+}
+
+.delete.btn:hover > .icon path {
+    fill: #692E5F;
+}
+
+.delete.btn:hover::after {
+    visibility: visible;
+    opacity: 1;
+    top: -80%;
+}
+
+

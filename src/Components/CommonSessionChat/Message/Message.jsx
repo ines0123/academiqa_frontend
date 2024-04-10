@@ -4,6 +4,8 @@ import {useState} from "react";
 import MessageInput from "../../Common/MessageInput/MessageInput.jsx";
 import './Message.css'
 import Sellaouti from "../../../assets/images/Sellaouti.jpg";
+import DeleteButton from "../../Common/DeleteButton/DeleteButton.jsx";
+
 
 // eslint-disable-next-line react/prop-types
 const Message = ({message, isStudent, send,getAllMessages,emitTyping,nbNestedReplies}) => {
@@ -33,20 +35,27 @@ const Message = ({message, isStudent, send,getAllMessages,emitTyping,nbNestedRep
         setViewReplyForm(!viewReplyForm);
     }
     return (
-        <div className="message p-2 px-3 me-1 d-flex flex-column">
+        <div className="message pb-0 pt-4 px-3 me-1 d-flex flex-column">
             <div className="d-flex">
                 <img
                     className="rounded-circle img "
                     src={Sellaouti}
                     alt="sender"
                 />
-                <div>
+                <div className="sender-message">
                     <div className="message-sender ms-3 mb-1">
                         {message.sender}
                     </div>
-                    <div className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}>
-                        {message.message}
+                    <div className="d-flex justify-content-center">
+                        <div
+                            className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}>
+                            {message.message}
+                        </div>
+                        <div className="delete-msg" >
+                            <DeleteButton/>
+                        </div>
                     </div>
+
                 </div>
             </div>
             <div className="under-msg">

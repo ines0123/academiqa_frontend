@@ -6,7 +6,7 @@ import axios from "axios";
 import Course from "../../../Components/Course/Course.jsx";
 import {Menu} from "../../../Context/MenuContext.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
-import Note from "../../../Components/Note/Note.jsx";
+import {NavLink} from "react-router-dom";
 
 export default function HomeTeacher() {
     const date = useDate();
@@ -45,7 +45,9 @@ export default function HomeTeacher() {
                     <div className="some-courses mt-4">
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My Courses</h5>
-                            <SeeMoreButton/>
+                            <NavLink to={"teacher/profile"}>
+                                <SeeMoreButton/>
+                            </NavLink>
                         </div>
                         <div className="container">
                             <div className="row d-flex justify-content-center">
@@ -63,8 +65,7 @@ export default function HomeTeacher() {
                     <hr className="mt-2 mb-4"/>
                     <div className="some-notes">
                         <div className="header d-flex justify-content-between">
-                            <h5 className="fs-5 fw-bold">My Tasks</h5>
-                            <SeeMoreButton/>
+                            <h5 className="fs-5 fw-bold">My Latest Tasks</h5>
                         </div>
                         <div className="container">
                             <div className="row d-flex justify-content-center">

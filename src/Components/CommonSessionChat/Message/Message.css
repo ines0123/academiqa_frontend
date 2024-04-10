@@ -15,6 +15,17 @@
 .reply-view .view-button:hover , .reply-view .reply-button:hover {
     transform: scale(1.09);
 }
+.sender-message {
+    cursor: pointer;
+}
+.delete-msg {
+    display: none;
+}
+
+.sender-message:hover .delete-msg {
+    display: flex;
+    align-items: center;
+}
 .message-content.light{
     background-color: #F0EDF2;
 }

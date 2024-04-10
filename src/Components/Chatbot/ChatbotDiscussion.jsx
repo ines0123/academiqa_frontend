@@ -39,7 +39,7 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
         console.log('Form Data:', data);
 
         try {
-            const res = await axios.post('http://localhost:5000/chatbot/chat', data, config);
+            const res = await axios.post('http://localhost:5000/chat', data, config);
             setPrompt('');
             setImage(null);
             setIsLoading(false);

@@ -8,8 +8,8 @@ const Course = ({course,color,placement}) => {
     const [type,setType] = useState(placement);
 
     return (
-        <div className="card ps-4 pe-3 pb-3 pt-4" style={{background: `${color}`}}>
-            <NavLink to={`/course/${course.id}`} className="text-decoration-none">
+        <div className="card d-flex justify-content-center ps-4 pe-3 pb-3" style={{background: `${color}`}}>
+            <NavLink to={`/course/${course?.id}`} className="text-decoration-none">
                 <div className="card-content d-flex flex-column justify-content-evenly">
                     <div className="card-top">
                         <h3 className="card-title m-0  fw-bold">{course?.name}</h3>
@@ -23,7 +23,7 @@ const Course = ({course,color,placement}) => {
                             alt="Chatbot"
                             width={75}
                             height={75}
-                            style={{width: '55px', height: '55px'}}
+                            style={{width: '50px', height: '50px'}}
                         />
                     </div>
                     {type === 'absence' ? (

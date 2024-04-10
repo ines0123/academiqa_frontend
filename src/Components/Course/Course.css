@@ -1,5 +1,6 @@
 .card {
     /*width: 260px;*/
+    padding-top: 20px;
     width: 95%;
     height: 125px;
     position: relative;
@@ -9,7 +10,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.card-title {
+.card-title, .card-title-teacher {
     padding-bottom: 0.5px;
     font-size: 22px;
 }
@@ -28,7 +29,14 @@
     -webkit-line-clamp: 1;
     overflow-wrap: break-word;
 }
-
+.card-title-teacher {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow-wrap: break-word;
+}
 
 .card .card-bottom .img.img-for-absence{
     margin-top: -4px;
@@ -47,7 +55,4 @@
 
 .card:active {
     transform: scale(0.93);
-}
-.absence {
-    margin-top: -8px !important;
 }

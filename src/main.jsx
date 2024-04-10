@@ -10,9 +10,9 @@ import {SocketProvider} from "./Context/SocketContext.jsx";
 import {NotificationProvider} from "./Context/NotificationContext.jsx";
 import {DateProvider} from "./Context/DateContext.jsx";
 
-registerLicense(
-  "ORg4AjUWIQA/Gnt2VVhhQlFaclhJWHxMYVF2R2FJeFRycF9FaEwgOX1dQl9hSXpTcEVmWn9feHVRQWY="
-);
+// registerLicense(
+//   "ORg4AjUWIQA/Gnt2VVhhQlFaclhJWHxMYVF2R2FJeFRycF9FaEwgOX1dQl9hSXpTcEVmWn9feHVRQWY="
+// );
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") 

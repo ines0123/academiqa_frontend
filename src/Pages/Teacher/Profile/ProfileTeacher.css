@@ -1,0 +1,19 @@
+.profile-teacher-page {
+    height: 100%;
+}
+.profile-teacher {
+    background-color: #FEF7EF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    border-radius: 1.5em;
+}
+.profile-teacher h1 {
+    font-size: 35px;
+}
+
+.profile-teacher-page .courses-teacher {
+    height: fit-content;
+}
+.profile-teacher-page .profile {
+    padding-left: 20px;
+}

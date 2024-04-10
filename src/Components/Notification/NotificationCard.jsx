@@ -32,7 +32,7 @@ const NotificationCard = () => {
 
 
     const handleDocumentClick = (event) => {
-        const clickedButtonClasses = ["BellbuttonMid", "BellbuttonNav"];
+        const clickedButtonClasses = ["BellbuttonMid", "BellbuttonNav","Bellbutton"];
 
         // Function to check if any ancestor of the clicked element has the specified class
         const hasClass = (element, className) => {

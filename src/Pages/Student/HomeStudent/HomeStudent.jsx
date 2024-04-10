@@ -8,6 +8,7 @@ import {Menu} from "../../../Context/MenuContext.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
 import notesData from "../Notes/noteData.json";
 import Note from "../../../Components/Note/Note.jsx";
+import {NavLink} from "react-router-dom";
 
 export default function HomeStudent() {
     const date = useDate();
@@ -55,7 +56,10 @@ export default function HomeStudent() {
                     <div className="some-courses mt-4">
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My Courses</h5>
-                            <SeeMoreButton/>
+                            <NavLink to={"student/courses"}>
+                                <SeeMoreButton/>
+                            </NavLink>
+
                         </div>
                         <div className="container">
                             <div className="row d-flex justify-content-center">
@@ -74,7 +78,9 @@ export default function HomeStudent() {
                     <div className="some-notes">
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My notes</h5>
-                            <SeeMoreButton/>
+                            <NavLink to={"student/notes"}>
+                                <SeeMoreButton/>
+                            </NavLink>
                         </div>
                         <div className="container">
                             <div className="row d-flex justify-content-center">

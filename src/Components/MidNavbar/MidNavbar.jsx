@@ -10,7 +10,7 @@ const MidNavbar = ({ children }) => {
     <nav className="midnavbar">
       <div className="cont">
         {/* <Link to={`/${role}/profile`} className="profileMid"> */}
-        <Link to="/profile" className="profileMid">
+        <Link to="/student/profile" className="profileMid">
           <img src={teacherPhoto} alt="teacher" className="profilePhotoMid" />
           <div className="accountNameMid">Aymen Sellaouti</div>
         </Link>
