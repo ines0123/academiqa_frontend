@@ -38,6 +38,10 @@ const Chat = () => {
         socket?.emit('message', message);
     }
 
+    const deleteMsg = (id)=>{
+        socket?.emit('deleteMessage',id);
+    }
+
     const getAllMessages = () => {
         socket?.emit('findAllMessages', (messages) => {
             setMessages(messages);
@@ -75,6 +79,13 @@ const Chat = () => {
         }
     },[messageListener])
 
+    useEffect(()=> {
+        socket?.on('deletedMessage', messageListener);
+        return () => {
+            socket?.off('deletedMessage', messageListener);
+        }
+    },[messageListener])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value !== "") {
@@ -108,6 +119,7 @@ const Chat = () => {
                         {messages.map((message, index) => (
                             <Message
                                 key={index}
+                                deleteMsg={deleteMsg}
                                 message={message}
                                 isStudent={true}
                                 send={send}

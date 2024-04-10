@@ -8,7 +8,7 @@ import DeleteButton from "../../Common/DeleteButton/DeleteButton.jsx";
 
 
 // eslint-disable-next-line react/prop-types
-const Message = ({message, isStudent, send,getAllMessages,emitTyping,nbNestedReplies}) => {
+const Message = ({deleteMsg,message, isStudent, send,getAllMessages,emitTyping,nbNestedReplies}) => {
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
@@ -21,6 +21,10 @@ const Message = ({message, isStudent, send,getAllMessages,emitTyping,nbNestedRep
             setViewReplies(true);
             setViewReplyForm(false);
         }
+    }
+    const deleteMessage = () => {
+        deleteMsg(message?.id);
+        getAllMessages();
     }
 
     const handleValueChange = (e) => {
@@ -51,7 +55,7 @@ const Message = ({message, isStudent, send,getAllMessages,emitTyping,nbNestedRep
                             className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}>
                             {message.message}
                         </div>
-                        <div className="delete-msg" >
+                        <div className="delete-msg" onClick={deleteMessage} >
                             <DeleteButton/>
                         </div>
                     </div>

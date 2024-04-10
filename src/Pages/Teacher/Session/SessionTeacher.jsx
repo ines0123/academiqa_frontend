@@ -5,6 +5,7 @@ import React, {useEffect, useRef, useState} from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {useDate} from "../../../Context/DateContext.jsx";
+import Ressources from "../../../Components/Ressources/Ressources.jsx";
 
 export default function SessionTeacher() {
 
@@ -28,8 +29,10 @@ export default function SessionTeacher() {
                         </div>
                     </div>
                 </div>
-                <div className="">
-                    hello
+                <div className="ressources-tasks d-flex justify-content-center mt-3">
+                    <div className="ressources">
+                        <Ressources role={"teacher"}/>
+                    </div>
                 </div>
                 <div className="presence-sheet">
                 </div>

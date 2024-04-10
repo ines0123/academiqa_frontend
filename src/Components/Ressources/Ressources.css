@@ -2,8 +2,9 @@
     background-color: rgba(233, 177, 176, 0.17);
     width: 100%;
     max-width: 355px;
+    /*min-width: 300px;*/
     border-radius: 40px;
-    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
 }
 
 .ressources-title {
@@ -36,4 +37,5 @@
 .file-delete-button {
     margin-right: 9px;
 }
+
 

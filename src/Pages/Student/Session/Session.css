@@ -17,12 +17,12 @@
 }
 
 .student-session-page .new-note {
-    width: 2.2rem;
+    width: 2rem;
     height: auto;
 }
 
 .student-session-page .add-note h3 {
-    font-size: 25px;
+    font-size: 24px;
 }
 .student-session-page .add-note {
     width: fit-content;
@@ -35,9 +35,6 @@
     transform: scale(0.96);
 }
 
-.slider {
-    /*padding: 20px 30px;*/
-}
 .slick-slider {
     position: relative!important;
     height: 340px!important;
@@ -68,6 +65,8 @@
     margin-right: 20px;
     margin-top: 0;
     max-width: 340px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
 .slick-slider button::before {

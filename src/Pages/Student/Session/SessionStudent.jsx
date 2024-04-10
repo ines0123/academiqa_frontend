@@ -10,6 +10,7 @@ import Slider from "react-slick";
 import {useDate} from "../../../Context/DateContext.jsx";
 import Note from "../../../Components/Note/Note.jsx";
 import notesData from "../Notes/noteData.json";
+import Ressources from "../../../Components/Ressources/Ressources.jsx";
 
 export default function SessionStudent() {
     const NoteColors = [
@@ -34,7 +35,7 @@ export default function SessionStudent() {
     };
     return (
         <div className="d-flex student-session-page">
-            <div className="session-content flex-grow-1 mt-4 ps-4 pe-4">
+            <div className="session-content flex-grow-1 mt-3 ps-4 pe-4">
                 <div className="d-flex justify-content-between">
                     <div className="the-course d-flex ms-3 p-3 ">
                         <div className="courses-icon">
@@ -51,15 +52,17 @@ export default function SessionStudent() {
                         </div>
                     </div>
                 </div>
-                <div className="">
-                    hello
+                <div className="ressources-tasks d-flex justify-content-center mt-3">
+                    <div className="ressources">
+                        <Ressources role={"student"}/>
+                    </div>
                 </div>
-                <div className=" notes">
-                    <div className="add-note d-flex align-items-center cursor-pointer">
+                <div className=" notes mt-3">
+                    <div className="add-note ms-2 d-flex align-items-center cursor-pointer">
                         <h3 className="fw-bold mt-1 me-1">New Note</h3>
                         <img src={NewNote} alt={"NewNote"} className="new-note"/>
                     </div>
-                    <div className="slider d-flex justify-content-center">
+                    <div className="slider mt-1 d-flex justify-content-center">
                         {notesData && notesData.length > 2 ? (<Slider ref={sliderRef} {...settings}>
                                 {notesData.map((note, index) => (
                                     <div key={index} className="note">

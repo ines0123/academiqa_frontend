@@ -1,8 +1,14 @@
 
-import React, { useRef } from 'react';
+import React, {useRef, useState} from 'react';
 import './AddButton.css';
+import PopUp from "../PopUp/PopUp.jsx";
 const AddButton = ({ onFileSelect, onLinkAdd }) => {
     const inputRef = useRef(null);
+    const [isOpen, setIsOpen] =useState(false);
+    const [link,setLink]= useState('');
+    const addLink = () => {
+        setIsOpen(true)
+    }
 
 
     const handleFileSelect = () => {
@@ -19,11 +25,15 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
         }
     };
 
-    const handleLinkAdd = () => {
-        const link = prompt("Enter the link:");
-        if (link !== null) {
+    const handleLinkAdd = (e) => {
+        e.preventDefault();
+        if (link !== '') {
             onLinkAdd(link);
+            setIsOpen(false)
         }
+    };
+    const handleCancel = () => {
+        setLink('');
     };
 
     return (
@@ -56,8 +66,25 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
 
                 <div className="dropdown-content w-16 rounded-2xl ">
                     <button onClick={handleFileSelect}>Add File</button>
-                    <button onClick={handleLinkAdd}>Add Link</button>
+                    <button onClick={addLink}>Add Link</button>
                 </div>
+
+            <PopUp width={'35vw'} isOpen={isOpen} setIsOpen={setIsOpen}>
+                <div className="pt-3">
+                    <p className="fs-5 fw-bold ms-1 mb-1 "> Enter The link:</p>
+                    <form onSubmit={handleLinkAdd} onReset={handleCancel} className="link-form">
+                        <input onChange={(e)=> setLink(e.target.value)} value={link}  />
+                        <div className="d-flex justify-content-between mt-4">
+                            <button type="submit" className="me-1">
+                                Submit
+                            </button>
+                            <button type="reset" className="ms-1">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </PopUp>
 
         </div>
     );
