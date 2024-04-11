@@ -25,7 +25,7 @@ const Layout = () => {
       width: "100%",
     }}
   >
-    {/* <SideBar /> */}
+
       <Outlet />
     </div>
   )
