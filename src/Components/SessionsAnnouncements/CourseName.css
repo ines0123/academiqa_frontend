@@ -4,6 +4,8 @@
     height: fit-content;
     border-radius: 20px ;
     padding: 15px;
+    margin-left: 277px;
+    margin-top: 125px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;

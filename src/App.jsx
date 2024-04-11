@@ -44,12 +44,12 @@ export default function App() {
               <Route path="student/courses" element={<Courses />}></Route>
               <Route path="student/notes" element={<Notes />}></Route>
               <Route path="student/profile" element={<ProfileStudent />}></Route>
-              <Route path="student/session/:id" element={<SessionStudent />}></Route>
+              <Route path="student/session" element={<SessionStudent />}></Route>
             </Route>
             <Route element={<RequireAuth allowedRole={['teacher']} />}>
               <Route path="teacher/" element={<HomeTeacher />}></Route>
               <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
-              <Route path="teacher/session/:id" element={<SessionTeacher />}></Route>
+              <Route path="teacher/session" element={<SessionTeacher />}></Route>
             </Route>
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
               <Route path="/calendar" element={<Calendar />}></Route>
