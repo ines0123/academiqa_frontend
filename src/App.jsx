@@ -10,21 +10,14 @@ import ProfileStudent from './Pages/Student/ProfileStudent.jsx'
 import SessionStudent from './Pages/Student/SessionStudent.jsx'
 import HomeTeacher from './Pages/Teacher/HomeTeacher.jsx'
 import ProfileTeacher from './Pages/Teacher/ProfileTeacher.jsx'
-import SessionTeacher from './Pages/Teacher/SessionTeacher.jsx'
+import SessionTeacher from './Pages/Teacher/SessionTeacher/SessionTeacher.jsx'
 import Calendar from './Pages/Common/Calendar.jsx'
 import Chat from './Pages/Common/Chat.jsx'
 
 
 const Layout = () => {
   return (
-    <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      width: "100%",
-    }}
-  >
+    <div  >
 
       <Outlet />
     </div>

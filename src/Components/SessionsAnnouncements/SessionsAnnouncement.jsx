@@ -3,7 +3,6 @@ import "./SessionsAnnouncement.css";
 import Scrollbar from "../Common/Scrollbar/Scrollbar";
 import AnnouncementMessage from "./AnnouncementMessage";
 import AnnouncementInput from "./AnnouncementInput";
-import CourseName from "./CourseName";
 import noAnnouncement from "../../assets/images/noAnnouncement.svg";
 
 function SessionsAnnouncement({role}) {

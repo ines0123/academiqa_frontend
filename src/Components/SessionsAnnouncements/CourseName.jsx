@@ -1,12 +1,12 @@
 import "./CourseName.css";
-import { FaBookOpen } from "react-icons/fa";
+import { FaBookOpenReader } from "react-icons/fa6";
 import teacherPhoto from "../../assets/images/teacher-photo.svg";
 
 function CourseName({role}) {
   return (
     <div className="course-name-box">
       <div>
-        <FaBookOpen className="course-icon" />
+        <FaBookOpenReader className="course-icon" />
       </div>
         <div className="course-info font-IstokWebBold">
             <div className="course-name-title font-IstokWebBold">

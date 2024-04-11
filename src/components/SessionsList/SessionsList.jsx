@@ -25,7 +25,7 @@ function SessionsList() {
 
     return (
         <div>
-            <div className="sessions-box container">
+            <div className="sessions-box ">
                 <div className="sessions-title font-IstokWebBold overflow-hidden ">Sessions</div>
                 <Scrollbar trackColor="#C4B3CC" thumbColor="#692E5F" maxHeight="453px">
                     <div className="mr-2 max-h-[453px]">
