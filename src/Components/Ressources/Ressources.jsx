@@ -60,7 +60,7 @@ function Ressources({role}) {
                     {files.map((file, index) => (
 
                         <div key={index}>
-                            {!(file.name.toLowerCase().includes('www.')) ? (
+                            {!(file.name.toLowerCase().includes('http')) ? (
                                 <div
                                     className="ressources-file max-w-72 max-h-11 p-2 flex rounded-full mx-3.5 mb-2 ">
                                     <FaRegFile className="file-icon grow-0 min-w-7 min-h-7 ml-3.5 mr-2"/>

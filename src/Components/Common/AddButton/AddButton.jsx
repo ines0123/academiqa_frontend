@@ -44,6 +44,7 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
         if (link !== '') {
             onLinkAdd(link);
             setIsOpen(false)
+            setLink('');
         }
     };
     const handleCancel = () => {
@@ -79,8 +80,8 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
             </button>
 
                 <div className="dropdown-content w-16 rounded-2xl ">
-                    <button onClick={handleFileSelect}>Add File</button>
-                    <button onClick={addLink}>Add Link</button>
+                    <button className="d-flex align-items-center justify-content-center" onClick={handleFileSelect}>Add File</button>
+                    <button className="d-flex align-items-center justify-content-center" onClick={addLink}>Add Link</button>
                 </div>
 
             <PopUp width={`${screenWidth > 740 ? '35vw':'60vw'} `} isOpen={isOpen} setIsOpen={setIsOpen}>

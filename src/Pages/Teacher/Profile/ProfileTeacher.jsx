@@ -75,7 +75,7 @@ export default function ProfileTeacher() {
                         <div className="row">
                             {courses.map((course, index) => (
                                 <div key={index}
-                                     className="col-xl-4 col-lg-6 col-md-12 d-flex mb-2 mt-2 px-1 flex-column justify-content-center align-items-center">
+                                     className="col-xl-4 col-lg-6 col-md-12 col-sm-6 d-flex mb-2 mt-2 px-1 flex-column justify-content-center align-items-center">
                                     <CourseForTeacher course={course} color={colors[index % colors.length]}/>
                                 </div>
                             ))}

@@ -41,7 +41,7 @@ export default function App() {
               <Route path="/" element={<HomeStudent />}></Route>
               <Route path="student/courses" element={<Courses />}></Route>
               <Route path="student/notes" element={<Notes />}></Route>
-              <Route path="student/profile" element={<ProfileTeacher />}></Route>
+              <Route path="student/profile" element={<ProfileStudent />}></Route>
               <Route path="student/session/:id" element={<SessionStudent />}></Route>
             </Route>
             <Route element={<RequireAuth allowedRole={['teacher']} />}>

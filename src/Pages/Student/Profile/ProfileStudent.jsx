@@ -63,7 +63,7 @@ export default function ProfileStudent() {
                     {courses.length > 0 ?(<div className="absence d-flex col-xl-8 col-lg-7 col-md-6 row p-1 pt-3 ">
                         {courses.map((course, index) => (
                             <div key={index}
-                                 className="col-xl-4 col-lg-6 col-md-12 d-flex mb-2 mt-2 flex-column justify-content-center align-items-center">
+                                 className="col-xl-4 col-lg-6 col-md-12 col-sm-6 d-flex mb-2 mt-2 flex-column justify-content-center align-items-center">
                                 <Course course={course} color={colors[index % colors.length]} placement="absence"/>
                             </div>
                         ))}
