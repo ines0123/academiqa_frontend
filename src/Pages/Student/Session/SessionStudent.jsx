@@ -11,6 +11,7 @@ import {useDate} from "../../../Context/DateContext.jsx";
 import Note from "../../../Components/Note/Note.jsx";
 import notesData from "../Notes/noteData.json";
 import Ressources from "../../../Components/Ressources/Ressources.jsx";
+import Task from "../../../Components/Task/Task.jsx";
 
 export default function SessionStudent() {
     const NoteColors = [
@@ -52,8 +53,11 @@ export default function SessionStudent() {
                         </div>
                     </div>
                 </div>
-                <div className="ressources-tasks d-flex justify-content-center mt-3">
-                    <div className="ressources">
+                <div className="ressources-tasks row mt-3">
+                    <div className="col-6 pe-5 tasks d-flex justify-content-end">
+                        <Task role={'student'}/>
+                    </div>
+                    <div className="col-6 ressources" >
                         <Ressources role={"student"}/>
                     </div>
                 </div>

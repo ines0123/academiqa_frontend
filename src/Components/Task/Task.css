@@ -4,8 +4,9 @@
   display: grid;
   grid-template-rows: 0.4fr 1.6fr;
   width: 320px;
-  height: 270px;
-  margin: 10px;
+  /*height: 270px;*/
+  height: 224px;
+  /*margin: 10px;*/
   border-radius: 40px;
   background-color: rgba(233, 177, 176, 0.36);
 }
@@ -21,7 +22,8 @@
 }
 
 .emptyTasks {
-  height: 150px;
+  height: 140px;
+  /*height: 150px;*/
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,7 +56,7 @@ div.row.d-flex.justify-content {
 }
 
 .Content {
-  font-size: large;
+  /*font-size: large;*/
   padding-left: 8px;
   overflow: hidden;
   white-space: nowrap;
@@ -62,6 +64,10 @@ div.row.d-flex.justify-content {
   line-height: 1;
   overflow-x: scroll;
   scrollbar-width: none;
+}
+
+.tasks-content {
+  margin-top: -22px;
 }
 
 .containerCheck {

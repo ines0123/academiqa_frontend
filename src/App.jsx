@@ -11,11 +11,11 @@ import Login from "./Pages/Auth/Login.jsx";
 import RequireAuth from "./Pages/Auth/RequireAuth.jsx";
 import HomeStudent from "./Pages/Student/HomeStudent/HomeStudent.jsx";
 import Notes from "./Pages/Student/Notes/Notes.jsx";
-import ProfileStudent from "./Pages/Student/ProfileStudent.jsx";
-import SessionStudent from "./Pages/Student/SessionStudent.jsx";
-import HomeTeacher from "./Pages/Teacher/HomeTeacher.jsx";
-import ProfileTeacher from "./Pages/Teacher/ProfileTeacher.jsx";
-import SessionTeacher from "./Pages/Teacher/SessionTeacher.jsx";
+import ProfileStudent from "./Pages/Student/Profile/ProfileStudent.jsx";
+import SessionStudent from "./Pages/Student/Session/SessionStudent.jsx";
+import HomeTeacher from "./Pages/Teacher/HomeTeacher/HomeTeacher.jsx";
+import ProfileTeacher from "./Pages/Teacher/Profile/ProfileTeacher.jsx";
+import SessionTeacher from "./Pages/Teacher/Session/SessionTeacher.jsx";
 import Calendar from "./Pages/Common/Calendar.jsx";
 import Chatbot from "./Components/Chatbot/Chatbot.jsx";
 import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
@@ -24,7 +24,6 @@ import NotificationCard from "./Components/Notification/NotificationCard.jsx";
 import EmptyNavbar from "./Components/Navbar/EmptyNavbar.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx";
 import SideBar from "./Components/SideBar/SideBar.jsx";
-import RecommendCourse from "./Pages/Student/RecommendCourse.jsx";
 import Courses from "./Pages/Student/Courses/Courses.jsx";
 import Chat from "./Components/CommonSessionChat/Chat.jsx";
 import Note from "./Components/Note/Note.jsx";
@@ -64,8 +63,8 @@ export default function App() {
             </Route>
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
               <Route path="/calendar" element={<Calendar />}></Route>
-              {/*<Route path="/chat" element={<SessionStudent />}></Route>*/}
-              <Route path="/chat" element={<SessionTeacher />}></Route>
+              <Route path="/chat" element={<SessionStudent />}></Route>
+              {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
               <Route path="/notification" element={<NotificationCard />}></Route>
 
             </Route>

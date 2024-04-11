@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import AddButtonTask from "../Common/AddButton/AddButton";
+import AddButtonTask from "../Common/AddButton/AddButtonTask";
 import Scrollbar from "../Common/Scrollbar/Scrollbar";
 import { FaTasks } from "react-icons/fa";
 import tasksData from "./tasksData.json";
@@ -86,12 +86,12 @@ const Task = ({ role }) => {
         Tasks
         {role === "teacher" && <AddButtonTask onClick={handlePageClick} />}
       </div>
+      <div className="tasks-content">
       <Scrollbar
         thumbColor={"rgba(233, 177, 176, 0.62)"}
         trackColor={"#F5D8D6"}
-        maxHeight={"160px"}
+        maxHeight={"150px"}
       >
-        <div className="contentTask">
           <div className="row d-flex justify-content">
             {tasks.map((task, index) => (
               <div className="custom mb-2" key={index}>
@@ -213,8 +213,8 @@ const Task = ({ role }) => {
               <div>No tasks added</div>
             </div>
           )}
-        </div>
       </Scrollbar>
+      </div>
     </div>
   );
 };

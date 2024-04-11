@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {useDate} from "../../../Context/DateContext.jsx";
 import Ressources from "../../../Components/Ressources/Ressources.jsx";
+import Task from "../../../Components/Task/Task.jsx";
 
 export default function SessionTeacher() {
 
@@ -30,7 +31,10 @@ export default function SessionTeacher() {
                     </div>
                 </div>
                 <div className="ressources-tasks d-flex justify-content-center mt-3">
-                    <div className="ressources">
+                    <div className="col-6 pe-5 tasks d-flex justify-content-end">
+                        <Task role={'teacher'}/>
+                    </div>
+                    <div className="col-6 ressources">
                         <Ressources role={"teacher"}/>
                     </div>
                 </div>

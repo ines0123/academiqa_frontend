@@ -50,7 +50,7 @@ function Ressources({role}) {
                 <Scrollbar
                     trackColor="rgba(233, 177, 176, 0.25)"
                     thumbColor="rgba(233, 177, 176, 0.60)"
-                    maxHeight="170px"
+                    maxHeight="150px"
                 >
                     {files.length === 0 && (
                         <div className="no-ressources max-h-52 max-w-40 mx-auto mt-10 ">
@@ -62,7 +62,7 @@ function Ressources({role}) {
                         <div key={index}>
                             {!(file.name.toLowerCase().includes('www.')) ? (
                                 <div
-                                    className="ressources-file max-w-72 max-h-11 p-2 flex rounded-full mx-3.5 mb-3 ">
+                                    className="ressources-file max-w-72 max-h-11 p-2 flex rounded-full mx-3.5 mb-2 ">
                                     <FaRegFile className="file-icon grow-0 min-w-7 min-h-7 ml-3.5 mr-2"/>
                                     <button
                                         className="text-left pt-1 font-IstokWebRegular grow max-h-7 max-w-[180px] truncate overflow-hidden text-ellipsis hover:font-semibold"
