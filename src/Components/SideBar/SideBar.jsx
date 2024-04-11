@@ -17,7 +17,6 @@ import ChatbotDiscussion from "../Chatbot/Chatbot.jsx"
 
 export default function SideBar() {
   const menu = useContext(Menu);
-  const [logo, setLogo] = useState(BigLogo);
   const isOpen = menu.isOpen;
   const [recommend, setRecommend] = useState(false);
   const [chatbot, setChatbot] = useState(false);
@@ -33,43 +32,49 @@ export default function SideBar() {
 
   function handleClick() {
     if (!menu.isOpen) {
-      setLogo(BigLogo);
+      // setLogo(BigLogo);
       menu.setIsOpen(!menu.isOpen);
     }
   }
 
+  useEffect(() => {
+    if (windowContext.windowSize < "768") {
+      if (menu.isOpen) {
+        menu.setIsOpen(false);
+      }
+    }
+  }
+  , [windowContext.windowSize]);
+
   return (
     <>
     {/* SideBar */}
+
       <div
         className=" side-bar pt-3"
         onClick={handleClick}
         style={{
-          left:
-            windowContext.windowSize < "768" ? (isOpen ? 0 : "-100%") : "0px",
-          width: isOpen ? "345px" : "157px",
-          position: windowContext.windowSize < "768" ? "fixed" : "sticky",
-          transition: "all 0.5s ease-in-out",
-          display: windowContext.windowSize > "768" ? "block" : "none",
+          width: isOpen ? (windowContext.windowSize < "768" ? "245px" :"350px") : "185px",
+          zIndex: (windowContext.windowSize < "768" && isOpen) ? '101' : '99',
+          transition: (windowContext.windowSize < "768" ) ? "all 0.1s" : "all 0.5s",
       }}>
 
         {/* Logo */}
-        <img src={logo} alt="Logo" className={isOpen ? 'logo-large' : 'logo-small'} style={{position: 'fixed'}}/>
+        <img src={isOpen ? BigLogo : SmallLogo} alt="Logo" className={isOpen ? 'sidebar-logo-large' : 'sidebar-logo-small'} style={{position: 'fixed'}}/>
 
         {/* Bar Content */}
-          <div style={{position: 'fixed', top: '150px'}}>
+        <div style={{position: 'fixed', top: '150px'}}>
 
-              {/*  Resize Button */}
-              <FontAwesomeIcon
-                  className="d-flex align-items-center gap-2 side-bar-link resize-button"
-                  cursor={"pointer"}
-                  style={{marginLeft: isOpen ? "180px" : "28px"}}
-                  icon={menu.isOpen ? faAnglesLeft : faAnglesRight}
-                  onClick={() => {
-                      menu.isOpen ? setLogo(SmallLogo) : setLogo(BigLogo);
-                      menu.setIsOpen(!menu.isOpen);
-                  }}
-              />
+          {/*  Resize Button */}
+          <FontAwesomeIcon
+            className="d-flex align-items-center gap-2 side-bar-link sidebar-resize-button"
+            cursor={"pointer"}
+            style={{ marginLeft: isOpen ? "180px" : "28px" }}
+            icon={menu.isOpen ? faAnglesLeft : faAnglesRight}
+            onClick={() => {
+              menu.setIsOpen(!menu.isOpen);
+            }}
+          />
 
               {/* Links */}
               {links.filter(link => link.role.includes('student')).map((link, key) => {
@@ -115,12 +120,20 @@ export default function SideBar() {
               </div>
               <CoursesRecommender isOpen={recommend} setIsOpen={setRecommend}/>
           </div>
-          <div onClick={SeeChatbot} className='chatbot-div cursor-pointer'>
+          <div onClick={SeeChatbot} className='sidebar-chatbot-div cursor-pointer'>
               <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '115px'}}/>
-              <p className='chatbot-text mt-3 ms-1'>Need AI help?</p>
+              <p className='sidebar-chatbot-text mt-3 ms-1'>Need AI help?</p>
           </div>
           <ChatbotDiscussion isOpen={chatbot} setIsOpen={setChatbot} />
       </div>
+      {
+            windowContext.windowSize < "768" && isOpen && (
+                <div
+                style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: '100' }}
+                onClick={() => menu.setIsOpen(false)}
+                ></div>
+            )
+            }
     </>
   );
 }

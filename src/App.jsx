@@ -27,7 +27,7 @@ import SideBar from "./Components/SideBar/SideBar.jsx";
 import Courses from "./Pages/Student/Courses/Courses.jsx";
 import Chat from "./Components/CommonSessionChat/Chat.jsx";
 import Note from "./Components/Note/Note.jsx";
-
+import Layout from './Layouts/Layout.jsx'
 import Task from "./Components/Task/Task.jsx";
 
 const Layout = () => {
@@ -43,7 +43,6 @@ const Layout = () => {
 };
 
 export default function App() {
-
   return (
     <>
         <Routes>
@@ -70,14 +69,6 @@ export default function App() {
             </Route>
           </Route>
         </Routes>
-
-        {/*<Chatbot/>*/}
-        {/*<CoursesRecommender/>*/}
-        {/*<div className="d-flex">*/}
-        {/*    {courses}*/}
-        {/*</div>*/}
-        {/*<Chat/>*/}
-        {/*<Courses/>*/}
     </>
   );
 }

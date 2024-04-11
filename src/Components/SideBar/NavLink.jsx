@@ -30,7 +30,7 @@ export const links = [
         path: "chat",
         icon: faComments,
         role: ['student', 'teacher'],
-        className: "icon-button-messages"
+        className: "sidebar-icon-button-messages"
     },
     {
         name: "My Notes",
