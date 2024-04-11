@@ -14,6 +14,21 @@ import Ressources from "../../../Components/Ressources/Ressources.jsx";
 import Task from "../../../Components/Task/Task.jsx";
 
 export default function SessionStudent() {
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const NoteColors = [
         "192, 222, 189", // green
         "198, 206, 235", // blue
@@ -33,16 +48,27 @@ export default function SessionStudent() {
         speed: 500,
         slidesToShow: 2,
         slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: false
+                }
+            },
+        ]
     };
     return (
         <div className="d-flex student-session-page">
             <div className="session-content flex-grow-1 mt-3 ps-4 pe-4">
-                <div className="d-flex justify-content-between">
+                {screenWidth>=1030 ? (<div className="d-flex justify-content-between">
                     <div className="the-course d-flex ms-3 p-3 ">
                         <div className="courses-icon">
                             <FaBookOpenReader size={35}/>
                         </div>
-                        <h1 className="ms-2 fw-bold" >Developpement Web</h1>
+                        <h1 className="ms-2 fw-bold">Developpement Web</h1>
                     </div>
                     <div className="ms-3 d-flex flex-column justify-content-center">
                         <div className="date mb-2">
@@ -52,24 +78,41 @@ export default function SessionStudent() {
                             Session n° 1
                         </div>
                     </div>
-                </div>
+                </div>):
+                    (<div className="">
+                        <div className="ms-4 d-flex flex-column justify-content-center">
+                            <div className="date mb-2">
+                                {date}
+                            </div>
+                            <div className="num-session">
+                                Session n° 1
+                            </div>
+                        </div>
+                        <div className="the-course d-flex ms-3 p-3 ">
+                            <div className="courses-icon">
+                                <FaBookOpenReader size={35}/>
+                            </div>
+                            <h1 className="ms-2 fw-bold">Developpement Web</h1>
+                        </div>
+                    </div>)
+                }
                 <div className="ressources-tasks row mt-3">
-                    <div className="col-6 pe-5 tasks d-flex justify-content-end">
-                        <Task role={'student'}/>
+                    <div className="col-lg-6 pe-lg-2 ps-lg-4 p-sm-0 tasks d-flex justify-content-lg-end justify-content-sm-center">
+                        <Task role={'teacher'}/>
                     </div>
-                    <div className="col-6 ressources" >
-                        <Ressources role={"student"}/>
+                    <div className="col-lg-6 ps-2 pe-lg-4 p-sm-0 mt-sm-3 mt-lg-0 ressources d-flex justify-content-center">
+                    <Ressources role={"teacher"}/>
                     </div>
                 </div>
-                <div className=" notes mt-3">
+                <div className=" notes" style={{marginTop: '10px'}}>
                     <div className="add-note ms-2 d-flex align-items-center cursor-pointer">
                         <h3 className="fw-bold mt-1 me-1">New Note</h3>
                         <img src={NewNote} alt={"NewNote"} className="new-note"/>
                     </div>
-                    <div className="slider mt-1 d-flex justify-content-center">
+                    <div className="slider mt-2 d-flex justify-content-center">
                         {notesData && notesData.length > 2 ? (<Slider ref={sliderRef} {...settings}>
                                 {notesData.map((note, index) => (
-                                    <div key={index} className="note">
+                                    <div key={index} className="">
                                         <Note
                                             note={note}
                                             baseColor={NoteColors[index % NoteColors.length]}

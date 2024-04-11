@@ -13,5 +13,8 @@
 }
 .the-course h1 {
     font-size: 35px;
+    -webkit-box-orient: vertical;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 

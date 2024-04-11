@@ -52,10 +52,10 @@ export default function SideBar() {
 
       <div
         className=" side-bar pt-3"
-        onClick={handleClick}
+        // onClick={handleClick}
         style={{
           width: isOpen ? (windowContext.windowSize < "768" ? "245px" :"350px") : "185px",
-          zIndex: (windowContext.windowSize < "768" && isOpen) ? '101' : '99',
+          zIndex: (windowContext.windowSize < "768" && isOpen) ? '99' : '0',
           transition: (windowContext.windowSize < "768" ) ? "all 0.1s" : "all 0.5s",
       }}>
 
@@ -83,7 +83,7 @@ export default function SideBar() {
                       <NavLink
                           to={link.path}
                           className="d-flex align-items-center gap-2 side-bar-link"
-                          style={{padding: !menu.isOpen ? "10px 43px" : "10px 43px"}}
+                          style={{padding:"10px 43px", height:'45px'}}
                           key={key}
                       >
                           {/* Recommend Courses Icon */}
@@ -94,7 +94,7 @@ export default function SideBar() {
                           <p
                               style={{
                                   display: isOpen ? "block" : "none",
-                                  margin: "0",
+                                  margin: "4px 0 0 0",
                               }}
                           >
                               {link.name}
@@ -107,7 +107,7 @@ export default function SideBar() {
                    className="see-courses d-flex gap-1 justify-content-center align-items-center cursor-pointer"
                    style={{padding: !menu.isOpen ? "10px 0" : "10px 0 0 25px"}}
               >
-                  <img src={BotIcon} alt={"See More Courses"} className='recommend-icon' />
+                  <img src={BotIcon} alt={"See More Courses"} className='sidebar-recommend-icon' />
                   <p
                       className="recommend-text"
                       style={{
@@ -122,14 +122,14 @@ export default function SideBar() {
           </div>
           <div onClick={SeeChatbot} className='sidebar-chatbot-div cursor-pointer'>
               <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '115px'}}/>
-              <p className='sidebar-chatbot-text mt-3 ms-1'>Need AI help?</p>
+              <p className='sidebar-chatbot-text mt-3 ms-2'>AI help?</p>
           </div>
           <ChatbotDiscussion isOpen={chatbot} setIsOpen={setChatbot} />
       </div>
       {
             windowContext.windowSize < "768" && isOpen && (
                 <div
-                style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: '100' }}
+                style={{zIndex:'1', position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}
                 onClick={() => menu.setIsOpen(false)}
                 ></div>
             )

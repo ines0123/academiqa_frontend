@@ -10,6 +10,20 @@ import EmptyNavbar from "../Navbar/EmptyNavbar.jsx";
 import {useSocket} from "../../Context/SocketContext.jsx";
 
 const Chat = () => {
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     const [value, setValue] = useState("");
     const socket = useSocket();
     const [messages, setMessages] = useState([]);
@@ -109,12 +123,16 @@ const Chat = () => {
 
     return (
         <EmptyNavbar width={'27rem'}>
-            <div className="common-chat d-flex flex-column align-items-center justify-content-around">
-                <h1 className="text-center fw-bold">
-                    Questions & Answers
-                </h1>
-                <hr className="mt-2" style={{width: "70%"}}/>
-                <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={"65vh"}>
+            <div className="common-chat d-flex flex-column align-items-center justify-content-between">
+                <div className="d-flex flex-column align-items-center">
+                    <h1 className="text-center fw-bold">
+                        Questions & Answers
+                    </h1>
+                    <hr className="mt-2" style={{width: "70%"}}/>
+                </div>
+
+
+                <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={`${screenWidth >992 ? '65vh':'100vh'}`}>
                     <div className="messages">
                         {messages.map((message, index) => (
                             <Message

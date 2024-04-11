@@ -11,8 +11,8 @@ const Note = ({ maxWidth, note, baseColor }) => {
   };
 
   return (
-    <NavLink to={`/note/${note.id}`}>
-      <div className={`note ${maxWidth?'max-width':''}`} style={noteStyle}>
+    <NavLink to={`/note/${note.id}`} style={{maxWidth: maxWidth ? '280px':'',width:'95%'}}>
+      <div className={`note`} style={noteStyle}>
         <div className="noteHeader">
           <div className="noteSubjectType">
             <div>{note?.subject}</div>

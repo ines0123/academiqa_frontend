@@ -1,15 +1,11 @@
 .note {
-  width:95%;
   height: 320px;
+  width: 100%;
   border-radius: 50px;
   cursor: pointer;
-  margin: 10px;
   /* background-color: rgba(221, 233, 176, 0.36); */
   display: grid;
   grid-template-rows: 0.8fr 0.8fr 0.2fr 2.7fr 0.5fr;
-}
-.note.max-width {
-  max-width: 255px;
 }
 
 .noteHeader {
@@ -17,6 +13,7 @@
   justify-content: space-between;
   align-items: flex-start;
   height: fit-content;
+  width: 100%;
   padding-top: 20px;
   padding-right: 25px;
   padding-left: 25px;
@@ -31,10 +28,13 @@
 }
 
 .noteSubjectType > div {
+
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .noteDate {
@@ -141,6 +141,7 @@
 
 .noteFooter {
   display: flex;
+  width: 100%;
   height: 40px;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;

@@ -1,11 +1,11 @@
 
 import '../../Components/SideBar/bars.css'
-import logo from '../../Assets/SideBar/Logo.png'
+import logo from '../../assets/SideBar/Logo.png'
 import '../../Components/Calendar/styles.css'
 import './login.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Loading from '../../Components/Loading/Loading'
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';

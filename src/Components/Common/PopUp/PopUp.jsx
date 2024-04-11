@@ -28,11 +28,12 @@ const PopUp = ({children, width, isOpen, setIsOpen}) => {
             width: width,
             // maxHeight: "94vh",
         }, overlay: {
+            zIndex: "1000",
             backgroundColor: "rgba(15, 19, 30, 0.65)",
         },
     };
     return (
-        <div className="container">
+        <div className="hello container">
 
                 <Modal
                     ariaHideApp={false}

@@ -4,6 +4,7 @@ import '../App.css'
 import { Menu } from "../Context/MenuContext";
 import { useContext } from 'react'
 import { WindowSize } from '../Context/WindowContext'
+import NotificationCard from "../Components/Notification/NotificationCard.jsx";
 
 
 export default function Layout(){
@@ -25,10 +26,16 @@ export default function Layout(){
             } */}
         {/* Content */
         }
-        <div className='layout-content' style={{zIndex: (windowContext.windowSize < "768" && isOpen) ? '-1' : '99', position: (windowContext.windowSize < "768" && isOpen) ? 'fixed' : 'relative'
+        <div
+            className='layout-content'
+            style={{
+                zIndex: (windowContext.windowSize < "768" && isOpen) ? '-1' : '0',
+                position: (windowContext.windowSize < "768" && isOpen) ? 'fixed' : 'relative',
+                marginLeft: (windowContext.windowSize < "768" && isOpen) ? '0' : '-50px',
     }}>
           <Outlet />
         </div>
+          <NotificationCard />
       </div>
     )
   }

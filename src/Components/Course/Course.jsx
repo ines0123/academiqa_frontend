@@ -4,11 +4,11 @@ import Sellaouti from "../../assets/images/Sellaouti.jpg";
 import {NavLink} from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const Course = ({course,color,placement}) => {
+const Course = ({maxWidth,course,color,placement}) => {
     const [type,setType] = useState(placement);
 
     return (
-        <div className="card d-flex justify-content-center ps-4 pe-3 pb-3" style={{background: `${color}`}}>
+        <div className="card d-flex justify-content-center ps-4 pe-3 pb-3" style={{background: `${color}`,maxWidth: maxWidth ? '301px':''}}>
             <NavLink to={`/course/${course?.id}`} className="text-decoration-none">
                 <div className="card-content d-flex flex-column justify-content-evenly">
                     <div className="card-top">

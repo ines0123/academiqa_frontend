@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 const CourseForTeacher = ({course,color}) => {
 
     return (
-        <div className="card d-flex justify-content-start ps-3 pe-2 pt-4" style={{background: `${color}`}}>
+        <div className="card-teacher d-flex justify-content-start ps-3 pe-3 pt-3" style={{background: `${color}`}}>
             <NavLink to={`/course/${course?.id}`} className="text-decoration-none">
                 <div className="card-content d-flex align-items-start justify-content-start">
                     <div className="card-image" style={{marginTop:'3px'}}>

@@ -1,8 +1,22 @@
 
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './AddButton.css';
 import PopUp from "../PopUp/PopUp.jsx";
 const AddButton = ({ onFileSelect, onLinkAdd }) => {
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     const inputRef = useRef(null);
     const [isOpen, setIsOpen] =useState(false);
     const [link,setLink]= useState('');
@@ -69,7 +83,7 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
                     <button onClick={addLink}>Add Link</button>
                 </div>
 
-            <PopUp width={'35vw'} isOpen={isOpen} setIsOpen={setIsOpen}>
+            <PopUp width={`${screenWidth > 740 ? '35vw':'60vw'} `} isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className="pt-3">
                     <p className="fs-5 fw-bold ms-1 mb-1 "> Enter The link:</p>
                     <form onSubmit={handleLinkAdd} onReset={handleCancel} className="link-form">

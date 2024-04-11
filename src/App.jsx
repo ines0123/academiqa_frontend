@@ -30,17 +30,6 @@ import Note from "./Components/Note/Note.jsx";
 import Layout from './Layouts/Layout.jsx'
 import Task from "./Components/Task/Task.jsx";
 
-const Layout = () => {
-  return (
-    <div className="layout-container">
-      <SideBar />
-      <div className="layout-content">
-        <Outlet />
-      </div>
-      <NotificationCard />
-    </div>
-  );
-};
 
 export default function App() {
   return (
@@ -49,7 +38,7 @@ export default function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route element={<Layout />}>
             <Route element={<RequireAuth allowedRole={['student']} />}>
-              <Route path="/" element={<HomeTeacher />}></Route>
+              <Route path="/" element={<HomeStudent />}></Route>
               <Route path="student/courses" element={<Courses />}></Route>
               <Route path="student/notes" element={<Notes />}></Route>
               <Route path="student/profile" element={<ProfileTeacher />}></Route>

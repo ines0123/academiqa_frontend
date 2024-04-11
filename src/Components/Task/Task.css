@@ -3,7 +3,8 @@
   padding-right: 13px;
   display: grid;
   grid-template-rows: 0.4fr 1.6fr;
-  width: 320px;
+  /*width: 100%;*/
+  max-width: 370px;
   /*height: 270px;*/
   height: 224px;
   /*margin: 10px;*/
@@ -22,8 +23,7 @@
 }
 
 .emptyTasks {
-  height: 140px;
-  /*height: 150px;*/
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,21 +53,18 @@ div.row.d-flex.justify-content {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .Content {
-  /*font-size: large;*/
-  padding-left: 8px;
+  /*!*font-size: large;*!*/
+  /*padding-left: 8px;*/
+  width: 100%;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: clip;
-  line-height: 1;
-  overflow-x: scroll;
   scrollbar-width: none;
-}
-
-.tasks-content {
-  margin-top: -22px;
+  -webkit-line-clamp: 1;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .containerCheck {
@@ -112,7 +109,8 @@ div.row.d-flex.justify-content {
 
 .inputNewTask {
   background-color: transparent;
-  padding-left: 5px;
+  /*padding-left: 5px;*/
+  width: 100%;
 }
 
 .inputNewTask:focus {
@@ -128,6 +126,7 @@ div.row.d-flex.justify-content {
   /* cursor: pointer; */
   padding :0 5px;
   /* display: flex; */
+  width: 15%;
 }
 
 .Deletebutton {
@@ -147,26 +146,45 @@ div.row.d-flex.justify-content {
   gap: 2px;
 }
 
-.svgIconBin {
-  width: 12px;
-  transition-duration: 0.3s;
+/*.svgIconBin {*/
+/*  width: 12px;*/
+/*  transition-duration: 0.3s;*/
+/*}*/
+
+/*.svgIconBin path {*/
+/*  fill: rgb(245, 245, 245);*/
+/*}*/
+
+/*.Deletebutton:hover {*/
+/*  transition-duration: 0.3s;*/
+/*  background-color: rgb(237, 161, 161);*/
+/*  align-items: center;*/
+/*  gap: 0;*/
+/*}*/
+
+/*.bin-top {*/
+/*  transform-origin: bottom right;*/
+/*}*/
+/*.Deletebutton:hover .bin-top {*/
+/*  transition-duration: 0.5s;*/
+/*  transform: rotate(160deg);*/
+/*}*/
+
+
+
+
+.file-icon path {
+  color: #443E3D;
 }
 
-.svgIconBin path {
-  fill: rgb(245, 245, 245);
+.ressources-icon path {
+  color: #443E3D;
 }
 
-.Deletebutton:hover {
-  transition-duration: 0.3s;
-  background-color: rgb(237, 161, 161);
-  align-items: center;
-  gap: 0;
+.ressources-icon:hover path {
+  color: #131111;
 }
 
-.bin-top {
-  transform-origin: bottom right;
-}
-.Deletebutton:hover .bin-top {
-  transition-duration: 0.5s;
-  transform: rotate(160deg);
+.file-delete-button {
+  margin-right: 9px;
 }

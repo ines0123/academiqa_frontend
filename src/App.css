@@ -20,8 +20,5 @@
 .layout-content{
   width: 100%;
   background-color: #FFFEFB;
-  margin-left: -50px;
-  z-index: 0;
-  padding: 50px 20px 20px 50px;
   border-radius: 45px;
 }
