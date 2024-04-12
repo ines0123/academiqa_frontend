@@ -1,0 +1,13 @@
+.close-modal {
+    position: absolute;
+    left: 14px ;
+    top: 12px;
+    cursor: pointer;
+    font-size: 40px;
+    transition: transform 0.3s ease;
+}
+
+.close-modal:hover {
+    opacity: 0.5;
+    transform: scale(1.1);
+}

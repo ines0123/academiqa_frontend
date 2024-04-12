@@ -1,0 +1,94 @@
+.student-session-page {
+    height: 100%;
+}
+
+.date, .num-session {
+    color: #5e5e5e !important;
+}
+.the-course {
+    background-color: #FEF7EF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    border-radius: 1.5em;
+
+}
+.the-course h1 {
+    font-size: 35px;
+    /*display: -webkit-box;*/
+    /*-webkit-line-clamp: 1;*/
+    -webkit-box-orient: vertical;
+    /*overflow: hidden;*/
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+.student-session-page .new-note {
+    width: 2rem;
+    height: auto;
+}
+
+.student-session-page .add-note h3 {
+    font-size: 24px;
+}
+.student-session-page .add-note {
+    width: fit-content;
+    transition: transform 0.5s ease;
+}
+.student-session-page .add-note:hover {
+    transform: scale(1.05);
+}
+.student-session-page .add-note:active  {
+    transform: scale(0.96);
+}
+
+.slick-slider {
+    position: relative!important;
+    height: 340px!important;
+    width: 95%!important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+.slick-list {
+    position: absolute !important;
+    z-index: 9999 !important;
+    width: 95% !important;
+}
+.slick-slide > div  {
+    display: flex !important;
+    justify-content: center !important;
+    width: fit-content;
+}
+.slick-slide {
+    display: flex !important;
+    justify-content: center !important;
+    /*width: fit-content !important;*/
+}
+.slick-slide > div {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0;
+    /*max-width: 340px !important;*/
+    width: 80% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.slick-slider button::before {
+    color: #B5B5B5;
+    font-size: 40px;
+    margin-left: -2.2rem;
+}
+.slick-slider .slick-prev::before {
+    margin-left: .5rem;
+}
+
+/*.slick-prev {*/
+/*    display: none !important;*/
+/*}*/
+/*.note {*/
+/*    width: 250px !important;*/
+/*    margin: 0 20px;*/
+/*}*/
