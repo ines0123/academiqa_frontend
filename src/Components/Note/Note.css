@@ -1,11 +1,10 @@
 .note {
   width: 95%;
-  /* max-width: 350px; */
+  max-width: 350px;
   height: 320px;
   border-radius: 50px;
   cursor: pointer;
   margin: 10px;
-  /* background-color: rgba(221, 233, 176, 0.36); */
   display: grid;
   grid-template-rows: 0.8fr 0.8fr 0.2fr 2.7fr 0.5fr;
 }

@@ -30,6 +30,8 @@ import Chat from "./Components/CommonSessionChat/Chat.jsx";
 import Note from "./Components/Note/Note.jsx";
 
 import Task from "./Components/Task/Task.jsx";
+import AddNote from "./Components/PopUpNote/AddNote/AddNote.jsx";
+import EditNote from "./Components/PopUpNote/EditNote/EditNote.jsx";
 
 const Layout = () => {
   return (
@@ -85,6 +87,33 @@ export default function App() {
       {/*<Chat/>*/}
       {/*<Courses/>*/}
       {/* <Task role="teacher" /> */}
+
+      {/* <AddNote
+        isOpen={true}
+        setIsOpen={() => {}}
+        session={{
+          subject: "Developpement web eet application reparties",
+          type: "TP",
+          date: "12 Novembre 2024, Thursday",
+          sessionTime: "08:00 - 09:30",
+        }}
+      /> */}
+
+      {/*<EditNote
+        isOpen={true}
+        setIsOpen={() => {}}
+        note={{
+          session: {
+            subject: "Developpement web",
+            type: "TP",
+            sessionTime: "08:00 - 09:30",
+          },
+          date: "7 November 2023, Tuesday",
+          title: "Web avec react js",
+          content:
+            "Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever",
+        }}
+      /> */}
     </>
   );
 }
