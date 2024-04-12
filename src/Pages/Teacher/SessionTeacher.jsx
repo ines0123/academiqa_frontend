@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SessionStudent = () => {
+const SessionTeacher = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const SessionStudent = () => {
     );
 };
 
-export default SessionStudent;
+export default SessionTeacher;
