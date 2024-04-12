@@ -7,7 +7,6 @@ import HomeStudent from './Pages/Student/HomeStudent.jsx'
 import Courses from './Pages/Student/Courses.jsx'
 import Notes from './Pages/Student/Notes.jsx'
 import ProfileStudent from './Pages/Student/ProfileStudent.jsx'
-import SessionStudent from './Pages/Student/SessionStudent.jsx'
 import HomeTeacher from './Pages/Teacher/HomeTeacher.jsx'
 import ProfileTeacher from './Pages/Teacher/ProfileTeacher.jsx'
 import SessionTeacher from './Pages/Teacher/SessionTeacher.jsx'
@@ -36,7 +35,6 @@ export default function App() {
                         <Route path="student/courses" element={<Courses/>}></Route>
                         <Route path="student/notes" element={<Notes/>}></Route>
                         <Route path="student/profile" element={<ProfileStudent/>}></Route>
-                        <Route path="student/session" element={<SessionStudent/>}></Route>
                     </Route>
                     <Route element={<RequireAuth allowedRole={['teacher']}/>}>
                         <Route path="teacher/" element={<HomeTeacher/>}></Route>
