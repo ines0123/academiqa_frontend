@@ -32,6 +32,10 @@ import Task from "./Components/Task/Task.jsx";
 import AddNote from "./Components/PopUpNote/AddNote/AddNote.jsx";
 import EditNote from "./Components/PopUpNote/EditNote/EditNote.jsx";
 
+import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
+import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
+import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
+import Attendance from './Pages/Teacher/Attendance.jsx'
 
 export default function App() {
   return (
@@ -45,49 +49,27 @@ export default function App() {
               <Route path="student/notes" element={<Notes />}></Route>
               <Route path="student/profile" element={<ProfileStudent />}></Route>
               <Route path="student/session/:id" element={<SessionStudent />}></Route>
+              <Route path="student/calendar" element={<StudentCalendar />}></Route>
+
             </Route>
             <Route element={<RequireAuth allowedRole={['teacher']} />}>
               <Route path="/" element={<HomeTeacher />}></Route>
               <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
               <Route path="teacher/session/:id" element={<SessionTeacher />}></Route>
+              <Route path="teacher/session/:id/attendance" element={<Attendance />}></Route>
+              <Route path="teacher/calendar/:id?" element={<TeacherCalendar />}></Route>
+
             </Route>
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
               <Route path="/calendar" element={<Calendar />}></Route>
               <Route path="/chat" element={<SessionStudent />}></Route>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
-              <Route path="/notification" element={<NotificationCard />}></Route>
-
+            </Route>
+            <Route element={<RequireAuth allowedRole={['admin']} />}>
+              <Route path="admin/calendar/:id?" element={<CalendarAdmin />}></Route>
             </Route>
           </Route>
         </Routes>
-
-
-        {/* <AddNote
-        isOpen={true}
-        setIsOpen={() => {}}
-        session={{
-          subject: "Developpement web eet application reparties",
-          type: "TP",
-          date: "12 Novembre 2024, Thursday",
-          sessionTime: "08:00 - 09:30",
-        }}
-      /> */}
-
-        {/*<EditNote
-        isOpen={true}
-        setIsOpen={() => {}}
-        note={{
-          session: {
-            subject: "Developpement web",
-            type: "TP",
-            sessionTime: "08:00 - 09:30",
-          },
-          date: "7 November 2023, Tuesday",
-          title: "Web avec react js",
-          content:
-            "Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever Lorem Ipsum is simply dummy text of the printing and ever",
-        }}
-      /> */}
     </>
   );
 }

@@ -22,3 +22,14 @@
   background-color: #FFFEFB;
   border-radius: 45px;
 }
+
+.my-notes {
+  background-color: #fef7ef;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  width: fit-content;
+  border-radius: 1.5em;
+}
+
+.my-notes.more-margin {
+  margin-top: 35px !important;
+}

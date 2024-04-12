@@ -12,10 +12,20 @@ export default function Layout(){
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
+    let role="";
+    if (window.location.pathname.includes("teacher")){
+      role="teacher";
+    }
+    if (window.location.pathname.includes("student")){
+      role="student";
+    }
+    if (window.location.pathname.includes("admin")){
+      role="admin";
+    }
   
     return (
       <div className='layout-container'>
-      <SideBar />
+      <SideBar role={role} />
         {/* {
             windowContext.windowSize < "768" && isOpen && (
                 <div

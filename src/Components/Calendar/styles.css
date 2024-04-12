@@ -1,12 +1,13 @@
 .e-appointment {
+    /* margin-left: -3%; */
     border-radius: 10px !important;
-    background: white !important;
+    background: #dff3de8f !important;
     color: rgba(0, 0, 0, 0.721) !important;
     font-size: 12px;
     font-weight: 500;
-    width: 99% !important;
-    height: 95%;
-    padding: 0;
+    width: 98% !important;
+    height: 99%;
+
     border: none !important;
 }
 
@@ -15,31 +16,84 @@
 
 }
 
+.e-quick-popup-wrapper {
+    border-radius: 20px;
+}
 
+.e-popup-header {
+    border-radius: 20px 20px 0 0;
+}
 
-.subject,
-.time {
-    /* color: black; */
+.e-quick-popup-wrapper .e-event-popup .e-popup-header {
+    background: #0D525D;
+}
+
+.e-schedule-dialog .e-dlg-header-content {
+    border-radius: 20px;
+}
+.e-popup.e-popup-open.e-dialog {
+    border-radius: 20px;
+}
+.e-schedule-dialog .e-footer-content {
+    border-radius: 20px;
 }
 
 .green {
     padding: 10px;
+    margin-left: -5%;
     background: #D8ECD6 !important;
+    height: 100% !important;
+    width: 105% !important;
 }
 
 .beige {
     background: #F5F5DC !important;
     padding: 10px;
+    margin-left: -5%;
+    width: 105% !important;
+
 }
 
 .blue {
     padding: 10px;
     background: #ADD8E6 !important;
+    height: 100% !important;
+    width: 105% !important;
+    margin-left: -5%;
+
 }
 
 .e-add {
     display: none !important;
 }
+
+.form-select{
+    margin: 20px 0px 10px 70%;
+    width: fit-content;
+    background-color: #fef7ef;
+    border-radius: 10px;
+    padding: 5px 30px 5px 20px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    border:none
+
+
+}
+
+.form-select select:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+/* 
+.e-schedule-dialog .e-dlg-header-content {
+    border-radius: 20px !important;
+}
+
+.e-schedule-dialog .e-footer-content {
+    margin-top: 4px;
+    border-radius: 0px 0px 20px 20px !important;
+} */
 
 /* .e-schedule,
 .e-schedule-toolbar,

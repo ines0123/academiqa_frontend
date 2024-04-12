@@ -3,13 +3,13 @@ import { faPlus, faUserPlus, faUsers, faCartShopping, faCartPlus, faUserPen, faI
 export const links = [
     {
         name: "Home",
-        path: "/",
+        path: "student/home",
         icon: faHouse,
         role: 'student',
     },
     {
         name: "Home",
-        path: "/",
+        path: "teacher/home",
         icon: faHouse,
         role: 'teacher'
     },
@@ -40,9 +40,21 @@ export const links = [
     },
     {
         name: "My Calendar",
-        path: "calendar",
+        path: "student/calendar",
         icon: faCalendarDays,
-        role: ['student', 'teacher']
-    }
+        role: 'student'
+    },
+    {
+        name: "My Calendar",
+        path: "teacher/calendar",
+        icon: faCalendarDays,
+        role: 'teacher'
+    },
+    {
+        name: "Calendar",
+        path: "admin/calendar",
+        icon: faCalendarDays,
+        role: 'admin',
+    },
 
 ]
