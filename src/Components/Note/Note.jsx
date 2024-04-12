@@ -11,12 +11,12 @@ const Note = ({ maxWidth, note, baseColor }) => {
   };
 
   return (
-    <NavLink to={`/note/${note.id}`} style={{maxWidth: maxWidth ? '280px':'',width:'95%'}}>
-      <div className={`note`} style={noteStyle}>
+
+      <div className="note" style={noteStyle} style={{maxWidth: maxWidth ? '280px':'',width:'95%'}}>
         <div className="noteHeader">
           <div className="noteSubjectType">
-            <div>{note?.subject}</div>
-            <div>{note?.type}</div>
+            <div>{note.session.subject}</div>
+            <div>{note.session.type}</div>
           </div>
           <div className="noteDate">{note?.date}</div>
         </div>
@@ -121,11 +121,10 @@ const Note = ({ maxWidth, note, baseColor }) => {
                 strokeLinecap="round"
               />
             </svg>
-            <div>{note?.sessionTime}</div>
+            <div>{note.session.sessionTime}</div>
           </div>
         </div>
       </div>
-    </NavLink>
   );
 };
 

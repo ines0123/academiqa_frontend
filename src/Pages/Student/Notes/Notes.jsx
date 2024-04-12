@@ -47,7 +47,7 @@ export default function Notes() {
           (!selectedDate ||
             new Date(note.date.split(",")[0]).toLocaleDateString() ===
               selectedDate.toLocaleDateString()) &&
-          (!selectedSubject || note.subject === selectedSubject)
+          (!selectedSubject || note.session.subject === selectedSubject)
       );
     };
 
@@ -94,7 +94,7 @@ export default function Notes() {
   }, [currentPage, paginationUsed]);
 
   const getUniqueSubjects = (notes) => {
-    const subjects = new Set(notes.map((note) => note.subject));
+    const subjects = new Set(notes.map((note) => note.session.subject));
     return Array.from(subjects);
   };
 

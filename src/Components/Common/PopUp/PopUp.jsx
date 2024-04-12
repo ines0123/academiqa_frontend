@@ -5,7 +5,7 @@ import { IconContext } from "react-icons";
 import './popup.css'
 import Scrollbar from "../Scrollbar/Scrollbar.jsx";
 // eslint-disable-next-line react/prop-types
-const PopUp = ({children, width, isOpen, setIsOpen}) => {
+const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC"}) => {
     function closeModal() {
         setTimeout(() => {
             setIsOpen(false);
@@ -21,7 +21,7 @@ const PopUp = ({children, width, isOpen, setIsOpen}) => {
             padding: "1.5rem",
             paddingBottom: "2rem",
             transform: "translate(-50%, -50%)",
-            backgroundColor: "#FFFEFC",
+            backgroundColor: backgroundColor,
             color: "white",
             border: "none",
             borderRadius: "3.2em",
