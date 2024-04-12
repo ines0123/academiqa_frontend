@@ -5,7 +5,7 @@
 
 .login-side-bar {
     left: 0;
-    background-image: url(../../Assets/Login/background.png);
+    background-image: url(../../assets/Login/background.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -22,6 +22,7 @@
     justify-content: space-between;
     width: 100%;
     height: 100vh;
+    background-color:#FFFEFC ;
 }
 
 .login-logo-description {
@@ -183,7 +184,6 @@
     outline: none;
     background-color: white;
     border-bottom: 3px solid transparent;
-    font-family: "Lato", sans-serif;
     box-shadow: 0 0 5px gray;
 }
 
@@ -231,4 +231,7 @@
     background-color: lightgray;
     color: white;
 
+}
+.form-control:focus {
+    box-shadow: 0 0 10px rgba(143, 143, 143, 0.67) !important;
 }
