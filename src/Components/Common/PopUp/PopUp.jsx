@@ -19,7 +19,7 @@ const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC"}
             bottom: "auto",
             marginRight: "-50%",
             padding: "1.5rem",
-            paddingBottom: "2rem",
+            paddingBottom: "1.5rem",
             transform: "translate(-50%, -50%)",
             backgroundColor: backgroundColor,
             color: "white",

@@ -12,6 +12,9 @@ import Note from "../../../Components/Note/Note.jsx";
 import notesData from "../Notes/noteData.json";
 import Ressources from "../../../Components/Ressources/Ressources.jsx";
 import Task from "../../../Components/Task/Task.jsx";
+import AddButton from "../../../Components/Common/AddButton/AddButton.jsx";
+import AddNote from "../../../Components/PopUpNote/AddNote/AddNote.jsx";
+import AddButtonTask from "../../../Components/Common/AddButton/AddButtonTask.jsx";
 
 export default function SessionStudent() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -60,25 +63,30 @@ export default function SessionStudent() {
             },
         ]
     };
+    const [newNote, setNewNote] = useState(false);
+
+    const handleAddNote = () => {
+        setNewNote(true);
+    }
     return (
         <div className="d-flex student-session-page">
-            <div className="session-content flex-grow-1 mt-3 ps-4 pe-4">
-                {screenWidth>=1030 ? (<div className="d-flex justify-content-between">
-                    <div className="the-course d-flex ms-3 p-3 ">
-                        <div className="courses-icon">
-                            <FaBookOpenReader size={35}/>
+            <div className="session-content flex-grow-1 mt-4 ps-4 pe-4">
+                {screenWidth >= 1030 ? (<div className="d-flex justify-content-between">
+                        <div className="the-course d-flex ms-3 p-3 ">
+                            <div className="courses-icon">
+                                <FaBookOpenReader size={35}/>
+                            </div>
+                            <h1 className="ms-2 fw-bold">Developpement Web</h1>
                         </div>
-                        <h1 className="ms-2 fw-bold">Developpement Web</h1>
-                    </div>
-                    <div className="ms-3 d-flex flex-column justify-content-center">
-                        <div className="date mb-2">
-                            {date}
+                        <div className="ms-3 d-flex flex-column justify-content-center">
+                            <div className="date mb-2">
+                                {date}
+                            </div>
+                            <div className="num-session">
+                                Session n° 1
+                            </div>
                         </div>
-                        <div className="num-session">
-                            Session n° 1
-                        </div>
-                    </div>
-                </div>):
+                    </div>) :
                     (<div className="">
                         <div className="ms-4 d-flex flex-column justify-content-center">
                             <div className="date mb-2">
@@ -96,19 +104,33 @@ export default function SessionStudent() {
                         </div>
                     </div>)
                 }
-                <div className="ressources-tasks row mt-3">
-                    <div className="col-lg-6 pe-lg-2 ps-lg-4 p-sm-0 tasks d-flex justify-content-lg-end justify-content-sm-center">
+                <div className="ressources-tasks row mt-4">
+                    <div
+                        className="col-lg-6 pe-lg-2 ps-lg-4 p-sm-0 tasks d-flex justify-content-lg-end justify-content-sm-center">
                         <Task role={'teacher'}/>
                     </div>
-                    <div className="col-lg-6 ps-2 pe-lg-4 p-sm-0 mt-sm-3 mt-lg-0 ressources d-flex justify-content-center">
-                    <Ressources role={"teacher"}/>
+                    <div
+                        className="col-lg-6 ps-2 pe-lg-4 p-sm-0 mt-sm-3 mt-lg-0 ressources d-flex justify-content-center">
+                        <Ressources role={"teacher"}/>
                     </div>
                 </div>
-                <div className=" notes" style={{marginTop: '10px'}}>
-                    <div className="add-note ms-2 d-flex align-items-center cursor-pointer">
-                        <h3 className="fw-bold mt-1 me-1">New Note</h3>
-                        <img src={NewNote} alt={"NewNote"} className="new-note"/>
+                <div className=" notes" style={{marginTop: '20px'}}>
+                    <div className="add-note mx-5 d-flex align-items-center justify-content-between">
+                        <h3 className="fw-bold mt-1 me-1">My Notes</h3>
+                        <div className="div new-note d-flex cursor-pointer" onClick={handleAddNote}>
+                            <h3 className="fw-bold fs-6 me-2">Add</h3>
+                            <img src={NewNote} alt={"NewNote"} className="new-note "
+                                 />
+                            {/*<AddButtonTask/>*/}
+
+                        </div>
                     </div>
+                    <AddNote setIsOpen={setNewNote} isOpen={newNote} session={{
+                        subject: "Developpement web eet application reparties",
+                        type: "TP",
+                        date: "12 Novembre 2024, Thursday",
+                        sessionTime: "08:00 - 09:30",
+                    }}/>
                     <div className="slider mt-2 d-flex justify-content-center">
                         {notesData && notesData.length > 2 ? (<Slider ref={sliderRef} {...settings}>
                                 {notesData.map((note, index) => (
@@ -122,7 +144,8 @@ export default function SessionStudent() {
                             </Slider>) :
                             notesData.map((note, index) => (
                                 <React.Fragment key={index}>
-                                    <div className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2  p-0 d-flex flex-column justify-content-center align-items-center`}>
+                                    <div
+                                        className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2  p-0 d-flex flex-column justify-content-center align-items-center`}>
                                         <Note
                                             maxWidth={true}
                                             note={note}

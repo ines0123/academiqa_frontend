@@ -87,7 +87,7 @@ export default function SideBar() {
                           key={key}
                       >
                           {/* Recommend Courses Icon */}
-                          <FontAwesomeIcon icon={link.icon}
+                          <FontAwesomeIcon fontSize={22} icon={link.icon}
                                            className={` link-icons ${link.className ? link.className : 'icon-button'}`}/>
 
                           {/*  Text */}

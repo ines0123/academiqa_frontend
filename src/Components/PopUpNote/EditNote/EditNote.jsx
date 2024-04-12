@@ -23,7 +23,7 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
     // Add code here to handle the submission of the edited note
   };
 
-  const backgroundColor = "#FEF7EF";
+  const backgroundColor = "#FFFEFB";
   return (
     <PopUp
       isOpen={isOpen}
@@ -31,14 +31,14 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
       width="500px"
       backgroundColor={backgroundColor}
     >
-      <div className="mt-4">
+      <div className="mt-2">
         {/* <div className="titlePopUp ml-12 d-flex flex-column">
           <h1 className="fw-bold">Edit Note</h1>
         </div> */}
-        <div className="noteInfo">
+        <div className="noteInfo mt-1">
           <div className="noteSubjectTypePopUp ml-3">
             <div className="pt-1 pl-1">
-              <BiBookReader size={17} fill="#FEF7EF" />
+              <BiBookReader size={17} fill="black" />
             </div>
             <div className="noteST pt-1 pl-2 pr-1 ">
               <div className="s ">{note.session?.subject}</div>
@@ -48,12 +48,12 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
           <div className="noteDateTime">
             <div className="noteDatePopUp">{note?.date}</div>
             <div className="noteSessionTimePopUp">
-              <FiClock size={15} stroke="#FEF7EF" />
+              <FiClock size={15} stroke="black" />
               <div>{note.session?.sessionTime}</div>
             </div>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="noteContentPopUp">
+        <form onSubmit={handleSubmit} className="noteContentPopUp mb-0">
           <div className="title-input">
             <HiOutlinePencilSquare size={25} />
             <input

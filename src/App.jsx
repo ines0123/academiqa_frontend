@@ -61,16 +61,6 @@ export default function App() {
           </Route>
         </Routes>
 
-        /* <Note note={note} baseColor={baseColor} /> */}
-        {/* <Notes /> */}
-        {/*<Chatbot/>*/}
-        {/*<CoursesRecommender/>*/}
-        {/*<div className="d-flex">*/}
-        {/*    {courses}*/}
-        {/*</div>*/}
-        {/*<Chat/>*/}
-        {/*<Courses/>*/}
-        {/* <Task role="teacher" /> */}
 
         {/* <AddNote
         isOpen={true}

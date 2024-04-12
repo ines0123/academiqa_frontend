@@ -1,8 +1,7 @@
 .note {
-  height: 320px;
+  height: 300px;
   width: 100%;
   border-radius: 50px;
-  cursor: pointer;
   /* background-color: rgba(221, 233, 176, 0.36); */
   display: grid;
   grid-template-rows: 0.8fr 0.8fr 0.2fr 2.7fr 0.5fr;

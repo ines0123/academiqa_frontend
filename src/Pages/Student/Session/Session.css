@@ -22,28 +22,34 @@
     word-break: break-all;
 }
 
-.student-session-page .new-note {
-    width: 2rem;
+.student-session-page .new-note img {
+    width: 1.5rem;
     height: auto;
 }
 
+.student-session-page .add-note {
+    margin-right: 60px !important;
+}
 .student-session-page .add-note h3 {
     font-size: 24px;
 }
-.student-session-page .add-note {
-    width: fit-content;
+.student-session-page .new-note h3 {
+    font-size: 20px !important;
+    margin-top: 5px;
+}
+.student-session-page .new-note.div {
     transition: transform 0.5s ease;
 }
-.student-session-page .add-note:hover {
-    transform: scale(1.05);
+.student-session-page .new-note:hover {
+    transform: scale(1.08);
 }
-.student-session-page .add-note:active  {
+.student-session-page .new-note:active  {
     transform: scale(0.96);
 }
 
 .slick-slider {
     position: relative!important;
-    height: 340px!important;
+    height: 310px!important;
     width: 95%!important;
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -85,10 +91,30 @@
     margin-left: .5rem;
 }
 
-/*.slick-prev {*/
-/*    display: none !important;*/
-/*}*/
-/*.note {*/
-/*    width: 250px !important;*/
-/*    margin: 0 20px;*/
-/*}*/
+.cssbuttons-io-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .2em;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 18px;
+    padding: .4em 1em;
+    background: #F0EDF2;
+    border: none;
+    outline: none;
+    box-shadow: 0 .5em .5em -.4em rgb(0, 0, 0, .5);
+    letter-spacing: 0.08em;
+    border-radius: 20em;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.cssbuttons-io-button span{
+    /*color: white;*/
+}
+
+.cssbuttons-io-button:hover {
+    filter: brightness(1.2);
+    color: rgb(0, 0, 0, .5);
+}
