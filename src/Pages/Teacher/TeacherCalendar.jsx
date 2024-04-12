@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Sessions } from "../../data/sessionsData";
 import { Subjects } from "../../data/SubjectsData";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function TeacherCalendar() {
@@ -27,13 +29,14 @@ export default function TeacherCalendar() {
     }
 
     return(
-    <div style={{ width: '100%'}}>
-        <div style={{ marginLeft: '30px', marginTop: '10px'}}>
-            <h1 style={{fontFamily: "Inika"}}>
-                Teacher Calendar
-            </h1>
-
-            <select name="level" id="level" className="form-select"
+<div style={{ width: '100%'}}>
+        <div style={{ marginLeft: '30px', marginTop: '20px'}}>
+            <div className={`my-notes d-flex mt-4 p-3 mb-3`}>
+                <div className="notes-icon">
+                <FontAwesomeIcon icon={faCalendarDays} size="2x"/>                
+                </div>
+                <h1 className="fs-2 ms-2 fw-bold" style={{fontFamily: "Inika" , marginBottom:"0" }}>Teacher Calendar</h1>
+            </div>            <select name="level" id="level" className="form-select"
              onChange={(e) => {
                 window.location.pathname = `teacher/calendar/${e.target.value}`;
 

@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Sessions } from "../../data/sessionsData";
 import AdminCalendar from "../../Components/Calendar/AdminCalendar";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import '../../Components/Calendar/styles.css';
 
 export default function Calendar() {
     const {id} = useParams();
@@ -16,16 +18,19 @@ export default function Calendar() {
     return(
     <div style={{ width: '100%'}}>
         <div style={{ marginLeft: '30px', marginTop: '20px'}}>
-            <h1 style={{fontFamily: "Inika"}}>
-                Admin Calendar
-            </h1>
+            <div className={`my-notes d-flex mt-4 p-3 mb-3`}>
+                <div className="notes-icon">
+                    <FontAwesomeIcon icon={faCalendarDays} size="2x"/>                
+                </div>
+                <h1 className="fs-2 ms-2 fw-bold" style={{fontFamily: "Inika", marginBottom:"0" }}>Admin Calendar</h1>
+            </div>
 
             <select name="level" id="level" className="form-select"
             onChange={(e) => {
                 window.location.pathname = `/admin/calendar/${e.target.value}`;
             }
             }>
-                <option value="0">Select Level </option>
+                <option value="">Select Level </option>
                 <option value="1" selected={id == 1}>Génie logiciel 2ème année</option>
                 <option value="2" selected={id == 2}>Génie logiciel 3ème année</option>
             </select>
