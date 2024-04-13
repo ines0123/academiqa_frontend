@@ -9,7 +9,7 @@
 
 .side-bar-link {
     display: block;
-    padding: 10px 17px;
+    padding: 10px 14px;
     text-decoration: none;
     font-size: 18px;
     transition: 0.5s;
@@ -68,15 +68,18 @@
 }
 
 .sidebar-recommend-icon {
-    width: 50px;
+    width: 50px ;
     height: auto;
-    margin-left: -15px;
+    margin-left: -16px;
+    max-width: none !important
+
 }
 
 .sidebar-chatbot-div {
     margin: 0 12px;
     position: fixed;
     bottom: 20px;
+    top: 580px;
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -1,8 +1,10 @@
 import React from 'react';
 import './SeeMoreButton.css';
-const SeeMoreButton = () => {
+import {useNavigate} from "react-router-dom";
+const SeeMoreButton = ({path}) => {
+    const navigate = useNavigate();
     return (
-        <button className="cta d-flex justify-content-center">
+        <button className="cta d-flex justify-content-center" onClick={()=> {navigate(`/student/${path}`)}}>
             <span className="span">See More</span>
             <span className="second">
                                     <svg width="40px" height="15px" viewBox="0 0 66 43"

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 import {
-  Outlet,
   Route,
   RouterProvider,
   Routes,
@@ -16,7 +15,6 @@ import SessionStudent from "./Pages/Student/Session/SessionStudent.jsx";
 import HomeTeacher from "./Pages/Teacher/HomeTeacher/HomeTeacher.jsx";
 import ProfileTeacher from "./Pages/Teacher/Profile/ProfileTeacher.jsx";
 import SessionTeacher from "./Pages/Teacher/Session/SessionTeacher.jsx";
-import Calendar from "./Pages/Common/Calendar.jsx";
 import Chatbot from "./Components/Chatbot/Chatbot.jsx";
 import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
 import Course from "./Components/Course/Course.jsx";
@@ -44,7 +42,7 @@ export default function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route element={<Layout />}>
             <Route element={<RequireAuth allowedRole={['student']} />}>
-              <Route path="/" element={<HomeStudent />}></Route>
+              <Route path="/student/home" element={<HomeStudent />}></Route>
               <Route path="student/courses" element={<Courses />}></Route>
               <Route path="student/notes" element={<Notes />}></Route>
               <Route path="student/profile" element={<ProfileStudent />}></Route>
@@ -53,15 +51,15 @@ export default function App() {
 
             </Route>
             <Route element={<RequireAuth allowedRole={['teacher']} />}>
-              <Route path="/" element={<HomeTeacher />}></Route>
+              <Route path="/teacher/home" element={<HomeTeacher />}></Route>
               <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
+
               <Route path="teacher/session/:id" element={<SessionTeacher />}></Route>
               <Route path="teacher/session/:id/attendance" element={<Attendance />}></Route>
               <Route path="teacher/calendar/:id?" element={<TeacherCalendar />}></Route>
 
             </Route>
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
-              <Route path="/calendar" element={<Calendar />}></Route>
               <Route path="/chat" element={<SessionStudent />}></Route>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
             </Route>

@@ -15,12 +15,13 @@ import ChatbotDiscussion from "../Chatbot/Chatbot.jsx"
 
 
 
-export default function SideBar() {
+export default function SideBar({role}) {
   const menu = useContext(Menu);
   const isOpen = menu.isOpen;
   const [recommend, setRecommend] = useState(false);
   const [chatbot, setChatbot] = useState(false);
-  const SeeMoreCourses =() =>{
+  const SeeMoreCourses =(e) =>{
+    e.preventDefault();
     setRecommend(true);
   }
   const SeeChatbot =() =>{
@@ -77,24 +78,30 @@ export default function SideBar() {
           />
 
               {/* Links */}
-              {links.filter(link => link.role.includes('student')).map((link, key) => {
+              {links.filter(link => link.role.includes(role)).map((link, key) => {
                   return (
                       //Buttons
                       <NavLink
                           to={link.path}
-                          className="d-flex align-items-center gap-2 side-bar-link"
-                          style={{padding:"10px 43px", height:'45px'}}
+                          onClick={!link.icon && SeeMoreCourses}
+                          className={`d-flex align-items-center gap-2 side-bar-link `}
+                          style={{ padding: !menu.isOpen ?  "10px 38px" : "10px 20px"}}
                           key={key}
                       >
                           {/* Recommend Courses Icon */}
-                          <FontAwesomeIcon fontSize={22} icon={link.icon}
-                                           className={` link-icons ${link.className ? link.className : 'icon-button'}`}/>
+                          {link.icon? (
+                              <FontAwesomeIcon icon={link.icon} className= {link.className?link.className:'sidebar-icon-button'}  />):(
+                              <img src={BotIcon} alt={link.name} className='sidebar-recommend-icon' />
+                          )}
 
                           {/*  Text */}
                           <p
                               style={{
                                   display: isOpen ? "block" : "none",
-                                  margin: "4px 0 0 0",
+                                  // margin: "0 7px",
+                                  left: "62px",
+                                  position:"fixed"
+
                               }}
                           >
                               {link.name}
@@ -103,21 +110,19 @@ export default function SideBar() {
                   )
                   // );
               })}
-              <div onClick={SeeMoreCourses}
-                   className="see-courses d-flex gap-1 justify-content-center align-items-center cursor-pointer"
-                   style={{padding: !menu.isOpen ? "10px 0" : "10px 0 0 25px"}}
-              >
-                  <img src={BotIcon} alt={"See More Courses"} className='sidebar-recommend-icon' />
-                  <p
-                      className="recommend-text"
-                      style={{
-                          display: isOpen ? "block" : "none",
-                          margin: "0",
-                      }}
-                  >
-                      See More Courses
-                  </p>
-              </div>
+              {/*<div onClick={SeeMoreCourses}*/}
+              {/*     className="side-bar-link d-flex gap-1 justify-content-center align-items-center cursor-pointer">*/}
+              {/*    <img src={BotIcon} alt={"See More Courses"} className='sidebar-recommend-icon' />*/}
+              {/*    <p*/}
+              {/*        className="recommend-text"*/}
+              {/*        style={{*/}
+              {/*            marginLeft: isOpen ? "block" : "none",*/}
+              {/*            margin: "0",*/}
+              {/*        }}*/}
+              {/*    >*/}
+              {/*        See More Courses*/}
+              {/*    </p>*/}
+              {/*</div>*/}
               <CoursesRecommender isOpen={recommend} setIsOpen={setRecommend}/>
           </div>
           <div onClick={SeeChatbot} className='sidebar-chatbot-div cursor-pointer'>

@@ -73,9 +73,7 @@ export default function HomeTeacher() {
                     <div className="some-courses mt-4">
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My Courses</h5>
-                            <NavLink to={"teacher/profile"}>
-                                <SeeMoreButton/>
-                            </NavLink>
+                            <SeeMoreButton path={"courses"}/>
                         </div>
                         <div className="container">
                             <div className="row d-flex justify-content-center">

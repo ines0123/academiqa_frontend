@@ -8,8 +8,6 @@ import {Menu} from "../../../Context/MenuContext.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
 import notesData from "../Notes/noteData.json";
 import Note from "../../../Components/Note/Note.jsx";
-import {NavLink} from "react-router-dom";
-
 export default function HomeStudent() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -52,6 +50,7 @@ export default function HomeStudent() {
 
     },[])
 
+
     return (
         <div className="d-flex justify-content-between  student-home-page m-0 pe-0">
             <div className="body mt-3 px-4 flex-grow-1">
@@ -84,10 +83,7 @@ export default function HomeStudent() {
                     <div className="some-courses mt-4">
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My Courses</h5>
-                            <NavLink to={"student/courses"}>
-                                <SeeMoreButton/>
-                            </NavLink>
-
+                                <SeeMoreButton path={"courses"}/>
                         </div>
                         <div className="container">
                             <div className="row d-flex justify-content-center">
@@ -106,9 +102,7 @@ export default function HomeStudent() {
                     <div className="some-notes mb-3">
                         <div className="header d-flex justify-content-between">
                             <h5 className="fs-5 fw-bold">My notes</h5>
-                            <NavLink to={"student/notes"}>
-                                <SeeMoreButton/>
-                            </NavLink>
+                            <SeeMoreButton path={"notes"}/>
                         </div>
                         <div className="container">
                             <div className="row d-flex justify-content-center">

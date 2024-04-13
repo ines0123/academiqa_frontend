@@ -56,5 +56,12 @@ export const links = [
         icon: faCalendarDays,
         role: 'admin',
     },
+    {
+        name: "See More Courses",
+        path: "student/recommend",
+        icon: "",
+        image: "../../public/BotIcon.png",
+        role: 'student'
+    }
 
 ]
