@@ -19,7 +19,6 @@ import SessionTeacher from "./Pages/Teacher/Session/SessionTeacher.jsx";
 import Calendar from "./Pages/Common/Calendar.jsx";
 import Chatbot from "./Components/Chatbot/Chatbot.jsx";
 import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
-import Course from "./Components/Course/Course.jsx";
 import NotificationCard from "./Components/Notification/NotificationCard.jsx";
 import EmptyNavbar from "./Components/Navbar/EmptyNavbar.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx";
@@ -29,7 +28,7 @@ import Chat from "./Components/CommonSessionChat/Chat.jsx";
 import Note from "./Components/Note/Note.jsx";
 import Layout from './Layouts/Layout.jsx'
 import Task from "./Components/Task/Task.jsx";
-
+import Course from "./Pages/Common/Course/Course.jsx";
 
 export default function App() {
   return (
@@ -54,7 +53,7 @@ export default function App() {
               <Route path="/chat" element={<SessionStudent />}></Route>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
               <Route path="/notification" element={<NotificationCard />}></Route>
-
+              <Route path="/course" element={<Course />}></Route>
             </Route>
           </Route>
         </Routes>

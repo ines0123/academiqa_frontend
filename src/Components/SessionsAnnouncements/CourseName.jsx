@@ -9,7 +9,9 @@ function CourseName({role}) {
         <FaBookOpenReader className="course-icon" />
       </div>
         <div className="course-info font-IstokWebBold">
-            <div className="course-name-title font-IstokWebBold">
+            <div className="course-name-title font-IstokWebBold overflow-hidden"
+                 title="Protocoles de communication Web"
+            >
                 Protocoles de communication Web
             </div>
             <div className="course-additional-info font-IstokWebBold">

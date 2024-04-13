@@ -3,6 +3,7 @@
   border: none;
   border-radius: 15px;
   margin-bottom: 28px;
+
   width: 100%;
   max-width: 200px;
   height: 54px;
@@ -25,4 +26,11 @@
   font-size: 13px;
   color: #242424;
   font-weight: 500;
+}
+
+@media (max-width: 578px) {
+  .sessionButton-button {
+    width: 45%;
+    margin-left: 6px;
+  }
 }

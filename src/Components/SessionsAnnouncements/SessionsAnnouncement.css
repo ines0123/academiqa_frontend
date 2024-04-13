@@ -1,6 +1,6 @@
 .sessionsAnnouncement-box {
     background-color: #fef7ef;
-    width: 698px;
+    /*width: 698px;*/
     height: 460px;
     margin-top: 32px;
     border-radius: 20px ;
@@ -24,8 +24,5 @@
 }
 
 .no-announcement {
-    width: 45%;
-    margin-left: 25%;
-    margin-top: 10%;
-    margin-bottom: 10%
+    width: 50%;
 }
