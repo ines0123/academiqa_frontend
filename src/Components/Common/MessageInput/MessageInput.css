@@ -72,3 +72,6 @@ textarea::placeholder {
     position: relative; /* Make the container relative */
 }
 
+.prompt-form .remove-cercle path {
+    fill: white;
+}

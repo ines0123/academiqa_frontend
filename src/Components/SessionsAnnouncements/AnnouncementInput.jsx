@@ -6,7 +6,7 @@ function AnnouncementInput({ onChange, onAdd }) {
     const inputRef = useRef(null);
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevents default form submission behavior
-    // onAdd(); // Call the onAdd function passed from the parent component
+    onAdd(); // Call the onAdd function passed from the parent component
     inputRef.current.value = "";
   };
   const handleKeyPress = (event) => {
@@ -26,7 +26,7 @@ function AnnouncementInput({ onChange, onAdd }) {
                     ref={inputRef}
                   rows="1"
                   placeholder={"Type an announcement ..."}
-                  // onChange={onChange}
+                  onChange={onChange}
                   onKeyDown={handleKeyPress}
               />
               </div>

@@ -48,7 +48,7 @@ const OldDiscussions = ({onDiscussionSelect, discussions}) => {
                                     <img src={Discussion} alt={"discussion"} width={15} height={15}/>
                                     <p className="mb-0 ms-1">
                                         {/* each discussion contains objects */}
-                                        {discussion.conversationHistory[0].prompt}
+                                        {discussion.messages[0].prompt}
                                     </p>
                                 </div>
 

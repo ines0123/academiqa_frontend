@@ -15,21 +15,9 @@ import SessionStudent from "./Pages/Student/Session/SessionStudent.jsx";
 import HomeTeacher from "./Pages/Teacher/HomeTeacher/HomeTeacher.jsx";
 import ProfileTeacher from "./Pages/Teacher/Profile/ProfileTeacher.jsx";
 import SessionTeacher from "./Pages/Teacher/Session/SessionTeacher.jsx";
-import Chatbot from "./Components/Chatbot/Chatbot.jsx";
-import CoursesRecommender from "./Components/CoursesRecommender/CoursesRecommender.jsx";
-import Course from "./Components/Course/Course.jsx";
-import NotificationCard from "./Components/Notification/NotificationCard.jsx";
-import EmptyNavbar from "./Components/Navbar/EmptyNavbar.jsx";
-import Navbar from "./Components/Navbar/Navbar.jsx";
-import SideBar from "./Components/SideBar/SideBar.jsx";
+import Course from "./Pages/Common/Course/Course.jsx";
 import Courses from "./Pages/Student/Courses/Courses.jsx";
-import Chat from "./Components/CommonSessionChat/Chat.jsx";
-import Note from "./Components/Note/Note.jsx";
 import Layout from './Layouts/Layout.jsx'
-import Task from "./Components/Task/Task.jsx";
-import AddNote from "./Components/PopUpNote/AddNote/AddNote.jsx";
-import EditNote from "./Components/PopUpNote/EditNote/EditNote.jsx";
-
 import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
 import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
@@ -62,6 +50,7 @@ export default function App() {
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
               <Route path="/chat" element={<SessionStudent />}></Route>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
+              <Route path="/course" element={<Course />}></Route>
             </Route>
             <Route element={<RequireAuth allowedRole={['admin']} />}>
               <Route path="admin/calendar/:id?" element={<CalendarAdmin />}></Route>

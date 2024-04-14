@@ -8,15 +8,19 @@ import axios from "axios";
 
 const Chatbot = ({isOpen, setIsOpen}) => {
     const [discussions, setDiscussions] = useState([]);
-    const [discussionId, setDiscussionId] = useState();
+    const [discussionId, setDiscussionId] = useState(null);
+    const [discussion, setDiscussion] = useState(null);
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < 906);
 
     //get all discussions from the server
     const getDiscussions = async () => {
         try{
-            const res = await axios.get('http://localhost:5000/GetAllDiscussions');
+            const res = await axios.get('http://localhost:5000/chatbot/GetAllDiscussions');
             setDiscussions(res.data);
-            setDiscussionId(res.data[res?.data.length-1]?.id)
+            if(res.data.length > 0){
+                setDiscussionId(res.data[res?.data.length-1]?.id)
+                setDiscussion(res.data[res?.data.length-1])
+            }
         } catch (error) {
             console.error('Error:', error);
         }
@@ -32,13 +36,11 @@ const Chatbot = ({isOpen, setIsOpen}) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const updateDiscussion = (updatedDiscussion) => {
-        setDiscussions(prevDiscussions =>
-            prevDiscussions.map(disc =>
-                disc.id === updatedDiscussion.id ? updatedDiscussion : disc
-            )
-        );
-    };
+
+    const getDiscussion = () => {
+        console.log('id',discussions.find(item => item.id === discussionId))
+            return discussions.find(item => item.id === discussionId)
+    }
 
     return (
         <PopUp width={"77vw"} isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -69,8 +71,7 @@ const Chatbot = ({isOpen, setIsOpen}) => {
                         </div>
                         <div className="col-lg-10 col-md-10 pe-0 ps-1 mb-1">
                             <ChatbotDiscussion
-                                discussion={discussions.find(item => item.id === discussionId)}
-                                onUpdateDiscussion={updateDiscussion}
+                                discussion={discussions.find(item => item.id === discussionId) || null}
                                 getDiscussions={getDiscussions}
                             />
                         </div>

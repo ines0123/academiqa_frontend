@@ -11,16 +11,16 @@ const Course = () => {
 
     return (
         <div className="course-page container-fluid pt-12">
-            <div className="row date pl-10 mb-8">
+            <div className="row date pl-10 mb-6">
                 {date}
             </div>
             <MidNavbar/>
             <div className="row">
-                <div className="col-sm-9 course-name">
-                    <CourseName role="student"/>
+                <div className="col-sm-9 pl-10 course-name">
+                    <CourseName role="teacher"/>
 
                     <div className="box-announcement">
-                        <SessionsAnnouncement role="student"/>
+                        <SessionsAnnouncement role="teacher"/>
                     </div>
                 </div>
                 <div className="col-sm-3 pr-2.5 my-3 box-sessions d-flex justify-end">
