@@ -1,0 +1,25 @@
+.presence-sheet-box {
+    background-color: rgb(254, 247, 239);
+    /*min-width: 300px;*/
+    border-radius: 20px;
+}
+
+.p-s-btn {
+    background-color: #6a2f60;
+}
+
+.p-s-btn:hover {
+    background-color: #6a2f60;
+}
+
+.p-s-btn span {
+    color : whitesmoke;
+}
+
+.p-s-student-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+    overflow-x: scroll;
+    scrollbar-width: none;
+}
