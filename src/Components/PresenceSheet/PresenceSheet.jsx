@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './PresenceSheet.css';
 import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
+
 const PresenceSheet = () => {
 
     const [students, setStudents] = useState([
@@ -73,7 +74,7 @@ const PresenceSheet = () => {
             id: 7,
             name: 'Jane Doe Jane Doe Jane Doe',
             status: 'absent'
-        },{
+        }, {
             id: 1,
             name: 'mohamed abdelhmid mansour ben ghorbel',
             status: 'present'
@@ -111,7 +112,7 @@ const PresenceSheet = () => {
     ]);
 
     return (
-        <div className="presence-sheet-box h-[535px] max-w-80 w-full shadow position-relative">
+        <div className="presence-sheet-box h-[535px] shadow position-relative">
             <div className="p-s-title h-10 font-IstokWebRegular font-bold p-3 ml-3.5  text-2xl ">
                 Presence Sheet
             </div>
@@ -128,7 +129,8 @@ const PresenceSheet = () => {
                     ))}
                 </Scrollbar>
             </div>
-            <button className="p-s-btn rounded-2xl h-11 max-w-48 w-full my-3 position-absolute bottom-0 start-50 translate-middle-x">
+            <button
+                className="p-s-btn rounded-2xl h-11 max-w-48 w-full my-3 position-absolute bottom-0 start-50 translate-middle-x">
                 <span className="font-bold">Take attendance</span>
             </button>
         </div>

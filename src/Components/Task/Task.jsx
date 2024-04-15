@@ -91,7 +91,7 @@ const Task = ({ role }) => {
                 <Scrollbar
                     thumbColor={"rgba(233, 177, 176, 0.62)"}
                     trackColor={"#F5D8D6"}
-                    maxHeight={"150px"}
+                    maxHeight={"170px"}
                 >
                     <div className="contentTask">
                         <div className="row p-0 d-flex justify-content">

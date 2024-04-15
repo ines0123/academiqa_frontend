@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {useDate} from "../../../Context/DateContext.jsx";
 import Ressources from "../../../Components/Ressources/Ressources.jsx";
 import Task from "../../../Components/Task/Task.jsx";
+import PresenceSheet from "../../../Components/PresenceSheet/PresenceSheet.jsx";
 
 export default function SessionTeacher() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -28,7 +29,7 @@ export default function SessionTeacher() {
     return (
         <div className="d-flex teacher-session-page">
             <div className="session-content flex-grow-1 mt-4 ps-4 pe-4">
-                {screenWidth>=1030 ? (<div className="d-flex justify-content-between">
+                {screenWidth >= 1030 ? (<div className="d-flex justify-content-between">
                         <div className="the-course d-flex ms-3 p-3 ">
                             <div className="courses-icon">
                                 <FaBookOpenReader size={35}/>
@@ -43,7 +44,7 @@ export default function SessionTeacher() {
                                 Session n° 1
                             </div>
                         </div>
-                    </div>):
+                    </div>) :
                     (<div className="">
                         <div className="ms-4 d-flex flex-column justify-content-center">
                             <div className="date mb-2">
@@ -61,15 +62,20 @@ export default function SessionTeacher() {
                         </div>
                     </div>)
                 }
-                <div className="ressources-tasks row mt-3">
-                    <div className="col-lg-6 pe-lg-2 ps-lg-4 p-sm-0 tasks d-flex justify-content-lg-end justify-content-sm-center">
-                        <Task role={'teacher'}/>
+                <div className="row mt-5 mb-2">
+                    <div className="presence-sheet col-md-6 mb-3">
+                        <PresenceSheet/>
                     </div>
-                    <div className="col-lg-6 ps-2 pe-lg-4 p-sm-0 mt-sm-3 mt-lg-0 ressources d-flex justify-content-center">
-                        <Ressources role={"teacher"}/>
+                    <div className="ressources-tasks col-md-6 d-flex flex-column align-items-center ">
+                        <div
+                            className="row px-lg-3 p-sm-0 mb-1 mb-md-3 tasks ">
+                            <Task role={'teacher'}/>
+                        </div>
+                        <div
+                            className="row px-lg-3 p-sm-0 mt-sm-3 mt-lg-0 ressources ">
+                            <Ressources role={"teacher"}/>
+                        </div>
                     </div>
-                </div>
-                <div className="presence-sheet">
                 </div>
             </div>
             <Chat/>
