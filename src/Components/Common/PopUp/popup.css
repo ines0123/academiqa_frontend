@@ -1,9 +1,9 @@
 .close-modal {
     position: absolute;
-    right: 18px ;
-    top: 12px;
+    right: 22px ;
+    top: 10px;
     cursor: pointer;
-    font-size: 40px;
+    font-size: 36px;
     transition: transform 0.3s ease;
 }
 

@@ -10,6 +10,7 @@ textarea::placeholder {
     color: #bdbdbd;
     font-size: 14px;
     width: 100% !important;
+    padding-top: 6px;
 }
 
 .sendIconButton {

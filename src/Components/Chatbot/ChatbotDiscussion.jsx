@@ -92,8 +92,8 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
 
                                 <div className="ps-3 d-flex flex-column mt-1">
                                     {message.prompt}
-                                    {message.image && (<img src={`http://localhost:5000/${message.image}`}
-                                                            style={{maxWidth: '40%', height: 'auto'}}
+                                    {message.image && (<img src={`${message.image}`}
+                                                            style={{borderRadius:'10px',maxWidth: '40%', height: 'auto'}}
                                                             alt={"image-prompt"}/>)}
                                 </div>
                             </div>

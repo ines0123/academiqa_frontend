@@ -7,6 +7,7 @@ import {TbWorldWww} from "react-icons/tb";
 import {RxDownload} from "react-icons/rx";
 import {FaDeleteLeft} from "react-icons/fa6";
 import noRessources from "../../assets/images/no-ressources.svg";
+import DeleteButton from "../Common/DeleteButtonForResTask/DeleteButton.jsx";
 
 function Ressources({role}) {
 
@@ -79,7 +80,7 @@ function Ressources({role}) {
                                         role === 'teacher' && (
                                             <button className="file-delete-button container max-w-4 "
                                                     onClick={() => handleDelete(index)}>
-                                                <FaDeleteLeft className="ressources-icon  min-w-4 min-h-4 grow-0 hover:scale-110"/>
+                                                <DeleteButton/>
                                             </button>
                                         )
                                     }
@@ -96,9 +97,9 @@ function Ressources({role}) {
                                     </button>
                                     {
                                         role === 'teacher' && (
-                                            <button className="file-delete-button container grow-0 max-w-4 "
+                                            <button className="file-delete-button container max-w-4 "
                                                     onClick={() => handleDelete(index)}>
-                                                <FaDeleteLeft className="ressources-icon  min-w-4 min-h-4 hover:scale-110"/>
+                                                <DeleteButton/>
                                             </button>
                                         )
                                     }

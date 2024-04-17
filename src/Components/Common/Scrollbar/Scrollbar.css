@@ -1,6 +1,7 @@
 .scroll-container {
     max-height: var(--max-height);
     overflow-y: auto;
+    width: 100%;
 }
 
 .scroll-container::-webkit-scrollbar {

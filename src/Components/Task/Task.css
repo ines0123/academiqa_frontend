@@ -59,7 +59,7 @@ div.row.d-flex.justify-content {
 .Content {
   /*!*font-size: large;*!*/
   /*padding-left: 8px;*/
-  width: 100%;
+  /*width: 100%;*/
   overflow: hidden;
   scrollbar-width: none;
   -webkit-line-clamp: 1;
@@ -122,69 +122,18 @@ div.row.d-flex.justify-content {
   /* color: grey; */
 }
 
-.deleteTask {
+.custom .deleteTask {
+  display: none;
   /* cursor: pointer; */
   padding :0 5px;
-  /* display: flex; */
   width: 15%;
 }
-
-.Deletebutton {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #737373;
-  font-weight: 600;
+.custom:hover .deleteTask {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.164);
-  transition-duration: 0.3s;
-  overflow: hidden;
-  position: relative;
-  gap: 2px;
 }
 
-/*.svgIconBin {*/
-/*  width: 12px;*/
-/*  transition-duration: 0.3s;*/
-/*}*/
-
-/*.svgIconBin path {*/
-/*  fill: rgb(245, 245, 245);*/
-/*}*/
-
-/*.Deletebutton:hover {*/
-/*  transition-duration: 0.3s;*/
-/*  background-color: rgb(237, 161, 161);*/
-/*  align-items: center;*/
-/*  gap: 0;*/
-/*}*/
-
-/*.bin-top {*/
-/*  transform-origin: bottom right;*/
-/*}*/
-/*.Deletebutton:hover .bin-top {*/
-/*  transition-duration: 0.5s;*/
-/*  transform: rotate(160deg);*/
-/*}*/
 
 
 
 
-.file-icon path {
-  color: #443E3D;
-}
-
-.ressources-icon path {
-  color: #443E3D;
-}
-
-.ressources-icon:hover path {
-  color: #131111;
-}
-
-.file-delete-button {
-  margin-right: 9px;
-}

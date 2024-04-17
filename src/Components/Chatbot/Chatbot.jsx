@@ -9,7 +9,6 @@ import axios from "axios";
 const Chatbot = ({isOpen, setIsOpen}) => {
     const [discussions, setDiscussions] = useState([]);
     const [discussionId, setDiscussionId] = useState(null);
-    const [discussion, setDiscussion] = useState(null);
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < 906);
 
     //get all discussions from the server
@@ -19,7 +18,6 @@ const Chatbot = ({isOpen, setIsOpen}) => {
             setDiscussions(res.data);
             if(res.data.length > 0){
                 setDiscussionId(res.data[res?.data.length-1]?.id)
-                setDiscussion(res.data[res?.data.length-1])
             }
         } catch (error) {
             console.error('Error:', error);
@@ -36,11 +34,6 @@ const Chatbot = ({isOpen, setIsOpen}) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-
-    const getDiscussion = () => {
-        console.log('id',discussions.find(item => item.id === discussionId))
-            return discussions.find(item => item.id === discussionId)
-    }
 
     return (
         <PopUp width={"77vw"} isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -67,7 +60,7 @@ const Chatbot = ({isOpen, setIsOpen}) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-2 col-md-2 ps-0 pe-1 mb-1">
-                            <OldDiscussions discussions={discussions} onDiscussionSelect={setDiscussionId} />
+                            <OldDiscussions discussions={discussions} onDiscussionSelect={setDiscussionId} getDiscussions={getDiscussions}/>
                         </div>
                         <div className="col-lg-10 col-md-10 pe-0 ps-1 mb-1">
                             <ChatbotDiscussion

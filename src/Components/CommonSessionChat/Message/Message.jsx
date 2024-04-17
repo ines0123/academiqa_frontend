@@ -8,15 +8,22 @@ import DeleteButton from "../../Common/DeleteButton/DeleteButton.jsx";
 
 
 // eslint-disable-next-line react/prop-types
-const Message = ({deleteMsg,message, isStudent, send,getAllMessages,emitTyping,nbNestedReplies}) => {
+const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies, pickerUnderInput}) => {
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
+    const dateOptions = {month: 'long', day: 'numeric' };
+    const timeOptions = { hour: '2-digit', minute: '2-digit' };
+
+    const date = new Date(message.createdAt);
+    const dateString = `${date.toLocaleDateString('en-US', dateOptions)}, ${date.toLocaleTimeString('en-US', timeOptions)}`;
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value !== "") {
-            send({message:value, parentId:message.id});
-            getAllMessages();
+            send({content:value, parent:message});
+            console.log("message sent", message);
             setValue("");
             setViewReplies(true);
             setViewReplyForm(false);
@@ -24,7 +31,6 @@ const Message = ({deleteMsg,message, isStudent, send,getAllMessages,emitTyping,n
     }
     const deleteMessage = () => {
         deleteMsg(message?.id);
-        getAllMessages();
     }
 
     const handleValueChange = (e) => {
@@ -52,8 +58,10 @@ const Message = ({deleteMsg,message, isStudent, send,getAllMessages,emitTyping,n
                     </div>
                     <div className="d-flex justify-content-center">
                         <div
-                            className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}>
-                            {message.message}
+                            className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}
+                            title={dateString}
+                        >
+                            {message.content}
                         </div>
                         <div className="delete-msg" onClick={deleteMessage} >
                             <DeleteButton/>
@@ -92,8 +100,8 @@ const Message = ({deleteMsg,message, isStudent, send,getAllMessages,emitTyping,n
                                     message={reply}
                                     emitTyping={emitTyping}
                                     send={send}
-                                    getAllMessages={getAllMessages}
                                     nbNestedReplies={nbNestedReplies + 1}
+                                    deleteMsg={deleteMsg}
                                 />
                             ))}
                     </div>
@@ -107,6 +115,7 @@ const Message = ({deleteMsg,message, isStudent, send,getAllMessages,emitTyping,n
                             prompt={value}
                             setPrompt={setValue}
                             fromChatBot={false}
+                            pickerUnderInput={pickerUnderInput}
                         />
                     )}
                 </div>

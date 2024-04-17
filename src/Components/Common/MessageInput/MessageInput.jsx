@@ -18,7 +18,8 @@ const MessageInput = (
         handleFileChange,
         handlePromptChange,
         selectedImage,
-        fromChatBot
+        fromChatBot,
+        pickerUnderInput,
     }) => {
     const [showPicker, setShowPicker] = useState(false);
     const openClosePicker = ()=>{
@@ -39,12 +40,14 @@ const MessageInput = (
         if(prompt.trim() !== ""){
             handleSubmit(e);
             setPrompt("");
-            handleEmptyFile();
+            if(handleFileChange){
+                handleEmptyFile();
+            }
         }
     }
 
     return (
-        <form className="prompt-form" onSubmit={submitForm}>
+        <form className="prompt-form" onSubmit={handleSubmit}>
             {showPicker && <div className="emoji-picker">
                 <Picker
                     set='apple'
@@ -59,13 +62,14 @@ const MessageInput = (
                         borderRadius:'20px',
                         padding:'10px',
                         position:'absolute',
-                        bottom:'115%',
+                        bottom:pickerUnderInput ? '-570%':'115%',
                         right:'2%',
+                        zIndex:'1',
                         boxShadow:'0 0 10px rgba(0,0,0,0.3)',
                     }}
                 />
             </div>}
-            <div className="container box-container d-flex flex-column">
+            <div className="container box-container d-flex flex-column mt-1">
                 <div className="d-flex justify-content-between mt-1">
                                 <textarea
                                     rows="1"

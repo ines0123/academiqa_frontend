@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
-import io from "socket.io-client";
-import axios from "axios";
-import NotificationCard from "../Notification/NotificationCard.jsx";
 import MessageInput from "../Common/MessageInput/MessageInput.jsx";
 import Message from "./Message/Message.jsx";
 import './CommonSessionChat.css';
@@ -19,7 +16,6 @@ const Chat = () => {
 
         window.addEventListener('resize', handleResize);
 
-        // Cleanup function to remove the event listener when the component unmounts
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -27,18 +23,21 @@ const Chat = () => {
     const [value, setValue] = useState("");
     const socket = useSocket();
     const [messages, setMessages] = useState([]);
-    const [joined, setJoined] = useState(false);
+    // const [joined, setJoined] = useState(false);
     const [sender, setSender] = useState("mongia");
     const [typing, setTyping] = useState('');
     const messagesEndRef = useRef(null);
     const [nbNestedReplies, setNbNestedReplies] = useState(0);
 
-    const join = () => {
-        socket?.emit('join', sender,() => {
-            setJoined(true);
-        });
-        console.log('joined');
-    }
+    useEffect(() => {
+        const join = () => {
+            socket?.emit('join', sender, () => {
+                console.log('joined');
+            });
+        };
+        join();
+    }, [socket]);
+
 
     let timeout;
     const emitTyping = () => {
@@ -47,11 +46,28 @@ const Chat = () => {
             socket?.emit('typing', {isTyping: false});
         },2000);
     }
+    useEffect(() => {
+        const handleTyping = (data) => {
+            if (data.isTyping) {
+                setTyping(data.sender);
+            } else {
+                setTyping('');
+            }
+        };
 
+        socket?.on('typing', handleTyping);
+
+        return () => {
+            socket?.off('typing', handleTyping);
+        };
+    }, [socket]);
     const send = (message) => {
-        socket?.emit('message', message);
-    }
-
+        socket?.emit('message', message, (response) => {
+            if (response.error) {
+                console.error('Error sending message:', response.error);
+            }
+        });
+    };
     const deleteMsg = (id)=>{
         socket?.emit('deleteMessage',id);
     }
@@ -60,31 +76,26 @@ const Chat = () => {
         socket?.emit('findAllMessages', (messages) => {
             setMessages(messages);
         });
-    }
+    };
+    useEffect(() => {
+        getAllMessages();
+    }, [socket]);
 
-    useEffect(()=>{
-        socket?.emit('findAllMessages', (messages) => {
+    useEffect(() => {
+        socket?.on('allMessages', (messages) => {
             setMessages(messages);
         });
+
+        return () => {
+            socket?.off('allMessages');
+        };
     }, [socket]);
 
-    useEffect(() => {
-        join();
-    }, [socket]);
 
-    const messageListener = () => {
-        getAllMessages();
-    }
-
-    useEffect(() => {
-        socket?.on('typing', (data) => {
-            if (data.isTyping) {
-                setTyping(data.sender);
-            } else {
-                setTyping('');
-            }
-        });
-    }, [socket]);
+    const messageListener = (data) => {
+        setMessages(data);
+        scrollToBottom();
+    };
 
     useEffect(()=> {
         socket?.on('message', messageListener);
@@ -102,8 +113,8 @@ const Chat = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (value !== "") {
-            send({message:value});
+        if (value.trim() !== "") {
+            send({content:value});
             setValue("");
         }
     }
@@ -117,10 +128,6 @@ const Chat = () => {
         messagesEndRef.current.scrollIntoView();
     };
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [typing]);
-
     return (
         <EmptyNavbar width={'27rem'}>
             <div className="common-chat d-flex flex-column align-items-center justify-content-between">
@@ -133,7 +140,7 @@ const Chat = () => {
 
 
                 <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={`${screenWidth >992 ? '65vh':'100vh'}`}>
-                    <div className="messages">
+                    <div className="messages" >
                         {messages.map((message, index) => (
                             <Message
                                 key={index}
@@ -141,38 +148,41 @@ const Chat = () => {
                                 message={message}
                                 isStudent={true}
                                 send={send}
-                                getAllMessages={getAllMessages}
                                 emitTyping={emitTyping}
                                 nbNestedReplies={nbNestedReplies}
+                                pickerUnderInput={index === 0 || index === 1}
                             />
                         ))}
-                        {typing && (
-                            <div className="typing d-flex">
-                                <div className="typing d-flex align-items-center">
-                                    {typing} is typing
-                                </div>
-                                <div className="typing-indicator">
-                                    <div className="typing-circle"></div>
-                                    <div className="typing-circle"></div>
-                                    <div className="typing-circle"></div>
-                                    <div className="typing-shadow"></div>
-                                    <div className="typing-shadow"></div>
-                                    <div className="typing-shadow"></div>
-                                </div>
-                            </div>
-                        )}
+
                         <div ref={messagesEndRef}></div>
                     </div>
                 </Scrollbar>
 
+
                 <div className="container">
+                    <div >
+                        {typing && (
+                        <div className="typing d-flex px-4 mt-2">
+                            <div className="typing d-flex align-items-center">
+                                {typing} is typing
+                            </div>
+                            <div className="typing-indicator">
+                                <div className="typing-circle"></div>
+                                <div className="typing-circle"></div>
+                                <div className="typing-circle"></div>
+                                <div className="typing-shadow"></div>
+                                <div className="typing-shadow"></div>
+                                <div className="typing-shadow"></div>
+                            </div>
+                        </div>
+                        )}
+                    </div>
                     <hr className="mb-3 mt-2"/>
                     <MessageInput
                         handleSubmit={handleSubmit}
                         handlePromptChange={handleValueChange}
                         prompt={value}
                         setPrompt={setValue}
-                        // setPrompt={setValue}
                         fromChatBot={false}
                     />
                 </div>

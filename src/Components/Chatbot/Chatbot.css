@@ -90,4 +90,10 @@
     padding: 3px !important;
 }
 
+.to-delete button {
+    display: none;
+}
 
+.to-delete:hover button {
+    display: flex;
+}
