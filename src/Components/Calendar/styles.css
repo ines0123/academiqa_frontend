@@ -9,6 +9,10 @@
     border: none !important;
 }
 
+.e-appointment:focus{
+    box-shadow: none !important;
+}
+
 .e-appointment:hover {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.07);
 
