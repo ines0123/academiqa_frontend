@@ -52,8 +52,8 @@ const OldDiscussions = ({onDiscussionSelect, discussions,getDiscussions}) => {
             <div className="container px-1 old-ones d-flex justify-content-md-start justify-content-center">
                 <Scrollbar thumbColor={"#692E5F"} trackColor={"#D1C4D8"} maxHeight={`${isMediumScreen ? '65px' : '200px'}`}>
                         {discussions?.map((discussion, index) => (
-                            <div className="to-delete d-flex justify-content-between">
-                                <div key={index} className="old-discussion m-1 mt-2 d-flex justify-content-start"
+                            <div key={index} className="to-delete d-flex justify-content-between">
+                                <div  className="old-discussion m-1 mt-2 d-flex justify-content-start"
                                      onClick={() => handleDiscussionClick(discussion.id)}>
                                     <img src={Discussion} alt={"discussion"} width={15} height={15}/>
                                     <p className="mb-0 ms-1">
@@ -62,11 +62,11 @@ const OldDiscussions = ({onDiscussionSelect, discussions,getDiscussions}) => {
                                     </p>
 
                                 </div>
-                                <button className="file-delete-button container max-w-4 "
+                                <div className="file-delete-button container max-w-4 "
                                     onClick={() => handleDelete(discussion.id)}
                                 >
                                     <DeleteButton/>
-                                </button>
+                                </div>
                             </div>
 
                         )).reverse()}

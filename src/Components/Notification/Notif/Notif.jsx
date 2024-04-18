@@ -16,7 +16,7 @@ const Notif = ({notification}) => {
     //yellow => new announcement red => admin Absences Limits, green => content added,blue => new msg, pink => marked absent
     const colors = ['#fdcdc9', '#f2f9f0', '#f5faf9', '#fbf2ef','#fbf4ea'];
     return (
-        <div className="notif d-flex align-items-center" style={{backgroundColor: colors[notificationTypes[notification?.type]]}}>
+        <div className="notif d-flex align-items-center" style={{backgroundColor: colors[notificationTypes[notification?.notificationType]]}}>
             <div className="img" style={{ flex: 'none' }}>
                 <img
                     style={{ width: '100%', height: 'auto' }}
