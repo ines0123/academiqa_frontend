@@ -22,14 +22,12 @@ import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
 import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
-import Navbar from './Components/NavBar/Navbar.jsx'
 
 export default function App() {
   return (
     <>
         <Routes>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/navbar" element={<Navbar />}></Route>
           <Route element={<Layout />}>
             <Route element={<RequireAuth allowedRole={['student']} />}>
               <Route path="/student/home" element={<HomeStudent />}></Route>

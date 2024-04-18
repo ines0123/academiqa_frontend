@@ -8,7 +8,7 @@ import {
     ViewsDirective,
     ViewDirective,
   } from "@syncfusion/ej2-react-schedule";
-  import "./styles.css";
+  import "./smallCalendar.css";
   import { useState } from "react"
   
   import { Internationalization } from "@syncfusion/ej2-base";
@@ -20,49 +20,39 @@ import {
   
   const SmallCalendar = ({role, sessions}) => {
     const nav = useNavigate();
+
+
     const instance = new Internationalization();
     const getTimeString = (value) => {
       return instance.formatDate(value, { skeleton: "hm" });
     };
   
-    const eventTemplate = (props) => {
-      return (
-        <div
-          className={`e-appointment ${props.Color}`}
-          onClick={() => { window.location.pathname = `${role}/session/${props.Id}`; }}
-        >
-          <div className="subject">{props.Subject}</div>
-          <div className="time">{getTimeString(props.EndTime)}</div>
-          <div className="time">{Levels.find((level) => level.id == props.LevelId).abbreviation} {Levels.find((level) => level.id == props.LevelId).year} </div>
-        </div>
-      );
-    };
-  
     const eventSettings = {
       dataSource: sessions,
-      template: eventTemplate,
     };
   
     return (
       <div>
         
       <ScheduleComponent
-        width="100%"
-        height="70vh"
-        selectedDate={new Date(2018, 1, 15)}
+        // width="100%"
+        height="340px"
+        style={{borderRadius: '30px'}}
+        selectedDate={new Date(2018, 1, 14)}
         eventSettings={eventSettings}
         readOnly={true}
         popupOpen={(args) => {
           args.cancel = true;
         }}
         showQuickInfo={false}
-        
-        
+        showHeaderBar={false}
+        // rowAutoHeight={true}
       >
         <ViewsDirective>
-          <ViewDirective option="Day" />
-          <ViewDirective option="Week" startHour="05:00" endHour="23:00" />
-          <ViewDirective option="WorkWeek" startHour="08:00" endHour="18:00" isSelected={true}/>
+
+          {/* <ViewDirective option="WorkWeek" startHour="08:00" endHour="18:00" isSelected={true}/> */}
+          <ViewDirective option='Day' interval={3} displayName='3 Days'startHour="08:00" endHour="18:00" isSelected={true} />
+
         </ViewsDirective>
         <Inject services={[Day, Week, WorkWeek, Month]} />
       </ScheduleComponent>

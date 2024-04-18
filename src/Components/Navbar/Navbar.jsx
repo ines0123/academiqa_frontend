@@ -5,6 +5,9 @@ import MidNavbar from "../MidNavbar/MidNavbar";
 
 import "../Navbar/Navbar.css";
 import EmptyNavbar from "./EmptyNavbar";
+import FirstCalendar from "../Calendar/FirstCalendar";
+import SmallCalendar from "../Calendar/SmallCalendar";
+import { Sessions } from "../../data/sessionsData";
 
 const Navbar = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -40,7 +43,11 @@ const Navbar = () => {
                 My Profile
               </Link>
             </div>
-            <div className="calendar">Calendar</div>
+            <div className="calendar">
+              <SmallCalendar sessions={Sessions.filter((session) => session.LevelId === 1
+              )
+              } role="student" />
+            </div>
             <div className="calendardiv">
               <Link to="/calendar" className="calendarButton">
                 My Calendar
