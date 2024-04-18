@@ -1,6 +1,6 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
 @font-face {
   font-family: "Inter";
@@ -15,4 +15,10 @@
 @font-face {
   font-family: "Istok Web Bold";
   src: url(./assets/font/IstokWeb-Bold.ttf);
+}
+
+* {
+  color: #242424 ;
+  font-family: "Istok Web Regular";
+  line-height: 1.4em;
 }

@@ -15,7 +15,7 @@ export const links = [
     },
     {
         name: "My Courses",
-        path: "student/courses",
+        path: "/student/courses",
         icon: faBookOpenReader,
         role: 'student'
     },
@@ -23,7 +23,7 @@ export const links = [
       name: "My Courses",
         path: "teacher/courses",
         icon: faBookOpenReader,
-        role: 'teacher' 
+        role: 'teacher'
     },
     {
         name: "My Messages",
@@ -34,7 +34,7 @@ export const links = [
     },
     {
         name: "My Notes",
-        path: "student/notes",
+        path: "/student/notes",
         icon: faNoteSticky,
         role: 'student'
     },
@@ -62,6 +62,6 @@ export const links = [
         icon: "",
         image: "../../public/BotIcon.png",
         role: 'student'
-    },
+    }
 
 ]

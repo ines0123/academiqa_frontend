@@ -33,7 +33,7 @@ const FirstCalendar = ({role, sessions}) => {
       >
         <div className="subject">{props.Subject}</div>
         <div className="time">{getTimeString(props.EndTime)}</div>
-        <div className="time">{Levels.find((level) => level.id == props.LevelId).abbreviation} {Levels.find((level) => level.id == props.LevelId).year} </div>
+        <div className="time">{Levels.find((level) => level.id === props.LevelId).abbreviation} {Levels.find((level) => level.id === props.LevelId).year} </div>
       </div>
     );
   };

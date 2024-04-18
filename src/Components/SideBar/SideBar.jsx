@@ -6,19 +6,30 @@ import { useContext, useEffect, useState } from 'react'
 import { WindowSize } from '../../Context/WindowContext'
 import { links } from './NavLink'
 import './bars.css'
-import BotIcon from '../../Assets/SideBar/BotIcon.png'
-import BigLogo from '../../Assets/SideBar/Logo.png'
-import SmallLogo from '../../Assets/SideBar/SmallLogo.png'
-import Chatbot from '../../Assets/SideBar/Chatbot.png'
+import BotIcon from '../../assets/SideBar/BotIcon.png'
+import BigLogo from '../../assets/SideBar/academIQa.png'
+import SmallLogo from '../../assets/SideBar/SmallLogo.png'
+import Chatbot from '../../assets/SideBar/Chatbot.png'
+import CoursesRecommender from "../CoursesRecommender/CoursesRecommender.jsx";
+import ChatbotDiscussion from "../Chatbot/Chatbot.jsx"
 
 
 
 export default function SideBar({role}) {
   const menu = useContext(Menu);
   const isOpen = menu.isOpen;
+  const [recommend, setRecommend] = useState(false);
+  const [chatbot, setChatbot] = useState(false);
+  const SeeMoreCourses =(e) =>{
+    e.preventDefault();
+    setRecommend(true);
+  }
+  const SeeChatbot =() =>{
+    setChatbot(true);
+  }
 
   const windowContext = useContext(WindowSize);
-  console.log(windowContext.windowSize);
+  // console.log(windowContext.windowSize);
 
   function handleClick() {
     if (!menu.isOpen) {
@@ -42,15 +53,15 @@ export default function SideBar({role}) {
 
       <div
         className=" side-bar pt-3"
-        onClick={handleClick}
+        // onClick={handleClick}
         style={{
           width: isOpen ? (windowContext.windowSize < "768" ? "245px" :"350px") : "185px",
-          zIndex: (windowContext.windowSize < "768" && isOpen) ? '101' : '99',
+          zIndex: (windowContext.windowSize < "768" && isOpen) ? '99' : '0',
           transition: (windowContext.windowSize < "768" ) ? "all 0.1s" : "all 0.5s",
       }}>
 
         {/* Logo */}
-        <img src={isOpen ? BigLogo : SmallLogo} alt="Logo" className={isOpen ? 'sidebar-logo-large' : 'sidebar-logo-small'}/>
+        <img src={isOpen ? BigLogo : SmallLogo} alt="Logo" className={isOpen ? 'sidebar-logo-large' : 'sidebar-logo-small'} style={{position: 'fixed'}}/>
 
         {/* Bar Content */}
         <div style={{position: 'fixed', top: '150px'}}>
@@ -66,45 +77,64 @@ export default function SideBar({role}) {
             }}
           />
 
-          {/* Links */}
-          {links.filter(link => link.role.includes(role)).map((link, key) => {
-            return (        
-                //Buttons 
-                <NavLink
-                  to={link.path}
-                  className="d-flex align-items-center gap-2 side-bar-link"
-                  style={{ padding: !menu.isOpen ?  "10px 45px" : "10px 20px"}}
-                  key={key}
-                >
-                  {/* Recommend Courses Icon */}
-                  {link.icon? (
-                  <FontAwesomeIcon icon={link.icon} className= {link.className?link.className:'sidebar-icon-button'}  />):(
-                    <img src={BotIcon} alt={link.name} className='sidebar-recommend-icon' />                  
-                  )}
-                  
-                  {/*  Text */}
-                  <p
-                    style={{
-                      display: isOpen ? "block" : "none",
-                      margin: "0",
-                    }}
-                  >
-                    {link.name}
-                  </p>
-                </NavLink>
-              )
-            // );
-          })}
-        </div>
-        <div className='sidebar-chatbot-div'>
-          <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '130px'}} />
-          <p className='sidebar-chatbot-text'>AI help ?</p>
-        </div>
+              {/* Links */}
+              {links.filter(link => link.role.includes(role)).map((link, key) => {
+                  return (
+                      //Buttons
+                      <NavLink
+                          to={link.path}
+                          onClick={!link.icon && SeeMoreCourses}
+                          className={`d-flex align-items-center gap-2 side-bar-link `}
+                          style={{ padding: !menu.isOpen ?  "10px 38px" : "10px 20px"}}
+                          key={key}
+                      >
+                          {/* Recommend Courses Icon */}
+                          {link.icon? (
+                              <FontAwesomeIcon icon={link.icon} className= {link.className?link.className:'sidebar-icon-button'}  />):(
+                              <img src={BotIcon} alt={link.name} className='sidebar-recommend-icon' />
+                          )}
+
+                          {/*  Text */}
+                          <p
+                              style={{
+                                  display: isOpen ? "block" : "none",
+                                  // margin: "0 7px",
+                                  left: "62px",
+                                  position:"fixed"
+
+                              }}
+                          >
+                              {link.name}
+                          </p>
+                      </NavLink>
+                  )
+                  // );
+              })}
+              {/*<div onClick={SeeMoreCourses}*/}
+              {/*     className="side-bar-link d-flex gap-1 justify-content-center align-items-center cursor-pointer">*/}
+              {/*    <img src={BotIcon} alt={"See More Courses"} className='sidebar-recommend-icon' />*/}
+              {/*    <p*/}
+              {/*        className="recommend-text"*/}
+              {/*        style={{*/}
+              {/*            marginLeft: isOpen ? "block" : "none",*/}
+              {/*            margin: "0",*/}
+              {/*        }}*/}
+              {/*    >*/}
+              {/*        See More Courses*/}
+              {/*    </p>*/}
+              {/*</div>*/}
+              <CoursesRecommender isOpen={recommend} setIsOpen={setRecommend}/>
+          </div>
+          <div onClick={SeeChatbot} className='sidebar-chatbot-div cursor-pointer'>
+              <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '115px'}}/>
+              <p className='sidebar-chatbot-text mt-3 ms-2'>AI help?</p>
+          </div>
+          <ChatbotDiscussion isOpen={chatbot} setIsOpen={setChatbot} />
       </div>
       {
             windowContext.windowSize < "768" && isOpen && (
                 <div
-                style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: '100' }}
+                style={{zIndex:'1', position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}
                 onClick={() => menu.setIsOpen(false)}
                 ></div>
             )
