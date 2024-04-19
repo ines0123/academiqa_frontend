@@ -1,5 +1,4 @@
 .e-appointment {
-    /* margin-left: -3%; */
     border-radius: 10px !important;
     background: #dff3de8f !important;
     color: rgba(0, 0, 0, 0.721) !important;
@@ -7,8 +6,11 @@
     font-weight: 500;
     width: 98% !important;
     height: 99%;
-
     border: none !important;
+}
+
+.e-appointment:focus{
+    box-shadow: none !important;
 }
 
 .e-appointment:hover {

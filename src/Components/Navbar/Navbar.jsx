@@ -1,13 +1,22 @@
 import teacherPhoto from "../../assets/images/Sellaouti.jpg";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MidNavbar from "../MidNavbar/MidNavbar";
 
 import "../Navbar/Navbar.css";
 import EmptyNavbar from "./EmptyNavbar";
+import FirstCalendar from "../Calendar/FirstCalendar";
+import SmallCalendar from "../Calendar/SmallCalendar";
+import { Sessions } from "../../data/sessionsData";
 
 const Navbar = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const nav = useNavigate();
+
+  let role ='';
+  if (window.location.pathname.includes("student")) { role = "student"; }
+  if (window.location.pathname.includes("teacher")) {  role = "teacher"; }
+  if (window.location.pathname.includes("admin")) {  role = "admin"; }
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,7 +49,10 @@ const Navbar = () => {
                 My Profile
               </Link>
             </div>
-            <div className="calendar">Calendar</div>
+            <div title='go to calendar' className="calendar" onClick={() => nav(`/${role}/calendar`)}>
+              <SmallCalendar sessions={Sessions.filter((session) => session.LevelId === 1)
+              } role={role} />
+            </div>
             <div className="calendardiv">
               <Link to="/calendar" className="calendarButton">
                 My Calendar
