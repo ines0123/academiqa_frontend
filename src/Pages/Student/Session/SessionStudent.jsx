@@ -79,11 +79,11 @@ export default function SessionStudent() {
                             <h1 className="ms-2 fw-bold">Developpement Web</h1>
                         </div>
                         <div className="ms-3 d-flex flex-column justify-content-center">
-                            <div className="date mb-2">
-                                {date}
-                            </div>
                             <div className="num-session">
                                 Session n° 1
+                            </div>
+                            <div className="date mb-2">
+                                Date: {date}
                             </div>
                         </div>
                     </div>) :

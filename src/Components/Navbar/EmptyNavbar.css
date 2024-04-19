@@ -125,3 +125,18 @@
     height: max-content;
   }
 } */
+
+
+.notification-dot {
+  width: 17px;
+  height: 17px;
+  background-color: #e73737;
+  border-radius: 50%;
+  position: absolute;
+  top: 32%;
+  right: 25%;
+  transform: translate(50%, -50%);
+  /*display: none;*/
+  color: white;
+  font-size: 0.8rem;
+}

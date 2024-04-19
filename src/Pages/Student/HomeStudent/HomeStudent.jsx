@@ -10,6 +10,17 @@ import notesData from "../Notes/noteData.json";
 import Note from "../../../Components/Note/Note.jsx";
 export default function HomeStudent() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [courses, setCourses] = useState([]);
+    useEffect(()=>{
+        axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
+            (response) => {
+                console.log('courses',response.data);
+                setCourses(response.data.slice(0,3));
+            }).catch((err) => {
+                console.log(err);
+            }
+        )
+    },[])
 
     useEffect(() => {
         const handleResize = () => {
@@ -24,7 +35,6 @@ export default function HomeStudent() {
         };
     }, []);
     const date = useDate();
-    const [courses, setCourses] = useState([]);
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const NoteColors = [
         "192, 222, 189", // green
@@ -38,17 +48,7 @@ export default function HomeStudent() {
     ];
     const menu = useContext(Menu);
 
-    useEffect(()=>{
-        axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
-            (response) => {
-                console.log(response.data);
-                setCourses(response.data.slice(0, 3));
-            }).catch((err) => {
-                console.log(err);
-            }
-        )
 
-    },[])
 
 
     return (

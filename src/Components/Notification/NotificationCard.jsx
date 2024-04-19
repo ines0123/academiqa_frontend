@@ -7,7 +7,7 @@ import {useNotification} from "../../Context/NotificationContext.jsx";
 
 const NotificationCard = () => {
     const [notifications, setNotifications] = useState([]);
-    const {isVisible, setIsVisible,toggleVisibility} = useNotification();
+    const {isVisible, setIsVisible,toggleVisibility,setNotifCount} = useNotification();
     const notificationCardRef = useRef(null);
     const socket = useSocket();
     const getNotifications = () => {
@@ -65,6 +65,11 @@ const NotificationCard = () => {
 
     const notifyListener = (notif) => {
         setNotifications(prevMessages => [...prevMessages, notif]);
+        setNotifCount(prevCount => {
+            const newCount = prevCount + 1;
+            localStorage.setItem("notifCount", newCount);
+            return newCount;
+        });
     }
     useEffect(()=> {
         socket?.on('notify', notifyListener);

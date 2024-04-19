@@ -13,7 +13,7 @@ const Course = ({maxWidth,course,color,placement}) => {
                 <div className="card-content d-flex flex-column justify-content-evenly">
                     <div className="card-top">
                         <h3 className="card-title m-0  fw-bold">{course?.name}</h3>
-                        {type === 'course' ? (<h6 className="m-0 font-bold">{course?.class}</h6>) : null}
+                        {type === 'course' ? (<h6 className="m-0 font-bold">{course?.sectorLevel}</h6>) : null}
                     </div>
                     <div className="card-bottom d-flex justify-content-between align-items-center">
                         <h6 className="prof ps-1 font-semibold mt-2">{course?.teacher}</h6>

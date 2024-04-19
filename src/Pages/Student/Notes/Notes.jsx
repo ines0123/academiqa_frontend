@@ -103,7 +103,7 @@ export default function Notes() {
       <MidNavbar />
       <div className="date ms-3">{date}</div>
       <div
-        className={`my-notes d-flex mt-4 ms-3 p-3 ${
+        className={`my-notes d-flex mt-3 ms-3 p-3 ${
           isSmallScreen ? "more-margin" : ""
         }`}
       >

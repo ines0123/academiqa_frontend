@@ -39,9 +39,9 @@ export default function Courses() {
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const [courses, setCourses] = useState([]);
     useEffect(()=>{
-            axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
+            axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
                 (response) => {
-                    console.log(response.data);
+                    console.log('courses',response.data);
                     setCourses(response.data);
                 }).catch((err) => {
                     console.log(err);
@@ -55,7 +55,7 @@ export default function Courses() {
             <div className="date ms-3">
                 {date}
             </div>
-            <div className={`my-courses d-flex mt-4 p-3 ms-3 ${isSmallScreen ? 'more-margin':''}`}>
+            <div className={`my-courses d-flex mt-3 p-3 ms-3 ${isSmallScreen ? 'more-margin':''}`}>
                 <div className="courses-icon">
                     <FaBookOpenReader size={35} />
                 </div>
@@ -63,7 +63,7 @@ export default function Courses() {
             </div>
             <div className="container all-courses mt-4">
                 <div className="row d-flex justify-content-center">
-                    {courses.map((course, index) => (
+                    {courses && courses.map((course, index) => (
                         <React.Fragment key={index}>
                             {index % modulo === 0 && index !== 0 &&
                                 <>

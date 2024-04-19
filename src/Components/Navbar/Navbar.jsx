@@ -1,4 +1,4 @@
-import teacherPhoto from "../../assets/images/sellaouti.svg";
+import teacherPhoto from "../../assets/images/Sellaouti.jpg";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MidNavbar from "../MidNavbar/MidNavbar";
@@ -35,7 +35,7 @@ const Navbar = () => {
           <EmptyNavbar width={'22rem'}>
             <div className="profileNav">
               <img src={teacherPhoto} alt="teacher" className="profilePhoto" />
-              <div className="accountName">Aymen Sellaouti</div>
+              <div className="accountName">Mohamed Aziz mansour elloumi</div>
               <Link to="/profile" className="nameButton">
                 My Profile
               </Link>

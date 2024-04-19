@@ -22,6 +22,7 @@ import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
 import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
+import LoadingComponent from "./Components/Preloader/Preloader.jsx";
 
 export default function App() {
   return (
@@ -57,6 +58,8 @@ export default function App() {
             </Route>
           </Route>
         </Routes>
+
+      {/*<LoadingComponent />*/}
     </>
   );
 }
