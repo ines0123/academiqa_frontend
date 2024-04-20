@@ -7,10 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
 import { groups } from "../../data/LevelsData.jsx";
-
+import AdminCalendar from "../../Components/Calendar/AdminCalendar.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function TeacherCalendar() {
     const {id} = useParams();
+    const nav=useNavigate();
     const teacher ={
         Id: 2,
         Name: "Sellaouti"
@@ -48,7 +50,7 @@ export default function TeacherCalendar() {
                 <h1 className="fs-2 ms-2 fw-bold" style={{marginBottom:"0" }}>Teacher Calendar</h1>
             </div>            <select name="level" id="level" className="form-select"
              onChange={(e) => {
-                window.location.pathname = `teacher/calendar/${e.target.value}`;
+                nav(`/teacher/calendar/${e.target.value}`);
 
             }
             }>
@@ -59,7 +61,7 @@ export default function TeacherCalendar() {
                     <option value={level.id} selected={id == level.id}>{level.abbreviation}</option>
                 ))}
             </select>
-        <FirstCalendar role="teacher" sessions={data}/>
+        <AdminCalendar role="teacher" sessions={data}/>
         </div>
     <MidNavbar/>
     </div>

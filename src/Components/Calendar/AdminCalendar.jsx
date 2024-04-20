@@ -14,21 +14,28 @@ import {
   import { useNavigate } from "react-router-dom";
   import { registerLicense } from '@syncfusion/ej2-base';
   import '../../Components/Calendar/styles.css'
+  import { groups } from "../../data/LevelsData";
   
   registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
   
   
-  const AdminCalendar = ({sessions}) => {
+  const AdminCalendar = ({role, sessions}) => {
     const nav = useNavigate();
     const instance = new Internationalization();
     const getTimeString = (value) => {
       return instance.formatDate(value, { skeleton: "hm" });
     };
+
+    const popupOpen = (args) => {
+      if (role === "teacher") {args.cancel = true;}}
   
     const eventSettings = {
-      dataSource: sessions
-
-    //   template: eventTemplate,
+      dataSource: sessions,
+      fields: {
+        id: 'Id',
+        subject: { name: 'Subject' },
+        location: { name: 'type' },
+      }
     };
   
     return (
@@ -40,6 +47,9 @@ import {
         eventSettings={eventSettings}
         allowDragAndDrop={true}
         allowResizing={true}
+        popupOpen={(args) => {
+          popupOpen(args);
+        }}
         actionComplete={(args) => {
           if (args.requestType === "eventChanged") {
             console.log(args.data);
