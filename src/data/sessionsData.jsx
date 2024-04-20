@@ -1,51 +1,77 @@
 export const Sessions = [
-  // LevelId : 2 : génie logiciel 3eme année
+  // LevelId: 3 : génie logiciel 3eme année groupe 1
+    // LevelId: [4] : génie logiciel 3eme année groupe 2
   {
     Id: 1,
     Subject: "analyse numerique",
     SubjectId: 0,
+    type: "cours",
     StartTime: new Date(2018, 1, 15, 10, 0),
     EndTime: new Date(2018, 1, 15, 11, 0),
     Color: "green",
-    LevelId: 2,
+    LevelId: [3, 4]
   },
   {
     Id: 2,
     Subject: "nest js",
     SubjectId: 1,
+    type: "cours",
     StartTime: new Date(2018, 1, 15, 11, 0),
     EndTime: new Date(2018, 1, 15, 12, 0),
     Color: "blue",
-    LevelId: 2,
+    LevelId: [3, 4]
   },
   {
     Id: 3,
     Subject: "react js",
     SubjectId: 2,
+    type: "TP",
     StartTime: new Date(2018, 1, 15, 12, 0),
     EndTime: new Date(2018, 1, 15, 13, 0),
     Color: "beige",
-    LevelId: 2,
+    LevelId: [3]
+  },
+  {
+    Id: 17,
+    Subject: "react js",
+    SubjectId: 2,
+    type: "TP",
+    StartTime: new Date(2018, 1, 14, 12, 0),
+    EndTime: new Date(2018, 1, 14, 13, 0),
+    Color: "beige",
+    LevelId: [4],
   },
   {
     Id: 4,
     Subject: "marketing",
     SubjectId: 3,
+    type: "CI",
     StartTime: new Date(2018, 1, 15, 14, 0),
     EndTime: new Date(2018, 1, 15, 15, 0),
     Color:"green",
-    LevelId: 2,
+    LevelId: [3]
+  },
+  {
+    Id: 4,
+    Subject: "marketing",
+    SubjectId: 3,
+    type: "CI",
+    StartTime: new Date(2018, 1, 14, 14, 0),
+    EndTime: new Date(2018, 1, 14, 15, 0),
+    Color:"green",
+    LevelId: [4],
   },
   {
     Id: 7,
     Subject: "angular",
     SubjectId: 4,
-    StartTime: new Date(2018, 1, 14, 12, 0),
-    EndTime: new Date(2018, 1, 14, 13, 0),
+    StartTime: new Date(2018, 1, 13, 12, 0),
+    EndTime: new Date(2018, 1, 13, 13, 0),
     Color: "green",
-    LevelId: 2,
+    LevelId: [3],
   },
-  // LevelId = 1: Génie logiciel 2ème année:
+
+  // LevelId = 1: Génie logiciel 2ème année groupe 1
   {
     Id: 8,
     Subject: "symfony",
@@ -53,7 +79,7 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 15, 10, 0),
     EndTime: new Date(2018, 1, 15, 11, 0),
     Color: "blue",
-    LevelId: 1, 
+    LevelId: [1], 
   },
   {
     Id: 10,
@@ -62,7 +88,7 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 15, 11, 0),
     EndTime: new Date(2018, 1, 15, 12, 0),
     Color: "beige",
-    LevelId: 1,
+    LevelId: [1],
   },
   {
     Id: 11,
@@ -71,7 +97,7 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 15, 12, 0),
     EndTime: new Date(2018, 1, 15, 13, 0),
     Color: "blue",
-    LevelId: 1,
+    LevelId: [1],
   },
   {
     Id: 9,
@@ -80,7 +106,7 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 15, 14, 0),
     EndTime: new Date(2018, 1, 15, 15, 0),
     Color: "green",
-    LevelId: 1,
+    LevelId: [1],
   },
 
   {
@@ -90,7 +116,7 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 14, 10, 0),
     EndTime: new Date(2018, 1, 14, 11, 0),
     Color: "green",
-    LevelId: 1,
+    LevelId: [1],
   },
   {
     Id: 13,
@@ -99,7 +125,7 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 14, 11, 0),
     EndTime: new Date(2018, 1, 14, 12, 0),
     Color: "beige",
-    LevelId: 1,
+    LevelId: [1],
   },
   {
     Id: 14,
@@ -108,7 +134,7 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 14, 14, 0),
     EndTime: new Date(2018, 1, 14, 15, 0),
     Color: "blue",
-    LevelId: 1,
+    LevelId: [1],
   },
   {
     Id: 16,
@@ -117,10 +143,57 @@ export const Sessions = [
     StartTime: new Date(2018, 1, 14, 15, 0),
     EndTime: new Date(2018, 1, 14, 16, 0),
     Color: "beige",
-    LevelId: 1,
-  }
-];
+    LevelId: [1],
+  },
 
+// levelID: 25 : MPI amphi 1 groupe 1: (1ere année): subjectId: 14, 15, 16, 17, 18
+  {
+    Id: 18,
+    Subject: "math",
+    SubjectId: 14,
+    StartTime: new Date(2018, 1, 15, 10, 0),
+    EndTime: new Date(2018, 1, 15, 11, 0),
+    Color: "green",
+    LevelId: [25],
+  },
+  {
+    Id: 19,
+    Subject: "algo",
+    SubjectId: 15,
+    StartTime: new Date(2018, 1, 15, 11, 0),
+    EndTime: new Date(2018, 1, 15, 12, 0),
+    Color: "blue",
+    LevelId: [25],
+  },
+  {
+    Id: 20,
+    Subject: "phy",
+    SubjectId: 16,
+    StartTime: new Date(2018, 1, 15, 12, 0),
+    EndTime: new Date(2018, 1, 15, 13, 0),
+    Color: "beige",
+    LevelId: [25],
+  },
+  {
+    Id: 21,
+    Subject: "eng",
+    SubjectId: 17,
+    StartTime: new Date(2018, 1, 15, 14, 0),
+    EndTime: new Date(2018, 1, 15, 15, 0),
+    Color: "green",
+    LevelId: [25],
+  },
+  {
+    Id: 22,
+    Subject: "french",
+    SubjectId: 18,
+    StartTime: new Date(2018, 1, 15, 15, 0),
+    EndTime: new Date(2018, 1, 15, 16, 0),
+    Color: "blue",
+    LevelId: [25],
+  },
+
+];
 
 
 

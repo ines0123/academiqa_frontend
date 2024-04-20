@@ -14,7 +14,7 @@ import { useState } from "react"
 import { Internationalization } from "@syncfusion/ej2-base";
 import { useNavigate } from "react-router-dom";
 import { registerLicense } from '@syncfusion/ej2-base';
-import {Levels} from '../../data/LevelsData';
+import {groups} from '../../data/LevelsData';
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
 
 
@@ -31,9 +31,9 @@ const FirstCalendar = ({role, sessions}) => {
         className={`e-appointment ${props.Color}`}
         onClick={() => { window.location.pathname = `${role}/session/${props.Id}`; }}
       >
-        <div className="subject">{props.Subject}</div>
+        <div className="subject">{props.Subject}: {props.type}</div>
         <div className="time">{getTimeString(props.EndTime)}</div>
-        <div className="time">{Levels.find((level) => level.id === props.LevelId).abbreviation} {Levels.find((level) => level.id === props.LevelId).year} </div>
+        <div className="time">{groups.find((level) => props.LevelId.includes(level.id)).abbreviation} </div>
       </div>
     );
   };
