@@ -44,23 +44,17 @@ export default function ProfileStudent() {
             };
         }, []);
     return (
-        <div className="container profile-student-page pt-3">
+        <div className="container profile-student-page pt-3 pe-4">
             <MiniNavbar/>
             <div className={`date ms-3 ${screenWidth < 410 ? 'mt-5':''}`}>
                 {date}
             </div>
-            <div className={`profile-student d-flex mt-4 p-3 ms-3 ${isSmallScreen ? 'more-margin' : ''}`}>
-                <div className="courses-icon pt-1">
-                    <FaUser size={30}/>
-                </div>
-                <h1 className="ms-2 fw-bold">Profile</h1>
-            </div>
-            <div className="container mt-4">
-                <div className="row d-flex justify-content-sm-center justify-content-md-start">
+            <div className="container " style={{marginTop:'38px'}}>
+                <div className={`row d-flex justify-content-sm-center justify-content-md-start ${isSmallScreen ? 'more-margin' : ''}`}>
                     <div className="col-xl-4 col-lg-5 col-md-6 profile d-flex justify-content-sm-center justify-content-md-start">
                         <Profile role={"student"}/>
                     </div>
-                    {courses.length > 0 ?(<div className="absence d-flex col-xl-8 col-lg-7 col-md-6 row p-1 pt-3 ">
+                    {courses.length > 0 ?(<div className="absence d-flex col-xl-8 col-lg-7 col-md-6 row p-1 pt-3 mb-3 rounded-2xl">
                         {courses.map((course, index) => (
                             <div key={index}
                                  className="col-xl-4 col-lg-6 col-md-12 col-sm-6 d-flex mb-2 mt-2 flex-column justify-content-center align-items-center">
@@ -69,7 +63,7 @@ export default function ProfileStudent() {
                         ))}
                     </div>):
                         (
-                            <div className="col-lg-8 col-md-7 d-flex align-items-center justify-content-center">
+                            <div className="absence col-lg-8 col-md-7 d-flex align-items-center justify-content-center mb-3 rounded-2xl">
                                 <img src={NoAbsence} alt={"NoAbsence"} className="no-absence"
                                      style={{width: '17%', height: 'auto', opacity: '0.7'}}/>
                             </div>

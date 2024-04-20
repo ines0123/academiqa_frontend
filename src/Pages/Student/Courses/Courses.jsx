@@ -7,7 +7,7 @@ import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 import NotificationCard from "../../../Components/Notification/NotificationCard.jsx";
 import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
-export default function Courses() {
+export default function Courses({courses}) {
     const date = useDate();
     const[modulo, setModulo] = useState(4);
     useEffect(() => {
@@ -37,18 +37,7 @@ export default function Courses() {
 
 
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
-    const [courses, setCourses] = useState([]);
-    useEffect(()=>{
-            axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
-                (response) => {
-                    console.log('courses',response.data);
-                    setCourses(response.data);
-                }).catch((err) => {
-                    console.log(err);
-                }
-            )
 
-    },[])
     return (
         <div className="container courses-page pt-3">
             <MidNavbar/>

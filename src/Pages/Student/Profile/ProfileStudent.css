@@ -12,9 +12,17 @@
 }
 
 .profile-student-page .absence {
-    height: fit-content;
+    /*height: fit-content;*/
 }
 .profile-student-page .profile {
     padding-left: 20px;
     margin-bottom: 20px;
+}
+.profile-student-page .more-margin {
+    margin-top: 40px;
+}
+.absence {
+    min-height: 100% ;
+    background-color: #F0EDF2;
+    box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.15);
 }

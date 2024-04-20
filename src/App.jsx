@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import {
   Route,
@@ -23,16 +23,29 @@ import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
 import LoadingComponent from "./Components/Preloader/Preloader.jsx";
+import axios from "axios";
 
 export default function App() {
+  const [courses, setCourses] = useState([]);
+  useEffect(()=>{
+    axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
+        (response) => {
+          console.log('courses',response.data);
+          setCourses(response.data);
+        }).catch((err) => {
+          console.log(err);
+        }
+    )
+
+  },[])
   return (
     <>
         <Routes>
           <Route path="/login" element={<Login />}></Route>
           <Route element={<Layout />}>
             <Route element={<RequireAuth allowedRole={['student']} />}>
-              <Route path="/student/home" element={<HomeStudent />}></Route>
-              <Route path="student/courses" element={<Courses />}></Route>
+              <Route path="/student/home" element={<HomeStudent courses={courses?.slice(0,3)}/>}></Route>
+              <Route path="student/courses" element={<Courses courses={courses} />}></Route>
               <Route path="student/notes" element={<Notes />}></Route>
               <Route path="student/profile" element={<ProfileStudent />}></Route>
               <Route path="student/session/:id" element={<SessionStudent />}></Route>

@@ -67,12 +67,7 @@ const LoadingComponent = () => {
                 </div>
             </div>
             <div className="container content-after-loading">
-                <h1
-                    id="welcome"
-                    className=""
-                >
-                    Welcome.
-                </h1>
+                {/*content*/}
             </div>
         </div>
     )

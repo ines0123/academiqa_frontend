@@ -12,7 +12,7 @@ const MidNavbar = ({ children }) => {
         {/* <Link to={`/${role}/profile`} className="profileMid"> */}
         <Link to="/student/profile" className="profileMid">
           <img src={teacherPhoto} alt="teacher" className="profilePhotoMid" />
-          <div className="accountNameMid">Aymen Sellaouti</div>
+          <div className="accountNameMid">Mohamed Aziz mansour Elloumin</div>
         </Link>
         {children}
         <button className="BellbuttonMid" onClick={toggleVisibility}>

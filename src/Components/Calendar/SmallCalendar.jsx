@@ -36,7 +36,7 @@ import {
         
       <ScheduleComponent
         // width="100%"
-        height="340px"
+        height="320px"
         style={{borderRadius: '30px'}}
         selectedDate={new Date(2018, 1, 14)}
         eventSettings={eventSettings}

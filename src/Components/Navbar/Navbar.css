@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  height: 20rem;
+  height: 19rem;
 }
 
 .profilePhoto {
@@ -159,27 +159,27 @@
   }
 }
 
-@media (max-width: 700px) {
-  .profileNav {
-    height: 15rem;
-  }
+/*@media (max-width: 700px) {*/
+/*  .profileNav {*/
+/*    height: 15rem;*/
+/*  }*/
 
-  .profilePhoto {
-    margin-top: 1rem;
-    width: 80px;
-    height: 80px;
-  }
+/*  .profilePhoto {*/
+/*    margin-top: 1rem;*/
+/*    width: 80px;*/
+/*    height: 80px;*/
+/*  }*/
 
-  .accountName {
-    font-size: 1.2rem;
-    margin: 0.3rem 0.3rem;
-    margin-top: 0.5rem;
-  }
+/*  .accountName {*/
+/*    font-size: 1.2rem;*/
+/*    margin: 0.3rem 0.3rem;*/
+/*    margin-top: 0.5rem;*/
+/*  }*/
 
-  .nameButton {
-    margin-top: 2.1rem;
-  }
-}
+/*  .nameButton {*/
+/*    margin-top: 2.1rem;*/
+/*  }*/
+/*}*/
 /* 
 @media (max-width: 600px) {
   .barr {

@@ -60,7 +60,7 @@ export default function HomeTeacher() {
                             <div className="date text-start mb-1 ps-2">
                                 {date}
                             </div>
-                            <div className={`p-0 ${screenWidth<= 600 && screenWidth >520 ? 'mt-5':''}`}>
+                            <div className={`p-0 ${screenWidth<= 760 && screenWidth >520 ? 'mt-5':''}`}>
                                 <div className="Welcoming d-flex flex-column p-3">
                                     <h5 className="fs-5 ms-2 fw-bold">Welcome back, Rym!</h5>
                                     <p className="fs-6 ms-2">Hope you're ready for another awesome day with us!</p>

@@ -3,6 +3,7 @@
     width: 35px;
     height: 35px;
 }
+
 .reply-view span, .message-sender {
     font-size: .8em;
 }
@@ -25,6 +26,11 @@
 .sender-message:hover .delete-msg {
     display: flex;
     align-items: center;
+}
+.message-content {
+    word-break: break-all;
+    white-space: normal;
+
 }
 .message-content.light{
     background-color: #F0EDF2;

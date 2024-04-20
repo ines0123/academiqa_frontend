@@ -1,5 +1,5 @@
 import "./Profile.css";
-import {useState} from "react";
+import React, {useState} from "react";
 import studentImage from "../../assets/images/student-photo.svg";
 import {LiaIdCard} from "react-icons/lia";
 import {TbSchool} from "react-icons/tb";
@@ -8,6 +8,7 @@ import {MdGroups} from "react-icons/md";
 import {GoPencil} from "react-icons/go";
 import {FaChalkboardUser} from "react-icons/fa6";
 import {TbPhotoEdit} from "react-icons/tb";
+import {FaUser} from "react-icons/fa";
 
 const Profile = ({role}) => {
     // use useState
@@ -23,8 +24,14 @@ const Profile = ({role}) => {
         name: "Jane Doe", speciality: "Mathematics Teacher, Data Science ",
     });
 
-    return (<div className="profile-box flex flex-col justify-center p-4 rounded-2xl sm:px-12 md:w-72 lg:w-96">
-            <div className="flex mx-auto">
+    return (<div className="profile-box flex flex-col justify-center p-4 pt-2 rounded-2xl sm:px-12 md:w-72 lg:w-96">
+            <div className={`profile-teacher d-flex mt-4  p-2 px-3 ms-md-3 ms-sm-0 ${ role==="teacher" ? 'mb-5':'mb-2'}`}>
+                <div className="courses-icon pt-1">
+                    <FaUser size={30}/>
+                </div>
+                <h1 className="ms-2 fw-bold">Profile</h1>
+            </div>
+            <div className="flex mx-auto mt-3">
                 <img
                     src={studentImage}
                     alt="photo"

@@ -20,7 +20,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 600);
+      setIsSmallScreen(window.innerWidth < 760);
     };
     handleResize();
 

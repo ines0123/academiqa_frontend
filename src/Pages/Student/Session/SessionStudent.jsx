@@ -72,16 +72,16 @@ export default function SessionStudent() {
         <div className="d-flex student-session-page">
             <div className="session-content flex-grow-1 mt-4 ps-4 pe-4">
                 {screenWidth >= 1030 ? (<div className="d-flex justify-content-between">
-                        <div className="the-course d-flex ms-3 p-3 ">
-                            <div className="courses-icon">
-                                <FaBookOpenReader size={35}/>
+                        <div className="the-course  ms-3 p-2 px-3">
+                            <div className="d-flex">
+                                <div className="courses-icon">
+                                    <FaBookOpenReader size={30}/>
+                                </div>
+                                <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
                             </div>
-                            <h1 className="ms-2 fw-bold">Developpement Web</h1>
+                            <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
                         </div>
-                        <div className="ms-3 d-flex flex-column justify-content-center">
-                            <div className="num-session">
-                                Session n° 1
-                            </div>
+                        <div className="ms-3 mt-2 d-flex flex-column justify-content-start">
                             <div className="date mb-2">
                                 Date: {date}
                             </div>
@@ -92,15 +92,15 @@ export default function SessionStudent() {
                             <div className="date mb-2">
                                 {date}
                             </div>
-                            <div className="num-session">
-                                Session n° 1
-                            </div>
                         </div>
-                        <div className="the-course d-flex ms-3 p-3 ">
-                            <div className="courses-icon">
-                                <FaBookOpenReader size={35}/>
+                        <div className="the-course  ms-3 p-2 ">
+                            <div className="d-flex">
+                                <div className="courses-icon">
+                                    <FaBookOpenReader size={30}/>
+                                </div>
+                                <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
                             </div>
-                            <h1 className="ms-2 fw-bold">Developpement Web</h1>
+                            <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
                         </div>
                     </div>)
                 }
@@ -111,12 +111,12 @@ export default function SessionStudent() {
                     </div>
                     <div
                         className="col-lg-6 ps-2 pe-lg-4 p-sm-0 mt-sm-3 mt-lg-0 ressources d-flex justify-content-center">
-                        <Ressources role={"teacher"}/>
+                    <Ressources role={"teacher"}/>
                     </div>
                 </div>
-                <div className=" notes" style={{marginTop: '20px'}}>
+                <div className=" notes" style={{marginTop: '15px'}}>
                     <div className="add-note mx-5 d-flex align-items-center justify-content-between">
-                        <h3 className="fw-bold mt-1 me-1">My Notes</h3>
+                        <h3 className="fw-bold me-1">My Notes</h3>
                         <div className="div new-note d-flex cursor-pointer" onClick={handleAddNote}>
                             <h3 className="fw-bold fs-6 me-2">Add</h3>
                             <img src={NewNote} alt={"NewNote"} className="new-note "

@@ -10,8 +10,8 @@ const Course = () => {
     const date = useDate();
 
     return (
-        <div className="course-page container-fluid pt-12">
-            <div className="row date pl-10 mb-6">
+        <div className="course-page container-fluid pt-6">
+            <div className="row date pl-10 mb-12">
                 {date}
             </div>
             <MidNavbar/>

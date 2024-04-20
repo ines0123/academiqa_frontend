@@ -28,36 +28,36 @@ export default function SessionTeacher() {
     return (
         <div className="d-flex teacher-session-page">
             <div className="session-content flex-grow-1 mt-4 ps-4 pe-4">
-                {screenWidth>=1030 ? (<div className="d-flex justify-content-between">
-                        <div className="the-course d-flex ms-3 p-3 ">
-                            <div className="courses-icon">
-                                <FaBookOpenReader size={35}/>
+                {screenWidth >= 1030 ? (<div className="d-flex justify-content-between">
+                        <div className="the-course  ms-3 p-2 px-3">
+                            <div className="d-flex">
+                                <div className="courses-icon">
+                                    <FaBookOpenReader size={30}/>
+                                </div>
+                                <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
                             </div>
-                            <h1 className="ms-2 fw-bold">Developpement Web</h1>
+                            <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
                         </div>
-                        <div className="ms-3 d-flex flex-column justify-content-center">
+                        <div className="ms-3 mt-2 d-flex flex-column justify-content-start">
                             <div className="date mb-2">
-                                {date}
-                            </div>
-                            <div className="num-session">
-                                Session n° 1
+                                Date: {date}
                             </div>
                         </div>
-                    </div>):
+                    </div>) :
                     (<div className="">
                         <div className="ms-4 d-flex flex-column justify-content-center">
                             <div className="date mb-2">
                                 {date}
                             </div>
-                            <div className="num-session">
-                                Session n° 1
-                            </div>
                         </div>
-                        <div className="the-course d-flex ms-3 p-3 ">
-                            <div className="courses-icon">
-                                <FaBookOpenReader size={35}/>
+                        <div className="the-course  ms-3 p-2 ">
+                            <div className="d-flex">
+                                <div className="courses-icon">
+                                    <FaBookOpenReader size={30}/>
+                                </div>
+                                <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
                             </div>
-                            <h1 className="ms-2 fw-bold">Developpement Web</h1>
+                            <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
                         </div>
                     </div>)
                 }
