@@ -110,32 +110,32 @@ export default function SideBar({role}) {
                   )
                   // );
               })}
-              {/*<div onClick={SeeMoreCourses}*/}
-              {/*     className="side-bar-link d-flex gap-1 justify-content-center align-items-center cursor-pointer">*/}
-              {/*    <img src={BotIcon} alt={"See More Courses"} className='sidebar-recommend-icon' />*/}
-              {/*    <p*/}
-              {/*        className="recommend-text"*/}
-              {/*        style={{*/}
-              {/*            marginLeft: isOpen ? "block" : "none",*/}
-              {/*            margin: "0",*/}
-              {/*        }}*/}
-              {/*    >*/}
-              {/*        See More Courses*/}
-              {/*    </p>*/}
-              {/*</div>*/}
               <CoursesRecommender isOpen={recommend} setIsOpen={setRecommend}/>
           </div>
-          <div onClick={SeeChatbot} className='sidebar-chatbot-div cursor-pointer'>
-              <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '115px'}}/>
-              <p className='sidebar-chatbot-text mt-3 ms-2'>AI help?</p>
-          </div>
-          <ChatbotDiscussion isOpen={chatbot} setIsOpen={setChatbot} />
+          {role!=="admin" && (
+              <>
+                  <div onClick={SeeChatbot} className='sidebar-chatbot-div cursor-pointer'>
+                      <img src={Chatbot} alt="Chatbot" style={{width: '100px', height: '115px'}}/>
+                      <p className='sidebar-chatbot-text mt-3 ms-2'>AI help?</p>
+                  </div>
+                  <ChatbotDiscussion isOpen={chatbot} setIsOpen={setChatbot}/>
+              </>
+          )
+          }
       </div>
-      {
+        {
             windowContext.windowSize < "768" && isOpen && (
                 <div
-                style={{zIndex:'1', position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}
-                onClick={() => menu.setIsOpen(false)}
+                    style={{
+                        zIndex: '1',
+                        position: 'fixed',
+                        top: '0',
+                        left: '0',
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(0,0,0,0.5)'
+                    }}
+                    onClick={() => menu.setIsOpen(false)}
                 ></div>
             )
             }

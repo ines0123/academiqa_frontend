@@ -36,7 +36,7 @@
     height: 45px;
 }
 
-.link-form button {
+.link-form .end button {
     background-color: #692e5f;
     font-size: 1.1rem;
     letter-spacing: 0.06rem;
@@ -48,13 +48,13 @@
     width: 100%;
 }
 
-.link-form button:hover {
+.link-form .end button:hover {
     letter-spacing: 0.08rem;
     background-color: rgba(105, 46, 95, 90%);
     box-shadow: rgb(105, 46, 95) 0px 1px 5px 0px;
 }
 
-.link-form button:active {
+.link-form .end button:active {
     letter-spacing: 0.1rem;
     background-color: rgba(105, 46, 95, 90%);
     box-shadow: rgb(105, 46, 95) 0px 1px 5px 0px;

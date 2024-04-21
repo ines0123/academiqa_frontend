@@ -33,7 +33,7 @@
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 @media (min-width: 1370px) {

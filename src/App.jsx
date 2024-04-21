@@ -18,13 +18,17 @@ import SessionTeacher from "./Pages/Teacher/Session/SessionTeacher.jsx";
 import Course from "./Pages/Common/Course/Course.jsx";
 import Courses from "./Pages/Student/Courses/Courses.jsx";
 import Layout from './Layouts/Layout.jsx'
-import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
+import CalendarAdmin from './Pages/Admin/Calendar/CalendarAdmin.jsx'
 import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
 import LoadingComponent from "./Components/Preloader/Preloader.jsx";
 import axios from "axios";
-
+import HomeAdmin from "./Pages/Admin/Home/HomeAdmin.jsx";
+import ProfessorsAdmin from "./Pages/Admin/Professor/ProfessorsAdmin.jsx";
+import StudentsAdmin from "./Pages/Admin/Student/StudentsAdmin.jsx";
+import CoursesAdmin from "./Pages/Admin/Course/CoursesAdmin.jsx";
+import Profile from "./Pages/Admin/Profile/profile.jsx";
 export default function App() {
   const [courses, setCourses] = useState([]);
   useEffect(()=>{
@@ -67,7 +71,12 @@ export default function App() {
               <Route path="/course" element={<Course />}></Route>
             </Route>
             <Route element={<RequireAuth allowedRole={['admin']} />}>
+              <Route path="admin/home" element={<HomeAdmin />}></Route>
+              <Route path="admin/professors" element={<ProfessorsAdmin />}></Route>
+              <Route path="admin/students" element={<StudentsAdmin />}></Route>
               <Route path="admin/calendar/:id?" element={<CalendarAdmin />}></Route>
+              <Route path="admin/courses" element={<CoursesAdmin />}></Route>
+              <Route path="admin/profile" element = {<Profile />} ></Route>
             </Route>
           </Route>
         </Routes>

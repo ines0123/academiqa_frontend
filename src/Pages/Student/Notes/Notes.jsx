@@ -167,7 +167,7 @@ export default function Notes() {
           }
         </Filter>
       </div>
-      <div className="container all-notes mt-4">
+      <div className="container all-notes mt-1">
         <div ref={bottomRef} className="row d-flex justify-content-center">
           {filteredNotes.length > 0 ? (
             <>

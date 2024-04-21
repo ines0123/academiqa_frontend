@@ -5,6 +5,7 @@ import { Menu } from "../Context/MenuContext";
 import { useContext } from 'react'
 import { WindowSize } from '../Context/WindowContext'
 import NotificationCard from "../Components/Notification/NotificationCard.jsx";
+import MidNavbar from "../Components/MidNavbar/MidNavbar.jsx";
 
 
 export default function Layout(){
@@ -45,6 +46,7 @@ export default function Layout(){
     }}>
           <Outlet />
         </div>
+          {role === "admin" && <MidNavbar role={role}/>}
           <NotificationCard />
       </div>
     )
