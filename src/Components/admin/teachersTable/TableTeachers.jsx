@@ -240,10 +240,10 @@ const getTeachers = () => {
                 <CardHeader className="border-0 bg-white">
                     {/* Filter Dropdowns on Left */}
                     <div className='row pt-3 pb-2'>
-                        <h1 className="col-12 d-flex fs-2 fw-bold justify-content-center listEnseignant">List of teachers</h1>
+                        <h1 className="col-12 d-flex fs-2 fw-bold justify-content-center listEnseignant">Teachers</h1>
 
                     </div>
-                    <div className='d-flex justify-content-between'>
+                    <div className='mb-1 d-flex justify-content-between'>
                         <div className='col-lg-3 col-md-4 col-sm-2 d-flex filter'>
                             <div className="container-input">
                                 <input type="text" placeholder="Search" name="text" className="input" value={searchTerm}
@@ -311,9 +311,10 @@ const getTeachers = () => {
                     ) : (
                         filteredTeachers.map((teacher) => (
                             <tr key={teacher.id}>
-                                <td></td>
+                                <td>{teacher.email}</td>
+
                                 <td>{teacher.username}</td>
-                                <td>{teacher.department}</td>
+                                <td>{teacher.speciality}</td>
 
                                 <td>
                                     <UncontrolledDropdown>

@@ -24,7 +24,7 @@ import {PiStudentBold} from "react-icons/pi";
 
 const TableStudents = () => {
     const [Options, setOptions] = useState([
-        { value: { id:1, sector: 'Genie logiciel', level: '3', group: '1' }, label: '3eme année Genie logiciel group 1' },
+        { value: { id:1, sector: 'Genie logiciel', level: '3', group: '1' }, label: 'GL group 1' },
         { value: { id:2, sector: 'Genie logiciel', level: '3', group: '2' }, label: '3eme année Genie logiciel group 2' },
         { value: { id:3, sector: 'Genie logiciel', level: '3', group: '3' }, label: '3eme année Genie logiciel group 3' },
         { value: { id:4, sector: 'Genie logiciel', level: '3', group: '4' }, label: '3eme année Genie logiciel group 4' },
@@ -297,10 +297,10 @@ const getStudents= () => {
                 <CardHeader className="border-0 bg-white">
                     {/* Filter Dropdowns on Left */}
                     <div className='row pt-3 pb-2'>
-                        <h1 className="col-12 d-flex fs-2 fw-bold justify-content-center listEnseignant">List of Students</h1>
+                        <h1 className="col-12 d-flex fs-2 fw-bold justify-content-center listEnseignant">Students</h1>
 
                     </div>
-                    <div className='d-flex justify-content-between'>
+                    <div className='mb-1 d-flex justify-content-between'>
                         <div className='col-lg-3 col-md-4 col-sm-2 d-flex filter'>
                             <div className="container-input">
                                 <input type="text" placeholder="Search" name="text" className="input" value={searchTerm}

@@ -34,7 +34,7 @@ const TableAbsence = () => {
             <Card className="shadow table-teacher">
                 <CardHeader className="border-0 bg-white">
                     <div className='row pt-3 pb-2'>
-                        <h1 className="col-12 d-flex fs-2 fw-bold justify-content-center listEnseignant">List of courses</h1>
+                        <h1 className="col-12 d-flex fs-2 fw-bold justify-content-center listEnseignant">Courses</h1>
                     </div>
                 </CardHeader>
                 {/* Table Content */}

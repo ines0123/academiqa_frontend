@@ -1,12 +1,12 @@
 import Header from "../../../Components/admin/header/header.jsx";
-import TableStudents from "../../../Components/admin/StudentsTable/TableStudents.jsx";
+import TableCourses from "../../../Components/admin/CoursesTable/CoursesTable.jsx";
 
 const CoursesAdmin = () => {
     return (
         <>
             <Header/>
             <div>
-                <TableStudents/>
+                <TableCourses/>
             </div>
         </>
     );
