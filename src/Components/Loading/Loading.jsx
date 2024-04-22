@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import './loading.css'
 
-export default function Loading() {
+export default function Loading({path}) {
+    const navigate = useNavigate();
     return (<>
         <div className="spinner-container-submit">
             <div className="spinner"></div>
@@ -11,7 +13,7 @@ export default function Loading() {
                 <p>
                 Did you know that Albert Einstein liked to play belotte ?
                 </p>
-                <button className='btn btn-outline-dark' onClick={()=>window.location.pathname='/calendar'}>Skip
+                <button className='btn btn-outline-dark' onClick={()=> navigate(path)}>Skip
 
                 </button>
             </div>

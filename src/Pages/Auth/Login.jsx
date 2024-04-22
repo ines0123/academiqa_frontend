@@ -5,16 +5,30 @@ import '../../Components/Calendar/styles.css'
 import './login.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import Loading from '../../Components/Loading/Loading'
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import ChangePassword from '../../Components/Auth/ChangePassword'
+import axios from 'axios';
+import { AUTH, LOGIN, baseURL } from '../../Api/Api';
+import Cookie from 'cookie-universal';
+import {jwtDecode} from "jwt-decode";
+import { CurrentUser } from '../../Context/CurrentUserContext'
+
 
 
 export default function Login() {
+    const [destination, setDestination]= useState("");
+
+
+    // current user context:
+    const userContext = useContext(CurrentUser);
+
     // ref
     const focus = useRef(null);
+
+    const cookie = Cookie();
 
     const [changePassword, setChangePassword] = useState(false);
     // form state
@@ -48,29 +62,46 @@ export default function Login() {
             e.preventDefault();
             setLoading(true);
             
-            // try {
-            //     await axios.post(`${baseURL}/${LOGIN}`, form).then(res => {
-            //         const token = res.data.token;
-            //         cookie.set('e-commerce', token, {
-            //             path: '/'
-            //         });
-            //         const role = res.data.user.role;
-            //         console.log(res);
-            //         setLoading(false);
-            //         const destination = role === "1995" ? '/dashboard/users' : role === "1992" ? '/dashboard/writer' : role === "1999" ? '/dashboard/categories' : '/';
-            //         window.location.pathname = destination;
-            //     })
-            // }
-            // catch (error) {
-            //     setLoading(false);
-            //     console.log(error);
-            //     if (error.response.status === 401) {
-            //         setError("Wrong email or password")
-            //     }
-            //     else {
-            //         setError("Internal Server Error");
-            //     }
-            // }
+            try {
+                await axios.post(`${baseURL}/${AUTH}/${LOGIN}`, form).then(res => {
+                    console.log(res);
+                    const token = res.data.accessToken;
+                    // cookie
+                    cookie.set('academiqa', token, {
+                        path: '/',
+                        httpOnly: true
+
+                    });
+
+
+                    // decode the jwt token using jwt-decode:
+                    const user = jwtDecode(token);
+                    console.log(user);
+
+                    // context
+                    userContext.setCurrentUser(user);
+                    console.log("userContext:", userContext.currentUser);
+
+
+                    const path = user.role == "Admin" ? '/admin/calendar' : user.role == "Teacher" ? '/teacher/home' : user.role == "Student" ? '/student/home' : '/';
+                    setDestination(path);
+
+                    setTimeout(
+                        ()=>{
+                            navigate(path);
+                        }, 2500)
+                })
+            }
+            catch (error) {
+                // setLoading(false);
+                console.log(error);
+                if (error.response.status === 401) {
+                    setError("Wrong email or password")
+                }
+                else {
+                    setError("Internal Server Error");
+                }
+            }
         }
 
         function validateEmail(email) {
@@ -81,7 +112,7 @@ export default function Login() {
     
     return (
         <>
-        {loading && <Loading />}
+        {loading && <Loading path={destination} />}
         <div className='login-layout-container'>
             <div className="login-side-bar pt-5" >
                 {/* Logo */}

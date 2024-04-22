@@ -9,6 +9,7 @@ import MenuContext from "./Context/MenuContext";
 import {SocketProvider} from "./Context/SocketContext.jsx";
 import {NotificationProvider} from "./Context/NotificationContext.jsx";
 import {DateProvider} from "./Context/DateContext.jsx";
+import CurrentUserContext from "./Context/CurrentUserContext.jsx";
 
 // registerLicense(
 //   "ORg4AjUWIQA/Gnt2VVhhQlFaclhJWHxMYVF2R2FJeFRycF9FaEwgOX1dQl9hSXpTcEVmWn9feHVRQWY="
@@ -24,9 +25,11 @@ root.render(
             <NotificationProvider>
                 <WindowContext>
                     <MenuContext>
+                    <CurrentUserContext>
                         <Router>
                             <App />
                         </Router>
+                        </CurrentUserContext>
                     </MenuContext>
                 </WindowContext>
             </NotificationProvider>
