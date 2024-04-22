@@ -5,6 +5,7 @@ import { Menu } from "../Context/MenuContext";
 import { useContext } from 'react'
 import { WindowSize } from '../Context/WindowContext'
 import NotificationCard from "../Components/Notification/NotificationCard.jsx";
+import { CurrentUser } from "../Context/CurrentUserContext.jsx";
 
 
 export default function Layout(){
@@ -12,16 +13,20 @@ export default function Layout(){
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
-    let role="";
-    if (window.location.pathname.includes("teacher")){
-      role="teacher";
-    }
-    if (window.location.pathname.includes("student")){
-      role="student";
-    }
-    if (window.location.pathname.includes("admin")){
-      role="admin";
-    }
+    const userContext = useContext(CurrentUser);
+    const role = userContext.currentUser.role;
+    console.log(userContext);
+
+    // let role="";
+    // if (window.location.pathname.includes("teacher")){
+    //   role="teacher";
+    // }
+    // if (window.location.pathname.includes("student")){
+    //   role="student";
+    // }
+    // if (window.location.pathname.includes("admin")){
+    //   role="admin";
+    // }
   
     return (
       <div className='layout-container'>
