@@ -47,9 +47,20 @@ import {
         eventSettings={eventSettings}
         allowDragAndDrop={true}
         allowResizing={true}
-        popupOpen={(args) => {
-          popupOpen(args);
-        }}
+        eventClick={
+          (args) => {
+            if (role === "teacher") {
+              // alert("You are not allowed to create a session");
+              // window.location.reload();
+              // console.log('id:',args)
+              // window.location.href = `/teacher/session/${args.data.Id}`;
+              nav(`/teacher/session/${args.event.Id}`);
+            }
+          }
+        }
+        // popupOpen={(args) => {
+        //   popupOpen(args);
+        // }}
         actionComplete={(args) => {
           if (args.requestType === "eventChanged") {
             console.log(args.data);
