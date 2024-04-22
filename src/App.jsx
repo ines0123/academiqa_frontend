@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import "./App.css";
 import {
   Route,
@@ -17,60 +17,100 @@ import ProfileTeacher from "./Pages/Teacher/Profile/ProfileTeacher.jsx";
 import SessionTeacher from "./Pages/Teacher/Session/SessionTeacher.jsx";
 import Course from "./Pages/Common/Course/Course.jsx";
 import Courses from "./Pages/Student/Courses/Courses.jsx";
-import Layout from './Layouts/Layout.jsx'
-import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
-import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
-import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
-import Attendance from './Pages/Teacher/Attendance.jsx'
+import Layout from "./Layouts/Layout.jsx";
+import CalendarAdmin from "./Pages/Admin/CalendarAdmin.jsx";
+import TeacherCalendar from "./Pages/Teacher/TeacherCalendar.jsx";
+import StudentCalendar from "./Pages/Student/StudentCalendar.jsx";
+import Attendance from "./Pages/Teacher/Attendance.jsx";
+import { NoteProvider } from "./Context/NoteContext.jsx";
 import LoadingComponent from "./Components/Preloader/Preloader.jsx";
 import axios from "axios";
 
 export default function App() {
-  const [courses, setCourses] = useState([]);
-  useEffect(()=>{
-    axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
-        (response) => {
-          console.log('courses',response.data);
+    const [courses, setCourses] = useState([]);
+    useEffect(() => {
+      axios
+        .get("http://localhost:5000/subject/SectorLevel/GL3")
+        .then((response) => {
+          console.log("courses", response.data);
           setCourses(response.data);
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
-        }
-    )
-
-  },[])
+        });
+    }, []);
   return (
     <>
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route element={<Layout />}>
-            <Route element={<RequireAuth allowedRole={['student']} />}>
-              <Route path="/student/home" element={<HomeStudent courses={courses?.slice(0,3)}/>}></Route>
-              <Route path="student/courses" element={<Courses courses={courses} />}></Route>
-              <Route path="student/notes" element={<Notes />}></Route>
-              <Route path="student/profile" element={<ProfileStudent />}></Route>
-              <Route path="student/session/:id" element={<SessionStudent />}></Route>
-              <Route path="student/calendar" element={<StudentCalendar />}></Route>
-
-            </Route>
-            <Route element={<RequireAuth allowedRole={['teacher']} />}>
-              <Route path="/teacher/home" element={<HomeTeacher />}></Route>
-              <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
-
-              <Route path="teacher/session/:id" element={<SessionTeacher />}></Route>
-              <Route path="teacher/session/:id/attendance" element={<Attendance />}></Route>
-              <Route path="teacher/calendar/:id?" element={<TeacherCalendar />}></Route>
-
-            </Route>
-            <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
-              <Route path="/chat" element={<SessionStudent />}></Route>
-              {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
-              <Route path="/course" element={<Course />}></Route>
-            </Route>
-            <Route element={<RequireAuth allowedRole={['admin']} />}>
-              <Route path="admin/calendar/:id?" element={<CalendarAdmin />}></Route>
-            </Route>
+      <Routes>
+        <Route path="/login" element={<Login />}></Route>
+        <Route element={<Layout />}>
+          <Route element={<RequireAuth allowedRole={["student"]} />}>
+            <Route
+              path="/student/home"
+              element={
+                <NoteProvider>
+                  <HomeStudent courses={courses?.slice(0, 3)} />
+                </NoteProvider>
+              }
+            ></Route>
+            <Route
+              path="student/courses"
+              element={<Courses courses={courses} />}
+            ></Route>
+            <Route
+              path="student/notes"
+              element={
+                <NoteProvider>
+                  <Notes />
+                </NoteProvider>
+              }
+            ></Route>
+            <Route path="student/profile" element={<ProfileStudent />}></Route>
+            <Route
+              path="student/session/"
+              // path="student/session/:id"
+              element={
+                <NoteProvider>
+                  <SessionStudent />
+                </NoteProvider>
+              }
+            ></Route>
+            <Route
+              path="student/calendar"
+              element={<StudentCalendar />}
+            ></Route>
           </Route>
-        </Routes>
+          <Route element={<RequireAuth allowedRole={["teacher"]} />}>
+            <Route path="/teacher/home" element={<HomeTeacher />}></Route>
+            <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
+
+            <Route
+              path="teacher/session/"
+              // path="teacher/session/:id"
+              element={<SessionTeacher />}
+            ></Route>
+            <Route
+              path="teacher/session/:id/attendance"
+              element={<Attendance />}
+            ></Route>
+            <Route
+              path="teacher/calendar/:id?"
+              element={<TeacherCalendar />}
+            ></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRole={["student", "teacher"]} />}>
+            <Route path="/chat" element={<SessionStudent />}></Route>
+            {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
+            <Route path="/course" element={<Course />}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRole={["admin"]} />}>
+            <Route
+              path="admin/calendar/:id?"
+              element={<CalendarAdmin />}
+            ></Route>
+          </Route>
+        </Route>
+      </Routes>
 
       {/*<LoadingComponent />*/}
     </>

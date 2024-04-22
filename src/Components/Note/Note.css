@@ -38,7 +38,7 @@
 
 .noteDate {
   display: flex;
-  font-size: xx-small;
+  font-size: x-small;
   font-weight: 500;
   max-width: 40%;
   text-align: right;
@@ -205,16 +205,3 @@
 .clockIcon:hover line:last-of-type {
   animation: shake 0.8s ease-in-out infinite;
 }
-
-/* <Note
-      subject="Developpement web"
-      type="TP"
-      date="12 Novembre 2024, Thursday"
-      title="Web avec react js"
-      content="Lorem Ipsum is simply dummy text of the printing and ever
-Lorem Ipsum is simply dummy text of the printing and ever
-Lorem Ipsum is simply dummy text of the printing and ever
-Lorem Ipsum is simply dummy text of the printing and ever
-Lorem Ipsum is simply dummy text of the printing and ever"
-      sessionTime="08:00 - 09:30"
-    /> */
