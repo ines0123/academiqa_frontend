@@ -1,10 +1,15 @@
 import React from 'react';
+import Header from "../../../Components/admin/header/header.jsx";
+import TableStudents from "../../../Components/admin/StudentsTable/TableStudents.jsx";
 
 const StudentsAdmin = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <Header/>
+            <div>
+                <TableStudents/>
+            </div>
+        </>
     );
 };
 

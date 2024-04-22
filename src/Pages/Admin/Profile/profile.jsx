@@ -1,11 +1,7 @@
 import './profile.css';
 import Header from "../../../Components/admin/header/header.jsx";
-import {Card, CardBody, CardHeader, Col, Container, Row} from "reactstrap";
+import {Card, CardBody, Col, Container, Row} from "reactstrap";
 import image from "../../../assets/images/Sellaouti.jpg";
-import {LiaIdCard} from "react-icons/lia";
-import React from "react";
-import {TbSchool} from "react-icons/tb";
-import {MdAutoGraph, MdGroups} from "react-icons/md";
 import AbsenceTable from "../../../Components/admin/AbsenceTable/AbsenceTable.jsx";
 import TeacherCourses from "../../../Components/admin/TeacherCourses/TeacherCourses.jsx";
 import {FaChalkboardUser} from "react-icons/fa6";

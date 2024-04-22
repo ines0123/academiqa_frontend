@@ -66,6 +66,24 @@ td {
     width: 90%;
     height: 45px;
 }
+.basic-single {
+    width: 90% !important;
+}
+.select__value-container {
+    height: 45px !important;
+}
+.select__control {
+    border-radius: 12px !important;
+    height: 45px !important;
+    border: 1px solid #ccc !important;
+}
+.select__control--menu-is-open {
+    /*border: 1px solid #ccc !important;*/
+    border: none !important;
+}
+.select__menu > * {
+    max-height: 200px !important;
+}
 
 .link-form.add-new .end button {
     background-color: #692e5f;
