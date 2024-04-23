@@ -73,7 +73,7 @@
 }
 
 .form-select {
-    margin: 20px 0px 10px 10%;
+    margin: 20px;
     width: fit-content;
     background-color: #fef7ef;
     border-radius: 10px;
@@ -84,9 +84,9 @@
 }
 
 .form-button {
-    margin: 20px 0px 10px 10%;
+    margin: 20px;
     background-color: #fef7ef;
-    padding: 5px 30px 5px 20px;
+    padding: 5px 20px 5px 20px;
     height: 34px;
     border-radius: 10px;
     font-weight: 500;
@@ -101,31 +101,3 @@
     outline: none;
     box-shadow: none;
 }
-
-/* 
-.e-schedule-dialog .e-dlg-header-content {
-    border-radius: 20px !important;
-}
-
-.e-schedule-dialog .e-footer-content {
-    margin-top: 4px;
-    border-radius: 0px 0px 20px 20px !important;
-} */
-
-/* .e-schedule,
-.e-schedule-toolbar,
-.e-toolbar-items.e-tbar-pos,
-.e-vertical-view,
-.e-date-header-wrap,
-table,
-tbody,
-td.e-header-cells,
-.e-vertical-view,
-.e-content-wrap,
-table,
-td {
-    background-color: #D1C4D8 !important;
-}
-
-.e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos {
-    /* display: none; }*/
