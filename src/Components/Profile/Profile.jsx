@@ -86,7 +86,8 @@ const Profile = ({role}) => {
                             </div>
                         </div>
                     </div>
-                </div>)}
+                </div>
+                )}
                 <button
                     className="profile-cp flex items-center justify-between w-full h-10 rounded-3xl p-2 my-4 text-sm">
                     <div className="pl-3 font-bold">Change Password</div>

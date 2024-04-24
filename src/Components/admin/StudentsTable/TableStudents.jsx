@@ -15,47 +15,31 @@ import Select from 'react-select';
 import axios from "axios";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaEllipsisVertical } from "react-icons/fa6";
-import {FaChalkboardTeacher, FaEye} from "react-icons/fa";
+import { FaEye} from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../Common/PopUp/PopUp.jsx";
-import { LuImagePlus } from "react-icons/lu";
 import {PiStudentBold} from "react-icons/pi";
+import {NavLink} from "react-router-dom";
+import {toast, ToastContainer} from "react-toastify";
 
-const TableStudents = () => {
-    const [Options, setOptions] = useState([
-        { value: { id:1, sector: 'Genie logiciel', level: '3', group: '1' }, label: 'GL group 1' },
-        { value: { id:2, sector: 'Genie logiciel', level: '3', group: '2' }, label: '3eme année Genie logiciel group 2' },
-        { value: { id:3, sector: 'Genie logiciel', level: '3', group: '3' }, label: '3eme année Genie logiciel group 3' },
-        { value: { id:4, sector: 'Genie logiciel', level: '3', group: '4' }, label: '3eme année Genie logiciel group 4' },
-        { value: { id:5, sector: 'Genie logiciel', level: '3', group: '5' }, label: '3eme année Genie logiciel group 5' },
-        { value: { id:6, sector: 'Genie logiciel', level: '3', group: '6' }, label: '3eme année Genie logiciel group 6' },
-        { value: { id:7, sector: 'Genie logiciel', level: '3', group: '7' }, label: '3eme année Genie logiciel group 7' },
-        { value: { id:8, sector: 'Genie logiciel', level: '3', group: '8' }, label: '3eme année Genie logiciel group 8' },
-        { value: { id:9, sector: 'Genie logiciel', level: '3', group: '9' }, label: '3eme année Genie logiciel group 9' },
-        { value: { id:10, sector: 'Genie logiciel', level: '3', group: '10' }, label: '3eme année Genie logiciel group 10' },
-    ]);
+// eslint-disable-next-line react/prop-types
+const TableStudents = ({groups}) => {
+    const [Options, setOptions] = useState([]);
+    useEffect(() => {
+        setOptions(groups.map(group => ({
+            value: group,
+            label: `${group.sectorLevel} group ${group.group}`
+        })));
+    }, [groups]);
 
-
-    const [students, setStudents] = useState([
-        {
-            id: 1,
-            username: 'John Doe',
-            department: 'Computer Science',
-            subject: 'Web Development',
-            group: { id:3, sector: 'Genie logiciel', level: '3', group: '3' },
-            email: 'john@john.john',
-            enrollmentNumber: 123,
-            cin: 123456,
-        },
-    ]);
+    const [students, setStudents] = useState([]);
     const [isHovered, setIsHovered] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
         password: "",
-        image: null,
         enrollmentNumber: 0,
         group: {},
         cin: 0,
@@ -78,13 +62,29 @@ const TableStudents = () => {
     }
     const handleSelectOptionChange = (selectedOption) => {
         const { value } = selectedOption;
-        setUpdateFormData({ ...updateFormData, group: value });
-        console.log(value)
-    }
+        const existingOption = Options.find(option => option.value.id === value.id);
+
+        if (existingOption) {
+            const groupObject = {
+                id: existingOption.value.id,
+                label: existingOption.label
+            };
+            setUpdateFormData({ ...updateFormData, group: groupObject });
+        } else {
+            console.warn("Invalid option selected");
+        }
+    };
+
+
+
+    useEffect(() => {
+        console.log("Updated group:", updateFormData.group);
+    }, [updateFormData.group]);
+
     const handleSelectOptionAddChange = (selectedOption) => {
         const { value } = selectedOption;
         setFormData({ ...formData, group: value });
-        console.log(value)
+        console.log(formData)
     }
     const [done, setDone] = useState(false);
     const [isOpen, setIsOpen] =useState(false);
@@ -113,37 +113,58 @@ const TableStudents = () => {
         console.log(file)
         //read csv file
         formData.append('file', file);
-        axios.post('http://localhost:5000/file-upload/upload', formData, config).then(r => {
+        axios.post('http://localhost:5000/auth/students', formData, config).then(r => {
             console.log(r)
+            getStudents();
+            setDone(false)
+            setFile(null)
+            document.getElementById('csv-upload').value = null;
         }).catch(e => {
             console.log(e)
+            setDone(false);
+            setFile(null);
+            document.getElementById('csv-upload').value = null;
+            toast.error(`Error while importing data\n${e.response.data.message.join('\n')}`)
         })
     }
     const handleFileCLick = () => {
         document.getElementById('csv-upload').click();
     }
-    const handleImageClick = () => {
-            document.getElementById('teacher-image').click();
-    }
-    const handleImageChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
-    }
+    // const handleImageClick = () => {
+    //         document.getElementById('teacher-image').click();
+    // }
+    // const handleImageChange = (e) => {
+    //     setFormData({ ...formData, image: e.target.files[0] });
+    // }
 
     const handleFileChange = (e) => {
+        console.log(e.target)
         setFile(e.target.files[0]);
         setDone(true);
     }
+
     const handleUpdateSubmit = (e,student) => {
         e.preventDefault();
         console.log(updateFormData)
 
-        // axios.post('http://localhost:5000/teachers', formData, config).then(r => {
-        //     console.log(r)
-        //     getTeachers();
-        // }).catch(e => {
-        //     console.log(e)
-        // })
-        toggleStudentModal(student.id);
+        axios.patch('http://localhost:5000/student/' + student.id, updateFormData).then(r => {
+            console.log(r)
+            getStudents();
+            setUpdateFormData(
+                {
+                    username: "",
+                    email: "",
+                    enrollmentNumber: 0,
+                    group: {},
+                    cin: 0,
+                }
+            )
+            toggleStudentModal(student.id);
+        }).catch(e => {
+            console.log(e)
+            toast.error(e.response.data.message)
+        })
+
     }
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -165,12 +186,12 @@ const TableStudents = () => {
             password: "",
             image: null,
             enrollmentNumber: 0,
-            group: {},
+            group: null,
             cin: 0,
         })
     };
     const handleCancelUpdate = (student) => {
-        const groupOption = Options.find(option => option.value.id === student.group.id) || {};
+        const groupOption = Options.find(option => option.value.id === student.group?.id) || {};
         setUpdateFormData({
             username: student.username,
             email: student.email,
@@ -181,7 +202,7 @@ const TableStudents = () => {
         })
     };
     const handleUpdateClick = (student) => {
-        const groupOption = Options.find(option => option.value.id === student.group.id) || {};
+        const groupOption = Options.find(option => option.value.id === student.group?.id) || {};
         setUpdateFormData({
             username: student.username,
             email: student.email,
@@ -205,7 +226,6 @@ const TableStudents = () => {
         username: "",
         email: "",
         password: "",
-        image: "",
         enrollmentNumber: "",
         group: "",
         cin: "",
@@ -217,7 +237,6 @@ const TableStudents = () => {
             username: "",
             email: "",
             password: "",
-            image: "",
             enrollmentNumber: "",
             group: "",
             cin: "",
@@ -234,64 +253,58 @@ const TableStudents = () => {
         if(!formData.password) {
             newErrors.password = "Password is required";
         }
-        if(!formData.image) {
-            newErrors.image = "Image is required";
-        }
         if(!formData.enrollmentNumber) {
             newErrors.enrollmentNumber = "Enrollment number is required";
         }
-        if(!formData.group || !formData.group.value) {
+        if(!formData.group || !formData.group) {
             newErrors.group = "Group is required";
         }
         if(!formData.cin) {
             newErrors.cin = "CIN is required";
         }
-        if(!formData.image){
-            newErrors.image = "Image is required";
-        }
         setErrors(newErrors);
+        console.log(newErrors)
         if(!Object.values(newErrors).some(error => error !== "")){
-            // Call the API to update the teacher
-            // axios.put('http://localhost:5000/teachers/' + teacherId, updateFormData, config).then(r => {
-            //     console.log(r)
-            //     getTeachers();
-            // }).catch(e => {
-            //     console.log(e)
-            // })
-            // Reset the form data
-            setFormData({
-                username: "",
-                email: "",
-                password: "",
-                image: null,
-                enrollmentNumber: 0,
-                group: {},
-                cin: 0,
-            });
-            toggleModal();
+            axios.post('http://localhost:5000/auth/student', formData).then(r => {
+                console.log(r)
+                getStudents();
+                setFormData({
+                    username: "",
+                    email: "",
+                    password: "",
+                    enrollmentNumber: 0,
+                    group: {},
+                    cin: 0,
+                });
+                toggleModal();
+            }).catch(e => {
+                console.log(e)
+                toast.error(e.response.data.message)
+            })
+
         }
     };
 const getStudents= () => {
-    // axios.get('http://localhost:5000/teachers').then(r => {
-    //     setTeachers(r.data)
-    // }).catch(e => {
-    //     console.log(e)
-    // })
+    axios.get('http://localhost:5000/student/all').then(r => {
+        setStudents(r.data);
+    }).catch(e => {
+        console.log(e)
+    })
 }
-    const handleDeleteStudent = (e) => {
+    const handleDeleteStudent = (e,student) => {
         e.preventDefault();
-        // Call the API to delete the teacher
-        // axios.delete('http://localhost:5000/teachers/' + teacherId).then(r => {
-        //     console.log(r)
-        // getTeachers();
-        // }).catch(e => {
-        //     console.log(e)
-        // })
-
+        axios.delete('http://localhost:5000/user/' + student.id).then(r => {
+            console.log(r)
+            getStudents();
+        }).catch(e => {
+            console.log(e)
+        })
     }
-
+    useEffect(() => {
+        getStudents();
+    }, []);
     return (
-        <Container className="all-teachers" fluid style={{marginTop:'-50px',padding:"0 48px",height:'100%', marginBottom:'30px'}}>
+        <Container className="all-teachers" fluid style={{padding:"0 48px",height:'100%', marginBottom:'30px'}}>
             {/* Table */}
             <Card className="shadow table-teacher">
                 <CardHeader className="border-0 bg-white">
@@ -376,15 +389,14 @@ const getStudents= () => {
                                 <td>{student.cin}</td>
                                 <td>{student.email}</td>
                                 <td>{student.username}</td>
-                                <td>{student.group.sector}</td>
-                                <td>{student.group.level}</td>
-                                <td>{student.group.group}</td>
+                                <td>{student.group?.sector}</td>
+                                <td>{student.group?.level}</td>
+                                <td>{student.group?.group}</td>
 
                                 <td>
                                     <UncontrolledDropdown>
                                         <DropdownToggle
                                             className="btn-icon-only text-light"
-                                            href="#pablo"
                                             role="button"
                                             size="sm"
                                             color=""
@@ -394,16 +406,16 @@ const getStudents= () => {
                                         </DropdownToggle>
                                         <DropdownMenu className="dropdown-menu-arrow" style={{boxShadow:'0px 8px 16px 0px rgba(0,0,0,0.2)',border:'none'}} end>
 
-                                            <DropdownItem
-                                                href="/admin/profile"
-                                                className="d-flex align-items-center"
-                                            >
-                                                <FaEye size={20} className="me-1"/>
-                                                View profile
-                                            </DropdownItem>
+                                            <NavLink to={"/admin/profile/"+student.id + "/" + "student"}>
+                                                <DropdownItem
+                                                    className="d-flex align-items-center"
+                                                >
+                                                    <FaEye size={20} className="me-1"/>
+                                                    View profile
+                                                </DropdownItem>
+                                            </NavLink>
 
                                             <DropdownItem
-                                                href=""
                                                 onClick={() => handleUpdateClick(student)}
                                                 className="d-flex align-items-center"
                                             >
@@ -414,8 +426,7 @@ const getStudents= () => {
                                             {/* Update Student Modal */}
 
                                             <DropdownItem
-                                                href=""
-                                                onClick={handleDeleteStudent}
+                                                onClick={(e) => handleDeleteStudent(e,student)}
                                             >
                                                 <FontAwesomeIcon icon={faTrash} className="me-2" />
                                                 Delete
@@ -428,54 +439,70 @@ const getStudents= () => {
                                                     <PiStudentBold  size={25} className="mb-1 me-2"/>
                                                     <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Update student:</p>
                                                 </div>
-                                                <form onSubmit={(e) => handleUpdateSubmit(e, student)} onReset={() => handleCancelUpdate(student)}
-                                                      className="link-form add-new d-flex flex-column align-items-center">
-                                                    <input
-                                                        type={"text"}
-                                                        name="username"
-                                                        value={updateFormData.username}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter username"
-                                                    />
-                                                    <Select
-                                                        className="basic-single"
-                                                        classNamePrefix="select"
-                                                        // defaultValue={Options[0]}
-                                                        value={Options.find(option => option.value.id === student.group.id)}
-                                                        onChange={handleSelectOptionChange}
-                                                        name="group"
-                                                        options={Options}
-                                                    />
-                                                    <input
-                                                        type={"email"}
-                                                        name="email"
-                                                        value={updateFormData.email}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter email: example@example.com"
-                                                    />
-                                                    <input
-                                                        type={"number"}
-                                                        name="enrollmentNumber"
-                                                        value={updateFormData.enrollmentNumber}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter enrollment number"
-                                                    />
-                                                    <input
-                                                        type={"number"}
-                                                        name="cin"
-                                                        value={updateFormData.cin}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter cin"
-                                                    />
-                                                    <div className="end d-flex justify-content-between mt-4"
-                                                         style={{width: '70%'}}>
-                                                        <button type="submit" className="me-1">
-                                                            Update
-                                                        </button>
-                                                        <button type="reset" className="ms-1">
-                                                            Cancel
-                                                        </button>
+                                                <form onSubmit={(e) => handleUpdateSubmit(e, student)}
+                                                      onReset={() => handleCancelUpdate(student)}
+                                                      className="link-form add-new  d-flex flex-column align-items-center">
+                                                    <div className="mt-3" style={{width: "90%"}}>
+                                                        <label htmlFor="username">Username:</label>
+                                                        <input
+                                                            type={"text"}
+                                                            name="username"
+                                                            value={updateFormData.username}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter username"
+                                                        />
                                                     </div>
+                                                    <div style={{width: "90%"}}>
+                                                        <label htmlFor="group">Group:</label>
+                                                        <Select
+                                                            className="basic-single"
+                                                            classNamePrefix="select"
+                                                            // defaultValue={Options[0]}
+                                                            value={updateFormData.group }
+                                                            onChange={handleSelectOptionChange}
+                                                            name="group"
+                                                            options={Options}
+                                                        />
+                                                    </div>
+                                                    <div style={{width: "90%"}}>
+                                                        <label htmlFor="email">Email:</label>
+                                                        <input
+                                                            type={"email"}
+                                                            name="email"
+                                                            value={updateFormData.email}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter email: example@example.com"
+                                                        />
+                                                    </div>
+                                                    <div style={{width: "90%"}}>
+                                                        <label htmlFor="enrollmentNumber">Enrollment number:</label>
+                                                        <input
+                                                            type={"number"}
+                                                            name="enrollmentNumber"
+                                                            value={updateFormData.enrollmentNumber}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter enrollment number"
+                                                        />
+                                                    </div>
+                                                    <div style={{width: "90%"}}>
+                                                        <label htmlFor="cin">CIN:</label>
+                                                        <input
+                                                            type={"number"}
+                                                            name="cin"
+                                                            value={updateFormData.cin}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter cin"
+                                                        />
+                                                    </div>
+                                                        <div className="end d-flex justify-content-between mt-4"
+                                                             style={{width: '70%'}}>
+                                                            <button type="submit" className="me-1">
+                                                                Update
+                                                            </button>
+                                                            <button type="reset" className="ms-1">
+                                                                Cancel
+                                                            </button>
+                                                        </div>
                                                 </form>
                                             </PopUp>
 
@@ -498,7 +525,7 @@ const getStudents= () => {
                         <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Add student:</p>
                     </div>
                 <form onSubmit={handleSubmitStudent} onReset={handleCancel}
-                      className="link-form add-new d-flex flex-column align-items-center">
+                      className="link-form add-new new d-flex flex-column align-items-center">
                     <input
                         type={"text"}
                         name="username"
@@ -560,15 +587,14 @@ const getStudents= () => {
 
                     />
                     {errors.cin && <p style={{color:"#b41b1b",fontSize:'14px'}}>{errors.cin}</p>}
-                    <input  type={"file"} name="photo" id="teacher-image" accept="image/*" onChange={handleImageChange}
-                           style={{display: "none"}}/>
-                    {errors.image && <p style={{color:"#b41b1b",fontSize:'14px'}}>{errors.image}</p>}
-                    <div className={`d-flex justify-content-start ${errors.username ? 'mb-0 mt-0' : ''}`} style={{width: "100%"}}>
-                        <Button className="d-flex align-items-center add-photo ms-3" onClick={handleImageClick}>
-                            <LuImagePlus size={30}/>
-                            <p className="ms-2"> {!formData.image ? ("Add photo") : formData.image.name} </p>
-                        </Button>
-                    </div>
+                    {/*<input  type={"file"} name="photo" id="teacher-image" accept="image/*" onChange={handleImageChange}*/}
+                    {/*       style={{display: "none"}}/>*/}
+                    {/*<div className={`d-flex justify-content-start ${errors.username ? 'mb-0 mt-0' : ''}`} style={{width: "100%"}}>*/}
+                    {/*    <Button className="d-flex align-items-center add-photo ms-3" onClick={handleImageClick}>*/}
+                    {/*        <LuImagePlus size={30}/>*/}
+                    {/*        <p className="ms-2"> {!formData.image ? ("Add photo") : formData.image.name} </p>*/}
+                    {/*    </Button>*/}
+                    {/*</div>*/}
 
 
                     <div className="end d-flex justify-content-between mt-4" style={{width: '70%'}}>
@@ -582,6 +608,12 @@ const getStudents= () => {
                 </form>
             </PopUp>
             </div>
+            <ToastContainer
+                position="bottom-right"
+                // autoClose="4000"
+                autoClose={false}
+                theme="colored"
+            />
         </Container>
     );
 };

@@ -1,5 +1,5 @@
 // TableStudents.js
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
     Button,
     Card,
@@ -19,7 +19,9 @@ import {FaChalkboardTeacher, FaEye} from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../Common/PopUp/PopUp.jsx";
-import { LuImagePlus } from "react-icons/lu";
+import {NavLink} from "react-router-dom";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const TableTeachers = () => {
     const [teachers, setTeachers] = useState([
@@ -31,13 +33,14 @@ const TableTeachers = () => {
         username: "",
         email: "",
         password: "",
-        image: null,
         speciality: "",
+        cin: 0,
     });
     const [updateFormData, setUpdateFormData] = useState({
         username: "",
         email: "",
         speciality: "",
+        cin: 0,
     });
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -74,21 +77,30 @@ const TableTeachers = () => {
         console.log(file)
         //read csv file
         formData.append('file', file);
-        axios.post('http://localhost:5000/file-upload/upload', formData, config).then(r => {
+        axios.post('http://localhost:5000/auth/teachers', formData, config).then(r => {
             console.log(r)
+            getTeachers();
+            setDone(false);
+            setFile(null);
+            document.getElementById('csv-upload').value = null;
         }).catch(e => {
             console.log(e)
+            getTeachers();
+            setDone(false);
+            setFile(null);
+            document.getElementById('csv-upload').value = null;
+            toast.error(`Error while importing data\nEmails already exist\n\n${e.response.data.message.join('\n')}`)
         })
     }
     const handleFileCLick = () => {
         document.getElementById('csv-upload').click();
     }
-    const handleImageClick = () => {
-            document.getElementById('teacher-image').click();
-    }
-    const handleImageChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
-    }
+    // const handleImageClick = () => {
+    //         document.getElementById('teacher-image').click();
+    // }
+    // const handleImageChange = (e) => {
+    //     setFormData({ ...formData, image: e.target.files[0] });
+    // }
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -96,19 +108,22 @@ const TableTeachers = () => {
     }
     const handleUpdateSubmit = (e, teacher) => {
         e.preventDefault();
-        console.log(updateFormData)
-        setUpdateFormData({
-            username: "",
-            email: "",
-            speciality: "",
-        });
-        // axios.post('http://localhost:5000/teachers', formData, config).then(r => {
-        //     console.log(r)
-        //     getTeachers();
-        // }).catch(e => {
-        //     console.log(e)
-        // })
-        toggleTeacherModal(teacher.id);
+        console.log(teacher)
+        axios.patch('http://localhost:5000/teacher/'+teacher.id, updateFormData).then(r => {
+            console.log(r)
+            getTeachers();
+            setUpdateFormData({
+                username: "",
+                email: "",
+                speciality: "",
+                cin: 0,
+            });
+            toggleTeacherModal(teacher.id);
+        }).catch(e => {
+            console.log(e)
+            toast.error(e.response.data.message)
+        })
+
     }
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -118,31 +133,34 @@ const TableTeachers = () => {
 
     const filteredTeachers = teachers.filter(
         (teacher) =>
-            teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            teacher.department.toLowerCase().includes(searchTerm.toLowerCase())||
-            teacher.email.toLowerCase().includes(searchTerm.toLowerCase())
+            teacher.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            teacher.speciality.toLowerCase().includes(searchTerm.toLowerCase())||
+            teacher.email.toLowerCase().includes(searchTerm.toLowerCase())||
+            teacher.cin.toString().includes(searchTerm.toLowerCase())
     );
     const handleCancel = () => {
         setFormData({
             username: "",
             email: "",
             password: "",
-            image: null,
             speciality: "",
+            cin: 0,
         })
     };
     const handleCancelUpdate = (teacher) => {
         setUpdateFormData({
-            username: teacher.name,
+            username: teacher.username,
             email: teacher.email,
-            speciality: teacher.department,
+            speciality: teacher.speciality,
+            cin: teacher.cin,
         })
     };
     const handleUpdateClick = (teacher) => {
         setUpdateFormData({
-            username: teacher.name,
+            username: teacher.username,
             email: teacher.email,
-            speciality: teacher.department,
+            speciality: teacher.speciality,
+            cin: teacher.cin,
         });
         toggleTeacherModal(teacher.id);
     };
@@ -159,8 +177,8 @@ const TableTeachers = () => {
         username: "",
         email: "",
         password: "",
-        image: "",
         speciality: "",
+        cin: "",
     });
     const handleSubmitTeacher = (e) => {
         e.preventDefault();
@@ -169,8 +187,8 @@ const TableTeachers = () => {
             username: "",
             email: "",
             password: "",
-            image: "",
             speciality: "",
+            cin: "",
         };
 
         // Validate each field
@@ -186,52 +204,55 @@ const TableTeachers = () => {
         if (!formData.password) {
             newErrors.password = "Password is required.";
         }
-        if (!formData.image) {
-            newErrors.image = "Image is required.";
-        }
         if (!formData.speciality) {
             newErrors.speciality = "Speciality is required.";
+        }
+        if (!formData.cin) {
+            newErrors.cin = "CIN is required.";
         }
 
         setErrors(newErrors);
 
         if(!Object.values(newErrors).some(error => error !== "")){
             // Call the API to update the teacher
-            // axios.put('http://localhost:5000/teachers/' + teacherId, updateFormData, config).then(r => {
-            //     console.log(r)
-            //     getTeachers();
-            // }).catch(e => {
-            //     console.log(e)
-            // })
-            // Reset the form data
-            setFormData({
-                username: "",
-                email: "",
-                password: "",
-                image: null,
-                speciality: "",
-            });
-            toggleModal();
+            axios.post('http://localhost:5000/auth/teacher', formData).then(r => {
+                console.log(r);
+                setFormData({
+                    username: "",
+                    email: "",
+                    password: "",
+                    speciality: "",
+                    cin: 0,
+                });
+                toggleModal();
+                getTeachers();
+            }).catch(e => {
+                toast.error(e.response.data.message)
+            })
+
         }
     };
 const getTeachers = () => {
-    // axios.get('http://localhost:5000/teachers').then(r => {
-    //     setTeachers(r.data)
-    // }).catch(e => {
-    //     console.log(e)
-    // })
+    axios.get('http://localhost:5000/teacher/all').then(r => {
+        setTeachers(r.data)
+    }).catch(e => {
+        console.log(e)
+    })
 }
-    const handleDeleteTeacher = (e) => {
+    const handleDeleteTeacher = (e,teacher) => {
         e.preventDefault();
         // Call the API to delete the teacher
-        // axios.delete('http://localhost:5000/teachers/' + teacherId).then(r => {
-        //     console.log(r)
-        // getTeachers();
-        // }).catch(e => {
-        //     console.log(e)
-        // })
+        axios.delete('http://localhost:5000/user/' + teacher.id).then(r => {
+            console.log(r)
+        getTeachers();
+        }).catch(e => {
+            console.log(e)
+        })
 
     }
+    useEffect(() => {
+        getTeachers()
+    },[])
 
     return (
         <Container className="all-teachers" fluid style={{marginTop:'-50px',padding:"0 48px",height:'100%', marginBottom:'30px'}}>
@@ -297,6 +318,7 @@ const getTeachers = () => {
                     <thead className="head-table">
                     <tr>
                         <th scope="col">Email address</th>
+                        <th scope="col">Identity Card</th>
                         <th scope="col">Name</th>
                         <th scope="col">Speciality</th>
                         <th scope="col">Actions</th>
@@ -312,7 +334,7 @@ const getTeachers = () => {
                         filteredTeachers.map((teacher) => (
                             <tr key={teacher.id}>
                                 <td>{teacher.email}</td>
-
+                                <td>{teacher.cin}</td>
                                 <td>{teacher.username}</td>
                                 <td>{teacher.speciality}</td>
 
@@ -320,7 +342,6 @@ const getTeachers = () => {
                                     <UncontrolledDropdown>
                                         <DropdownToggle
                                             className="btn-icon-only text-light"
-                                            href="#pablo"
                                             role="button"
                                             size="sm"
                                             color=""
@@ -330,16 +351,16 @@ const getTeachers = () => {
                                         </DropdownToggle>
                                         <DropdownMenu className="dropdown-menu-arrow" style={{boxShadow:'0px 8px 16px 0px rgba(0,0,0,0.2)',border:'none'}} end>
 
-                                            <DropdownItem
-                                                href="/admin/profile"
-                                                className="d-flex align-items-center"
-                                            >
-                                                <FaEye size={20} className="me-1"/>
-                                                View profile
-                                            </DropdownItem>
+                                            <NavLink to={"/admin/profile/" + teacher.id + "/" + "teacher"}>
+                                                <DropdownItem
+                                                    className="d-flex align-items-center"
+                                                >
+                                                    <FaEye size={20} className="me-1"/>
+                                                    View profile
+                                                </DropdownItem>
+                                            </NavLink>
 
                                             <DropdownItem
-                                                href=""
                                                 onClick={() => handleUpdateClick(teacher)}
                                                 className="d-flex align-items-center"
                                             >
@@ -350,8 +371,7 @@ const getTeachers = () => {
                                             {/* Update Student Modal */}
 
                                             <DropdownItem
-                                                href=""
-                                                onClick={handleDeleteTeacher}
+                                                onClick={(e) => handleDeleteTeacher(e,teacher)}
                                             >
                                                 <FontAwesomeIcon icon={faTrash} className="me-2" />
                                                 Delete
@@ -364,29 +384,49 @@ const getTeachers = () => {
                                                     <FaChalkboardTeacher size={25} className="mb-1 me-2"/>
                                                     <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Update teacher:</p>
                                                 </div>
-                                                <form onSubmit={handleUpdateSubmit} onReset={() => handleCancelUpdate(teacher)}
+                                                <form onSubmit={(e) => handleUpdateSubmit(e, teacher)}
+                                                      onReset={() => handleCancelUpdate(teacher)}
                                                       className="link-form add-new d-flex flex-column align-items-center">
-                                                    <input
-                                                        type={"text"}
-                                                        name="username"
-                                                        value={updateFormData.username}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter username"
-                                                    />
-                                                    <input
-                                                        type={"email"}
-                                                        name="email"
-                                                        value={updateFormData.email}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter email"
-                                                    />
-                                                    <input
-                                                        type={"text"}
-                                                        name="speciality"
-                                                        value={updateFormData.speciality}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter speciality"
-                                                    />
+                                                    <div className="mt-3" style={{width: "90%"}}>
+                                                        <label htmlFor="module">Username:</label>
+                                                        <input
+                                                            type={"text"}
+                                                            name="username"
+                                                            value={updateFormData.username}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter username"
+                                                        />
+                                                    </div>
+                                                    <div style={{width: "90%"}}>
+                                                        <label htmlFor="module">Email:</label>
+                                                        <input
+                                                            type={"email"}
+                                                            name="email"
+                                                            value={updateFormData.email}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter email"
+                                                        />
+                                                    </div>
+                                                    <div style={{width: "90%"}}>
+                                                        <label htmlFor="module">Speciality:</label>
+                                                        <input
+                                                            type={"text"}
+                                                            name="speciality"
+                                                            value={updateFormData.speciality}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter speciality"
+                                                        />
+                                                    </div>
+                                                    <div style={{width: "90%"}}>
+                                                        <label htmlFor="cin">CIN:</label>
+                                                        <input
+                                                            type={"number"}
+                                                            name="cin"
+                                                            value={updateFormData.cin}
+                                                            onChange={handleUpdateInputChange}
+                                                            placeholder="Enter cin"
+                                                        />
+                                                    </div>
                                                     <div className="end d-flex justify-content-between mt-4"
                                                          style={{width: '70%'}}>
                                                         <button type="submit" className="me-1">
@@ -419,7 +459,7 @@ const getTeachers = () => {
                         <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Add teacher:</p>
                     </div>
                     <form onSubmit={handleSubmitTeacher} onReset={handleCancel}
-                          className="link-form add-new d-flex flex-column align-items-center">
+                          className="link-form add-new new d-flex flex-column align-items-center">
                         <input
                             type={"text"}
                             name="username"
@@ -427,7 +467,7 @@ const getTeachers = () => {
                             onChange={handleInputChange}
                             placeholder="Enter username"
                         />
-                        {errors.username && <p style={{color:"#b41b1b"}}>{errors.username}</p>}
+                        {errors.username && <p style={{color: "#b41b1b"}}>{errors.username}</p>}
                         <input
                             type={"email"}
                             name="email"
@@ -435,7 +475,7 @@ const getTeachers = () => {
                             onChange={handleInputChange}
                             placeholder="Enter email: example@example.com"
                         />
-                        {errors.email && <p style={{color:"#b41b1b"}}>{errors.email}</p>}
+                        {errors.email && <p style={{color: "#b41b1b"}}>{errors.email}</p>}
                         <input
                             type={"password"}
                             name="password"
@@ -443,7 +483,7 @@ const getTeachers = () => {
                             onChange={handleInputChange}
                             placeholder="Enter password"
                         />
-                        {errors.password && <p style={{color:"#b41b1b"}}>{errors.password}</p>}
+                        {errors.password && <p style={{color: "#b41b1b"}}>{errors.password}</p>}
                         <input
                             type={"text"}
                             name="speciality"
@@ -451,16 +491,22 @@ const getTeachers = () => {
                             onChange={handleInputChange}
                             placeholder="Enter speciality"
                         />
-                        {errors.speciality && <p style={{color:"#b41b1b"}}>{errors.speciality}</p>}
-                        <input type={"file"} name="photo" id="teacher-image" accept="image/*"
-                               onChange={handleImageChange} style={{display: "none"}}/>
-                        {errors.image && <p style={{color:"#b41b1b"}}>{errors.image}</p>}
-                        <div className="d-flex justify-content-start" style={{width: "100%"}}>
-                            <Button className="d-flex align-items-center add-photo ms-3" onClick={handleImageClick}>
-                                <LuImagePlus size={30}/>
-                                <p className="ms-2"> {!formData.image ? ("Add photo") : formData.image.name} </p>
-                            </Button>
-                        </div>
+                        {errors.speciality && <p style={{color: "#b41b1b"}}>{errors.speciality}</p>}
+                            <input
+                                type={"number"}
+                                name="cin"
+                                onChange={handleInputChange}
+                                placeholder="Enter cin"
+                            />
+                        {errors.cin && <p style={{color: "#b41b1b"}}>{errors.cin}</p>}
+                        {/*<input type={"file"} name="photo" id="teacher-image" accept="image/*"*/}
+                        {/*       onChange={handleImageChange} style={{display: "none"}}/>*/}
+                        {/*<div className="d-flex justify-content-start" style={{width: "100%"}}>*/}
+                        {/*    <Button className="d-flex align-items-center add-photo ms-3" onClick={handleImageClick}>*/}
+                        {/*        <LuImagePlus size={30}/>*/}
+                        {/*        <p className="ms-2"> {!formData.image ? ("Add photo") : formData.image.name} </p>*/}
+                        {/*    </Button>*/}
+                        {/*</div>*/}
                         <div className="end d-flex justify-content-between mt-4" style={{width: '70%'}}>
                             <button type="submit" className="me-1">
                                 Add
@@ -472,6 +518,12 @@ const getTeachers = () => {
                     </form>
                 </PopUp>
             </div>
+            <ToastContainer
+                position="bottom-right"
+                // autoClose="4000"
+                autoClose={false}
+                theme="colored"
+            />
         </Container>
     );
 };
