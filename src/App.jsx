@@ -2,9 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./App.css";
 import {
   Route,
-  RouterProvider,
   Routes,
-  createBrowserRouter,
 } from "react-router-dom";
 import Login from "./Pages/Auth/Login.jsx";
 import RequireAuth from "./Pages/Auth/RequireAuth.jsx";

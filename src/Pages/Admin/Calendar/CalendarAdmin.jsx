@@ -1,13 +1,12 @@
-import FirstCalendar from "../../Components/Calendar/FirstCalendar";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Sessions } from "../../data/sessionsData";
-import AdminCalendar from "../../Components/Calendar/AdminCalendar";
+import { Sessions } from "../../../data/sessionsData.jsx";
+import AdminCalendar from "../../../Components/Calendar/AdminCalendar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import '../../Components/Calendar/styles.css';
-import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
-import { groups } from "../../data/LevelsData.jsx";
+import '../../../Components/Calendar/styles.css';
+import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
+import { groups } from "../../../data/LevelsData.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Calendar() { 
