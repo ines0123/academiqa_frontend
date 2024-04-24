@@ -2,45 +2,48 @@ import SideBar from "../Components/SideBar/SideBar";
 import { Outlet } from 'react-router-dom'
 import '../App.css'
 import { Menu } from "../Context/MenuContext";
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { WindowSize } from '../Context/WindowContext'
 import NotificationCard from "../Components/Notification/NotificationCard.jsx";
 import { CurrentUser } from "../Context/CurrentUserContext.jsx";
+import Cookie from 'cookie-universal';
+import { jwtDecode } from "jwt-decode";
+import Loading from "../Components/Loading/Loading.jsx";
 
 
 export default function Layout(){
 
+    const [loading, setLoading] = useState(true);
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
+
     const userContext = useContext(CurrentUser);
-    const role = userContext.currentUser.role;
+    const [role, setRole] = useState('');
     console.log(userContext);
 
-    // let role="";
-    // if (window.location.pathname.includes("teacher")){
-    //   role="teacher";
-    // }
-    // if (window.location.pathname.includes("student")){
-    //   role="student";
-    // }
-    // if (window.location.pathname.includes("admin")){
-    //   role="admin";
-    // }
-  
+    useEffect(() => {
+        const cookie = Cookie();
+        const userToken = cookie.get('academiqa');
+        userContext.setCurrentUser({
+            id: jwtDecode(userToken).id,
+            role: jwtDecode(userToken).role,
+            username: jwtDecode(userToken).username,
+            email: jwtDecode(userToken).email,
+        });
+        setRole(jwtDecode(userToken).role);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }
+    ,[])
+
+
     return (
+      <>
+      {loading && <Loading  />}      
       <div className='layout-container'>
       <SideBar role={role} />
-        {/* {
-            windowContext.windowSize < "768" && isOpen && (
-                <div
-                style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: '100' }}
-                onClick={() => menu.setIsOpen(false)}
-                ></div>
-            )
-            } */}
-        {/* Content */
-        }
         <div
             className='layout-content'
             style={{
@@ -52,5 +55,6 @@ export default function Layout(){
         </div>
           <NotificationCard />
       </div>
-    )
+      </>
+      )
   }
