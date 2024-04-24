@@ -32,7 +32,7 @@ import {
       fields: {
         id: 'Id',
         subject: { name: 'Subject', title: 'Subject' },
-        location: { name: 'Type', title: 'Session Type' },
+        location: { name: 'type', title: 'Session Type' },
       },
     };
   

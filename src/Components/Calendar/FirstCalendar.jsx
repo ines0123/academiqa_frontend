@@ -45,16 +45,6 @@ const FirstCalendar = ({role, sessions}) => {
     );
   };
 
-  const fieldsData = {
-    id: 'id',
-    subject: { name: 'subject' },
-    type: { name: 'type' },
-    description: { name: 'Comments' },
-    startTime: { name: 'DepartureTime' },
-    endTime: { name: 'ArrivalTime' },
-    startTimezone: { name: 'Origin' },
-    endTimezone: { name: 'Destination' }
-  }
 
   const eventSettings = {
     dataSource: sessions,
