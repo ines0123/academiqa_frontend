@@ -78,26 +78,44 @@
     background-color: #fef7ef;
     border-radius: 10px;
     padding: 5px 30px 5px 20px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
     font-weight: 500;
-    border: none
+    border: none;
+    border: 2px solid rgb(255, 255, 255);
 }
+
+.form-select:focus {
+
+    border: 2px solid rgb(255, 255, 255);
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    transition: 0.1s;
+
+}
+
+
+.form-select:hover{
+    background-color: #fef7ef;
+    transform: scale(1.02);
+    transition: 0.1s;
+
+}
+
 
 .form-button {
     margin: 20px;
     background-color: #fef7ef;
     padding: 5px 20px 5px 20px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
     height: 34px;
     border-radius: 10px;
     font-weight: 500;
-
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
-
-
-
+    border: 2px solid rgb(255, 255, 255);
 }
 
-.form-select select:focus {
-    outline: none;
-    box-shadow: none;
+.form-button:hover {
+    background-color: #ff880046;
+    color: white;
+    transform: scale(1.05);
+    transition: 0.1s;
 }

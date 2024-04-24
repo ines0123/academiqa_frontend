@@ -1,4 +1,3 @@
-import FirstCalendar from "../../Components/Calendar/FirstCalendar";
 import { useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { Sessions } from "../../data/sessionsData";
@@ -75,7 +74,7 @@ export default function Calendar() {
 
                 }
                 }>
-                    <option value="">Select sector </option>
+                    <option value="" hidden>Select sector </option>
 
                     {
                         sectors.map((sector) => {
@@ -94,7 +93,7 @@ export default function Calendar() {
                     // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
-                    <option value="">Select Level </option>
+                    <option value="" hidden>Select Level </option>
                     {
                         groups
                         .filter((l) => l.sector == sector && l.group==1)
@@ -117,7 +116,7 @@ export default function Calendar() {
                     // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
-                    <option value="">Select Amphi </option>
+                    <option value="" hidden>Select Amphi </option>
                     {
                         groups
                         .filter((l) => l.sector == sector && l.group==1)
@@ -141,7 +140,7 @@ export default function Calendar() {
                         ",amphi:", amphi);
                 }
                 }>
-                    <option value="">Select Group </option>
+                    <option value="" hidden>Select Group </option>
                     {
                         groups
                         .filter((l) => l.sector == sector && (l.year== 2 || l.amphi==1))
