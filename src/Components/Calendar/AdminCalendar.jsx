@@ -26,16 +26,14 @@ import {
       return instance.formatDate(value, { skeleton: "hm" });
     };
 
-    const popupOpen = (args) => {
-      if (role === "teacher") {args.cancel = true;}}
   
     const eventSettings = {
       dataSource: sessions,
       fields: {
         id: 'Id',
-        subject: { name: 'Subject' },
-        location: { name: 'type' },
-      }
+        subject: { name: 'Subject', title: 'Subject' },
+        location: { name: 'Type', title: 'Session Type' },
+      },
     };
   
     return (
@@ -50,17 +48,10 @@ import {
         eventClick={
           (args) => {
             if (role === "teacher") {
-              // alert("You are not allowed to create a session");
-              // window.location.reload();
-              // console.log('id:',args)
-              // window.location.href = `/teacher/session/${args.data.Id}`;
               nav(`/teacher/session/${args.event.Id}`);
             }
           }
         }
-        // popupOpen={(args) => {
-        //   popupOpen(args);
-        // }}
         actionComplete={(args) => {
           if (args.requestType === "eventChanged") {
             console.log(args.data);
