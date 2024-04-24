@@ -12,6 +12,13 @@ import { Sessions } from "../../data/sessionsData";
 const Navbar = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const nav = useNavigate();
+  const student = {
+    id: 1,
+    name: "John Doe",
+    level: 1
+}
+  const data = Sessions.filter((session) => session.LevelId.includes(+student.level));
+  console.log(data);
 
   let role ='';
   if (window.location.pathname.includes("student")) { role = "student"; }
@@ -50,8 +57,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div title='go to calendar' className="calendar" onClick={() => nav(`/${role}/calendar`)}>
-              <SmallCalendar sessions={Sessions.filter((session) => session.LevelId === 1)
-              } role={role} />
+              <SmallCalendar sessions={data} role={role} />
             </div>
             <div className="calendardiv">
               <Link to="/calendar" className="calendarButton">

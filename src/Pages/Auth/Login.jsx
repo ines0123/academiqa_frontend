@@ -9,12 +9,14 @@ import { useEffect, useRef, useState } from 'react'
 import Loading from '../../Components/Loading/Loading'
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import ChangePassword from '../../Components/Auth/ChangePassword'
 
 
 export default function Login() {
     // ref
     const focus = useRef(null);
 
+    const [changePassword, setChangePassword] = useState(false);
     // form state
     const [form, setForm] = useState({
         email: '',
@@ -92,28 +94,28 @@ export default function Login() {
                         className="gap-3 side-bar-link "
                         icon={faCircleCheck}
                         />
-                        <p className='login-bar-text'> Organized Sessions </p>
+                        <p className='cursor-default login-bar-text'> Organized Sessions </p>
                     </div>
                     <div className='d-flex align-items-center gap-3 login-bar-content ' >
                         <FontAwesomeIcon
                         className="gap-3 side-bar-link"
                         icon={faCircleCheck}
                         />
-                        <p className='login-bar-text'> Intelligent Presence System </p>
+                        <p className='cursor-default login-bar-text'> Intelligent Presence System </p>
                     </div>
                     <div className='d-flex align-items-center gap-3 login-bar-content ' >
                         <FontAwesomeIcon
                         className="gap-3 side-bar-link"
                         icon={faCircleCheck}
                         />
-                        <p className='login-bar-text'> Limitless AI Assistance </p>
+                        <p className='cursor-default login-bar-text'> Limitless AI Assistance </p>
                     </div>
                     <div className='d-flex align-items-center gap-3 login-bar-content ' >
                         <FontAwesomeIcon
                         className="gap-3 side-bar-link"
                         icon={faCircleCheck}
                         />
-                        <p className='login-bar-text'> And Much More ... </p>
+                        <p className='cursor-default login-bar-text'> And Much More ... </p>
                     </div>
                 </div>
             </div>
@@ -140,13 +142,12 @@ export default function Login() {
                                 <Form.Control type="password" name="password" placeholder="" value={form.password}
                                     onChange={handleChange} 
                                     required minLength="6" />
-                                <a href='#' className=' mt-2 text-muted text-decoration-none ' >Forgot Password ? </a>
+                                <div className=" mt-3">
+                                    <a href='#' className=' text-muted text-decoration-none '>Forgot Password
+                                        ? </a>
+                                </div>
 
                             </Form.Group>
-
-
-
-
                             {/* button and alerts */}
                             <div>
                                 <div className="d-flex">
@@ -164,8 +165,8 @@ export default function Login() {
                                     </span>}
                             </div>
                         </div>
-
                     </Form>
+                    <ChangePassword isOpen={changePassword} setIsOpen={setChangePassword}/>
 
             </div>
         </div>
