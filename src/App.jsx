@@ -7,7 +7,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import Login from "./Pages/Auth/Login.jsx";
-import RequireAuth from "./Pages/Auth/RequireAuth.jsx";
+import RequireRole from "./Pages/Auth/RequireRole.jsx";
 import HomeStudent from "./Pages/Student/HomeStudent/HomeStudent.jsx";
 import Notes from "./Pages/Student/Notes/Notes.jsx";
 import ProfileStudent from "./Pages/Student/Profile/ProfileStudent.jsx";
@@ -23,14 +23,15 @@ import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
 import PageNotFound from "./Pages/Auth/PageNotFound.jsx";
+import RequireLogin from "./Pages/Auth/RequireLogin.jsx";
 
 export default function App() {
   return (
     <>
         <Routes>
-          <Route path="/login" element={<Login />}></Route>
+          <Route element={<RequireLogin />}>
           <Route element={<Layout />}>
-            <Route element={<RequireAuth allowedRole={['student']} />}>
+            <Route element={<RequireRole allowedRole={['student']} />}>
               <Route path="/student/home" element={<HomeStudent />}></Route>
               <Route path="student/courses" element={<Courses />}></Route>
               <Route path="student/notes" element={<Notes />}></Route>
@@ -39,7 +40,7 @@ export default function App() {
               <Route path="student/calendar" element={<StudentCalendar />}></Route>
 
             </Route>
-            <Route element={<RequireAuth allowedRole={['teacher']} />}>
+            <Route element={<RequireRole allowedRole={['teacher']} />}>
               <Route path="/teacher/home" element={<HomeTeacher />}></Route>
               <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
 
@@ -48,15 +49,16 @@ export default function App() {
               <Route path="teacher/calendar/:id?" element={<TeacherCalendar />}></Route>
 
             </Route>
-            <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
+            <Route element={<RequireRole allowedRole={['student', 'teacher']} />}>
               <Route path="/chat" element={<SessionStudent />}></Route>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
               <Route path="/course" element={<Course />}></Route>
             </Route>
-            <Route element={<RequireAuth allowedRole={['admin']} />}>
+            <Route element={<RequireRole allowedRole={['admin']} />}>
               <Route path="admin/calendar/:id?" element={<CalendarAdmin />}></Route>
             </Route>
             <Route path="*" element={<PageNotFound />}></Route>
+          </Route>
           </Route>
         </Routes>
     </>

@@ -3,14 +3,14 @@ import { useContext } from "react";
 import { CurrentUser } from "../../Context/CurrentUserContext";
 import Unauthorized from "./Unauthorized";
 
-export default function RequireAuth({ allowedRole }) {
+export default function RequireRole({ allowedRole }) {
 
     const navigate = useNavigate();
     const userContext = useContext(CurrentUser);
-    if(!userContext.currentUser)
-    {
-        navigate('/login')
-    }
+    // if(!userContext.currentUser)
+    // {
+    //     navigate('/login')
+    // }
     const role = userContext.currentUser ? userContext.currentUser.role: "none";
 
 

@@ -19,16 +19,18 @@ export default function Layout(){
     const windowContext = useContext(WindowSize);
     const navigate = useNavigate();
     const userContext = useContext(CurrentUser);
-    if(!userContext.currentUser)
-    {
-        navigate('/login')
-    }
+    // if(!userContext.currentUser)
+    // {
+    //     navigate('/login')
+    // }
     const [role, setRole] = useState('');
     console.log(userContext);
 
     useEffect(() => {
         const cookie = Cookie();
-        if (!cookie.get('academiqa')) { navigate('/login') ; userContext.setCurrentUser(null); }
+        if (!cookie.get('academiqa')) { 
+            // navigate('/login')
+         ; userContext.setCurrentUser(null); }
         else{
         const userToken = cookie.get('academiqa');
         userContext.setCurrentUser({

@@ -81,14 +81,12 @@ export default function Login() {
                     // context
                     userContext.setCurrentUser(user);
                     console.log("userContext:", userContext.currentUser);
-
-
-                    const path = user.role == "Admin" ? '/admin/calendar' : user.role == "Teacher" ? '/teacher/home' : user.role == "Student" ? '/student/home' : '/';
+                    const path = user.role.toLowerCase() == "Admin" ? '/admin/calendar' : user.role.toLowerCase() == "teacher" ? '/teacher/home' : user.role.toLowerCase() == "student" ? '/student/home' : '/';
                     setDestination(path);
-
                     setTimeout(
                         ()=>{
-                            navigate(path);
+                            window.location.pathname = path;
+                            setLoading(false);
                         }, 2500)
                 })
             }
