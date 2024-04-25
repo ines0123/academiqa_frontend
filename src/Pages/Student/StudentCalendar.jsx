@@ -12,9 +12,9 @@ export default function StudentCalendar() {
     const student = {
         id: 1,
         name: "John Doe",
-        level: 2
+        level: 1
     }
-    const data = Sessions.filter((session) => session.LevelId === student.level);
+    const data = Sessions.filter((session) => session.LevelId.includes(+student.level));
     console.log(data);
 
     return(

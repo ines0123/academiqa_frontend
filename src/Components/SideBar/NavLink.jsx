@@ -1,4 +1,11 @@
-import { faPlus, faUserPlus, faUsers, faCartShopping, faCartPlus, faUserPen, faIcons, faGift, faGifts, faHouse, faBookOpenReader, faComment, faComments, faNoteSticky, faCalendar, faCalendarDay, faCalendarDays, faCalendarAlt, faCalendarCheck, faCalendarPlus, faCalendarWeek, faCalendarXmark } from '@fortawesome/free-solid-svg-icons'
+import {
+    faHouse,
+    faBookOpenReader,
+    faComments,
+    faNoteSticky,
+    faCalendarDays,
+    faChartLine, faChalkboardUser, faGraduationCap,
+} from '@fortawesome/free-solid-svg-icons'
 
 export const links = [
     {
@@ -51,17 +58,41 @@ export const links = [
         role: 'teacher'
     },
     {
+        name: "See More Courses",
+        path: "student/recommend",
+        icon: "",
+        image: "../../public/BotIcon.png",
+        role: 'student'
+    },
+    {
+        name: "Dashboards",
+        path: "admin/home",
+        icon: faChartLine,
+        role: 'admin',
+    },
+    {
+        name: "Teachers",
+        icon: faChalkboardUser,
+        path: "admin/professors",
+        role: 'admin',
+    },
+    {
+        name: "Students",
+        path: "admin/students",
+        icon: faGraduationCap,
+        role: 'admin',
+    },
+    {
         name: "Calendar",
         path: "admin/calendar",
         icon: faCalendarDays,
         role: 'admin',
     },
     {
-        name: "See More Courses",
-        path: "student/recommend",
-        icon: "",
-        image: "../../public/BotIcon.png",
-        role: 'student'
-    }
+        name: "Manage Courses",
+        path: "admin/courses",
+        icon: faBookOpenReader,
+        role: 'admin',
+    },
 
 ]

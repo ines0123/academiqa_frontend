@@ -4,12 +4,11 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import './popup.css'
 import Scrollbar from "../Scrollbar/Scrollbar.jsx";
+Modal.setAppElement('body');
 // eslint-disable-next-line react/prop-types
 const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC",fromCourse}) => {
     function closeModal() {
-        setTimeout(() => {
             setIsOpen(false);
-        }, 150);
     }
     const customStyles = {
         content: {
@@ -37,7 +36,7 @@ const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC",
         <div className="hello container">
 
                 <Modal
-                    ariaHideApp={false}
+                    // ariaHideApp={false}
                     isOpen={isOpen}
                     onRequestClose={closeModal}
                     style={customStyles}>

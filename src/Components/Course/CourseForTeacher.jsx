@@ -31,7 +31,7 @@ const CourseForTeacher = ({course,color}) => {
         setDisplay(false)
     }
     return (
-        <div className="card-teacher d-flex justify-content-start ps-3 pe-1 pt-3" style={{background: `${color}`}}>
+        <div className="course card-teacher d-flex justify-content-start ps-3 pe-1 pt-3" style={{background: `${color}`}}>
             <div className="d-flex">
                 <div className="card-content d-flex align-items-start justify-content-start">
                     <div className="card-image" style={{marginTop: '3px'}}>
