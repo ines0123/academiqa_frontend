@@ -2,12 +2,17 @@ import { useState } from "react";
 import { BiBookReader } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
-
+import axios from "axios";
 import PopUp from "../../Common/PopUp/PopUp";
 import "./AddNote.css";
+import { useContext } from "react";
+import { NoteContext } from "../../../Context/NoteContext.jsx";
+import { useDate } from "../../../Context/DateContext.jsx";
 
 const AddNote = ({ isOpen, setIsOpen, session }) => {
+  const date = useDate();
   const [newNote, setNewNote] = useState({ title: "", content: "" });
+  const { addNote } = useContext(NoteContext);
 
   const handleInputChange = (event) => {
     setNewNote({ ...newNote, [event.target.name]: event.target.value });
@@ -15,9 +20,16 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(newNote);
-    setIsOpen(false);
-    // Add code here to handle the submission of the new note
+    axios
+      .post(`http://localhost:5000/note`, newNote)
+      .then((res) => {
+        addNote(res.data);
+        setIsOpen(false);
+        setNewNote({ title: "", content: "" });
+      })
+      .catch((err) => {
+        console.error(`${err} - Failed to post note`);
+      });
   };
 
   const backgroundColor = "#FFFEFB";
@@ -43,7 +55,7 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
             </div>
           </div>
           <div className="noteDateTime">
-            <div className="noteDatePopUp">{session?.date}</div>
+            <div className="noteDatePopUp">{date}</div>
             <div className="noteSessionTimePopUp">
               <FiClock size={15} stroke="black" />
               <div>{session?.sessionTime}</div>
@@ -61,7 +73,7 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
               placeholder="Type your note's title ..."
             />
           </div>
-          <hr className="addNoteHr"/>
+          <hr className="addNoteHr" />
           <textarea
             name="content"
             value={newNote.content}

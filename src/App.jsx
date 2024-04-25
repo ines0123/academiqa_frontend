@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import "./App.css";
 import {
   Route,
@@ -22,6 +22,8 @@ import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
 import LoadingComponent from "./Components/Preloader/Preloader.jsx";
 import axios from "axios";
+import { NoteProvider } from "./Context/NoteContext.jsx";
+
 import HomeAdmin from "./Pages/Admin/Home/HomeAdmin.jsx";
 import ProfessorsAdmin from "./Pages/Admin/Professor/ProfessorsAdmin.jsx";
 import StudentsAdmin from "./Pages/Admin/Student/StudentsAdmin.jsx";
@@ -44,21 +46,48 @@ export default function App() {
   },[])
   return (
     <>
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route element={<Layout />}>
-            <Route element={<RequireAuth allowedRole={['student']} />}>
-              <Route path="/student/home" element={<HomeStudent courses={courses?.slice(0,3)}/>}></Route>
-              <Route path="student/courses" element={<Courses courses={courses} />}></Route>
-              <Route path="student/notes" element={<Notes />}></Route>
-              <Route path="student/profile" element={<ProfileStudent />}></Route>
-              <Route path="student/session/:id" element={<SessionStudent />}></Route>
-              <Route path="student/calendar" element={<StudentCalendar />}></Route>
-
-            </Route>
-            <Route element={<RequireAuth allowedRole={['teacher']} />}>
-              <Route path="/teacher/home" element={<HomeTeacher />}></Route>
-              <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
+      <Routes>
+        <Route path="/login" element={<Login />}></Route>
+        <Route element={<Layout />}>
+          <Route element={<RequireAuth allowedRole={["student"]} />}>
+            <Route
+              path="/student/home"
+              element={
+                <NoteProvider>
+                  <HomeStudent courses={courses?.slice(0, 3)} />
+                </NoteProvider>
+              }
+            ></Route>
+            <Route
+              path="student/courses"
+              element={<Courses courses={courses} />}
+            ></Route>
+            <Route
+              path="student/notes"
+              element={
+                <NoteProvider>
+                  <Notes />
+                </NoteProvider>
+              }
+            ></Route>
+            <Route path="student/profile" element={<ProfileStudent />}></Route>
+            <Route
+              path="student/session/"
+              // path="student/session/:id"
+              element={
+                <NoteProvider>
+                  <SessionStudent />
+                </NoteProvider>
+              }
+            ></Route>
+            <Route
+              path="student/calendar"
+              element={<StudentCalendar />}
+            ></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRole={["teacher"]} />}>
+            <Route path="/teacher/home" element={<HomeTeacher />}></Route>
+            <Route path="teacher/profile" element={<ProfileTeacher />}></Route>
 
               <Route path="teacher/session/:id" element={<SessionTeacher />}></Route>
               <Route path="teacher/session/:id/attendance" element={<Attendance />}></Route>

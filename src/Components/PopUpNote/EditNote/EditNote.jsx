@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import PopUp from "../../Common/PopUp/PopUp";
-
+import axios from "axios";
 import { BiBookReader } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import "../AddNote/AddNote.css";
+import { NoteContext } from "../../../Context/NoteContext";
+import { useContext } from "react";
 
 const EditNote = ({ note, isOpen, setIsOpen }) => {
   const [editedNote, setEditedNote] = useState(note);
+  const { updateNote, deleteNote } = useContext(NoteContext);
 
   useEffect(() => {
     setEditedNote(note);
@@ -19,8 +22,27 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(editedNote);
-    // Add code here to handle the submission of the edited note
+    axios
+      .patch(`http://localhost:5000/note/${note.id}`, editedNote)
+      .then((res) => {
+        updateNote(res.data);
+        setIsOpen(false);
+      })
+      .catch((err) => {
+        console.error(`${err} - Failed to update note`);
+      });
+  };
+
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:5000/note/${note.id}`)
+      .then((res) => {
+        deleteNote(res.data.id);
+        setIsOpen(false);
+      })
+      .catch((err) => {
+        console.error(`${err} - Failed to delete note`);
+      });
   };
 
   const backgroundColor = "#FFFEFB";
@@ -72,9 +94,14 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
             placeholder="Type your note here ..."
             className="content-input"
           />
-          <button type="submit" className="addNote">
-            Save
-          </button>
+          <div className="flex">
+            <button type="submit" className="addNote">
+              Save
+            </button>
+            <button onClick={handleDelete} className="addNote">
+              Delete
+            </button>
+          </div>
         </form>
       </div>
     </PopUp>

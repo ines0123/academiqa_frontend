@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import notesData from "../Notes/noteData.json";
 import Note from "../../../Components/Note/Note";
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar";
@@ -11,13 +11,14 @@ import { LuCalendar } from "react-icons/lu";
 import { FaRegStickyNote } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Notes.css";
-import {useDate} from "../../../Context/DateContext.jsx";
+import { useDate } from "../../../Context/DateContext.jsx";
+import { NoteContext } from "../../../Context/NoteContext.jsx";
 
 export default function Notes() {
   const date = useDate();
+  const { notes } = useContext(NoteContext);
   const [modulo, setModulo] = useState(4);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
-  const [notes, setNotes] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,8 +46,18 @@ export default function Notes() {
       return notes.filter(
         (note) =>
           (!selectedDate ||
-            new Date(note.date.split(",")[0]).toLocaleDateString() ===
-              selectedDate.toLocaleDateString()) &&
+            new Date(note.date).toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }) ===
+              selectedDate.toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })) &&
           (!selectedSubject || note.session.subject === selectedSubject)
       );
     };
@@ -76,11 +87,6 @@ export default function Notes() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-  useEffect(() => {
-    setNotes(notesData);
-  }, []);
-
   const bottomRef = useRef();
   // useEffect(() => {
   //   bottomRef.current.scrollIntoView({ behavior: "instant" });
@@ -103,7 +109,7 @@ export default function Notes() {
       <MidNavbar />
       <div className="date ms-3">{date}</div>
       <div
-        className={`my-notes d-flex mt-3 ms-3 p-3 ${
+        className={`my-notes d-flex mt-4 ms-3 p-3 ${
           isSmallScreen ? "more-margin" : ""
         }`}
       >
@@ -183,6 +189,7 @@ export default function Notes() {
                     )}
                     <div className="custom-col-c mt-4 mb-4 d-flex flex-column justify-content-center align-items-center">
                       <Note
+                        key={note.id}
                         note={note}
                         baseColor={colors[index % colors.length]}
                       />
