@@ -9,11 +9,14 @@ import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
 import { groups } from "../../data/LevelsData.jsx";
 import { useNavigate } from "react-router-dom";
 import { WindowSize } from "../../Context/WindowContext.jsx";
+import { CurrentUser } from "../../Context/CurrentUserContext.jsx";
 
 export default function Calendar() { 
     const {id} = useParams();
     const context = useContext(WindowSize);
     const windowSize = context.windowSize;
+    const userContext = useContext(CurrentUser);
+    const role = userContext.currentUser? userContext.currentUser.role: "student";
 
     const data = Sessions
     .filter((session) => session.LevelId.includes(+id));
@@ -159,7 +162,7 @@ export default function Calendar() {
                 </div>
                 </form>
 
-        <AdminCalendar sessions={data}/>
+        <AdminCalendar role={role} sessions={data}/>
         </div>
         <MidNavbar/>
     </div>

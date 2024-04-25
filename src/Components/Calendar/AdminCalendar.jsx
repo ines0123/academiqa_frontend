@@ -70,8 +70,8 @@ import {
         allowDragAndDrop={true}
         allowResizing={true}
         hover={(args) => {
-          if( sessions.length == 0) args.element.setAttribute('title', 'select a group');
-          if(!role == "teacher" ) {
+          if( sessions.length == 0) {args.element.setAttribute('title', 'select a group');}
+          if(role != "teacher" ) {
           // add title :
           if (args.element.classList[0]=="e-work-cells" ) {
             args.element.setAttribute('title', 'double click to add a session');
