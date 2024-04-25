@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./App.css";
 import {
   Route,
@@ -27,8 +27,11 @@ import ProfessorsAdmin from "./Pages/Admin/Professor/ProfessorsAdmin.jsx";
 import StudentsAdmin from "./Pages/Admin/Student/StudentsAdmin.jsx";
 import CoursesAdmin from "./Pages/Admin/Course/CoursesAdmin.jsx";
 import Profile from "./Pages/Admin/Profile/profile.jsx";
+import {CurrentUser} from "./Context/CurrentUserContext.jsx";
 export default function App() {
   const [courses, setCourses] = useState([]);
+  const userContext = useContext(CurrentUser);
+  console.log(userContext);
   useEffect(()=>{
     axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
         (response) => {
@@ -38,7 +41,6 @@ export default function App() {
           console.log(err);
         }
     )
-
   },[])
   return (
     <>

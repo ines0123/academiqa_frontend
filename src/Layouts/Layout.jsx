@@ -15,7 +15,7 @@ export default function Layout(){
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
     const userContext = useContext(CurrentUser);
-    const role = userContext.currentUser.role;
+    const role = userContext.currentUser?.role;
     console.log(userContext);
 
     // let role="";

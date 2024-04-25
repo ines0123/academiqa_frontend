@@ -5,7 +5,7 @@ import '../../Components/Calendar/styles.css'
 import './login.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
 import Loading from '../../Components/Loading/Loading'
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,8 @@ import { AUTH, LOGIN, baseURL } from '../../Api/Api';
 import Cookie from 'cookie-universal';
 import {jwtDecode} from "jwt-decode";
 import { CurrentUser } from '../../Context/CurrentUserContext'
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -60,7 +62,7 @@ export default function Login() {
         // handle submit    
         async function handleSubmit(e) {
             e.preventDefault();
-            setLoading(true);
+            // setLoading(true);
             
             try {
                 await axios.post(`${baseURL}/${AUTH}/${LOGIN}`, form).then(res => {
@@ -94,9 +96,10 @@ export default function Login() {
             }
             catch (error) {
                 // setLoading(false);
-                console.log(error);
+                console.log(error.response);
+                console.log(error.response.status);
                 if (error.response.status === 401) {
-                    setError("Wrong email or password")
+                    toast.error(error.response.data.message);
                 }
                 else {
                     setError("Internal Server Error");
@@ -200,6 +203,11 @@ export default function Login() {
                     <ChangePassword isOpen={changePassword} setIsOpen={setChangePassword}/>
 
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose="4000"
+                theme="colored"
+            />
         </div>
         
         

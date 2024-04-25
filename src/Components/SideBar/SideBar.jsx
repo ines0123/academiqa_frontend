@@ -78,7 +78,7 @@ export default function SideBar({role}) {
           />
 
               {/* Links */}
-              {links.filter(link => link.role.includes(role.toLowerCase())).map((link, key) => {
+              {links.filter(link => link.role.includes(role?.toLowerCase())).map((link, key) => {
                   return (
                       //Buttons
                       <NavLink
