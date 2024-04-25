@@ -5,6 +5,7 @@ import ChatbotDiscussion from "./ChatbotDiscussion.jsx";
 import './Chatbot.css';
 import chatbotChatbot from "../../assets/images/chatbot-chatbot.svg";
 import axios from "axios";
+import Cookie from "cookie-universal";
 
 const Chatbot = ({isOpen, setIsOpen}) => {
     const [discussions, setDiscussions] = useState([]);
@@ -14,7 +15,13 @@ const Chatbot = ({isOpen, setIsOpen}) => {
     //get all discussions from the server
     const getDiscussions = async () => {
         try{
-            const res = await axios.get('http://localhost:5000/chatbot/GetAllDiscussions');
+            const cookie = Cookie();
+            const userToken = cookie.get('academiqa')
+            const res = await axios.get('http://localhost:5000/chatbot/GetAllDiscussions',{
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            });
             setDiscussions(res.data);
             if(res.data.length > 0){
                 setDiscussionId(res.data[res?.data.length-1]?.id)

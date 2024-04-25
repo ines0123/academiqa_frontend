@@ -20,29 +20,16 @@ export default function Layout(){
     const windowContext = useContext(WindowSize);
 
     const userContext = useContext(CurrentUser);
-    const [role, setRole] = useState('');
-    console.log(userContext);
 
+    const [role, setRole] = useState('');
     useEffect(() => {
-        const cookie = Cookie();
-        const userToken = cookie.get('academiqa');
-        userContext.setCurrentUser({
-            id: jwtDecode(userToken).id,
-            role: jwtDecode(userToken).role,
-            username: jwtDecode(userToken).username,
-            email: jwtDecode(userToken).email,
-        });
-        setRole(jwtDecode(userToken).role);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }
-    ,[])
+        setRole(userContext.currentUser?.role);
+    }, [userContext.currentUser]);
 
 
     return (
       <>
-      {loading && <Loading  />}
+      {/*{loading && <Loading  />}*/}
       <div className='layout-container'>
       <SideBar role={role} />
         <div

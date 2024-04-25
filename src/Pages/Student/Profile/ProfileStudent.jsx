@@ -20,7 +20,7 @@ export default function ProfileStudent() {
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const [courses, setCourses] = useState([]);
     useEffect(()=>{
-        axios.get('http://localhost:3000/GetCoursesByClass/GL3').then(
+        axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
             (response) => {
                 console.log(response.data);
                 setCourses(response.data.filter((course) => course?.nbAbsence > 0));
@@ -53,7 +53,7 @@ export default function ProfileStudent() {
             <div className="container " style={{marginTop:'38px'}}>
                 <div className={`row d-flex justify-content-sm-center justify-content-md-start ${isSmallScreen ? 'more-margin' : ''}`}>
                     <div className="col-xl-4 col-lg-5 col-md-6 profile d-flex justify-content-sm-center justify-content-md-start">
-                        <Profile role={"student"}/>
+                        <Profile />
                     </div>
                     {courses.length > 0 ?(
                                 <div

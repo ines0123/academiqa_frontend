@@ -107,6 +107,14 @@ export default function Login() {
             }
         }
 
+
+    useEffect(() => {
+        if (userContext.currentUser) {
+            console.log("Current user set in context:", userContext.currentUser);
+        }
+    }, [userContext.currentUser]);
+
+
         function validateEmail(email) {
             // Regular expression for basic email format validation
             const emailRegex = /^[^\s@]+@[^\s@]+[^\s@]+$/;

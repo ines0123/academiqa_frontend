@@ -56,7 +56,7 @@ export default function ProfileTeacher() {
             <div className="container mt-5">
                 <div className="row pt-5 d-flex">
                     <div className="col-xl-4 col-lg-5 col-md-6 profile ps-0 pe-3 d-flex flex-column align-items-sm-center align-items-md-center mb-3">
-                        <Profile role={"teacher"}/>
+                        <Profile/>
                     </div>
 
                     <div className="courses-teacher mb-3 rounded-2xl col-xl-8 col-lg-7 col-md-6 px-3 d-flex flex-column align-items-sm-center align-items-md-start">
