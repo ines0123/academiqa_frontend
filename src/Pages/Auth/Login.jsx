@@ -71,7 +71,7 @@ export default function Login() {
                     // cookie
                     cookie.set('academiqa', token, {
                         path: '/',
-                        httpOnly: true
+                        // httpOnly: true
 
                     });
 

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Sessions } from "../../../data/sessionsData.jsx";
 import AdminCalendar from "../../../Components/Calendar/AdminCalendar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,9 +8,12 @@ import '../../../Components/Calendar/styles.css';
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 import { groups } from "../../../data/LevelsData.jsx";
 import { useNavigate } from "react-router-dom";
+import { WindowSize } from "../../../Context/WindowContext.jsx";
 
 export default function Calendar() { 
     const {id} = useParams();
+    const context = useContext(WindowSize);
+    const windowSize = context.windowSize;
 
     const data = Sessions
     .filter((session) => session.LevelId.includes(+id));
@@ -46,7 +49,6 @@ export default function Calendar() {
         console.log("group:", result);
 
         navigate("/admin/calendar/"+result[0].id);
-        // window.location.pathname = `/admin/calendar/${result[0].id}`;
 
 
     }
@@ -61,16 +63,18 @@ export default function Calendar() {
                 <h1 className="fs-2 ms-2 fw-bold" style={{ marginBottom:"0" }}>Admin Calendar</h1>
             </div>
 
-            <div className="d-flex justify-content-between">
 
-            <form className="d-flex justify-content-between" onSubmit={handleSubmit} >
-                <select name="level" id="level" className="form-select"
+
+            <form onSubmit={handleSubmit} >
+                <div className="d-flex" style={{flexWrap:"wrap", marginLeft:"10%"}}
+                >
+                <select name="level" id="level" className="form-select "
                 onChange={(e) => {
                     setSector(e.target.value);
 
                 }
                 }>
-                    <option value="">Select sector </option>
+                    <option value="" hidden>Select sector </option>
 
                     {
                         sectors.map((sector) => {
@@ -89,7 +93,7 @@ export default function Calendar() {
                     // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
-                    <option value="">Select Level </option>
+                    <option value="" hidden>Select Level </option>
                     {
                         groups
                         .filter((l) => l.sector == sector && l.group==1)
@@ -112,7 +116,7 @@ export default function Calendar() {
                     // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
-                    <option value="">Select Amphi </option>
+                    <option value="" hidden>Select Amphi </option>
                     {
                         groups
                         .filter((l) => l.sector == sector && l.group==1)
@@ -136,7 +140,7 @@ export default function Calendar() {
                         ",amphi:", amphi);
                 }
                 }>
-                    <option value="">Select Group </option>
+                    <option value="" hidden>Select Group </option>
                     {
                         groups
                         .filter((l) => l.sector == sector && (l.year== 2 || l.amphi==1))
@@ -152,9 +156,9 @@ export default function Calendar() {
                 <button className="form-button" type="submit">
                     submit
                 </button>
-
+                </div>
                 </form>
-            </div>
+
         <AdminCalendar sessions={data}/>
         </div>
         <MidNavbar/>

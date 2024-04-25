@@ -26,7 +26,7 @@ export default function Loading({path}) {
                 }}
                 >{randomFact.fact}</p>
                 <div>
-                <button className='btn btn-outline-danger m-1' onClick={()=> navigate(path)}>Skip</button>
+                {/* <button className='btn btn-outline-danger m-1' onClick={()=> navigate(path)}>Skip</button> */}
                 <button className='btn btn-outline-success m-1' onClick={()=> setRandomFact(funFacts[Math.floor(Math.random() * funFacts.length)])}>More</button>
 
                 </div>
