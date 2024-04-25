@@ -14,7 +14,6 @@ import {
   import { useNavigate } from "react-router-dom";
   import { registerLicense } from '@syncfusion/ej2-base';
   import '../../Components/Calendar/styles.css'
-  import { groups } from "../../data/LevelsData";
   
   registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
   
@@ -71,8 +70,8 @@ import {
         allowDragAndDrop={true}
         allowResizing={true}
         hover={(args) => {
-          // if(!role == "teacher") {
-          console.log(args);
+          if( sessions.length == 0) args.element.setAttribute('title', 'select a group');
+          if(!role == "teacher" ) {
           // add title :
           if (args.element.classList[0]=="e-work-cells" ) {
             args.element.setAttribute('title', 'double click to add a session');
@@ -81,9 +80,9 @@ import {
           args.element.setAttribute('title', 'double click to edit the session');
           }
         }}
-        // }
+        }
         popupOpen={(args) => {
-          if (role === "teacher") {
+          if (role === "teacher" || sessions.length === 0) {
             args.cancel = true;
           }
           args.duration = 90;
