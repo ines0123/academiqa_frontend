@@ -76,9 +76,6 @@ import {
           if (args.element.classList[0]=="e-work-cells" ) {
             args.element.setAttribute('title', 'double click to add a session');
           }
-          if (args.element.classList[0]=="e-appointment") {
-          args.element.setAttribute('title', 'double click to edit the session');
-          }
         }}
         }
         popupOpen={(args) => {
