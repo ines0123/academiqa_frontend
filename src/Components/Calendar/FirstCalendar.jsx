@@ -32,7 +32,7 @@ const FirstCalendar = ({role, sessions}) => {
     console.log(props);
     return (
       <div
-        className={`e-appointment ${props.Color}`}
+        className={`e-appointment ${props.type == "cours" ? "beige" : props.type == "TP" ? "green" : "blue"} `}
         onClick={() => { 
           // window.location.pathname = `${role}/session/${props.Id}`; 
           nav(`/${role}/session/${props.Id}`);

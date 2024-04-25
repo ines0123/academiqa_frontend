@@ -23,6 +23,7 @@ import Attendance from './Pages/Teacher/Attendance.jsx'
 import LoadingComponent from "./Components/Preloader/Preloader.jsx";
 import axios from "axios";
 import { NoteProvider } from "./Context/NoteContext.jsx";
+import PageNotFound from "./Pages/Auth/PageNotFound.jsx";
 
 import HomeAdmin from "./Pages/Admin/Home/HomeAdmin.jsx";
 import ProfessorsAdmin from "./Pages/Admin/Professor/ProfessorsAdmin.jsx";
@@ -107,6 +108,7 @@ export default function App() {
               <Route path="admin/courses" element={<CoursesAdmin />}></Route>
               <Route path="admin/profile/:id/:role" element = {<Profile />} ></Route>
             </Route>
+            <Route path="*" element={<PageNotFound />}></Route>
           </Route>
         </Routes>
 

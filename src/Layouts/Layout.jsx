@@ -1,5 +1,5 @@
 import SideBar from "../Components/SideBar/SideBar";
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import '../App.css'
 import { Menu } from "../Context/MenuContext";
 import { useContext, useEffect, useState } from 'react'
@@ -18,9 +18,12 @@ export default function Layout(){
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
-
+    const navigate = useNavigate();
     const userContext = useContext(CurrentUser);
-
+    if(!userContext.currentUser)
+    {
+        navigate('/login')
+    }
     const [role, setRole] = useState('');
     useEffect(() => {
         setRole(userContext.currentUser?.role);
