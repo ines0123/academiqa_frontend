@@ -1,5 +1,5 @@
 import SideBar from "../Components/SideBar/SideBar";
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import '../App.css'
 import { Menu } from "../Context/MenuContext";
 import { useContext, useEffect, useState } from 'react'
@@ -17,13 +17,19 @@ export default function Layout(){
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
-
+    const navigate = useNavigate();
     const userContext = useContext(CurrentUser);
+    if(!userContext.currentUser)
+    {
+        navigate('/login')
+    }
     const [role, setRole] = useState('');
     console.log(userContext);
 
     useEffect(() => {
         const cookie = Cookie();
+        if (!cookie.get('academiqa')) { navigate('/login') ; userContext.setCurrentUser(null); }
+        else{
         const userToken = cookie.get('academiqa');
         userContext.setCurrentUser({
             id: jwtDecode(userToken).id,
@@ -34,7 +40,7 @@ export default function Layout(){
         setRole(jwtDecode(userToken).role);
         setTimeout(() => {
             setLoading(false);
-        }, 2000);
+        }, 2000);}
     }
     ,[])
 

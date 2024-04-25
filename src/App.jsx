@@ -22,6 +22,7 @@ import CalendarAdmin from './Pages/Admin/CalendarAdmin.jsx'
 import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
+import PageNotFound from "./Pages/Auth/PageNotFound.jsx";
 
 export default function App() {
   return (
@@ -55,6 +56,7 @@ export default function App() {
             <Route element={<RequireAuth allowedRole={['admin']} />}>
               <Route path="admin/calendar/:id?" element={<CalendarAdmin />}></Route>
             </Route>
+            <Route path="*" element={<PageNotFound />}></Route>
           </Route>
         </Routes>
     </>

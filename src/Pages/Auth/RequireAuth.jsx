@@ -1,15 +1,26 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { CurrentUser } from "../../Context/CurrentUserContext";
+import Unauthorized from "./Unauthorized";
 
 export default function RequireAuth({ allowedRole }) {
-    // get the user from the context (to be done later)
-    //const { user } = useContext(UserContext);
 
+    const navigate = useNavigate();
+    const userContext = useContext(CurrentUser);
+    if(!userContext.currentUser)
+    {
+        navigate('/login')
+    }
+    const role = userContext.currentUser ? userContext.currentUser.role: "none";
+
+
+    console.log("userContext: ", userContext);
     return  (
-        // allowedRole.includes (user.role) ? (
+        allowedRole.includes (role.toLowerCase()) ? (
             <Outlet/>
-        // ) : (
-        //     <h1>Unauthorized</h1>
-        // )
+        ) : (
+            <Unauthorized/>
+        )
     );
 }
 
