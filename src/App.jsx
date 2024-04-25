@@ -2,9 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./App.css";
 import {
   Route,
-  RouterProvider,
   Routes,
-  createBrowserRouter,
 } from "react-router-dom";
 import Login from "./Pages/Auth/Login.jsx";
 import RequireAuth from "./Pages/Auth/RequireAuth.jsx";
@@ -76,7 +74,7 @@ export default function App() {
               <Route path="admin/students" element={<StudentsAdmin />}></Route>
               <Route path="admin/calendar/:id?" element={<CalendarAdmin />}></Route>
               <Route path="admin/courses" element={<CoursesAdmin />}></Route>
-              <Route path="admin/profile" element = {<Profile role={"student"}/>} ></Route>
+              <Route path="admin/profile/:id/:role" element = {<Profile />} ></Route>
             </Route>
           </Route>
         </Routes>

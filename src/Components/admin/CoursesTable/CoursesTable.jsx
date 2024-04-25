@@ -11,55 +11,16 @@ import {
     UncontrolledDropdown
 } from 'reactstrap';
 import axios from "axios";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-import { FaEllipsisVertical } from "react-icons/fa6";
-import {FaChalkboardTeacher, FaEye} from "react-icons/fa";
+import {IoMdCheckmarkCircleOutline} from "react-icons/io";
+import {FaEllipsisVertical} from "react-icons/fa6";
+import {FaBookReader, FaChalkboardTeacher} from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../Common/PopUp/PopUp.jsx";
-import {number} from "prop-types";
 import Select from "react-select";
 
 const TableCourses = () => {
-    const [courses, setCourses] = useState([
-        {
-            "module": "Informatique",
-            "subjects": [
-                {
-                    "createdAt": "2024-04-19T01:09:54.037Z",
-                    "updatedAt": "2024-04-19T01:09:54.037Z",
-                    "deletedAt": null,
-                    "id": 1,
-                    "name": "Algorithmique",
-                    "sectorLevel": "GL2",
-                    "coefficient": 1.5,
-                    "hourlyLoad": 4,
-                    "absenceLimit": 4
-                },
-                {
-                    "createdAt": "2024-04-19T01:09:54.057Z",
-                    "updatedAt": "2024-04-19T12:48:45.957Z",
-                    "deletedAt": null,
-                    "id": 12,
-                    "name": "Analyse de Données",
-                    "sectorLevel": "GL3",
-                    "coefficient": 1.3,
-                    "hourlyLoad": 4,
-                    "absenceLimit": 4
-                },
-                {
-                    "createdAt": "2024-04-19T01:09:54.059Z",
-                    "updatedAt": "2024-04-19T01:09:54.059Z",
-                    "deletedAt": null,
-                    "id": 17,
-                    "name": "Cryptographie",
-                    "sectorLevel": "GL5",
-                    "coefficient": 1.3,
-                    "hourlyLoad": 5,
-                    "absenceLimit": 4
-                }
-            ]
-        }])
+    const [courses, setCourses] = useState([])
 
     const [isHovered, setIsHovered] = useState(false);
     const [file, setFile] = useState(null);
@@ -125,8 +86,10 @@ const TableCourses = () => {
         console.log(file)
         //read csv file
         formData.append('file', file);
-        axios.post('http://localhost:5000/file-upload/upload', formData, config).then(r => {
+        axios.post('http://localhost:5000/subject/CreateAll', formData, config).then(r => {
             console.log(r)
+            getCourses();
+            setDone(false);
         }).catch(e => {
             console.log(e)
         })
@@ -142,20 +105,21 @@ const TableCourses = () => {
     const handleUpdateSubmit = (e, course) => {
         e.preventDefault();
         console.log(updateFormData)
-        setUpdateFormData({
-            name: "",
-            sectorLevel: "",
-            module: "",
-            coefficient: 0.0,
-            hourlyLoad: 0,
-            absenceLimit: 0,
-        });
-        // axios.post('http://localhost:5000/teachers', formData, config).then(r => {
-        //     console.log(r)
-        //     getTeachers();
-        // }).catch(e => {
-        //     console.log(e)
-        // })
+
+        axios.patch('http://localhost:5000/subject/' + course.id, updateFormData).then(r => {
+            console.log(r)
+            getCourses();
+            setUpdateFormData({
+                name: "",
+                sectorLevel: "",
+                module: "",
+                coefficient: 0.0,
+                hourlyLoad: 0,
+                absenceLimit: 0,
+            });
+        }).catch(e => {
+            console.log(e)
+        })
         toggleCourseModal(course.id);
     }
     const [searchTerm, setSearchTerm] = useState('');
@@ -164,14 +128,32 @@ const TableCourses = () => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredCourses = courses.filter(
-        (course) =>
-            course.module.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            course.subjects.some(subject =>
-                subject.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                subject.sectorLevel.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-    );
+    function filterCoursesBySearchTerm(courses, searchTerm) {
+        const filteredCourses = [];
+        courses.forEach(course => {
+            const matchingSubjects = [];
+
+            course.subjects.forEach(subject => {
+                if (subject.name.toLowerCase().includes(searchTerm.toLowerCase()) || subject.sectorLevel.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    matchingSubjects.push(subject);
+                }
+            });
+
+            if (matchingSubjects.length > 0) {
+                const filteredCourse = {
+                    module: course.module,
+                    subjects: matchingSubjects
+                };
+                filteredCourses.push(filteredCourse);
+            }
+        });
+
+        return filteredCourses;
+    }
+    const filteredCourses = filterCoursesBySearchTerm(courses, searchTerm);
+
+
+
     const handleCancel = () => {
         setFormData({
             name: "",
@@ -201,11 +183,12 @@ const TableCourses = () => {
             hourlyLoad: course.hourlyLoad,
             absenceLimit: course.absenceLimit,
         })
+        console.log(course.id)
         toggleCourseModal(course.id);
     };
     const toggleModal = () => setIsOpen(!isOpen);
 
-    // const toggleUpdateModal = () => setUpdateModalOpen(!updateModalOpen);
+
     const toggleCourseModal = (courseId) => {
         setCourseModalOpen((prevState) => ({
             ...prevState,
@@ -222,7 +205,11 @@ const TableCourses = () => {
     });
     const handleSubmitCourse = (e) => {
         e.preventDefault();
-        console.log(formData);
+        let newFormData = { ...formData };
+
+        if (newFormData.module) {
+            newFormData.module = newFormData.module.charAt(0).toUpperCase() + newFormData.module.slice(1);
+        }
         let newErrors = {
             name: "",
             sectorLevel: "",
@@ -255,41 +242,42 @@ const TableCourses = () => {
 
         if(!Object.values(newErrors).some(error => error !== "")){
             // Call the API to update the teacher
-            // axios.put('http://localhost:5000/teachers/' + teacherId, updateFormData, config).then(r => {
-            //     console.log(r)
-            //     getTeachers();
-            // }).catch(e => {
-            //     console.log(e)
-            // })
-            // Reset the form data
-            setFormData({
-                name: "",
-                sectorLevel: "",
-                module: "",
-                coefficient: 0,
-                hourlyLoad: 0,
-                absenceLimit: 0,
-            });
-            toggleModal();
+            axios.post('http://localhost:5000/subject/CreateOne', newFormData).then(r => {
+                console.log(r)
+                getCourses();
+                setFormData({
+                    name: "",
+                    sectorLevel: "",
+                    module: "",
+                    coefficient: 0,
+                    hourlyLoad: 0,
+                    absenceLimit: 0,
+                });
+                toggleModal();
+            }).catch(e => {
+                console.log(e)
+            })
         }
     };
     const getCourses = () => {
-        // axios.get('http://localhost:5000/teachers').then(r => {
-        //     setTeachers(r.data)
-        // }).catch(e => {
-        //     console.log(e)
-        // })
-    }
-    const handleDeleteCourse = (e) => {
-        e.preventDefault();
-        // Call the API to delete the teacher
-        // axios.delete('http://localhost:5000/teachers/' + teacherId).then(r => {
-        //     console.log(r)
-        // getTeachers();
-        // }).catch(e => {
-        //     console.log(e)
-        // })
+        axios.get('http://localhost:5000/subject/GroupedByModule').then(r => {
+            setCourses(r.data);
+        }).catch(e => {
+            console.log(e)
+        })
 
+    }
+    useEffect(() => {
+        getCourses()
+    },[])
+
+    const handleDeleteCourse =async (subject) => {
+       await axios.delete('http://localhost:5000/subject/' + subject.id).then((r) => {
+            console.log(r)
+            getCourses();
+        }).catch(e => {
+            console.log(e)
+        })
     }
     const [Options, setOptions] = useState([
         { value: 'GL2', label: 'GL2' },
@@ -384,125 +372,282 @@ const TableCourses = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {/* Display filtered teachers or message if none found */}
+                    {/* Display a message if no courses are found */}
                     {filteredCourses.length === 0 ? (
                         <tr>
                             <td colSpan={7} style={{ textAlign: 'center' }}>No course found.</td>
                         </tr>
                     ) : (
-                        filteredCourses.map((course) => (
-                            <tr key={course.id}>
-                                <td>{course.module}</td>
-                                <td>{course.name}</td>
-                                <td>{course.sectorLevel}</td>
-                                <td>{course.coefficient}</td>
-                                <td>{course.hourlyLoad}</td>
-                                <td>{course.absenceLimit}</td>
-                                <td>
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            className="btn-icon-only text-light"
-                                            href="#pablo"
-                                            role="button"
-                                            size="sm"
-                                            color=""
-                                            onClick={(e) => e.preventDefault()}
-                                        >
-                                            <FaEllipsisVertical fill={"#606060"}/>
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" style={{boxShadow:'0px 8px 16px 0px rgba(0,0,0,0.2)',border:'none'}} end>
-                                            <DropdownItem
-                                                href=""
-                                                onClick={() => handleUpdateClick(course)}
-                                                className="d-flex align-items-center"
-                                            >
-                                                <FontAwesomeIcon icon={faPen} className="me-2" />
-                                                Update
-                                            </DropdownItem>
-
-                                            {/* Update Student Modal */}
-
-                                            <DropdownItem
-                                                href=""
-                                                onClick={handleDeleteCourse}
-                                            >
-                                                <FontAwesomeIcon icon={faTrash} className="me-2" />
-                                                Delete
-                                            </DropdownItem>
-                                            <PopUp width={`${screenWidth > 740 ? '35vw' : '60vw'} `}
-                                                   isOpen={courseModalOpen[course.id] || false}
-                                                   setIsOpen={() => toggleCourseModal(course.id)}
-                                                   fromCourse={true}>
-                                                <div className="d-flex align-items-center ms-4">
-                                                    <FaChalkboardTeacher size={25} className="mb-1 me-2"/>
-                                                    <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Update teacher:</p>
-                                                </div>
-                                                <form onSubmit={(e) => handleUpdateSubmit(e, course)}
-                                                      onReset={() => handleCancelUpdate(course)}
-                                                      className="link-form add-new d-flex flex-column align-items-center">
-                                                    <input
-                                                        type={"text"}
-                                                        name="name"
-                                                        value={updateFormData.name}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter the course's name"
-                                                    />
-                                                    <input
-                                                        type={"text"}
-                                                        name="module"
-                                                        value={updateFormData.module}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter module"
-                                                    />
-                                                    <Select
-                                                        className="basic-single"
-                                                        classNamePrefix="select"
-                                                        value={Options.find(option => option.value === course.sectorLevel)}
-                                                        onChange={handleSelectOptionChange}
-                                                        name="group"
-                                                        options={Options}
-                                                    />
-                                                    <input
-                                                        type={"number"}
-                                                        name="hourlyLoad"
-                                                        value={updateFormData.hourlyLoad}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter hourly load"
-                                                    />
-                                                    <input
-                                                        type={"number"}
-                                                        name="absenceLimit"
-                                                        value={updateFormData.absenceLimit}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter absence limit"
-                                                    />
-                                                    <input
-                                                        type="number"
-                                                        step="any"
-                                                        name="coefficient"
-                                                        value={updateFormData.coefficient}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter coefficient"
-                                                    />
-                                                    <div className="end d-flex justify-content-between mt-4"
-                                                         style={{width: '70%'}}>
-                                                        <button type="submit" className="me-1">
+                        // Iterate through each course group (module)
+                        filteredCourses.map((courseGroup, groupIndex) => {
+                            const module = courseGroup.module;
+                            // Iterate through each subject under the current module
+                            return (
+                                <React.Fragment key={groupIndex}>
+                                    {/* Display the module in the first row and use rowSpan to merge rows */}
+                                    <tr key={courseGroup.subjects[0].id}>
+                                        <td rowSpan={courseGroup.subjects.length} style={{verticalAlign: 'top'}}>
+                                            {module}
+                                        </td>
+                                        <td>{courseGroup.subjects[0].name}</td>
+                                        <td>{courseGroup.subjects[0].sectorLevel}</td>
+                                        <td>{courseGroup.subjects[0].coefficient}</td>
+                                        <td>{courseGroup.subjects[0].hourlyLoad}</td>
+                                        <td>{courseGroup.subjects[0].absenceLimit}</td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle
+                                                    className="btn-icon-only text-light"
+                                                    href="#"
+                                                    role="button"
+                                                    size="sm"
+                                                    color=""
+                                                    onClick={(e) => e.preventDefault()}
+                                                >
+                                                    <FaEllipsisVertical fill={"#606060"}/>
+                                                </DropdownToggle>
+                                                <DropdownMenu
+                                                    className="dropdown-menu-arrow"
+                                                    style={{
+                                                        boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+                                                        border: 'none'
+                                                    }}
+                                                    end
+                                                >
+                                                    <DropdownItem
+                                                        onClick={() => handleUpdateClick(courseGroup.subjects[0])}
+                                                        className="d-flex align-items-center"
+                                                    >
+                                                        <FontAwesomeIcon icon={faPen} className="me-2"/>
+                                                        Update
+                                                    </DropdownItem>
+                                                    <DropdownItem
+                                                        onClick={() => handleDeleteCourse(courseGroup.subjects[0])}
+                                                    >
+                                                        <FontAwesomeIcon icon={faTrash} className="me-2"/>
+                                                        Delete
+                                                    </DropdownItem>
+                                                    <PopUp width={`${screenWidth > 740 ? '35vw' : '60vw'} `}
+                                                           isOpen={courseModalOpen[courseGroup.subjects[0].id] || false}
+                                                           setIsOpen={() => toggleCourseModal(courseGroup.subjects[0].id)}
+                                                           fromCourse={true}>
+                                                        <div className="d-flex align-items-center ms-4">
+                                                            <FaBookReader size={25} className="mb-2 me-2"/>
+                                                            <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Update course:</p>
+                                                        </div>
+                                                        <form onSubmit={(e) => handleUpdateSubmit(e, courseGroup.subjects[0])}
+                                                              onReset={() => handleCancelUpdate(courseGroup.subjects[0])}
+                                                              className="link-form add-new d-flex flex-column align-items-center">
+                                                            <div className="mt-3" style={{width:"90%"}}>
+                                                                <label htmlFor="name">Name:</label>
+                                                                <input
+                                                                    type={"text"}
+                                                                    name="name"
+                                                                    value={updateFormData.name}
+                                                                    onChange={handleUpdateInputChange}
+                                                                    placeholder="Enter the course's name"
+                                                                />
+                                                            </div>
+                                                            <div style={{width:"90%"}}>
+                                                            <label htmlFor="module">Module:</label>
+                                                            <input
+                                                                type={"text"}
+                                                                name="module"
+                                                                value={updateFormData.module}
+                                                                onChange={handleUpdateInputChange}
+                                                                placeholder="Enter module"
+                                                            />
+                                                            </div>
+                                                            <div style={{width:"90%"}}>
+                                                            <label htmlFor="group">Sector and level:</label>
+                                                            <Select
+                                                                className="basic-single"
+                                                                classNamePrefix="select"
+                                                                value={Options.find(option => option.value === courseGroup.subjects[0].sectorLevel)}
+                                                                onChange={handleSelectOptionChange}
+                                                                name="group"
+                                                                options={Options}
+                                                            />
+                                                            </div>
+                                                            <div style={{width:"90%"}}>
+                                                            <label htmlFor="hourlyLoad">Hourly load:</label>
+                                                            <input
+                                                                type={"number"}
+                                                                name="hourlyLoad"
+                                                                value={updateFormData.hourlyLoad}
+                                                                onChange={handleUpdateInputChange}
+                                                                placeholder="Enter hourly load"
+                                                            />
+                                                            </div>
+                                                            <div style={{width:"90%"}}>
+                                                            <label  htmlFor="absenceLimit">Absence limit:</label>
+                                                            <input
+                                                                type={"number"}
+                                                                name="absenceLimit"
+                                                                value={updateFormData.absenceLimit}
+                                                                onChange={handleUpdateInputChange}
+                                                                placeholder="Enter absence limit"
+                                                            />
+                                                            </div>
+                                                            <div style={{width:"90%"}}>
+                                                            <label htmlFor="coefficient">Coefficient:</label>
+                                                            <input
+                                                                type="number"
+                                                                step="any"
+                                                                name="coefficient"
+                                                                value={updateFormData.coefficient}
+                                                                onChange={handleUpdateInputChange}
+                                                                placeholder="Enter coefficient"
+                                                            />
+                                                            </div>
+                                                            <div className="end d-flex justify-content-between mt-4"
+                                                                 style={{width: '70%'}}>
+                                                                <button type="submit" className="me-1">
+                                                                    Update
+                                                                </button>
+                                                                <button type="reset" className="ms-1">
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </PopUp>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                    {/* Render each subsequent subject in a separate row */}
+                                    {courseGroup.subjects.slice(1).map((subject) => (
+                                        <tr key={subject.id}>
+                                            <td>{subject.name}</td>
+                                            <td>{subject.sectorLevel}</td>
+                                            <td>{subject.coefficient}</td>
+                                            <td>{subject.hourlyLoad}</td>
+                                            <td>{subject.absenceLimit}</td>
+                                            <td>
+                                                <UncontrolledDropdown>
+                                                    <DropdownToggle
+                                                        className="btn-icon-only text-light"
+                                                        href="#"
+                                                        role="button"
+                                                        size="sm"
+                                                        color=""
+                                                        onClick={(e) => e.preventDefault()}
+                                                    >
+                                                        <FaEllipsisVertical fill="#606060" />
+                                                    </DropdownToggle>
+                                                    <DropdownMenu
+                                                        className="dropdown-menu-arrow"
+                                                        style={{ boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)', border: 'none' }}
+                                                        end
+                                                    >
+                                                        <DropdownItem
+                                                            onClick={() => handleUpdateClick(subject)}
+                                                            className="d-flex align-items-center"
+                                                        >
+                                                            <FontAwesomeIcon icon={faPen} className="me-2" />
                                                             Update
-                                                        </button>
-                                                        <button type="reset" className="ms-1">
-                                                            Cancel
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </PopUp>
+                                                        </DropdownItem>
+                                                        <DropdownItem
+                                                            onClick={() => handleDeleteCourse(subject)}
+                                                        >
+                                                            <FontAwesomeIcon icon={faTrash} className="me-2" />
+                                                            Delete
+                                                        </DropdownItem>
+                                                        <PopUp width={`${screenWidth > 740 ? '35vw' : '60vw'} `}
+                                                               isOpen={courseModalOpen[subject.id] || false}
+                                                               setIsOpen={() => toggleCourseModal(subject.id)}
+                                                               fromCourse={true}>
+                                                            <div className="d-flex align-items-center ms-4">
+                                                                <FaChalkboardTeacher size={25} className="mb-1 me-2"/>
+                                                                <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Update teacher:</p>
+                                                            </div>
+                                                            <form onSubmit={(e) => handleUpdateSubmit(e, subject)}
+                                                                  onReset={() => handleCancelUpdate(subject)}
+                                                                  className="link-form add-new d-flex flex-column align-items-center">
+                                                                <div className="mt-3" style={{width: "90%"}}>
+                                                                    <label htmlFor="name">Name:</label>
+                                                                    <input
+                                                                        type={"text"}
+                                                                        name="name"
+                                                                        value={updateFormData.name}
+                                                                        onChange={handleUpdateInputChange}
+                                                                        placeholder="Enter the course's name"
+                                                                    />
+                                                                </div>
+                                                                <div style={{width: "90%"}}>
+                                                                    <label htmlFor="module">Module:</label>
+                                                                    <input
+                                                                        type={"text"}
+                                                                        name="module"
+                                                                        value={updateFormData.module}
+                                                                        onChange={handleUpdateInputChange}
+                                                                        placeholder="Enter module"
+                                                                    />
+                                                                </div>
+                                                                <div style={{width: "90%"}}>
+                                                                    <label htmlFor="group">Sector and level:</label>
+                                                                    <Select
+                                                                        className="basic-single"
+                                                                        classNamePrefix="select"
+                                                                        value={Options.find(option => option.value === subject.sectorLevel)}
+                                                                        onChange={handleSelectOptionChange}
+                                                                        name="group"
+                                                                        options={Options}
+                                                                    />
+                                                                </div>
+                                                                <div style={{width: "90%"}}>
+                                                                    <label htmlFor="hourlyLoad">Hourly load:</label>
+                                                                    <input
+                                                                        type={"number"}
+                                                                        name="hourlyLoad"
+                                                                        value={updateFormData.hourlyLoad}
+                                                                        onChange={handleUpdateInputChange}
+                                                                        placeholder="Enter hourly load"
+                                                                    />
+                                                                </div>
+                                                                <div style={{width: "90%"}}>
+                                                                    <label htmlFor="absenceLimit">Absence limit:</label>
+                                                                    <input
+                                                                        type={"number"}
+                                                                        name="absenceLimit"
+                                                                        value={updateFormData.absenceLimit}
+                                                                        onChange={handleUpdateInputChange}
+                                                                        placeholder="Enter absence limit"
+                                                                    />
+                                                                </div>
+                                                                <div style={{width: "90%"}}>
+                                                                    <label htmlFor="coefficient">Coefficient:</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        step="any"
+                                                                        name="coefficient"
+                                                                        value={updateFormData.coefficient}
+                                                                        onChange={handleUpdateInputChange}
+                                                                        placeholder="Enter coefficient"
+                                                                    />
+                                                                </div>
+                                                                    <div
+                                                                        className="end d-flex justify-content-between mt-4"
+                                                                        style={{width: '70%'}}>
+                                                                        <button type="submit" className="me-1">
+                                                                            Update
+                                                                        </button>
+                                                                        <button type="reset" className="ms-1">
+                                                                            Cancel
+                                                                        </button>
+                                                                    </div>
+                                                            </form>
+                                                        </PopUp>
+                                                    </DropdownMenu>
+                                                </UncontrolledDropdown>
+                                            </td>
+                                        </tr>
 
+                                    ))}
 
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </td>
-
-                            </tr>
-                        ))
+                                </React.Fragment>
+                            );
+                        })
                     )}
                     </tbody>
                 </Table>
@@ -512,11 +657,11 @@ const TableCourses = () => {
                 <PopUp width={`${screenWidth > 740 ? '35vw' : '60vw'} `} isOpen={isOpen} setIsOpen={setIsOpen}
                        fromCourse={true}>
                     <div className="d-flex align-items-center ms-4">
-                        <FaChalkboardTeacher size={25} className="mb-1 me-2"/>
-                        <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Add student:</p>
+                        <FaBookReader size={25} className="mb-2 me-2"/>
+                        <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Add course:</p>
                     </div>
                     <form onSubmit={handleSubmitCourse} onReset={handleCancel}
-                          className="link-form add-new d-flex flex-column align-items-center">
+                          className="link-form add-new new d-flex flex-column align-items-center">
                         <input
                             type={"text"}
                             name="name"

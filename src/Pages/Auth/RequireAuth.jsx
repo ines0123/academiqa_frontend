@@ -6,10 +6,9 @@ export default function RequireAuth({ allowedRole }) {
 
     return  (
         // allowedRole.includes (user.role) ? (
-            <Outlet/>
+        <Outlet/>
         // ) : (
         //     <h1>Unauthorized</h1>
         // )
     );
 }
-

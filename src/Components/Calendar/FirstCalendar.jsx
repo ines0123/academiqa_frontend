@@ -7,6 +7,8 @@ import {
   Inject,
   ViewsDirective,
   ViewDirective,
+  dataBinding,
+  dataBound,
 } from "@syncfusion/ej2-react-schedule";
 import "./styles.css";
 import { useState } from "react"
@@ -14,7 +16,8 @@ import { useState } from "react"
 import { Internationalization } from "@syncfusion/ej2-base";
 import { useNavigate } from "react-router-dom";
 import { registerLicense } from '@syncfusion/ej2-base';
-import {Levels} from '../../data/LevelsData';
+import {groups} from '../../data/LevelsData';
+import { Sessions } from "../../data/sessionsData";
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
 
 
@@ -26,21 +29,38 @@ const FirstCalendar = ({role, sessions}) => {
   };
 
   const eventTemplate = (props) => {
+    console.log(props);
     return (
       <div
         className={`e-appointment ${props.Color}`}
-        onClick={() => { window.location.pathname = `${role}/session/${props.Id}`; }}
+        onClick={() => { 
+          // window.location.pathname = `${role}/session/${props.Id}`; 
+          nav(`/${role}/session/${props.Id}`);
+      }}
       >
-        <div className="subject">{props.Subject}</div>
+        <div className="subject"><b>{props.Subject}</b>: {Sessions.find((session) => session.Id == props.Id).type}</div>
         <div className="time">{getTimeString(props.EndTime)}</div>
-        <div className="time">{Levels.find((level) => level.id === props.LevelId).abbreviation} {Levels.find((level) => level.id === props.LevelId).year} </div>
+        <div className="time">{groups.find((level) => props.LevelId.includes(level.id)).abbreviation} </div>
       </div>
     );
   };
 
+  const fieldsData = {
+    id: 'id',
+    subject: { name: 'subject' },
+    type: { name: 'type' },
+    description: { name: 'Comments' },
+    startTime: { name: 'DepartureTime' },
+    endTime: { name: 'ArrivalTime' },
+    startTimezone: { name: 'Origin' },
+    endTimezone: { name: 'Destination' }
+  }
+
   const eventSettings = {
     dataSource: sessions,
-    template: eventTemplate,
+    
+
+    template: role === 'student' ? eventTemplate : null,
   };
 
   return (
@@ -56,7 +76,12 @@ const FirstCalendar = ({role, sessions}) => {
         args.cancel = true;
       }}
       showQuickInfo={false}
+      eventClick={(args) => {
+        nav(`/teacher/session/${+args.event.Id}`);
+      }}
       
+
+
       
     >
       <ViewsDirective>

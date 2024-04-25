@@ -9,12 +9,14 @@ import { useEffect, useRef, useState } from 'react'
 import Loading from '../../Components/Loading/Loading'
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import ChangePassword from '../../Components/Auth/ChangePassword'
 
 
 export default function Login() {
     // ref
     const focus = useRef(null);
 
+    const [changePassword, setChangePassword] = useState(false);
     // form state
     const [form, setForm] = useState({
         email: '',
@@ -146,8 +148,6 @@ export default function Login() {
                                 </div>
 
                             </Form.Group>
-
-
                             {/* button and alerts */}
                             <div>
                                 <div className="d-flex">
@@ -165,8 +165,8 @@ export default function Login() {
                                     </span>}
                             </div>
                         </div>
-
                     </Form>
+                    <ChangePassword isOpen={changePassword} setIsOpen={setChangePassword}/>
 
             </div>
         </div>
