@@ -85,7 +85,7 @@ export default function Login() {
                     console.log("userContext:", userContext.currentUser);
 
 
-                    const path = user.role == "Admin" ? '/admin/calendar' : user.role == "Teacher" ? '/teacher/home' : user.role == "Student" ? '/student/home' : '/';
+                    const path = user.role === "Admin" ? '/admin/home' : user.role === "Teacher" ? '/teacher/home' : user.role === "Student" ? '/student/home' : '/';
                     setDestination(path);
 
                     setTimeout(

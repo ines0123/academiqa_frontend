@@ -34,7 +34,6 @@ import {CurrentUser} from "./Context/CurrentUserContext.jsx";
 export default function App() {
   const [courses, setCourses] = useState([]);
   const userContext = useContext(CurrentUser);
-  // console.log(userContext);
   useEffect(()=>{
     axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
         (response) => {

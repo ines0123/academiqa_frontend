@@ -28,7 +28,7 @@ export const links = [
     },
     {
       name: "My Courses",
-        path: "teacher/courses",
+        path: "teacher/profile",
         icon: faBookOpenReader,
         role: 'teacher'
     },

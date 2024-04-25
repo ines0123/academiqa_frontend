@@ -1,5 +1,5 @@
 import teacherPhoto from "../../assets/images/Sellaouti.jpg";
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MidNavbar from "../MidNavbar/MidNavbar";
 
@@ -8,8 +8,17 @@ import EmptyNavbar from "./EmptyNavbar";
 import FirstCalendar from "../Calendar/FirstCalendar";
 import SmallCalendar from "../Calendar/SmallCalendar";
 import { Sessions } from "../../data/sessionsData";
+import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
 const Navbar = () => {
+  const [user, setUser] = useState(null);
+  const [role, setRole] = useState('');
+  const userContext = useContext(CurrentUser);
+  useEffect(() => {
+    setUser(userContext.currentUser);
+    setRole(userContext.currentUser?.role?.toLowerCase())
+  }, [userContext.currentUser]);
+
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const nav = useNavigate();
   const student = {
@@ -19,11 +28,6 @@ const Navbar = () => {
 }
   const data = Sessions.filter((session) => session.LevelId.includes(+student.level));
   console.log(data);
-
-  let role ='';
-  if (window.location.pathname.includes("student")) { role = "student"; }
-  if (window.location.pathname.includes("teacher")) {  role = "teacher"; }
-  if (window.location.pathname.includes("admin")) {  role = "admin"; }
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,8 +55,8 @@ const Navbar = () => {
           <EmptyNavbar width={'22rem'}>
             <div className="profileNav">
               <img src={teacherPhoto} alt="teacher" className="profilePhoto" />
-              <div className="accountName">Mohamed Aziz mansour elloumi</div>
-              <Link to="/profile" className="nameButton">
+              <div className="accountName">{user?.username}</div>
+              <Link to={`/${role}/profile`} className="nameButton">
                 My Profile
               </Link>
             </div>

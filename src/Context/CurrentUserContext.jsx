@@ -14,8 +14,12 @@ export default function CurrentUserContext({children}) {
             const cookie = Cookie();
             const userToken = cookie.get('academiqa');
             if(userToken){
-                const user = jwtDecode(userToken);
-                setCurrentUser(user);
+                setCurrentUser({
+                    id: jwtDecode(userToken).id,
+                    role: jwtDecode(userToken).role,
+                    username: jwtDecode(userToken).username,
+                    email: jwtDecode(userToken).email,
+                });
             }
         }
         ,[])
