@@ -8,13 +8,13 @@ import { PiStudentBold } from "react-icons/pi";
 
 const Header = () => {
     return (
-        <div className="admin-header p-5 ">
+        <div className="admin-header p-5">
             <Row className="mt-5">
-                <Col lg="6" xl="3">
+                <Col sm="6" xl="3">
                     <Card className="card-stats mb-4 mb-xl-0">
                         <CardBody>
                             <Row>
-                                <div className="col">
+                                <div className="col-8 px-2">
                                     <CardTitle
                                         tag="h5"
                                         className="text-uppercase fs-6 text-muted mb-0"
@@ -25,8 +25,8 @@ const Header = () => {
                           1000
                         </span>
                                 </div>
-                                <Col className="col-auto">
-                                    <div className="icon icon-shape text-white rounded-circle shadow d-flex justify-content-center align-items-center">
+                                <Col className="col-4 p-0 position-relative">
+                                    <div className="icon icon-shape text-white mr-2 rounded-circle shadow d-flex justify-content-center align-items-center position-absolute top-50 end-0 translate-middle-y">
                                         <PiStudentBold  size={22} fill ={"white"} />
                                     </div>
                                 </Col>
@@ -34,11 +34,11 @@ const Header = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col lg="6" xl="3">
+                <Col sm="6" xl="3">
                     <Card className="card-stats mb-4 mb-xl-0">
                         <CardBody>
                             <Row>
-                                <div className="col">
+                                <div className="col-8 px-2">
                                     <CardTitle
                                         tag="h5"
                                         className="text-uppercase fs-6 text-muted mb-0"
@@ -47,8 +47,8 @@ const Header = () => {
                                     </CardTitle>
                                     <span className="h2 font-weight-bold mb-0">256</span>
                                 </div>
-                                <Col className="col-auto">
-                                    <div className="icon icon-shape text-white rounded-circle shadow d-flex justify-content-center align-items-center">
+                                <Col className="col-4 p-0 position-relative">
+                                    <div className="icon icon-shape text-white mr-2 rounded-circle shadow d-flex justify-content-center align-items-center position-absolute top-50 end-0 translate-middle-y">
                                         <FaChalkboardTeacher  size={22} fill ={"white"} />
                                     </div>
                                 </Col>
@@ -57,11 +57,11 @@ const Header = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col lg="6" xl="3">
+                <Col sm="6" xl="3">
                     <Card className="card-stats mb-4 mb-xl-0">
                         <CardBody>
                             <Row>
-                                <div className="col">
+                                <div className="col-8 px-2">
                                     <CardTitle
                                         tag="h5"
                                         className="text-uppercase fs-6 text-muted mb-0"
@@ -70,8 +70,8 @@ const Header = () => {
                                     </CardTitle>
                                     <span className="h2 font-weight-bold mb-0">54</span>
                                 </div>
-                                <Col className="col-auto">
-                                    <div className="icon icon-shape  text-white rounded-circle shadow d-flex justify-content-center align-items-center">
+                                <Col className="col-4 p-0">
+                                    <div className="icon icon-shape  text-white mr-2 rounded-circle shadow d-flex justify-content-center align-items-center position-absolute top-50 end-0 translate-middle-y">
                                         <SiGoogleclassroom size={22} fill ={"white"} />
 
                                     </div>
@@ -80,21 +80,21 @@ const Header = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col lg="6" xl="3">
+                <Col sm="6" xl="3">
                     <Card className="card-stats mb-4 mb-xl-0">
                         <CardBody>
                             <Row>
-                                <div className="col">
+                                <div className="col-8 px-2">
                                     <CardTitle
                                         tag="h5"
                                         className="text-uppercase fs-6 text-muted mb-0"
                                     >
                                         Average absence
                                     </CardTitle>
-                                    <span className="h2 font-weight-bold mb-0">49,65%</span>
+                                    <span className="h2 font-weight-bold mb-0">49%</span>
                                 </div>
-                                <Col className="col-auto">
-                                    <div className="icon icon-shape  text-white rounded-circle shadow d-flex justify-content-center align-items-center">
+                                <Col className="col-4 p-0">
+                                    <div className="icon icon-shape  text-white mr-2 rounded-circle shadow d-flex justify-content-center align-items-center position-absolute top-50 end-0 translate-middle-y">
                                         <FaPercentage size={22} fill ={"white"}/>
                                     </div>
                                 </Col>
