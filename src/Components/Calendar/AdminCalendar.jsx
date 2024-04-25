@@ -9,7 +9,7 @@ import {
     ViewDirective,
   } from "@syncfusion/ej2-react-schedule";
   import "./styles.css";
-
+  import { L10n } from '@syncfusion/ej2-base';
   import { Internationalization } from "@syncfusion/ej2-base";
   import { useNavigate } from "react-router-dom";
   import { registerLicense } from '@syncfusion/ej2-base';
@@ -25,6 +25,31 @@ import {
     const getTimeString = (value) => {
       return instance.formatDate(value, { skeleton: "hm" });
     };
+
+    L10n.load({
+      'en-US': {
+          'schedule': {
+              'saveButton': 'Add',
+              'cancelButton': 'Close',
+              'deleteButton': 'Remove',
+              'newEvent': 'Add Session',
+              'editEvent': 'Edit Session',
+          },
+      }
+  });
+
+  const editTimeFormat = (data) => {
+    // Start time format edit
+    const dateObject = new Date(data.StartTime);
+    // Format the Date object into the desired format (ISO 8601 format)
+    data.StartTime = dateObject.toISOString();
+    // End time format edit
+    const endDateObject = new Date(data.EndTime);
+    // Format the Date object into the desired format (ISO 8601 format)
+    data.EndTime = endDateObject.toISOString();
+    return data;
+  }
+
 
   
     const eventSettings = {
@@ -45,6 +70,29 @@ import {
         eventSettings={eventSettings}
         allowDragAndDrop={true}
         allowResizing={true}
+        hover={(args) => {
+          // if(!role == "teacher") {
+          console.log(args);
+          // add title :
+          if (args.element.classList[0]=="e-work-cells" ) {
+            args.element.setAttribute('title', 'double click to add a session');
+          }
+          if (args.element.classList[0]=="e-appointment") {
+          args.element.setAttribute('title', 'double click to edit the session');
+          }
+        }}
+        // }
+        popupOpen={(args) => {
+          if (role === "teacher") {
+            args.cancel = true;
+          }
+          args.duration = 90;
+        }}
+        cellClick={
+          (args) => {
+            args.cancel = true;
+        }}
+
         eventClick={
           (args) => {
             if (role === "teacher") {
@@ -54,12 +102,14 @@ import {
         }
         actionComplete={(args) => {
           if (args.requestType === "eventChanged") {
-            console.log(args.data);
+            editTimeFormat(args.data[0]);
+            console.log(args.data[0]);
             alert("Session Changed");
             // Post request to update the session in the database
           }
           if (args.requestType === "eventCreated") {
-            console.log(args.data);
+            editTimeFormat(args.data[0]);
+            console.log(args.data[0]);
             alert("Session Created");
             // Post request to add the session to the database
         }}

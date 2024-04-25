@@ -1,13 +1,17 @@
 .e-appointment {
     border-radius: 10px !important;
-    background: #dff3de8f !important;
+    background: #dff3de !important;
     color: rgba(0, 0, 0, 0.721) !important;
     font-size: 12px;
     font-weight: 500;
-    width: 98% !important;
+    /* width: 98% !important; */
     height: 99%;
     cursor: pointer !important;
     border: none !important;
+}
+
+.e-selected-cell{
+    background: #fff !important;
 }
 
 .e-appointment:focus {
@@ -115,4 +119,19 @@
     color: white;
     transform: scale(1.05);
     transition: 0.1s;
+}
+.e-editor{
+    display: none !important;
+}
+.e-time-zone-container{
+    display: none !important;
+}
+.e-description-row{
+    display: none !important;
+}
+#_dialog_wrapper{
+    min-height: 230px !important;
+}
+#_dialog_wrapper_dialog-content{
+    padding-bottom: 0px !important;
 }
