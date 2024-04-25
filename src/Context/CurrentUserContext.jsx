@@ -13,12 +13,10 @@ export default function CurrentUserContext({children}) {
     useEffect(() => {
             const cookie = Cookie();
             const userToken = cookie.get('academiqa');
-            setCurrentUser({
-                id: jwtDecode(userToken).id,
-                role: jwtDecode(userToken).role,
-                username: jwtDecode(userToken).username,
-                email: jwtDecode(userToken).email,
-            });
+            if(userToken){
+                const user = jwtDecode(userToken);
+                setCurrentUser(user);
+            }
         }
         ,[])
     return <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>

@@ -6,6 +6,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import axios from "axios";
+import MidNavbar from "../../MidNavbar/MidNavbar.jsx";
 
 const Header = () => {
     const [nbStudents, setNbStudents] = useState(0);
@@ -38,6 +39,7 @@ const Header = () => {
 
     return (
         <div className="admin-header p-5">
+            <MidNavbar role={"admin"}/>
             <Row className="mt-5">
                 <Col sm="6" xl="3">
                     <Card className="card-stats mb-4 mb-xl-0">
