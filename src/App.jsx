@@ -1,4 +1,3 @@
-import {useContext, useEffect, useState} from "react";
 import "./App.css";
 import {
   Route,
@@ -20,8 +19,6 @@ import CalendarAdmin from './Pages/Admin/Calendar/CalendarAdmin.jsx'
 import TeacherCalendar from './Pages/Teacher/TeacherCalendar.jsx'
 import StudentCalendar from './Pages/Student/StudentCalendar.jsx'
 import Attendance from './Pages/Teacher/Attendance.jsx'
-import LoadingComponent from "./Components/Preloader/Preloader.jsx";
-import axios from "axios";
 import { NoteProvider } from "./Context/NoteContext.jsx";
 import PageNotFound from "./Pages/Auth/PageNotFound.jsx";
 
@@ -30,20 +27,7 @@ import ProfessorsAdmin from "./Pages/Admin/Professor/ProfessorsAdmin.jsx";
 import StudentsAdmin from "./Pages/Admin/Student/StudentsAdmin.jsx";
 import CoursesAdmin from "./Pages/Admin/Course/CoursesAdmin.jsx";
 import Profile from "./Pages/Admin/Profile/profile.jsx";
-import {CurrentUser} from "./Context/CurrentUserContext.jsx";
 export default function App() {
-  const [courses, setCourses] = useState([]);
-  const userContext = useContext(CurrentUser);
-  useEffect(()=>{
-    axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
-        (response) => {
-          // console.log('courses',response.data);
-          setCourses(response.data);
-        }).catch((err) => {
-          console.log(err);
-        }
-    )
-  },[])
   return (
     <>
       <Routes>
@@ -54,13 +38,13 @@ export default function App() {
               path="/student/home"
               element={
                 <NoteProvider>
-                  <HomeStudent courses={courses?.slice(0, 3)} />
+                    <HomeStudent/>
                 </NoteProvider>
               }
             ></Route>
             <Route
               path="student/courses"
-              element={<Courses courses={courses} />}
+              element={<Courses />}
             ></Route>
             <Route
               path="student/notes"
@@ -97,7 +81,7 @@ export default function App() {
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
               <Route path="/chat" element={<SessionStudent />}></Route>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
-              <Route path="/course" element={<Course />}></Route>
+              <Route path="/course/:id" element={<Course />}></Route>
             </Route>
             <Route element={<RequireAuth allowedRole={['admin']} />}>
               <Route path="admin/home" element={<HomeAdmin />}></Route>
@@ -110,8 +94,6 @@ export default function App() {
             <Route path="*" element={<PageNotFound />}></Route>
           </Route>
         </Routes>
-
-      {/*<LoadingComponent />*/}
     </>
   );
 }

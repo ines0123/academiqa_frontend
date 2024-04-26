@@ -20,14 +20,14 @@ export default function ProfileStudent() {
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const [courses, setCourses] = useState([]);
     useEffect(()=>{
-        axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
-            (response) => {
-                console.log(response.data);
-                setCourses(response.data.filter((course) => course?.nbAbsence > 0));
-            }).catch((err) => {
-                console.log(err);
-            }
-        )
+        // axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
+        //     (response) => {
+        //         console.log(response.data);
+        //         setCourses(response.data.filter((course) => course?.nbAbsence > 0));
+        //     }).catch((err) => {
+        //         console.log(err);
+        //     }
+        // )
 
     },[])
         const [screenWidth, setScreenWidth] = useState(window.innerWidth);

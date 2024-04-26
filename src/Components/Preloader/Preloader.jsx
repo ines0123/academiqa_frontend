@@ -1,10 +1,11 @@
 import { useLayoutEffect, useRef } from "react"
 import gsap from "gsap"
 import './preloader.css'
+import {useNavigate} from "react-router-dom";
 
-const LoadingComponent = () => {
+const LoadingComponent = ({onPreloaderEnd}) => {
     const comp = useRef(null)
-
+    const navigate = useNavigate();
     useLayoutEffect(() => {
         let ctx = gsap.context(() => {
             const t1 = gsap.timeline()
@@ -24,13 +25,15 @@ const LoadingComponent = () => {
                 .from("#welcome", {
                     opacity: 0,
                     duration: 0.5,
-                })
+                }).then(() => {
+                onPreloaderEnd();
+            })
         }, comp)
 
         return () => ctx.revert()
     }, [])
     return (
-        <div className="loader-component" ref={comp}>
+        <div style={{zIndex:'1'}}  className="loader-component" ref={comp}>
             <div
                 id="intro-slider"
                 className="loading-page"
@@ -65,9 +68,6 @@ const LoadingComponent = () => {
                         Learn Beyond Limits
                     </div>
                 </div>
-            </div>
-            <div className="container content-after-loading">
-                {/*content*/}
             </div>
         </div>
     )

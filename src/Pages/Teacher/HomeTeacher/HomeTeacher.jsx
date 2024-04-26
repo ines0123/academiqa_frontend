@@ -7,10 +7,11 @@ import Course from "../../../Components/Course/Course.jsx";
 import {Menu} from "../../../Context/MenuContext.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
 import {NavLink} from "react-router-dom";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 
 export default function HomeTeacher() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
+    const {currentUser,user} = useContext(CurrentUser);
     useEffect(() => {
         const handleResize = () => {
             setScreenWidth(window.innerWidth);
@@ -30,14 +31,14 @@ export default function HomeTeacher() {
     const menu = useContext(Menu);
 
     useEffect(()=>{
-        axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
-            (response) => {
-                console.log(response.data);
-                setCourses(response.data.slice(0, 3));
-            }).catch((err) => {
-                console.log(err);
-            }
-        )
+        // axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
+        //     (response) => {
+        //         console.log(response.data);
+        //         setCourses(response.data.slice(0, 3));
+        //     }).catch((err) => {
+        //         console.log(err);
+        //     }
+        // )
 
     },[])
 
@@ -47,7 +48,7 @@ export default function HomeTeacher() {
                 {screenWidth >=1060 ?(<div className="px-3 d-flex justify-content-between">
                         <div className={`p-0`}>
                             <div className="Welcoming d-flex flex-column p-3">
-                                <h5 className="fs-5 ms-2 fw-bold">Welcome back, Rym!</h5>
+                                <h5 className="fs-5 ms-2 fw-bold">Welcome back, {user?.username}!</h5>
                                 <p className="fs-6 ms-2">Hope you're ready for another awesome day with us!</p>
                             </div>
                         </div>

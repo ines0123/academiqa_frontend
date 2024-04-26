@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { FaBookOpenReader } from "react-icons/fa6";
 import './Courses.css';
 import Course from "../../../Components/Course/Course.jsx";
@@ -7,9 +7,13 @@ import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 import NotificationCard from "../../../Components/Notification/NotificationCard.jsx";
 import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
-export default function Courses({courses}) {
+import Cookie from "cookie-universal";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
+export default function Courses() {
     const date = useDate();
+    const [courses, setCourses] = useState([]);
     const[modulo, setModulo] = useState(4);
+    const {currentUser,user} = useContext(CurrentUser);
     useEffect(() => {
         const handleResize = () => {
             if(window.innerWidth < 799){
@@ -34,7 +38,24 @@ export default function Courses({courses}) {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-
+    useEffect(() => {
+        if(currentUser?.role === "Student"){
+            const userToken = Cookie().get('academiqa');
+            axios
+                .get(`http://localhost:5000/subject/SectorLevel/${user?.group?.sectorLevel}`,{
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                })
+                .then((res) => {
+                    setCourses(res.data);
+                    console.log("Courses: ", res.data)
+                })
+                .catch((err) => {
+                    console.error(`${err} - Failed to find courses`);
+                });
+        }
+    }, [ currentUser, user]);
 
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
 

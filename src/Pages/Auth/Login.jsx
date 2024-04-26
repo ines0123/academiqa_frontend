@@ -17,16 +17,13 @@ import {jwtDecode} from "jwt-decode";
 import { CurrentUser } from '../../Context/CurrentUserContext'
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Preloader from "../../Components/Preloader/Preloader.jsx";
 
 
 
 export default function Login() {
-    const [destination, setDestination]= useState("");
-
-
     // current user context:
     const userContext = useContext(CurrentUser);
-
     // ref
     const focus = useRef(null);
 
@@ -40,10 +37,8 @@ export default function Login() {
     })
 
      // loading state
-     const [loading, setLoading] = useState(false);
-         // navigate 
+         // navigate
     const navigate = useNavigate();
-
     const [error, setError] = useState('');
 
         // handle change form
@@ -53,17 +48,16 @@ export default function Login() {
                 [e.target.id]: e.target.value
             })
         }
-    
+
         // handle focus
         useEffect(() => {
             focus.current.focus();
         }, [])
-    
-        // handle submit    
+
+        // handle submit
         async function handleSubmit(e) {
             e.preventDefault();
-            // setLoading(true);
-            
+
             try {
                 await axios.post(`${baseURL}/${AUTH}/${LOGIN}`, form).then(res => {
                     console.log(res);
@@ -86,16 +80,13 @@ export default function Login() {
 
 
                     const path = user.role === "Admin" ? '/admin/home' : user.role === "Teacher" ? '/teacher/home' : user.role === "Student" ? '/student/home' : '/';
-                    setDestination(path);
+                    userContext.setLoading(true);
+                    navigate(path);
 
-                    setTimeout(
-                        ()=>{
-                            navigate(path);
-                        }, 2500)
                 })
             }
             catch (error) {
-                // setLoading(false);
+                userContext.setLoading(false);
                 console.log(error.response);
                 console.log(error.response.status);
                 if (error.response.status === 401) {
@@ -120,10 +111,9 @@ export default function Login() {
             const emailRegex = /^[^\s@]+@[^\s@]+[^\s@]+$/;
             return emailRegex.test(email);
           }
-    
+
     return (
         <>
-        {loading && <Loading path={destination} />}
         <div className='login-layout-container'>
             <div className="login-side-bar pt-5" >
                 {/* Logo */}
@@ -165,14 +155,14 @@ export default function Login() {
             <div className='login-layout-content' >
                 <h1 className='login-title' >Sign in</h1>
 
-                <Form className='form form-login' 
+                <Form className='form form-login'
                 onSubmit={handleSubmit}
                 >
                         <div className="custom-form">
                             <Form.Group className="mb-3 form-custom" controlId="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" name="email" placeholder="example@example.com" value={form.email}
-                                    onChange={handleChange} 
+                                    onChange={handleChange}
                                     required ref={focus} />
                                 {/* <Form.Text className="text-muted">
                                             We'll never share your email with anyone else.
@@ -182,7 +172,7 @@ export default function Login() {
                             <Form.Group className="mb-3 form-custom" controlId="password">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" name="password" placeholder="" value={form.password}
-                                    onChange={handleChange} 
+                                    onChange={handleChange}
                                     required minLength="6" />
                                 <div className=" mt-3">
                                     <a href='#' className=' text-muted text-decoration-none '>Forgot Password
@@ -217,8 +207,8 @@ export default function Login() {
                 theme="colored"
             />
         </div>
-        
-        
+
+
         </>
         )
 

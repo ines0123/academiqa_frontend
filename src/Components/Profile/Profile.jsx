@@ -15,35 +15,10 @@ import Cookie from "cookie-universal";
 
 const Profile = () => {
     // use useState
-    const [user, setUser] = useState(null);
-    const [role, setRole] = useState('');
-    const userContext = useContext(CurrentUser);
-    useEffect(() => {
-        setUser(userContext.currentUser);
-        setRole(userContext.currentUser?.role)
-    }, [userContext.currentUser]);
-
-    useEffect(() => {
-
-            if(role && user){
-                const userPath = role === "Student" ? 'student' : 'teacher';
-                const userToken = Cookie().get('academiqa');
-                axios.get(`http://localhost:5000/${userPath}/${user?.id}`,{
-                    headers: {
-                        Authorization: `Bearer ${userToken}`,
-                    },
-                }).then(
-                    (response) => {
-                        setUser(response.data)
-                    }).catch((err) => {
-                        console.log(err);
-                    }
-                )
-            }
-    }, [user, role]);
+    const {currentUser,user} = useContext(CurrentUser);
 
     return (<div className="profile-box flex flex-col justify-center p-4 pt-2 rounded-2xl sm:px-12 md:w-72 lg:w-96">
-            <div className={`profile-teacher d-flex mt-4  p-2 px-3 ms-md-3 ms-sm-0 ${ role==="Teacher" ? 'mb-5':'mb-2'}`}>
+            <div className={`profile-teacher d-flex mt-4  p-2 px-3 ms-md-3 ms-sm-0 ${ currentUser.role==="Teacher" ? 'mb-5':'mb-2'}`}>
                 <div className="courses-icon pt-1">
                     <FaUser size={30}/>
                 </div>
@@ -61,9 +36,9 @@ const Profile = () => {
             </div>
             <div className=" text-center container pt-2">
 
-                <div className="profile-name text-xl font-bold sm:text-2xl">{user?.username}</div>
+                <div className="profile-name text-xl font-bold sm:text-2xl">{currentUser?.username}</div>
 
-                {role === "Student" && (<div className="text-left ">
+                {currentUser.role === "Student" && (<div className="text-left ">
                     <div
                         className="profile-enrolment flex items-center w-full pb-2 rounded-3xl pl-4 pt-2 mt-4 text-sm">
                         <LiaIdCard className="min-w-6 mr-2" size={25}/>
@@ -94,13 +69,13 @@ const Profile = () => {
                     </div>
                 </div>)}
 
-                {role === "Teacher" && (<div className="text-left">
+                {currentUser.role === "Teacher" && (<div className="text-left">
                     <div className="profile-info w-full pb-2.5 rounded-3xl pl-4 pt-2.5 pr-2 mt-4 text-sm">
                         <div className="flex items-center">
                             <FaChalkboardUser className="min-w-6 mr-2" size={25}/>
                             <div>
                                 <span className="font-bold">Speciality :</span>{" "}
-                                {user?.speciality}
+                                {currentUser?.speciality}
                             </div>
                         </div>
                     </div>
