@@ -15,7 +15,7 @@ export default function RequireRole({ allowedRole }) {
 
     console.log("userContext: ", userContext);
     return  (
-        allowedRole.includes (role) ? (
+        allowedRole.includes (role.toLowerCase()) ? (
             <Outlet/>
         ) : (
             <Unauthorized/>

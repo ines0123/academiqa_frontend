@@ -32,6 +32,7 @@ export default function Layout(){
         setRole(jwtDecode(userToken).role);
         const userPath = jwtDecode(userToken).role === 'admin' ? 'admin' : (jwtDecode(userToken).role === 'teacher' ? 'teacher' : 'student');
         
+        if (jwtDecode(userToken).role.toLowerCase() === 'student') {
         axios.get(`${baseURL}/${userPath}/${jwtDecode(userToken).id}`, {
             headers: {
                 Authorization: `Bearer ${userToken}`,
@@ -42,7 +43,7 @@ export default function Layout(){
             }).catch((err) => {
                 console.log(err);
             });
-        
+        }
         
 
         setTimeout(() => {
