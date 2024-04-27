@@ -1,5 +1,5 @@
 import SideBar from "../Components/SideBar/SideBar";
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import '../App.css'
 import { Menu } from "../Context/MenuContext";
 import { useContext, useEffect, useState } from 'react'
@@ -9,6 +9,8 @@ import { CurrentUser } from "../Context/CurrentUserContext.jsx";
 import Cookie from 'cookie-universal';
 import { jwtDecode } from "jwt-decode";
 import Loading from "../Components/Loading/Loading.jsx";
+import axios from "axios";
+import { baseURL } from "../Api/Api.jsx";
 
 
 export default function Layout(){
@@ -17,29 +19,32 @@ export default function Layout(){
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
-    const navigate = useNavigate();
     const userContext = useContext(CurrentUser);
-    // if(!userContext.currentUser)
-    // {
-    //     navigate('/login')
-    // }
     const [role, setRole] = useState('');
     console.log(userContext);
 
     useEffect(() => {
         const cookie = Cookie();
         if (!cookie.get('academiqa')) { 
-            // navigate('/login')
          ; userContext.setCurrentUser(null); }
         else{
         const userToken = cookie.get('academiqa');
-        userContext.setCurrentUser({
-            id: jwtDecode(userToken).id,
-            role: jwtDecode(userToken).role,
-            username: jwtDecode(userToken).username,
-            email: jwtDecode(userToken).email,
-        });
         setRole(jwtDecode(userToken).role);
+        const userPath = jwtDecode(userToken).role === 'admin' ? 'admin' : (jwtDecode(userToken).role === 'teacher' ? 'teacher' : 'student');
+        
+        axios.get(`${baseURL}/${userPath}/${jwtDecode(userToken).id}`, {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(
+            (response) => {
+                userContext.setCurrentUser(response.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+        
+        
+
         setTimeout(() => {
             setLoading(false);
         }, 2000);}
