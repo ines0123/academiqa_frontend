@@ -5,7 +5,7 @@ import '../../Components/Calendar/styles.css'
 import './login.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import Loading from '../../Components/Loading/Loading'
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';

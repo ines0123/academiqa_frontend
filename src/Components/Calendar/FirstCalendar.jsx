@@ -11,13 +11,16 @@ import {
   dataBound,
 } from "@syncfusion/ej2-react-schedule";
 import "./styles.css";
-import { useState } from "react"
+
 
 import { Internationalization } from "@syncfusion/ej2-base";
 import { useNavigate } from "react-router-dom";
 import { registerLicense } from '@syncfusion/ej2-base';
 import {groups} from '../../data/LevelsData';
 import { Sessions } from "../../data/sessionsData";
+import { useContext } from "react";
+import { CurrentUser } from "../../Context/CurrentUserContext";
+
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
 
 
@@ -27,20 +30,24 @@ const FirstCalendar = ({role, sessions}) => {
   const getTimeString = (value) => {
     return instance.formatDate(value, { skeleton: "hm" });
   };
+  const userContext = useContext(CurrentUser);
+  const user = userContext.currentUser;
+
 
   const eventTemplate = (props) => {
-    console.log(props);
+    // console.log(props);
     return (
       <div
-        className={`e-appointment ${props.type == "cours" ? "beige" : props.type == "TP" ? "green" : "blue"} `}
+        className={`e-appointment ${props.type == "Lecture" ? "beige" : props.type == "TP" ? "green" : "blue"} `}
         onClick={() => { 
           // window.location.pathname = `${role}/session/${props.Id}`; 
           nav(`/${role}/session/${props.Id}`);
       }}
       >
-        <div className="subject"><b>{props.Subject}</b>: {Sessions.find((session) => session.Id == props.Id).type}</div>
-        <div className="time">{getTimeString(props.EndTime)}</div>
-        <div className="time">{groups.find((level) => props.LevelId.includes(level.id)).abbreviation} </div>
+        <div className="subject"><b>{props.Subject}</b>: {props.type}</div>
+        <div className="time">{getTimeString(props.StartTime)} :{getTimeString(props.EndTime)}</div>
+        <div className="time">{user.group.sectorLevel} </div>
+        {/* <div className="time">{props.sessionType.subject.sectorLevel} </div> */}
       </div>
     );
   };

@@ -1,15 +1,18 @@
 import { useParams } from "react-router-dom";
-import { useState, useContext } from "react";
-import { Sessions } from "../../../data/sessionsData.jsx";
-import AdminCalendar from "../../../Components/Calendar/AdminCalendar";
+import { useContext, useState, useEffect } from "react";
+import { Sessions } from "../../data/sessionsData";
+import AdminCalendar from "../../Components/Calendar/AdminCalendar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import '../../../Components/Calendar/styles.css';
-import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
-import { groups } from "../../../data/LevelsData.jsx";
+import '../../Components/Calendar/styles.css';
+import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
 import { useNavigate } from "react-router-dom";
-import { WindowSize } from "../../../Context/WindowContext.jsx";
-import { CurrentUser } from "../../../Context/CurrentUserContext.jsx";
+import { WindowSize } from "../../Context/WindowContext.jsx";
+import { CurrentUser } from "../../Context/CurrentUserContext.jsx";
+import axios from "axios";
+import { baseURL, GROUP, SESSION, SESSIONS_BY_GROUP } from "../../Api/Api";
+import Cookie from 'cookie-universal';
+
 
 export default function Calendar() { 
     const {id} = useParams();
@@ -17,44 +20,92 @@ export default function Calendar() {
     const windowSize = context.windowSize;
     const userContext = useContext(CurrentUser);
     const role = userContext.currentUser? userContext.currentUser.role: "student";
-
-    const data = Sessions
-    .filter((session) => session.LevelId.includes(+id));
-    const selectedGroup = groups.find((group) => group.id == id);
-    console.log("sessions:", data);
-
-    const [year, setYear] = useState(selectedGroup? selectedGroup.year:"");
-    const [sector, setSector] = useState(selectedGroup? selectedGroup.sector:"");
-    const [amphi, setAmphi]= useState(selectedGroup? selectedGroup.amphi:"");
-    const [group, setGroup]=useState(selectedGroup? selectedGroup.group:"");
     
+    const cookie = Cookie();
+    const token = cookie.get('academiqa');
+
+    const [sessionsData, setSessionsData] = useState("");
+    
+    const [year, setYear] = useState("");
+    const [sector, setSector] = useState("");
+    const [amphi, setAmphi]= useState("");
+    const [group, setGroup]=useState("");
+    const [sectors, setSectors] = useState([]);
+    const levels = [ 2, 3,4,5] ;
+    const amphis = [1,2,3,4];
     // extract the unique sectors from the groups:
-    const sectors = [...new Set(groups.map(group => group.sector))];
+
+    useEffect(() => {
+    axios.get(`${baseURL}/${GROUP}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(
+        (response) => {
+            console.log(response.data);
+            const groups = response.data;
+            setSectors ([...new Set(groups.map(group => group.sector))]);
+            console.log("sectors:", sectors);
+
+
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, []);
+
+
     const navigate = useNavigate();
 
 
-
-    const handleSubmit = (e)=>{
-        e.preventDefault();
-        const data = {
-            sector: sector,
-            year:year,
-            amphi: amphi,
-            group: group
+      
+    //get the sessions by user groupID
+    useEffect(() => {
+        if (sector && year && group) {
+          axios.get(
+              `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${sector}/${year}/${group}`
+              , {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }).then(
+            (response) => {
+              console.log(response.data);
+              response.data.forEach((session) => {
+                session.Subject = session.name;
+                if(!session.StartTime){
+                  session.StartTime = session.date}
+                  if(!session.EndTime){
+                    session.EndTime = session.endTime}
+              })
+              setSessionsData(response.data);
+            }).catch((err) => {
+              console.log(err);
+            });
         }
-        // post request 
-        let result = 
-        groups.filter(g => g.sector== sector  
-            && (g.year== year) 
-            && g.group==group
-        );
-        if (result.length>1) result= result.filter(g=> g.amphi== amphi);
-        console.log("group:", result);
+      }, [sector, year, group]);
+      
+    
+  
 
-        navigate("/admin/calendar/"+result[0].id);
+    // const handleSubmit = (e)=>{
+    //     e.preventDefault();
+    //     // const data = {
+    //     //     sector: sector,
+    //     //     year:year,
+    //     //     amphi: amphi,
+    //     //     group: group
+    //     // }
+    //     // post request 
+    //     let result = 
+    //     groups.filter(g => g.sector== sector  
+    //         && (g.year== year) 
+    //         && g.group==group
+    //     );
+    //     if (result.length>1) result= result.filter(g=> g.amphi== amphi);
+    //     console.log("group:", result);
 
-
-    }
+    //     navigate("/admin/calendar/"+result[0].id);
+    // }
 
     return(
     <div className="px-5" style={{ width: '100%'}}>
@@ -68,10 +119,12 @@ export default function Calendar() {
 
 
 
-            <form onSubmit={handleSubmit} >
+            <form 
+            // onSubmit={handleSubmit} 
+            >
                 <div className="d-flex" style={{flexWrap:"wrap", marginLeft:"10%"}}
                 >
-                <select name="level" id="level" className="form-select "
+                <select name="level" id="level" className="form-select"
                 onChange={(e) => {
                     setSector(e.target.value);
 
@@ -81,7 +134,8 @@ export default function Calendar() {
 
                     {
                         sectors.map((sector) => {
-                            return <option value={sector} selected={sector==selectedGroup?.sector}
+                            return <option value={sector} key={sector}
+                            // selected={sector==selectedGroup?.sector}
                             >{sector}</option>;
                           })
                     }
@@ -96,18 +150,26 @@ export default function Calendar() {
                     // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
-                    <option value="" hidden>Select Level </option>
-                    {
+                     <option value="" hidden>Select Level </option>
+                    {/*{
                         groups
                         .filter((l) => l.sector == sector && l.group==1)
                         .map((level) => {
-                            return <option value={level.year} selected={level.year==selectedGroup?.year}
+                            return <option value={level.year}  key={level.year}
+                            // selected={level.year==selectedGroup?.year}
                             >{level.year}</option>
                         }
                         )
                     }
-
-                </select>)}
+*/}
+                    {
+                        levels.map((level) => {
+                            return <option value={level} key={level}
+                            // selected={level==selectedGroup?.year}
+                            >{level}</option>;
+                          
+                    })}
+                </select>)} 
 
                 {
                     sector == "MPI" &&(
@@ -119,15 +181,24 @@ export default function Calendar() {
                     // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
-                    <option value="" hidden>Select Amphi </option>
-                    {
+                     <option value="" hidden>Select Amphi </option>
+                    {/*{
                         groups
                         .filter((l) => l.sector == sector && l.group==1)
                         .map((level) => {
-                            return <option value={level.amphi} selected={level.amphi==selectedGroup?.amphi}
+                            return <option value={level.amphi} key={level.amphi}
+                            // selected={level.amphi==selectedGroup?.amphi}
                             >{level.amphi}</option>
                         }
                         )
+                    } */}
+
+                    {
+                        amphis.map((level) => {
+                            return <option value={level} key={level}
+                            // selected={level==selectedGroup?.year}
+                            >{level}</option>;
+                        })
                     }
 
                 </select>)
@@ -143,26 +214,35 @@ export default function Calendar() {
                         ",amphi:", amphi);
                 }
                 }>
-                    <option value="" hidden>Select Group </option>
+                     <option value="" hidden>Select Group </option>
+                    {/*
                     {
                         groups
                         .filter((l) => l.sector == sector && (l.year== 2 || l.amphi==1))
                         .map((level) => {
-                            return <option value={level.group} selected={level.group==selectedGroup?.group}
+                            return <option value={level.group} key={level.group}
+                            // selected={level.group==selectedGroup?.group}
                             >{level.group}</option>
                         }
                         )
+                    } */}
+                    {
+                        amphis.map((level) => {
+                            return <option value={level} key={level}
+                            // selected={level==selectedGroup?.year}
+                            >{level}</option>;
+                        })
                     }
 
                 </select>
 
-                <button className="form-button" type="submit">
+                {/* <button className="form-button" type="submit">
                     submit
-                </button>
+                </button> */}
                 </div>
                 </form>
 
-        <AdminCalendar role={role} sessions={data}/>
+        <AdminCalendar role={role} sessions={sessionsData}/>
         </div>
         <MidNavbar/>
     </div>
