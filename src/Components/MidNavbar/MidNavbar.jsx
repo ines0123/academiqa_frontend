@@ -3,10 +3,13 @@ import {Link, useNavigate} from "react-router-dom";
 import "../MidNavbar/MidNavbar.css";
 import {useNotification} from "../../Context/NotificationContext.jsx";
 import Cookie from "cookie-universal";
+import {useContext} from "react";
+import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
 const MidNavbar = ({ children,role }) => {
   const {toggleVisibility,notifCount} = useNotification();
   const navigate = useNavigate();
+  const {currentUser,user} = useContext(CurrentUser);
   const logout = () => {
     Cookie().remove("academiqa");
     navigate('/login');
@@ -16,13 +19,13 @@ const MidNavbar = ({ children,role }) => {
     <nav className="midnavbar">
       <div className="cont">
         {/* <Link to={`/${role}/profile`} className="profileMid"> */}
-        {role !== "admin" ?(<Link to={`/${role}/profile`} className="profileMid" >
+        {role !== "admin" ?(<Link to={`/${currentUser?.role}/profile`} className="profileMid" >
           <img src={teacherPhoto} alt="teacher" className="profilePhotoMid"/>
-          <div className="accountNameMid">Mohamed Aziz mansour Elloumin</div>
+          <div className="accountNameMid">{user?.username}</div>
         </Link>):(
             <div className="profileMid cursor-pointer" style={{width: role === "admin" ? "300px" : ""}} >
               <img src={teacherPhoto} alt="teacher" className="profilePhotoMid"/>
-              <div className="accountNameMid">Mohamed Aziz mansour Elloumin</div>
+              <div className="accountNameMid">{user?.username}</div>
             </div>
         )}
         {children}

@@ -6,10 +6,10 @@ import {NavLink} from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 const Course = ({maxWidth,course,color,placement}) => {
     const [type,setType] = useState(placement);
-
+    console.log('course',course)
     return (
         <div className="course card d-flex justify-content-center ps-4 pe-3 pb-3" style={{background: `${color}`,maxWidth: maxWidth ? '301px':''}}>
-            <NavLink to={`/course/${course?.id}`} className="text-decoration-none">
+            <NavLink to={`/course/${course?.id}`} state={{ course }} className="text-decoration-none">
                 <div className="card-content d-flex flex-column justify-content-evenly">
                     <div className="card-top">
                         <h3 className="card-title m-0  fw-bold">{course?.name}</h3>

@@ -5,7 +5,7 @@ import AnnouncementMessage from "./AnnouncementMessage";
 import AnnouncementInput from "./AnnouncementInput";
 import noAnnouncement from "../../assets/images/noAnnouncement.svg";
 
-function SessionsAnnouncement({role}) {
+function SessionsAnnouncement({role, course}) {
     // Define initial state for announcements
     const [announcements, setAnnouncements] = useState([
         {

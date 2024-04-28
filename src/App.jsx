@@ -34,6 +34,7 @@ export default function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route element={<Layout />}>
           <Route element={<RequireAuth allowedRole={["student"]} />}>
+            <Route path="/student/chat" element={<SessionStudent />}></Route>
             <Route
               path="/student/home"
               element={
@@ -79,7 +80,6 @@ export default function App() {
 
             </Route>
             <Route element={<RequireAuth allowedRole={['student', 'teacher']} />}>
-              <Route path="/chat" element={<SessionStudent />}></Route>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
               <Route path="/course/:id" element={<Course />}></Route>
             </Route>

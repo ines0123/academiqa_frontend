@@ -2,7 +2,7 @@ import "./CourseName.css";
 import { FaBookOpenReader } from "react-icons/fa6";
 import teacherPhoto from "../../assets/images/teacher-photo.svg";
 
-function CourseName({role}) {
+function CourseName({role, course}) {
   return (
     <div className="course-name-box">
       <div>
@@ -12,10 +12,10 @@ function CourseName({role}) {
             <div className="course-name-title font-IstokWebBold overflow-hidden"
                  title="Protocoles de communication Web"
             >
-                Protocoles de communication Web
+                {course?.name}
             </div>
             <div className="course-additional-info font-IstokWebBold">
-                {role === "teacher" ? "GL3" : "Aymen Sellaouti"}
+                {role === "teacher" ? course?.sectorLevel : course?.teacher}
             </div>
         </div>
         { role === "student" &&

@@ -5,9 +5,15 @@ import SessionsList from "../../../Components/SessionsList/SessionsList.jsx";
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 import "./Course.css";
 import {useDate} from "../../../Context/DateContext.jsx";
+import {useLocation} from "react-router-dom";
 
 const Course = () => {
     const date = useDate();
+    const location = useLocation();
+    const course = location.state?.course; // Accessing the course object
+
+    // Now you can use the course object in your component
+    console.log(course);
 
     return (
         <div className="course-page container-fluid pt-6">
@@ -17,10 +23,10 @@ const Course = () => {
             <MidNavbar/>
             <div className="row">
                 <div className="col-sm-9 pl-10 course-name">
-                    <CourseName role="teacher"/>
+                    <CourseName course={course} role="teacher"/>
 
                     <div className="box-announcement">
-                        <SessionsAnnouncement role="teacher"/>
+                        <SessionsAnnouncement course={course} role="teacher"/>
                     </div>
                 </div>
                 <div className="col-sm-3 pr-2.5 my-3 box-sessions d-flex justify-end">

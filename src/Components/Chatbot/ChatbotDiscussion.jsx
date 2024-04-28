@@ -8,6 +8,7 @@ import MessageInput from "../Common/MessageInput/MessageInput.jsx";
 import Sellaouti from "../../assets/images/Sellaouti.jpg";
 import chatbotMsg from "../../assets/images/chatbot-msg.png";
 import NoDiscussions from "/src/assets/images/NoDiscussions.svg"
+import Cookie from "cookie-universal";
 
 // eslint-disable-next-line react/prop-types
 const ChatbotDiscussion = ({discussion,getDiscussions}) => {
@@ -32,10 +33,12 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     };
 
-
+    const cookie = Cookie();
+    const userToken = cookie.get('academiqa')
     const config = {
         headers: {
             "Content-Type": "multipart/form-data", // Set the content type for the FormData
+            Authorization: `Bearer ${userToken}`,
         },
     };
 
