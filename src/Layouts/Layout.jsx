@@ -18,12 +18,7 @@ export default function Layout(){
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
-    const navigate = useNavigate();
     const { currentUser, loading, setLoading } = useContext(CurrentUser);
-    if(!currentUser)
-    {
-        navigate('/login')
-    }
     const [role, setRole] = useState('');
     useEffect(() => {
         console.log('loading', loading);

@@ -3,7 +3,6 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Login from "./Pages/Auth/Login.jsx";
 import RequireRole from "./Pages/Auth/RequireRole.jsx";
 import HomeStudent from "./Pages/Student/HomeStudent/HomeStudent.jsx";
 import Notes from "./Pages/Student/Notes/Notes.jsx";
@@ -32,7 +31,8 @@ export default function App() {
   return (
     <>
       <Routes>
-          <Route element={<RequireLogin />}>
+        <Route path="/login" element={<RequireLogin />} />
+        <Route element={<RequireLogin />}>
         <Route element={<Layout />}>
           <Route element={<RequireRole allowedRole={["student"]} />}>
             <Route path="/student/chat" element={<SessionStudent />}></Route>
@@ -80,11 +80,11 @@ export default function App() {
               <Route path="teacher/calendar/:id?" element={<TeacherCalendar />}></Route>
 
             </Route>
-            <Route element={<RequireRole allowedRole={['student', 'teacher']} />}>
+          <Route element={<RequireRole allowedRole={['student', 'teacher']} />}>
               {/*<Route path="/chat" element={<SessionTeacher />}></Route>*/}
-              <Route path="/course/:id" element={<Course />}></Route>
+            <Route path="/course/:id" element={<Course />}></Route>
             </Route>
-            <Route element={<RequireRole allowedRole={['admin']} />}>
+          <Route element={<RequireRole allowedRole={['admin']} />}>
               <Route path="admin/home" element={<HomeAdmin />}></Route>
               <Route path="admin/professors" element={<ProfessorsAdmin />}></Route>
               <Route path="admin/students" element={<StudentsAdmin />}></Route>
@@ -92,8 +92,9 @@ export default function App() {
               <Route path="admin/courses" element={<CoursesAdmin />}></Route>
               <Route path="admin/profile/:id/:role" element = {<Profile />} ></Route>
             </Route>
-            <Route path="*" element={<PageNotFound />}></Route>
-          </Route>
+          <Route path="*" element={<PageNotFound />}></Route>
+        </Route>
+        </Route>
         </Routes>
     </>
   );

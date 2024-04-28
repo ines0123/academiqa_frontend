@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
 import MessageInput from "../Common/MessageInput/MessageInput.jsx";
 import Message from "./Message/Message.jsx";
 import './CommonSessionChat.css';
 import EmptyNavbar from "../Navbar/EmptyNavbar.jsx";
 import {useSocket} from "../../Context/SocketContext.jsx";
+import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
 const Chat = () => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -25,6 +26,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     // const [joined, setJoined] = useState(false);
     const [sender, setSender] = useState("mongia");
+    const {user,currentUser} = useContext(CurrentUser);
     const [typing, setTyping] = useState('');
     const messagesEndRef = useRef(null);
     const [nbNestedReplies, setNbNestedReplies] = useState(0);
@@ -69,6 +71,7 @@ const Chat = () => {
         });
     };
     const deleteMsg = (id)=>{
+        console.log("message deleted", id)
         socket?.emit('deleteMessage',id);
     }
 
@@ -93,9 +96,38 @@ const Chat = () => {
 
 
     const messageListener = (data) => {
-        setMessages(data);
+        setMessages((prevMessages) => {
+            const handleReply = (messages) => {
+                return messages.map((message) => {
+                    if (message.id === data.parent?.id) {
+                        return {
+                            ...message,
+                            replies: [...(message.replies || []), data],
+                        };
+                    }
+
+                    if (message.replies) {
+                        return {
+                            ...message,
+                            replies: handleReply(message.replies),
+                        };
+                    }
+
+                    return message;
+                });
+            };
+            if (data.parent) {
+                return handleReply(prevMessages);
+            } else {
+                return [...prevMessages, data];
+            }
+        });
+
+        // Scroll to bottom (assuming this is defined elsewhere)
         scrollToBottom();
     };
+
+
 
     useEffect(()=> {
         socket?.on('message', messageListener);
@@ -103,18 +135,20 @@ const Chat = () => {
             socket?.off('message', messageListener);
         }
     },[messageListener])
-
+    const handleDeletedMessage = (id) => {
+        setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id));
+    };
     useEffect(()=> {
-        socket?.on('deletedMessage', messageListener);
+        socket?.on('deletedMessage', handleDeletedMessage);
         return () => {
-            socket?.off('deletedMessage', messageListener);
+            socket?.off('deletedMessage', handleDeletedMessage);
         }
-    },[messageListener])
+    },[handleDeletedMessage])
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value.trim() !== "") {
-            send({content:value});
+            send({content:value, author: currentUser});
             setValue("");
         }
     }
@@ -146,7 +180,6 @@ const Chat = () => {
                                 key={index}
                                 deleteMsg={deleteMsg}
                                 message={message}
-                                isStudent={true}
                                 send={send}
                                 emitTyping={emitTyping}
                                 nbNestedReplies={nbNestedReplies}

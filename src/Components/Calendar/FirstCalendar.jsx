@@ -38,15 +38,15 @@ const FirstCalendar = ({role, sessions}) => {
     // console.log(props);
     return (
       <div
-        className={`e-appointment ${props.type == "Lecture" ? "beige" : props.type == "TP" ? "green" : "blue"} `}
+        className={`e-appointment ${props?.type == "Lecture" ? "beige" : props?.type == "TP" ? "green" : "blue"} `}
         onClick={() => { 
           // window.location.pathname = `${role}/session/${props.Id}`; 
-          nav(`/${role}/session/${props.Id}`);
+          nav(`/${role}/session/${props?.Id}`);
       }}
       >
-        <div className="subject"><b>{props.Subject}</b>: {props.type}</div>
-        <div className="time">{getTimeString(props.StartTime)} :{getTimeString(props.EndTime)}</div>
-        <div className="time">{user.group.sectorLevel} </div>
+        <div className="subject"><b>{props?.Subject}</b>: {props?.type}</div>
+        <div className="time">{getTimeString(props?.StartTime)} :{getTimeString(props?.EndTime)}</div>
+        <div className="time">{user?.group?.sectorLevel} </div>
         {/* <div className="time">{props.sessionType.subject.sectorLevel} </div> */}
       </div>
     );

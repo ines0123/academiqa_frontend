@@ -1,16 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
-import { Sessions } from "../../data/sessionsData";
-import AdminCalendar from "../../Components/Calendar/AdminCalendar";
+import { Sessions } from "../../../data/sessionsData";
+import AdminCalendar from "../../../Components/Calendar/AdminCalendar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import '../../Components/Calendar/styles.css';
-import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
+import '../../../Components/Calendar/styles.css';
+import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 import { useNavigate } from "react-router-dom";
-import { WindowSize } from "../../Context/WindowContext.jsx";
-import { CurrentUser } from "../../Context/CurrentUserContext.jsx";
+import { WindowSize } from "../../../Context/WindowContext.jsx";
+import { CurrentUser } from "../../../Context/CurrentUserContext.jsx";
 import axios from "axios";
-import { baseURL, GROUP, SESSION, SESSIONS_BY_GROUP } from "../../Api/Api";
+import { baseURL, GROUP, SESSION, SESSIONS_BY_GROUP } from "../../../Api/Api";
 import Cookie from 'cookie-universal';
 
 

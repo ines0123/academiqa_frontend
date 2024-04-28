@@ -81,6 +81,8 @@ export default function Login() {
 
                     const path = user.role === "Admin" ? '/admin/home' : user.role === "Teacher" ? '/teacher/home' : user.role === "Student" ? '/student/home' : '/';
                     userContext.setLoading(true);
+                    console.log("Path:", path);
+                    // window.location.pathname = path;
                     navigate(path);
 
                 })
