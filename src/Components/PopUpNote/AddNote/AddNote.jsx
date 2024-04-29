@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import Cookie from "cookie-universal";
 import { BiBookReader } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import axios from "axios";
 import PopUp from "../../Common/PopUp/PopUp";
 import "./AddNote.css";
-import { useContext } from "react";
 import { NoteContext } from "../../../Context/NoteContext.jsx";
 import { useDate } from "../../../Context/DateContext.jsx";
 
@@ -18,10 +18,15 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
     setNewNote({ ...newNote, [event.target.name]: event.target.value });
   };
 
+  const userToken = Cookie().get("academiqa");
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:5000/note`, newNote)
+      .post(`http://localhost:5000/note`, newNote, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
       .then((res) => {
         addNote(res.data);
         setIsOpen(false);

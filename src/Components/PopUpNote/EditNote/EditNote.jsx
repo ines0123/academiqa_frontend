@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PopUp from "../../Common/PopUp/PopUp";
 import axios from "axios";
+import Cookie from "cookie-universal";
 import { BiBookReader } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
@@ -20,11 +21,20 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
     setEditedNote({ ...editedNote, [event.target.name]: event.target.value });
   };
 
+  const cookie = Cookie();
+  const userToken = cookie.get("academiqa");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .patch(`http://localhost:5000/note/${note.id}`, editedNote)
+      .patch(`http://localhost:5000/note/${note.id}`, editedNote, config)
       .then((res) => {
+        console.log("patch: ", res); // Log the response
         updateNote(res.data);
         setIsOpen(false);
       })
@@ -35,8 +45,9 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
 
   const handleDelete = () => {
     axios
-      .delete(`http://localhost:5000/note/${note.id}`)
+      .delete(`http://localhost:5000/note/${note.id}`, config)
       .then((res) => {
+        console.log("delete: ", res); // Log the response
         deleteNote(res.data.id);
         setIsOpen(false);
       })

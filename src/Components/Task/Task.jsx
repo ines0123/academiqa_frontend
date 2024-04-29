@@ -4,8 +4,10 @@ import Scrollbar from "../Common/Scrollbar/Scrollbar";
 import { FaTasks } from "react-icons/fa";
 // import tasksData from "./tasksData.json";
 import "./Task.css";
-
 import axios from "axios";
+import { useContext } from "react";
+import { CurrentUser } from "../../Context/CurrentUserContext";
+import Cookie from "cookie-universal";
 import DeleteButton from "../Common/DeleteButtonForResTask/DeleteButton.jsx";
 
 const Task = ({ role }) => {
@@ -13,82 +15,116 @@ const Task = ({ role }) => {
   const [newTask, setNewTask] = useState("");
   const [showNewTask, setShowNewTask] = useState(false);
   const newTaskRef = useRef(null);
+  const { currentUser } = useContext(CurrentUser);
 
   //get all tasks
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/task")
-      .then((response) => {
-        setTasks(response.data);
-      })
-      .catch((error) => {
-        console.error(`${error} - Failed to find task`);
-      });
-  }, []);
+    if (currentUser?.role === "Student" || currentUser?.role === "Teacher") {
+      const userToken = Cookie().get("academiqa");
+      axios
+        .get("http://localhost:5000/task", {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        })
+        .then((response) => {
+          setTasks(response.data);
+        })
+        .catch((error) => {
+          console.error(`${error} - Failed to find task`);
+        });
+    }
+  }, [currentUser]);
 
   //add new task (addButton)
   const handleAddTask = () => {
-    if (newTask !== "") {
-      axios
-        .post("http://localhost:5000/task", {
-          content: newTask,
-          isDone: false,
-        })
-        .then((response) => {
-          setTasks((prevTasks) => [...prevTasks, response.data]);
-        })
-        .catch((error) => {
-          console.error(`${error} - Failed to add task`);
-        });
+    if (currentUser?.role === "Teacher") {
+      if (newTask !== "") {
+        axios
+          .post(
+            "http://localhost:5000/task",
+            {
+              content: newTask,
+              isDone: false,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${Cookie().get("academiqa")}`,
+              },
+            }
+          )
+          .then((response) => {
+            setTasks((prevTasks) => [...prevTasks, response.data]);
+          })
+          .catch((error) => {
+            console.error(`${error} - Failed to add task`);
+          });
+      }
+      setNewTask("");
+      setShowNewTask(false);
     }
-    setNewTask("");
-    setShowNewTask(false);
   };
 
   //update the task (checkbox and content)
   const handleUpdateTask = (index, newContent, newIsDone) => {
     const task = tasks[index];
-    if (task && task.id) {
-      axios
-        .patch(`http://localhost:5000/task/${task.id}`, {
-          content: newContent,
-          isDone: newIsDone,
-        })
-        .then((response) => {
-          setTasks((prevTasks) =>
-            prevTasks.map((t, i) =>
-              i === index
-                ? {
-                    ...t,
-                    content: response.data.content,
-                    isDone: response.data.isDone,
-                  }
-                : t
-            )
-          );
-        })
-        .catch((error) => {
-          console.error(`${error} - Failed to update task`);
-        });
-    } else if (!task) {
-      console.error("Task not found ");
-    } else {
-      console.error("Task id not found ");
+    if (currentUser?.role === "Teacher") {
+      if (task && task.id) {
+        axios
+          .patch(
+            `http://localhost:5000/task/${task.id}`,
+            {
+              content: newContent,
+              isDone: newIsDone,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${Cookie().get("academiqa")}`,
+              },
+            }
+          )
+          .then((response) => {
+            setTasks((prevTasks) =>
+              prevTasks.map((t, i) =>
+                i === index
+                  ? {
+                      ...t,
+                      content: response.data.content,
+                      isDone: response.data.isDone,
+                    }
+                  : t
+              )
+            );
+          })
+          .catch((error) => {
+            console.error(`${error} - Failed to update task`);
+          });
+      } else if (!task) {
+        console.error("Task not found ");
+      } else {
+        console.error("Task id not found ");
+      }
     }
   };
 
   //delete the task (deleteButton)
   const handleDeleteTask = (index) => {
     const task = tasks[index];
-    axios
-      .delete(`http://localhost:5000/task/${task.id}`)
-      .then((response) => {
-        setTasks((prevTasks) => prevTasks.filter((t, i) => i !== index));
-        // console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(`${error} - Failed to delete task`);
-      });
+    if (currentUser?.role === "Teacher") {
+      axios
+        .delete(`http://localhost:5000/task/${task.id}`, {
+          headers: {
+            Authorization: `Bearer ${Cookie().get("academiqa")}`,
+          },
+        })
+        .then((response) => {
+          setTasks((prevTasks) => prevTasks.filter((t, i) => i !== index));
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(`${error} - Failed to delete task`);
+        });
+    }
   };
 
   //show the new task input
