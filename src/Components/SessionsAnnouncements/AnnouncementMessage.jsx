@@ -8,11 +8,14 @@ function AnnouncementMessage({ Announcement }) {
           <FaScroll size={33}/>
       </div>
       <div className="announcement-element">
+            <div className="announcement-teacher  font-IstokWebBold">
+                {Announcement.teacher.username}
+            </div>
           <div className="announcement-date font-IstokWebRegular">
-              {Announcement.date}
+              {Announcement.createdAt}
           </div>
           <div className="announcement-description font-IstokWebRegular">
-              {Announcement.description}
+              {Announcement.content}
           </div>
       </div>
     </div>
