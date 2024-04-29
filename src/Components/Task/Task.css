@@ -3,13 +3,13 @@
   padding-right: 13px;
   display: grid;
   grid-template-rows: 0.4fr 1.6fr;
-  /*width: 100%;*/
-  max-width: 370px;
-  /*height: 270px;*/
-  height: 250px;
+  /* max-width: 370px; */
   /*margin: 10px;*/
+  width: 100%;
+  max-width: 355px;
   border-radius: 40px;
   background-color: rgba(233, 177, 176, 0.36);
+  height: 250px;
 }
 
 .tasks-title {
