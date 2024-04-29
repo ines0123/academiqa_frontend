@@ -13,6 +13,7 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 import axios from "axios";
+import Cookie from "cookie-universal";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { FaEye} from "react-icons/fa";
@@ -24,7 +25,8 @@ import {NavLink} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
-const TableStudents = ({groups}) => {
+const TableStudents = ({ groups }) => {
+    
     const [Options, setOptions] = useState([]);
     useEffect(() => {
         setOptions(groups.map(group => ({
@@ -91,9 +93,12 @@ const TableStudents = ({groups}) => {
     // const [updateModalOpen, setUpdateModalOpen] = useState(false);
     const [studentModalOpen, setStudentModalOpen] = useState({});
 
+    const cookie = Cookie();
+    const userToken = cookie.get("token");
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userToken}`,
         },
     };
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -147,7 +152,7 @@ const TableStudents = ({groups}) => {
         e.preventDefault();
         console.log(updateFormData)
 
-        axios.patch('http://localhost:5000/student/' + student.id, updateFormData).then(r => {
+        axios.patch('http://localhost:5000/student/' + student.id, updateFormData, config).then(r => {
             console.log(r)
             getStudents();
             setUpdateFormData(
@@ -265,7 +270,7 @@ const TableStudents = ({groups}) => {
         setErrors(newErrors);
         console.log(newErrors)
         if(!Object.values(newErrors).some(error => error !== "")){
-            axios.post('http://localhost:5000/auth/student', formData).then(r => {
+            axios.post('http://localhost:5000/auth/student', formData, config).then(r => {
                 console.log(r)
                 getStudents();
                 setFormData({
@@ -285,7 +290,7 @@ const TableStudents = ({groups}) => {
         }
     };
 const getStudents= () => {
-    axios.get('http://localhost:5000/student/all').then(r => {
+    axios.get('http://localhost:5000/student/all', config).then(r => {
         setStudents(r.data);
     }).catch(e => {
         console.log(e)
@@ -293,7 +298,7 @@ const getStudents= () => {
 }
     const handleDeleteStudent = (e,student) => {
         e.preventDefault();
-        axios.delete('http://localhost:5000/user/' + student.id).then(r => {
+        axios.delete('http://localhost:5000/user/' + student.id, config).then(r => {
             console.log(r)
             getStudents();
         }).catch(e => {

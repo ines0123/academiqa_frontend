@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext} from "react";
 import PopUp from "../../Common/PopUp/PopUp";
 import axios from "axios";
 import Cookie from "cookie-universal";
@@ -7,7 +7,7 @@ import { FiClock } from "react-icons/fi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import "../AddNote/AddNote.css";
 import { NoteContext } from "../../../Context/NoteContext";
-import { useContext } from "react";
+import { baseURL, NOTE } from "../../../Api/Api";
 
 const EditNote = ({ note, isOpen, setIsOpen }) => {
   const [editedNote, setEditedNote] = useState(note);
@@ -32,7 +32,7 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .patch(`http://localhost:5000/note/${note.id}`, editedNote, config)
+      .patch(`${baseURL}/${NOTE}/${note.id}`, editedNote, config)
       .then((res) => {
         console.log("patch: ", res); // Log the response
         updateNote(res.data);
@@ -45,7 +45,7 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
 
   const handleDelete = () => {
     axios
-      .delete(`http://localhost:5000/note/${note.id}`, config)
+      .delete(`${baseURL}/${NOTE}/${note.id}`, config)
       .then((res) => {
         console.log("delete: ", res); // Log the response
         deleteNote(res.data.id);

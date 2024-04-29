@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { CurrentUser } from "./CurrentUserContext";
 import Cookie from "cookie-universal";
 import axios from "axios";
+import { baseURL, NOTE } from "../Api/Api";
 
 const NoteContext = React.createContext();
 
@@ -13,7 +14,7 @@ const NoteProvider = ({ children }) => {
     if (currentUser?.role === "Student") {
       const userToken = Cookie().get("academiqa");
       axios
-        .get("http://localhost:5000/note/", {
+        .get(`${baseURL}/${NOTE}/`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },

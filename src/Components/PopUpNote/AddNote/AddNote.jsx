@@ -8,6 +8,7 @@ import PopUp from "../../Common/PopUp/PopUp";
 import "./AddNote.css";
 import { NoteContext } from "../../../Context/NoteContext.jsx";
 import { useDate } from "../../../Context/DateContext.jsx";
+import { baseURL, NOTE } from "../../../Api/Api";
 
 const AddNote = ({ isOpen, setIsOpen, session }) => {
   const date = useDate();
@@ -22,7 +23,7 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:5000/note`, newNote, {
+      .post(`${baseURL}/${NOTE}`, newNote, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
