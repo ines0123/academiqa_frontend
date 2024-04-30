@@ -81,7 +81,7 @@ export default function Login() {
                     // context
                     userContext.setCurrentUser(user);
                     console.log("userContext:", userContext.currentUser);
-                    const path = user.role.toLowerCase() == "Admin" ? '/admin/calendar' : user.role.toLowerCase() == "teacher" ? '/teacher/home' : user.role.toLowerCase() == "student" ? '/student/home' : '/';
+                    const path = user.role.toLowerCase() == "admin" ? '/admin/calendar' : user.role.toLowerCase() == "teacher" ? '/teacher/home' : user.role.toLowerCase() == "student" ? '/student/home' : '/';
                     setDestination(path);
                     setTimeout(
                         ()=>{

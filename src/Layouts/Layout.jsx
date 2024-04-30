@@ -31,8 +31,8 @@ export default function Layout(){
         const userToken = cookie.get('academiqa');
         setRole(jwtDecode(userToken).role);
         const userPath = jwtDecode(userToken).role === 'admin' ? 'admin' : (jwtDecode(userToken).role === 'teacher' ? 'teacher' : 'student');
-        
-        if (jwtDecode(userToken).role.toLowerCase() === 'student') {
+
+        // if (jwtDecode(userToken).role.toLowerCase() === 'student') {
         axios.get(`${baseURL}/${userPath}/${jwtDecode(userToken).id}`, {
             headers: {
                 Authorization: `Bearer ${userToken}`,
@@ -40,10 +40,11 @@ export default function Layout(){
         }).then(
             (response) => {
                 userContext.setCurrentUser(response.data);
+                console.log('current user:', userContext.currentUser);
             }).catch((err) => {
                 console.log(err);
             });
-        }
+        // }
         
 
         setTimeout(() => {

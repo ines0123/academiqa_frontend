@@ -33,8 +33,8 @@ export default function Calendar() {
     const [sectors, setSectors] = useState([]);
     const levels = [ 2, 3,4,5] ;
     const amphis = [1,2,3,4];
-    // extract the unique sectors from the groups:
 
+    // get all groups
     useEffect(() => {
     axios.get(`${baseURL}/${GROUP}`, {
         headers: {
