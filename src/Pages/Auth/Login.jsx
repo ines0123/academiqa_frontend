@@ -91,7 +91,7 @@ export default function Login() {
                 })
             }
             catch (error) {
-                // setLoading(false);
+                setLoading(false);
                 console.log(error);
                 if (error.response.status === 401) {
                     setError("Wrong email or password")
@@ -189,9 +189,9 @@ export default function Login() {
                                     </div>
                                 </div>
                                 {error !== "" &&
-                                    <span className='error'>
+                                    <div className='error-span'>
                                         {error}
-                                    </span>}
+                                    </div>}
                             </div>
                         </div>
                     </Form>

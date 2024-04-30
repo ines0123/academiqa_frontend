@@ -135,3 +135,15 @@
 #_dialog_wrapper_dialog-content{
     padding-bottom: 0px !important;
 }
+
+.error-span{
+    border-radius: 10px;
+    background: #ff0000a0;
+    color: white;
+    padding: 5px 20px;
+    width: fit-content;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    
+}
