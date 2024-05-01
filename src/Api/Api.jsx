@@ -12,6 +12,7 @@ export const SESSION_TYPE = 'session-type';
 export const SESSION = 'session';
 export const SESSIONS_BY_GROUP = 'OfSectorLevelGroup';
 export const SESSIONS_BY_TEACHER = 'ByTeacher'; 
+export const ADD_SESSION = 'addSession';
 
 // groups
 export const GROUP = 'group';

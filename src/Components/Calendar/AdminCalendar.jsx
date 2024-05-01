@@ -14,16 +14,22 @@ import {
   import { useNavigate } from "react-router-dom";
   import { registerLicense } from '@syncfusion/ej2-base';
   import '../../Components/Calendar/styles.css'
-  
+import axios from "axios";
+import { ADD_SESSION, SESSION, baseURL } from "../../Api/Api";
+import Cookie from 'cookie-universal';
+import { jwtDecode } from "jwt-decode";
+
   registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
   
   
-  const AdminCalendar = ({role, sessions}) => {
+  const AdminCalendar = ({role, sessions, setSessionsData, sector, year, group}) => {
     const nav = useNavigate();
     const instance = new Internationalization();
     const getTimeString = (value) => {
       return instance.formatDate(value, { skeleton: "hm" });
     };
+    const cookie = Cookie();
+    const token = cookie.get('academiqa');
 
     L10n.load({
       'en-US': {
@@ -104,15 +110,76 @@ import {
           if (args.requestType === "eventChanged") {
             editTimeFormat(args.data[0]);
             console.log(args.data[0]);
-            alert("Session Changed");
-            // Post request to update the session in the database
+            const dto = {
+              date: args.data[0].StartTime,
+              endTime : args.data[0].EndTime,
+              name: args.data[0].Subject,
+            }
+            axios.patch(`${baseURL}/${SESSION}/${args.data[0].id}`, dto, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }).then(
+              (response) => {
+                console.log("response.data:", response.data);
+                alert("Session Updated");
+                window.location.reload();
+              }).catch((err) => {
+                console.log(err);
+              });
+
           }
           if (args.requestType === "eventCreated") {
             editTimeFormat(args.data[0]);
             console.log(args.data[0]);
             alert("Session Created");
+            const addSessionDto= {
+              date: args.data[0].StartTime,
+              endTime : args.data[0].EndTime,
+              name: args.data[0].Subject}
+            const getGroupDto= {
+              sector: sector,
+              level: year,
+              group: group
+            }
+            const dto = {
+              addSessionDto: addSessionDto,
+              getGroupDto: getGroupDto
+            }
+            console.log("dto:", dto);
             // Post request to add the session to the database
-        }}
+            axios.post(`${baseURL}/${SESSION}/${ADD_SESSION}`, dto, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }).then(
+              (response) => {
+                console.log("response.data:", response.data);
+                window.location.reload();
+
+
+              }).catch((err) => {
+                console.log(err);
+              });
+
+        }
+        if(args.requestType === "eventRemoved"){
+          console.log((args.data[0]));
+          axios.delete(`${baseURL}/${SESSION}/${args.data[0].id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }).then(
+            (response) => {
+              console.log("response.data:", response.data);
+              alert("removed");
+              setSessionsData(sessions.filter(session => session.id !== args.data[0].id));
+              window.location.reload();
+            }).catch((err) => {
+              console.log(err);
+            });
+        }
+      }
         }
       >
         <ViewsDirective>

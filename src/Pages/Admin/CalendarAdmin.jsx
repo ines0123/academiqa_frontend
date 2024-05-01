@@ -77,6 +77,11 @@ export default function Calendar() {
                   if(!session.EndTime){
                     session.EndTime = session.endTime}
               })
+              response.data.filter(
+                (session) => {
+                  return session.deletedAt == null;
+                }
+              )
               setSessionsData(response.data);
             }).catch((err) => {
               console.log(err);
@@ -85,27 +90,6 @@ export default function Calendar() {
       }, [sector, year, group]);
       
     
-  
-
-    // const handleSubmit = (e)=>{
-    //     e.preventDefault();
-    //     // const data = {
-    //     //     sector: sector,
-    //     //     year:year,
-    //     //     amphi: amphi,
-    //     //     group: group
-    //     // }
-    //     // post request 
-    //     let result = 
-    //     groups.filter(g => g.sector== sector  
-    //         && (g.year== year) 
-    //         && g.group==group
-    //     );
-    //     if (result.length>1) result= result.filter(g=> g.amphi== amphi);
-    //     console.log("group:", result);
-
-    //     navigate("/admin/calendar/"+result[0].id);
-    // }
 
     return(
     <div className="px-5" style={{ width: '100%'}}>
@@ -135,7 +119,6 @@ export default function Calendar() {
                     {
                         sectors.map((sector) => {
                             return <option value={sector} key={sector}
-                            // selected={sector==selectedGroup?.sector}
                             >{sector}</option>;
                           })
                     }
@@ -147,21 +130,9 @@ export default function Calendar() {
                     setAmphi("");
                     setYear(e.target.value);
 
-                    // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
                      <option value="" hidden>Select Level </option>
-                    {/*{
-                        groups
-                        .filter((l) => l.sector == sector && l.group==1)
-                        .map((level) => {
-                            return <option value={level.year}  key={level.year}
-                            // selected={level.year==selectedGroup?.year}
-                            >{level.year}</option>
-                        }
-                        )
-                    }
-*/}
                     {
                         levels.map((level) => {
                             return <option value={level} key={level}
@@ -178,21 +149,9 @@ export default function Calendar() {
                     setYear("1");
                     setAmphi(e.target.value);
 
-                    // window.location.pathname = `/admin/calendar/${e.target.value}`;
                 }
                 }>
                      <option value="" hidden>Select Amphi </option>
-                    {/*{
-                        groups
-                        .filter((l) => l.sector == sector && l.group==1)
-                        .map((level) => {
-                            return <option value={level.amphi} key={level.amphi}
-                            // selected={level.amphi==selectedGroup?.amphi}
-                            >{level.amphi}</option>
-                        }
-                        )
-                    } */}
-
                     {
                         amphis.map((level) => {
                             return <option value={level} key={level}
@@ -215,17 +174,6 @@ export default function Calendar() {
                 }
                 }>
                      <option value="" hidden>Select Group </option>
-                    {/*
-                    {
-                        groups
-                        .filter((l) => l.sector == sector && (l.year== 2 || l.amphi==1))
-                        .map((level) => {
-                            return <option value={level.group} key={level.group}
-                            // selected={level.group==selectedGroup?.group}
-                            >{level.group}</option>
-                        }
-                        )
-                    } */}
                     {
                         amphis.map((level) => {
                             return <option value={level} key={level}
@@ -235,14 +183,10 @@ export default function Calendar() {
                     }
 
                 </select>
-
-                {/* <button className="form-button" type="submit">
-                    submit
-                </button> */}
                 </div>
                 </form>
 
-        <AdminCalendar role={role} sessions={sessionsData}/>
+        <AdminCalendar role={role} sessions={sessionsData} setSessionsData={setSessionsData} sector={sector} year={year} group={group} />
         </div>
         <MidNavbar/>
     </div>
