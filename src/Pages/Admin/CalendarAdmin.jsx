@@ -11,6 +11,7 @@ import { CurrentUser } from "../../Context/CurrentUserContext.jsx";
 import axios from "axios";
 import { baseURL, GROUP, SESSION, SESSIONS_BY_GROUP } from "../../Api/Api";
 import Cookie from 'cookie-universal';
+import { jwtDecode } from "jwt-decode";
 
 
 export default function Calendar() { 
@@ -18,11 +19,10 @@ export default function Calendar() {
     const context = useContext(WindowSize);
     const windowSize = context.windowSize;
     const userContext = useContext(CurrentUser);
-    const role = userContext.currentUser? userContext.currentUser.role: "student";
     const [reload, setReload] = useState(false);
     const cookie = Cookie();
     const token = cookie.get('academiqa');
-
+    const role = jwtDecode(token).role;
     const [sessionsData, setSessionsData] = useState("");
     
     const [year, setYear] = useState("");

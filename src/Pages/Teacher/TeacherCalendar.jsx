@@ -1,22 +1,15 @@
-import FirstCalendar from "../../Components/Calendar/FirstCalendar";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { Sessions } from "../../data/sessionsData";
-import { Subjects } from "../../data/SubjectsData";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
-import { groups } from "../../data/LevelsData.jsx";
 import AdminCalendar from "../../Components/Calendar/AdminCalendar.jsx";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURL, SESSION, SESSION_TYPE, SESSIONS_BY_GROUP, SESSIONS_BY_TEACHER } from "../../Api/Api";
-import { CurrentUser } from "../../Context/CurrentUserContext.jsx";
 import Cookie from 'cookie-universal';
 import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 
 export default function TeacherCalendar() {
-    const {id} = useParams();
     const cookie = Cookie();
     const token = cookie.get('academiqa');
     const [groups, setGroups] = useState([]);
