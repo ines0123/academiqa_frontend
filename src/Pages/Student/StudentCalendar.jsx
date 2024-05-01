@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react"
 import { CurrentUser } from "../../Context/CurrentUserContext";
 import axios from "axios";
 import { baseURL, SESSION, SESSIONS_BY_GROUP } from "../../Api/Api";
+import Cookie from 'cookie-universal';
 
 export default function StudentCalendar() {
 
@@ -14,6 +15,8 @@ export default function StudentCalendar() {
     const userContext = useContext(CurrentUser);
     const user = userContext.currentUser;
     const [sessionsData, setSessionsData] = useState("");
+    const cookie = Cookie();
+    const token = cookie.get('academiqa');
 
 
     // convert date format from iso to js
@@ -31,7 +34,7 @@ export default function StudentCalendar() {
             // `${baseURL}/${SESSION}`
             , {
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }).then(
           (response) => {

@@ -1,5 +1,5 @@
 import teacherPhoto from "../../assets/images/sellaouti.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MidNavbar from "../MidNavbar/MidNavbar";
 
@@ -8,22 +8,52 @@ import EmptyNavbar from "./EmptyNavbar";
 import FirstCalendar from "../Calendar/FirstCalendar";
 import SmallCalendar from "../Calendar/SmallCalendar";
 import { Sessions } from "../../data/sessionsData";
+import Cookie from "cookie-universal";
+import { jwtDecode } from "jwt-decode";
+import { SESSIONS_BY_GROUP, SESSIONS_BY_TEACHER, baseURL, SESSION } from "../../Api/Api";
+import { CurrentUser } from "../../Context/CurrentUserContext";
+import axios from "axios";
+
+
 
 const Navbar = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const nav = useNavigate();
-  const student = {
-    id: 1,
-    name: "John Doe",
-    level: 1
-}
-  const data = Sessions.filter((session) => session.LevelId.includes(+student.level));
-  console.log(data);
+  const cookie = Cookie();
+  const token = cookie.get("academiqa");
+  const role = jwtDecode(token).role;
+  const userContext = useContext(CurrentUser);
+  const user = userContext.currentUser;
+  const [sessionsData, setSessionsData] = useState([]);
 
-  let role ='';
-  if (window.location.pathname.includes("student")) { role = "student"; }
-  if (window.location.pathname.includes("teacher")) {  role = "teacher"; }
-  if (window.location.pathname.includes("admin")) {  role = "admin"; }
+  useEffect(() => {
+    try{
+    const pathRequest = role === "teacher" ? `${SESSIONS_BY_TEACHER}/${jwtDecode(token).id}`: `${SESSIONS_BY_GROUP}/${user.group.sector}/${user.group.level}/${user.group.group}`;  
+    if (user) {
+      axios.get(`${baseURL}/${SESSION}/${pathRequest}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(
+        (response) => {
+          console.log(response.data);
+          response.data.forEach((session) => {
+            session.Subject = session.name;
+            if (!session.StartTime) {
+              session.StartTime = session.date;
+            }
+            if (!session.EndTime) {
+              session.EndTime = session.endTime;
+            }
+          });
+          setSessionsData(response.data);
+        }).catch((err) => {
+          console.log(err);
+        });
+    }}
+    catch(err){
+      console.log(userContext);}
+  }, [user]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,7 +87,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div title='go to calendar' className="calendar" onClick={() => nav(`/${role}/calendar`)}>
-              <SmallCalendar sessions={data} role={role} />
+              <SmallCalendar sessions={sessionsData} role={role} />
             </div>
             <div className="calendardiv">
               <Link to="/calendar" className="calendarButton">
