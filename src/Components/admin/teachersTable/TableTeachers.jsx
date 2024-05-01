@@ -22,11 +22,11 @@ import PopUp from "../../Common/PopUp/PopUp.jsx";
 import {NavLink} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Cookie from "cookie-universal";
 
 const TableTeachers = () => {
-    const [teachers, setTeachers] = useState([
-
-    ]);
+    const [teachers, setTeachers] = useState([]);
+    const userToken = Cookie().get('academiqa');
     const [isHovered, setIsHovered] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
@@ -58,6 +58,7 @@ const TableTeachers = () => {
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userToken}`,
         },
     };
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -109,7 +110,11 @@ const TableTeachers = () => {
     const handleUpdateSubmit = (e, teacher) => {
         e.preventDefault();
         console.log(teacher)
-        axios.patch('http://localhost:5000/teacher/'+teacher.id, updateFormData).then(r => {
+        axios.patch('http://localhost:5000/teacher/'+teacher.id, updateFormData,{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(r => {
             console.log(r)
             getTeachers();
             setUpdateFormData({
@@ -215,7 +220,11 @@ const TableTeachers = () => {
 
         if(!Object.values(newErrors).some(error => error !== "")){
             // Call the API to update the teacher
-            axios.post('http://localhost:5000/auth/teacher', formData).then(r => {
+            axios.post('http://localhost:5000/auth/teacher', formData,{
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            }).then(r => {
                 console.log(r);
                 setFormData({
                     username: "",
@@ -233,7 +242,11 @@ const TableTeachers = () => {
         }
     };
 const getTeachers = () => {
-    axios.get('http://localhost:5000/teacher/all').then(r => {
+    axios.get('http://localhost:5000/teacher/all',{
+        headers: {
+            Authorization: `Bearer ${userToken}`,
+        },
+    }).then(r => {
         setTeachers(r.data)
     }).catch(e => {
         console.log(e)
@@ -242,7 +255,11 @@ const getTeachers = () => {
     const handleDeleteTeacher = (e,teacher) => {
         e.preventDefault();
         // Call the API to delete the teacher
-        axios.delete('http://localhost:5000/user/' + teacher.id).then(r => {
+        axios.delete('http://localhost:5000/user/' + teacher.id,{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(r => {
             console.log(r)
         getTeachers();
         }).catch(e => {

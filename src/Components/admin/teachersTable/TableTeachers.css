@@ -1,4 +1,4 @@
-.addbtn{
+.addbtn, .addbtn2{
     background-color: #692E5F !important;
     color: white !important;
     border-radius: 20px !important;
@@ -8,7 +8,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.addbtn span {
+.addbtn span, .addbtn2 span {
     color: white;
 }
 
@@ -32,6 +32,13 @@
     color: #606060 !important;
 }
 
+.admins td {
+    padding: 10px !important;
+    border: none;
+    font-size: 14px;
+    color: #606060 !important;
+}
+
 .table-teacher .container-input {
     position: relative;
 }
@@ -45,7 +52,9 @@
     opacity: 0.6;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
-
+.admins .input {
+    width: 125%;
+}
 .table-teacher .container-input svg {
     position: absolute;
     top: 50%;

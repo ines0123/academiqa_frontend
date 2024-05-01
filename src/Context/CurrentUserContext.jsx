@@ -34,7 +34,7 @@ export default function CurrentUserContext({children}) {
 
     useEffect(() => {
         if(currentUser){
-            const userPath = currentUser.role === "Student" ? 'student' : 'teacher';
+            const userPath = currentUser.role === "Student" ? 'student' : currentUser.role === "Admin" ? 'admin' : 'teacher';
             const userToken = Cookie().get('academiqa');
 
             axios.get(`http://localhost:5000/${userPath}/${currentUser?.id}`,{

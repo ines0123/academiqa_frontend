@@ -14,9 +14,8 @@ import {
   import { useNavigate } from "react-router-dom";
   import { registerLicense } from '@syncfusion/ej2-base';
   import '../../Components/Calendar/styles.css'
-  
-  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
-  
+
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCekxwWmFZfVpgdVRMYF5bRXBPMyBoS35RckVgWn9fcXRXR2ZUVUV2');
   
   const AdminCalendar = ({role, sessions}) => {
     const nav = useNavigate();

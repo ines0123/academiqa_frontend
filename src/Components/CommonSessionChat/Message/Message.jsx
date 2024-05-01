@@ -10,7 +10,7 @@ import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 
 // eslint-disable-next-line react/prop-types
 const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnderInput}) => {
-    const {user} = useContext(CurrentUser);
+    const {user, currentUser} = useContext(CurrentUser);
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
@@ -19,7 +19,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
 
     const date = new Date(message?.createdAt);
     const dateString = `${date.toLocaleDateString('en-US', dateOptions)}, ${date.toLocaleTimeString('en-US', timeOptions)}`;
-
+    console.log("message", message)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,6 +37,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
     const deleteMessage = () => {
         console.log("message deleted", message?.id)
         deleteMsg(message?.id);
+
     }
 
     const handleValueChange = (e) => {
@@ -60,7 +61,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
                 />
                 <div className="sender-message">
                     <div className="message-sender ms-3 mb-1">
-                        {message?.author?.username}
+                        {message?.author?.id === currentUser?.id ? "You": message?.author?.username}
                     </div>
                     <div className="d-flex ">
                         <div
@@ -70,9 +71,11 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
                         >
                             {message?.content}
                         </div>
-                        <div className="delete-msg" onClick={deleteMessage} >
+                        {currentUser?.id === message?.author?.id && (
+                            <div className="delete-msg" onClick={deleteMessage}>
                             <DeleteButton/>
                         </div>
+                        )}
                     </div>
 
                 </div>

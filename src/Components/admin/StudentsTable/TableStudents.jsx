@@ -22,9 +22,11 @@ import PopUp from "../../Common/PopUp/PopUp.jsx";
 import {PiStudentBold} from "react-icons/pi";
 import {NavLink} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
+import Cookie from "cookie-universal";
 
 // eslint-disable-next-line react/prop-types
 const TableStudents = ({groups}) => {
+    const userToken = Cookie().get('academiqa');
     const [Options, setOptions] = useState([]);
     useEffect(() => {
         setOptions(groups.map(group => ({
@@ -94,6 +96,7 @@ const TableStudents = ({groups}) => {
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userToken}`,
         },
     };
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -147,7 +150,11 @@ const TableStudents = ({groups}) => {
         e.preventDefault();
         console.log(updateFormData)
 
-        axios.patch('http://localhost:5000/student/' + student.id, updateFormData).then(r => {
+        axios.patch('http://localhost:5000/student/' + student.id, updateFormData,{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(r => {
             console.log(r)
             getStudents();
             setUpdateFormData(
@@ -265,7 +272,11 @@ const TableStudents = ({groups}) => {
         setErrors(newErrors);
         console.log(newErrors)
         if(!Object.values(newErrors).some(error => error !== "")){
-            axios.post('http://localhost:5000/auth/student', formData).then(r => {
+            axios.post('http://localhost:5000/auth/student', formData,{
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            }).then(r => {
                 console.log(r)
                 getStudents();
                 setFormData({
@@ -285,7 +296,12 @@ const TableStudents = ({groups}) => {
         }
     };
 const getStudents= () => {
-    axios.get('http://localhost:5000/student/all').then(r => {
+
+    axios.get('http://localhost:5000/student/all',{
+        headers: {
+            Authorization: `Bearer ${userToken}`,
+        },
+    }).then(r => {
         setStudents(r.data);
     }).catch(e => {
         console.log(e)
@@ -293,7 +309,11 @@ const getStudents= () => {
 }
     const handleDeleteStudent = (e,student) => {
         e.preventDefault();
-        axios.delete('http://localhost:5000/user/' + student.id).then(r => {
+        axios.delete('http://localhost:5000/user/' + student.id,{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(r => {
             console.log(r)
             getStudents();
         }).catch(e => {
