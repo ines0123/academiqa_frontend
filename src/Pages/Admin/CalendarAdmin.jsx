@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
-import { Sessions } from "../../data/sessionsData";
 import AdminCalendar from "../../Components/Calendar/AdminCalendar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +19,7 @@ export default function Calendar() {
     const windowSize = context.windowSize;
     const userContext = useContext(CurrentUser);
     const role = userContext.currentUser? userContext.currentUser.role: "student";
-    
+    const [reload, setReload] = useState(false);
     const cookie = Cookie();
     const token = cookie.get('academiqa');
 
@@ -46,16 +45,10 @@ export default function Calendar() {
             const groups = response.data;
             setSectors ([...new Set(groups.map(group => group.sector))]);
             console.log("sectors:", sectors);
-
-
         }).catch((err) => {
             console.log(err);
         });
     }, []);
-
-
-    const navigate = useNavigate();
-
 
       
     //get the sessions by user groupID
@@ -87,7 +80,7 @@ export default function Calendar() {
               console.log(err);
             });
         }
-      }, [sector, year, group]);
+      }, [sector, year, group, reload]);
       
     
 
@@ -100,27 +93,17 @@ export default function Calendar() {
                 </div>
                 <h1 className="fs-2 ms-2 fw-bold" style={{ marginBottom:"0" }}>Admin Calendar</h1>
             </div>
-
-
-
-            <form 
-            // onSubmit={handleSubmit} 
-            >
+            <form>
                 <div className="d-flex" style={{flexWrap:"wrap", marginLeft:"10%"}}
                 >
                 <select name="level" id="level" className="form-select"
-                onChange={(e) => {
-                    setSector(e.target.value);
-
-                }
-                }>
+                    onChange={(e) => {
+                        setSector(e.target.value);
+                    }}>
                     <option value="" hidden>Select sector </option>
-
-                    {
-                        sectors.map((sector) => {
-                            return <option value={sector} key={sector}
-                            >{sector}</option>;
-                          })
+                    {sectors.map((sector) => {
+                            return <option value={sector} key={sector}>{sector}</option>;
+                        })
                     }
                 </select>
 
@@ -135,9 +118,7 @@ export default function Calendar() {
                      <option value="" hidden>Select Level </option>
                     {
                         levels.map((level) => {
-                            return <option value={level} key={level}
-                            // selected={level==selectedGroup?.year}
-                            >{level}</option>;
+                            return <option value={level} key={level}>{level}</option>;
                           
                     })}
                 </select>)} 
@@ -154,9 +135,7 @@ export default function Calendar() {
                      <option value="" hidden>Select Amphi </option>
                     {
                         amphis.map((level) => {
-                            return <option value={level} key={level}
-                            // selected={level==selectedGroup?.year}
-                            >{level}</option>;
+                            return <option value={level} key={level}>{level}</option>;
                         })
                     }
 
@@ -176,9 +155,7 @@ export default function Calendar() {
                      <option value="" hidden>Select Group </option>
                     {
                         amphis.map((level) => {
-                            return <option value={level} key={level}
-                            // selected={level==selectedGroup?.year}
-                            >{level}</option>;
+                            return <option value={level} key={level}>{level}</option>;
                         })
                     }
 
@@ -186,7 +163,7 @@ export default function Calendar() {
                 </div>
                 </form>
 
-        <AdminCalendar role={role} sessions={sessionsData} setSessionsData={setSessionsData} sector={sector} year={year} group={group} />
+        <AdminCalendar role={role} sessions={sessionsData}  sector={sector} year={year} group={group} reload={reload} setReload={setReload} />
         </div>
         <MidNavbar/>
     </div>

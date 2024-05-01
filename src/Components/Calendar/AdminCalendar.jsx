@@ -17,12 +17,11 @@ import {
 import axios from "axios";
 import { ADD_SESSION, SESSION, baseURL } from "../../Api/Api";
 import Cookie from 'cookie-universal';
-import { jwtDecode } from "jwt-decode";
 
   registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
   
   
-  const AdminCalendar = ({role, sessions, setSessionsData, sector, year, group}) => {
+  const AdminCalendar = ({role, sessions, sector, year, group, reload, setReload}) => {
     const nav = useNavigate();
     const instance = new Internationalization();
     const getTimeString = (value) => {
@@ -78,7 +77,6 @@ import { jwtDecode } from "jwt-decode";
           if( sessions.length == 0) {args.element.setAttribute('title', 'select a group');}
           else{
             if(role != "teacher" ) {
-            // add title :
             if (args.element.classList[0]=="e-work-cells" ) {
               args.element.setAttribute('title', 'double click to add a session');
             }
@@ -92,7 +90,7 @@ import { jwtDecode } from "jwt-decode";
           if (role === "teacher" || sessions.length === 0) {
             args.cancel = true;
           }
-          args.duration = 90;
+          args.duration = 90; // set the default duration of the event to 90 minutes
         }}
         cellClick={
           (args) => {
@@ -123,7 +121,7 @@ import { jwtDecode } from "jwt-decode";
               (response) => {
                 console.log("response.data:", response.data);
                 alert("Session Updated");
-                window.location.reload();
+                setReload(!reload);
               }).catch((err) => {
                 console.log(err);
               });
@@ -155,7 +153,7 @@ import { jwtDecode } from "jwt-decode";
             }).then(
               (response) => {
                 console.log("response.data:", response.data);
-                window.location.reload();
+                setReload(!reload);
 
 
               }).catch((err) => {
@@ -173,8 +171,7 @@ import { jwtDecode } from "jwt-decode";
             (response) => {
               console.log("response.data:", response.data);
               alert("removed");
-              setSessionsData(sessions.filter(session => session.id !== args.data[0].id));
-              window.location.reload();
+              setReload(!reload);
             }).catch((err) => {
               console.log(err);
             });
