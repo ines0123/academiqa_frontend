@@ -1,5 +1,5 @@
 import './ProfileStudent.css';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useDate} from "../../../Context/DateContext.jsx";
 import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
 import absence from "../../../assets/images/attendance.png";
@@ -8,6 +8,8 @@ import Course from "../../../Components/Course/Course.jsx";
 import axios from "axios";
 import NoAbsence from "../../../assets/images/NoAbsence.svg"
 import {FaBookOpenReader} from "react-icons/fa6";
+import Cookie from "cookie-universal";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 export default function ProfileStudent() {
     const date = useDate();
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
@@ -19,17 +21,24 @@ export default function ProfileStudent() {
     }, []);
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const [courses, setCourses] = useState([]);
-    useEffect(()=>{
-        // axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
-        //     (response) => {
-        //         console.log(response.data);
-        //         setCourses(response.data.filter((course) => course?.nbAbsence > 0));
-        //     }).catch((err) => {
-        //         console.log(err);
-        //     }
-        // )
-
-    },[])
+    const {currentUser,user} = useContext(CurrentUser);
+    useEffect(() => {
+        if(currentUser?.role === "Student"){
+            const userToken = Cookie().get('academiqa');
+            axios
+                .get(`http://localhost:5000/subject/SectorLevel/${user?.group?.sectorLevel}`,{
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                })
+                .then((res) => {
+                    setCourses(res.data);
+                })
+                .catch((err) => {
+                    console.error(`${err} - Failed to find courses`);
+                });
+        }
+    }, [user, currentUser]);
         const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
         useEffect(() => {
@@ -57,20 +66,23 @@ export default function ProfileStudent() {
                     </div>
                     {courses.length > 0 ?(
                                 <div
-                                    className="absence d-flex col-xl-8 col-lg-7 col-md-6 row p-1 pt-3 mb-3 rounded-2xl">
-                                    <div className="my-courses d-flex mt-4 p-3 ms-3 mb-4" style={{height:'fit-content'}}>
-                                        <div className="courses-icon d-flex align-items-center">
-                                            <img src={absence} alt={"absence"} style={{width: "25px", height: "auto"}}/>
+                                    className="absence d-flex flex-column align-items-sm-center align-items-md-start col-xl-8 col-lg-7 col-md-6 row p-1 pt-3 mb-3 rounded-2xl">
+                                        <div className="my-courses d-flex  mt-2 p-3 ms-3 mb-4" style={{height:'fit-content'}}>
+                                            <div className="courses-icon d-flex align-items-center">
+                                                <img src={absence} alt={"absence"} style={{width: "25px", height: "auto"}}/>
+                                            </div>
+                                            <h1 className="ms-2 fw-bold">My absence</h1>
                                         </div>
-                                        <h1 className="ms-2 fw-bold">My absence</h1>
-                                    </div>
-                                    {courses.map((course, index) => (
-                                        <div key={index}
-                                             className="col-xl-4 col-lg-6 col-md-12 col-sm-6 d-flex mb-2 mt-2 flex-column justify-content-center align-items-center">
-                                            <Course course={course} color={colors[index % colors.length]}
-                                                    placement="absence"/>
+                                        <div className="row">
+                                            {courses.map((course, index) => (
+                                                <div key={index} style={{height: 'fit-content'}}
+                                                     className="col-xl-4 col-lg-6 col-md-12 col-sm-6 d-flex mb-2 mt-2 flex-column justify-content-center align-items-center">
+                                                    <Course course={course} color={colors[index % colors.length]}
+                                                            placement="absence"/>
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
+
                                 </div>
                             ) :
                         (
@@ -78,7 +90,7 @@ export default function ProfileStudent() {
                             <>
                                 <div
                                     className="absence col-xl-8 col-lg-7 col-md-6 d-flex flex-column  mb-3 rounded-2xl">
-                                    <div className="my-courses d-flex mt-4 p-3 ms-3 mb-4" style={{height:'fit-content'}}>
+                                    <div className="my-courses d-flex mt-2 p-3 ms-3 mb-4" style={{height:'fit-content'}}>
                                         <div className="courses-icon d-flex align-items-center">
                                             <img src={absence} alt={"absence"} style={{width:"25px",height:"auto"}}/>
                                         </div>

@@ -7,7 +7,7 @@ import EmptyNavbar from "../Navbar/EmptyNavbar.jsx";
 import {useSocket} from "../../Context/SocketContext.jsx";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
-const Chat = () => {
+const Chat = ({session}) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const Chat = () => {
     useEffect(() => {
         const handleTyping = (data) => {
             if (data.isTyping) {
-                setTyping(data.sender);
+                setTyping(data.user?.username);
             } else {
                 setTyping('');
             }

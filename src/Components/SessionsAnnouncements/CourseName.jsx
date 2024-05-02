@@ -1,8 +1,11 @@
 import "./CourseName.css";
 import { FaBookOpenReader } from "react-icons/fa6";
 import teacherPhoto from "../../assets/images/teacher-photo.svg";
+import {useContext} from "react";
+import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
-function CourseName({role, course}) {
+function CourseName({course}) {
+    const {currentUser} = useContext(CurrentUser);
   return (
     <div className="course-name-box">
       <div>
@@ -15,14 +18,21 @@ function CourseName({role, course}) {
                 {course?.name}
             </div>
             <div className="course-additional-info font-IstokWebBold">
-                {role === "teacher" ? course?.sectorLevel : course?.teacher}
+                {course?.sectorLevel}
+                {course?.teachersUsernames && course.teachersUsernames?.map((teacher, index) => (
+                    <div className="prof" key={index}>
+                        {teacher}
+                        <br/>
+                    </div>
+                ))}
+
             </div>
         </div>
-        { role === "student" &&
-        <div className="course-teacher-photo">
-            <img src={teacherPhoto} alt="teacher" />
-        </div>
-        }
+        {/*{ currentUser?.role === "Student" &&*/}
+        {/*<div className="course-teacher-photo">*/}
+        {/*    <img src={teacherPhoto} alt="teacher" />*/}
+        {/*</div>*/}
+        {/*}*/}
     </div>
   );
 }

@@ -478,7 +478,7 @@ const getStudents= () => {
                                                             className="basic-single"
                                                             classNamePrefix="select"
                                                             // defaultValue={Options[0]}
-                                                            value={updateFormData.group }
+                                                            value={updateFormData.group}
                                                             onChange={handleSelectOptionChange}
                                                             name="group"
                                                             options={Options}
