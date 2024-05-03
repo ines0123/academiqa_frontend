@@ -44,6 +44,7 @@ export default function CurrentUserContext({children}) {
             }).then(
                 (response) => {
                     setUser(response.data);
+                    console.log("Userrrrrrrrrrrrrrr: ", response.data)
                 }).catch((err) => {
                     console.log(err);
                 }

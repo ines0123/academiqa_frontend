@@ -16,7 +16,7 @@ import Task from "../../../Components/Task/Task.jsx";
 import AddNote from "../../../Components/PopUpNote/AddNote/AddNote.jsx";
 import AddButton from "../../../Components/Common/AddButton/AddButton.jsx";
 import AddButtonTask from "../../../Components/Common/AddButton/AddButtonTask.jsx";
-import {useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import Cookie from "cookie-universal";
 
