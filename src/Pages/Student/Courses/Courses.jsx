@@ -6,7 +6,9 @@ import axios from "axios";
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
 import Cookie from "cookie-universal";
-import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
+import { CurrentUser } from "../../../Context/CurrentUserContext.jsx";
+import { baseURL, SECTORLEVEL, SUBJECT } from "../../../Api/Api";
+
 export default function Courses() {
     const date = useDate();
     const [courses, setCourses] = useState([]);
@@ -40,7 +42,7 @@ export default function Courses() {
         if(currentUser?.role === "Student"){
             const userToken = Cookie().get('academiqa');
             axios
-                .get(`http://localhost:5000/subject/SectorLevel/${user?.group?.sectorLevel}`,{
+                .get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`,{
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },

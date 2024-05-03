@@ -3,7 +3,8 @@ import { useState } from "react";
 import Cookie from "cookie-universal";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { baseURL } from "../Api/Api";
 
 export const CurrentUser = createContext({
     currentUser: null,
@@ -37,18 +38,18 @@ export default function CurrentUserContext({children}) {
             const userPath = currentUser.role === "Student" ? 'student' : currentUser.role === "Admin" ? 'admin' : 'teacher';
             const userToken = Cookie().get('academiqa');
 
-            axios.get(`http://localhost:5000/${userPath}/${currentUser?.id}`,{
+            axios
+              .get(`${baseURL}/${userPath}/${currentUser?.id}`, {
                 headers: {
-                    Authorization: `Bearer ${userToken}`,
+                  Authorization: `Bearer ${userToken}`,
                 },
-            }).then(
-                (response) => {
-                    setUser(response.data);
-                    console.log("Userrrrrrrrrrrrrrr: ", response.data)
-                }).catch((err) => {
-                    console.log(err);
-                }
-            )
+              })
+              .then((response) => {
+                setUser(response.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
         }
     }, [currentUser]);
     return <CurrentUser.Provider value={{ currentUser, setCurrentUser, loading, setLoading, user}}>
