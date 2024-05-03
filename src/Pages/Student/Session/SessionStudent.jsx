@@ -109,7 +109,7 @@ export default function SessionStudent() {
         </div>)}
         <div className="ressources-tasks row mt-4">
           <div className="col-lg-6 pe-lg-2 ps-lg-4 p-sm-0 tasks d-flex justify-content-lg-end justify-content-sm-center">
-            <Task role={"student"} />
+            <Task role={"student"} sessionID={"2"} />
           </div>
           <div className="col-lg-6 ps-2 pe-lg-4 p-sm-0 mt-sm-3 mt-lg-0 ressources d-flex justify-content-center">
             <Ressources role={"student"} />

@@ -3,7 +3,8 @@ import Header from "../../../Components/admin/header/header.jsx";
 import TableStudents from "../../../Components/admin/StudentsTable/TableStudents.jsx";
 import axios from "axios";
 import {Button} from "reactstrap";
-import {IoMdCheckmarkCircleOutline} from "react-icons/io";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import Cookie from "cookie-universal";
 
 const StudentsAdmin = () => {
     const [groups, setGroups] = useState([]);
@@ -25,6 +26,7 @@ const StudentsAdmin = () => {
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${Cookie().get("academiqa")}`,
         },
     };
     const handleGroupSubmit = (e) => {
@@ -46,7 +48,7 @@ const StudentsAdmin = () => {
 
     }
     const getGroups = () => {
-        axios.get('http://localhost:5000/group').then(r => {
+        axios.get('http://localhost:5000/group', config).then(r => {
             console.log(r)
             setGroups(r.data);
         }).catch(e => {

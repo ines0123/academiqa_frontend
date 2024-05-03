@@ -22,8 +22,9 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
   const userToken = Cookie().get("academiqa");
   const handleSubmit = (event) => {
     event.preventDefault();
+    const noteWithSession = { ...newNote, session: session };
     axios
-      .post(`${baseURL}/${NOTE}`, newNote, {
+      .post(`${baseURL}/${NOTE}`, noteWithSession, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },

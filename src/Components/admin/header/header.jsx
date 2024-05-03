@@ -6,28 +6,35 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import axios from "axios";
+import Cookie from "cookie-universal";
 import MidNavbar from "../../MidNavbar/MidNavbar.jsx";
 
 const Header = () => {
     const [nbStudents, setNbStudents] = useState(0);
     const [nbTeachers, setNbTeachers] = useState(0);
     const [nbClasses, setNbClasses] = useState(0);
+    const userToken = Cookie().get("academiqa");
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userToken}`,
+        },
+    };
     useEffect(() => {
-        axios.get('http://localhost:5000/teacher/count').then(
+        axios.get('http://localhost:5000/teacher/count',config).then(
             (response) => {
                 setNbTeachers(response.data);
             }).catch((err) => {
                 console.log(err);
             }
         )
-        axios.get('http://localhost:5000/student/count').then(
+        axios.get('http://localhost:5000/student/count',config).then(
             (response) => {
                 setNbStudents(response.data);
             }).catch((err) => {
                 console.log(err);
             }
         )
-        axios.get('http://localhost:5000/group/count').then(
+        axios.get('http://localhost:5000/group/count',config).then(
             (response) => {
                 setNbClasses(response.data);
             }).catch((err) => {

@@ -18,6 +18,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../Common/PopUp/PopUp.jsx";
 import Select from "react-select";
+import Cookie from "cookie-universal";
 
 const TableCourses = () => {
     const [courses, setCourses] = useState([])
@@ -64,9 +65,11 @@ const TableCourses = () => {
     // const [updateModalOpen, setUpdateModalOpen] = useState(false);
     const [courseModalOpen, setCourseModalOpen] = useState({});
 
+    const userToken = Cookie().get("academiqa");
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userToken}`,
         },
     };
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -106,7 +109,7 @@ const TableCourses = () => {
         e.preventDefault();
         console.log(updateFormData)
 
-        axios.patch('http://localhost:5000/subject/' + course.id, updateFormData).then(r => {
+        axios.patch('http://localhost:5000/subject/' + course.id, updateFormData, config).then(r => {
             console.log(r)
             getCourses();
             setUpdateFormData({
@@ -242,7 +245,7 @@ const TableCourses = () => {
 
         if(!Object.values(newErrors).some(error => error !== "")){
             // Call the API to update the teacher
-            axios.post('http://localhost:5000/subject/CreateOne', newFormData).then(r => {
+            axios.post('http://localhost:5000/subject/CreateOne', newFormData, config).then(r => {
                 console.log(r)
                 getCourses();
                 setFormData({
@@ -260,7 +263,7 @@ const TableCourses = () => {
         }
     };
     const getCourses = () => {
-        axios.get('http://localhost:5000/subject/GroupedByModule').then(r => {
+        axios.get('http://localhost:5000/subject/GroupedByModule', config).then(r => {
             setCourses(r.data);
         }).catch(e => {
             console.log(e)
@@ -272,7 +275,7 @@ const TableCourses = () => {
     },[])
 
     const handleDeleteCourse =async (subject) => {
-       await axios.delete('http://localhost:5000/subject/' + subject.id).then((r) => {
+       await axios.delete('http://localhost:5000/subject/' + subject.id, config).then((r) => {
             console.log(r)
             getCourses();
         }).catch(e => {

@@ -11,7 +11,7 @@ import Cookie from "cookie-universal";
 import DeleteButton from "../Common/DeleteButtonForResTask/DeleteButton.jsx";
 import { baseURL, TASK } from "../../Api/Api";
 
-const Task = ({ role }) => {
+const Task = ({ role, sessionID }) => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [showNewTask, setShowNewTask] = useState(false);
@@ -35,7 +35,7 @@ const Task = ({ role }) => {
           console.error(`${error} - Failed to find task`);
         });
     }
-  }, [currentUser]);
+  }, [currentUser, sessionID]);
 
   //add new task (addButton)
   const handleAddTask = () => {
