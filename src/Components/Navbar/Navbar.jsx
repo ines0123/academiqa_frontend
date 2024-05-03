@@ -54,7 +54,7 @@ const Navbar = () => {
         <>
           <EmptyNavbar width={'22rem'}>
             <div className="profileNav">
-              <img src={teacherPhoto} alt="teacher" className="profilePhoto" />
+              <img src={user?.photo  } alt="teacher" className="profilePhoto" />
               <div className="accountName">{user?.username}</div>
               <Link to={`/${role}/profile`} className="nameButton">
                 My Profile

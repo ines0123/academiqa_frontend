@@ -16,10 +16,30 @@ import Task from "../../../Components/Task/Task.jsx";
 import AddNote from "../../../Components/PopUpNote/AddNote/AddNote.jsx";
 import AddButton from "../../../Components/Common/AddButton/AddButton.jsx";
 import AddButtonTask from "../../../Components/Common/AddButton/AddButtonTask.jsx";
+import {useParams} from "react-router-dom";
+import axios from "axios";
+import Cookie from "cookie-universal";
 
 export default function SessionStudent() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
+  const [session, setSession] = useState();
+  const {id} = useParams();
+  const userToken = Cookie().get('academiqa');
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/session/${id}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+      .then((res) => {
+        setSession(res.data);
+        console.log("Session from session: ", res.data);
+      })
+      .catch((err) => {
+        console.error(`${err} - Failed to find session`);
+      });
+  }, []);
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -44,7 +64,7 @@ export default function SessionStudent() {
     "246, 232, 214", // light orange
   ];
 
-  const date = useDate();
+
   const sliderRef = useRef(null);
   var settings = {
     dots: false,
@@ -81,20 +101,20 @@ export default function SessionStudent() {
                 <div className="courses-icon">
                   <FaBookOpenReader size={30}/>
                 </div>
-                <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
+                <h1 className="ms-2 fs-3 fw-bold">{session?.sessionType?.type} n°{session?.rank}</h1>
               </div>
-              <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
+              <h1 className="ms-2 mt-1 fs-4 fw-bold">{session?.name}</h1>
             </div>
             <div className="ms-3 mt-2 d-flex flex-column justify-content-start">
               <div className="date mb-2">
-                Date: {date}
+                Date: {session?.sessionType?.day}, {new Date(session?.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </div>
             </div>
           </div>
         ) : (<div className="">
           <div className="ms-4 d-flex flex-column justify-content-center">
             <div className="date mb-2">
-              {date}
+              Date: {session?.sessionType?.day}, {new Date(session?.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </div>
           </div>
           <div className="the-course  ms-3 p-2 ">
@@ -102,9 +122,9 @@ export default function SessionStudent() {
               <div className="courses-icon">
                 <FaBookOpenReader size={30}/>
               </div>
-              <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
+              <h1 className="ms-2 fs-3 fw-bold">{session?.sessionType?.type} n°{session?.rank}</h1>
             </div>
-            <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
+            <h1 className="ms-2 mt-1 fs-4 fw-bold">{session?.name}</h1>
           </div>
         </div>)}
         <div className="ressources-tasks row mt-4">
@@ -176,7 +196,7 @@ export default function SessionStudent() {
           {/*</div>*/}
         </div>
       </div>
-      <Chat />
+      <Chat session={session} />
     </div>
   );
 }

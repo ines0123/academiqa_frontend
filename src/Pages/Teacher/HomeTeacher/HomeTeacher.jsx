@@ -8,6 +8,7 @@ import {Menu} from "../../../Context/MenuContext.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
 import {NavLink} from "react-router-dom";
 import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
+import Cookie from "cookie-universal";
 
 export default function HomeTeacher() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -30,17 +31,24 @@ export default function HomeTeacher() {
 
     const menu = useContext(Menu);
 
-    useEffect(()=>{
-        // axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
-        //     (response) => {
-        //         console.log(response.data);
-        //         setCourses(response.data.slice(0, 3));
-        //     }).catch((err) => {
-        //         console.log(err);
-        //     }
-        // )
-
-    },[])
+    useEffect(() => {
+        if(currentUser?.role === "Teacher"){
+            const userToken = Cookie().get('academiqa');
+            axios
+                .get(`http://localhost:5000/subject/teacher`,{
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                })
+                .then((res) => {
+                    setCourses(res.data.slice(0, 3));
+                    console.log("Courses: ", res.data)
+                })
+                .catch((err) => {
+                    console.error(`${err} - Failed to find courses`);
+                });
+        }
+    }, [user, currentUser]);
 
     return (
         <div className="d-flex justify-content-between  teacher-home-page m-0 pe-0">
@@ -63,7 +71,7 @@ export default function HomeTeacher() {
                             </div>
                             <div className={`p-0 ${screenWidth<= 760 && screenWidth >520 ? 'mt-5':''}`}>
                                 <div className="Welcoming d-flex flex-column p-3">
-                                    <h5 className="fs-5 ms-2 fw-bold">Welcome back, Rym!</h5>
+                                    <h5 className="fs-5 ms-2 fw-bold">Welcome back, {user?.username}!</h5>
                                     <p className="fs-6 ms-2">Hope you're ready for another awesome day with us!</p>
                                 </div>
                             </div>

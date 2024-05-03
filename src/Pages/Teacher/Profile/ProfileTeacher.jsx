@@ -1,5 +1,5 @@
 import './ProfileTeacher.css';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useDate} from "../../../Context/DateContext.jsx";
 import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
 import {FaUser} from "react-icons/fa";
@@ -9,6 +9,8 @@ import axios from "axios";
 import NoAbsence from "../../../assets/images/NoAbsence.svg"
 import {FaBookOpenReader} from "react-icons/fa6";
 import CourseForTeacher from "../../../Components/Course/CourseForTeacher.jsx";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
+import Cookie from "cookie-universal";
 export default function ProfileTeacher() {
     const date = useDate();
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
@@ -20,17 +22,25 @@ export default function ProfileTeacher() {
     }, []);
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
     const [courses, setCourses] = useState([]);
+    const {currentUser,user} = useContext(CurrentUser);
     useEffect(() => {
-        axios.get('http://localhost:5000/subject/SectorLevel/GL3').then(
-            (response) => {
-                console.log(response.data);
-                setCourses(response.data.slice(0, 6));
-            }).catch((err) => {
-                console.log(err);
-            }
-        )
-
-    }, [])
+        if(currentUser?.role === "Teacher"){
+            const userToken = Cookie().get('academiqa');
+            axios
+                .get(`http://localhost:5000/subject/teacher`,{
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                })
+                .then((res) => {
+                    setCourses(res.data);
+                    console.log("Courses: ", res.data)
+                })
+                .catch((err) => {
+                    console.error(`${err} - Failed to find courses`);
+                });
+        }
+    }, [user, currentUser]);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     useEffect(() => {

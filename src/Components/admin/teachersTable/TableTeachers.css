@@ -147,7 +147,6 @@
     border-radius: 12px !important;
     margin-right: 5px !important;
     max-height: 200px !important;
-
 }
 
 .Toastify__toast::-webkit-scrollbar {
@@ -166,4 +165,8 @@
 }
 .Toastify__toast-body > div,.Toastify__toast-body path, .Toastify__close-button path {
     color: white !important;
+}
+
+.Toastify__toast--success {
+    background-color: #0D525D !important;
 }

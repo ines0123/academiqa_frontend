@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import React, { useContext, useState, useEffect } from "react";
-import { Sessions } from "../../../data/sessionsData";
 import AdminCalendar from "../../../Components/Calendar/AdminCalendar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +14,7 @@ import Cookie from 'cookie-universal';
 import {Button} from "reactstrap";
 import {IoMdCheckmarkCircleOutline} from "react-icons/io";
 import PopUp from "../../../Components/Common/PopUp/PopUp.jsx";
+import {toast, ToastContainer} from "react-toastify";
 
 
 export default function Calendar() { 
@@ -161,11 +161,13 @@ export default function Calendar() {
             console.log(r)
             setGroupDone(false);
             setFileGroup(null);
+            toast.success("Timetable created successfully, please now generate the sessions");
             document.getElementById('csv-upload-session').value = null;
         }).catch(e => {
             console.log(e)
             setGroupDone(false);
             setFileGroup(null);
+            toast.error("Failed to create timetable, please try again");
             document.getElementById('csv-upload-session').value = null;
         })
     }
@@ -192,10 +194,15 @@ export default function Calendar() {
                 semesterStartDate: "",
                 file: null,
             })
+            toast.success("Sessions created successfully")
             setIsOpen(false);
+            console.log("file:", formData.file)
+            setHolidaysDone(false);
             document.getElementById('csv-upload-holidays').value = null;
         }).catch(e => {
             console.log(e)
+            setHolidaysDone(false);
+            toast.error("Failed to create sessions, please try again")
             document.getElementById('csv-upload-holidays').value = null;
         })
 
@@ -206,6 +213,11 @@ export default function Calendar() {
     }
     return(
     <div className="px-5" style={{ width: '100%'}}>
+        <ToastContainer
+            position="top-right"
+            autoClose="4000"
+            theme="colored"
+        />
         <div className="pt-lg-0 pt-3" style={{ marginTop: '20px'}}>
             <div className={`my-notes d-flex mt-4 p-3 mb-3`}>
                 <div className="notes-icon">
