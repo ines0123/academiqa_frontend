@@ -11,3 +11,13 @@ export const SESSIONS_BY_GROUP = 'OfSectorLevelGroup';
 
 // groups
 export const GROUP = 'group';
+export const SECTORLEVEL = 'SectorLevel';
+
+// notes
+export const NOTE = 'note';
+
+// tasks
+export const TASK = 'task';
+
+// subjects
+export const SUBJECT = 'subject';
