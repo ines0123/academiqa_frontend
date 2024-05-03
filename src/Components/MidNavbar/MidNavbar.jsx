@@ -21,9 +21,9 @@ const MidNavbar = ({ children,role }) => {
         {/* <Link to={`/${role}/profile`} className="profileMid"> */}
         {role !== "admin" ?(<Link to={`/${currentUser?.role}/profile`} className="profileMid" >
           <img src={teacherPhoto} alt="teacher" className="profilePhotoMid"/>
-          <div className="accountNameMid">{user?.username}</div>
+          <div className="accountNameMid not-admin">{user?.username}</div>
         </Link>):(
-            <div className="profileMid cursor-pointer" style={{width: role === "admin" ? "300px" : ""}} >
+            <div className="profileMid cursor-pointer"  >
               <img src={teacherPhoto} alt="teacher" className="profilePhotoMid"/>
               <div className="accountNameMid">{user?.username}</div>
             </div>

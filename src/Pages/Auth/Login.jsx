@@ -91,11 +91,11 @@ export default function Login() {
                 userContext.setLoading(false);
                 console.log(error.response);
                 console.log(error.response.status);
-                if (error.response.status === 401) {
+                if (error.response.status === 404) {
                     toast.error(error.response.data.message);
                 }
                 else {
-                    setError("Internal Server Error");
+                    toast.error("Internal server error. Please try again later.");
                 }
             }
         }

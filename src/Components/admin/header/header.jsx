@@ -13,28 +13,36 @@ const Header = () => {
     const [nbStudents, setNbStudents] = useState(0);
     const [nbTeachers, setNbTeachers] = useState(0);
     const [nbClasses, setNbClasses] = useState(0);
-    const userToken = Cookie().get("academiqa");
-    const config = {
-        headers: {
-            Authorization: `Bearer ${userToken}`,
-        },
-    };
+    const cookie = Cookie();
+    const userToken = cookie.get('academiqa')
     useEffect(() => {
-        axios.get('http://localhost:5000/teacher/count',config).then(
+        axios.get('http://localhost:5000/teacher/count',{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(
             (response) => {
                 setNbTeachers(response.data);
             }).catch((err) => {
                 console.log(err);
             }
         )
-        axios.get('http://localhost:5000/student/count',config).then(
+        axios.get('http://localhost:5000/student/count',{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(
             (response) => {
                 setNbStudents(response.data);
             }).catch((err) => {
                 console.log(err);
             }
         )
-        axios.get('http://localhost:5000/group/count',config).then(
+        axios.get('http://localhost:5000/group/count',{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(
             (response) => {
                 setNbClasses(response.data);
             }).catch((err) => {

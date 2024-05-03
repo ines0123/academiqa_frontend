@@ -9,8 +9,8 @@ import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 
 
 // eslint-disable-next-line react/prop-types
-const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnderInput}) => {
-    const {user} = useContext(CurrentUser);
+const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnderInput, session}) => {
+    const {user, currentUser} = useContext(CurrentUser);
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
@@ -20,12 +20,11 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
     const date = new Date(message?.createdAt);
     const dateString = `${date.toLocaleDateString('en-US', dateOptions)}, ${date.toLocaleTimeString('en-US', timeOptions)}`;
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value !== "") {
             console.log("message sent", message)
-            const newMessage = {content:value, parent:message, author:user};
+            const newMessage = {content:value, parent:message, author:currentUser,session:session};
             console.log("new message", newMessage)
             send(newMessage);
             console.log("message sent", message);
@@ -37,6 +36,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
     const deleteMessage = () => {
         console.log("message deleted", message?.id)
         deleteMsg(message?.id);
+
     }
 
     const handleValueChange = (e) => {
@@ -60,7 +60,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
                 />
                 <div className="sender-message">
                     <div className="message-sender ms-3 mb-1">
-                        {message?.author?.username}
+                        {message?.author?.id === currentUser?.id ? "You": message?.author?.username}
                     </div>
                     <div className="d-flex ">
                         <div
@@ -70,9 +70,11 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
                         >
                             {message?.content}
                         </div>
-                        <div className="delete-msg" onClick={deleteMessage} >
+                        {currentUser?.id === message?.author?.id && (
+                            <div className="delete-msg" onClick={deleteMessage}>
                             <DeleteButton/>
                         </div>
+                        )}
                     </div>
 
                 </div>
@@ -109,6 +111,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
                                     send={send}
                                     nbNestedReplies={nbNestedReplies + 1}
                                     deleteMsg={deleteMsg}
+                                    session={session}
                                 />
                             ))}
                     </div>

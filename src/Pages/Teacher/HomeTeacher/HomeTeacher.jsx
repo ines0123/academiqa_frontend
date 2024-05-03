@@ -40,35 +40,24 @@ export default function HomeTeacher() {
 
   const menu = useContext(Menu);
 
-  useEffect(() => {
-    // axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
-    //     (response) => {
-    //         console.log(response.data);
-    //         setCourses(response.data.slice(0, 3));
-    //     }).catch((err) => {
-    //         console.log(err);
-    //     }
-    // )
-  }, []);
-
-  // const [tasks, setTasks] = useState([]);
-  // useEffect(() => {
-  //   if (currentUser?.role === "Teacher") {
-  //     const userToken = Cookie().get("academiqa");
-  //     axios
-  //       .get(`${baseURL}/${TASK}/teacher`, {
-  //         headers: {
-  //           Authorization: `Bearer ${userToken}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         setTasks(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error(`${error} - Failed to find task for teacher`);
-  //       });
-  //   }
-  // }, [currentUser]);
+    useEffect(() => {
+        if(currentUser?.role === "Teacher"){
+            const userToken = Cookie().get('academiqa');
+            axios
+                .get(`http://localhost:5000/subject/teacher`,{
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                })
+                .then((res) => {
+                    setCourses(res.data.slice(0, 3));
+                    console.log("Courses: ", res.data)
+                })
+                .catch((err) => {
+                    console.error(`${err} - Failed to find courses`);
+                });
+        }
+    }, [user, currentUser]);
 
   return (
     <div className="d-flex justify-content-between  teacher-home-page m-0 pe-0">

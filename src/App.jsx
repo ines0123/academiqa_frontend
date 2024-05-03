@@ -58,7 +58,7 @@ export default function App() {
             ></Route>
             <Route path="student/profile" element={<ProfileStudent />}></Route>
             <Route
-              path="student/session/"
+              path="student/session/:id"
               // path="student/session/:id"
               element={
                 <NoteProvider>

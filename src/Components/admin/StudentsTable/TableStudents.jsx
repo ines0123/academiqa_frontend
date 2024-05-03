@@ -13,7 +13,6 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 import axios from "axios";
-import Cookie from "cookie-universal";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { FaEye} from "react-icons/fa";
@@ -23,10 +22,11 @@ import PopUp from "../../Common/PopUp/PopUp.jsx";
 import {PiStudentBold} from "react-icons/pi";
 import {NavLink} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
+import Cookie from "cookie-universal";
 
 // eslint-disable-next-line react/prop-types
-const TableStudents = ({ groups }) => {
-    
+const TableStudents = ({groups}) => {
+    const userToken = Cookie().get('academiqa');
     const [Options, setOptions] = useState([]);
     useEffect(() => {
         setOptions(groups.map(group => ({
@@ -93,8 +93,6 @@ const TableStudents = ({ groups }) => {
     // const [updateModalOpen, setUpdateModalOpen] = useState(false);
     const [studentModalOpen, setStudentModalOpen] = useState({});
 
-    const cookie = Cookie();
-    const userToken = cookie.get("token");
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
@@ -152,7 +150,11 @@ const TableStudents = ({ groups }) => {
         e.preventDefault();
         console.log(updateFormData)
 
-        axios.patch('http://localhost:5000/student/' + student.id, updateFormData, config).then(r => {
+        axios.patch('http://localhost:5000/student/' + student.id, updateFormData,{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(r => {
             console.log(r)
             getStudents();
             setUpdateFormData(
@@ -270,7 +272,11 @@ const TableStudents = ({ groups }) => {
         setErrors(newErrors);
         console.log(newErrors)
         if(!Object.values(newErrors).some(error => error !== "")){
-            axios.post('http://localhost:5000/auth/student', formData, config).then(r => {
+            axios.post('http://localhost:5000/auth/student', formData,{
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            }).then(r => {
                 console.log(r)
                 getStudents();
                 setFormData({
@@ -290,7 +296,12 @@ const TableStudents = ({ groups }) => {
         }
     };
 const getStudents= () => {
-    axios.get('http://localhost:5000/student/all', config).then(r => {
+
+    axios.get('http://localhost:5000/student/all',{
+        headers: {
+            Authorization: `Bearer ${userToken}`,
+        },
+    }).then(r => {
         setStudents(r.data);
     }).catch(e => {
         console.log(e)
@@ -298,7 +309,11 @@ const getStudents= () => {
 }
     const handleDeleteStudent = (e,student) => {
         e.preventDefault();
-        axios.delete('http://localhost:5000/user/' + student.id, config).then(r => {
+        axios.delete('http://localhost:5000/user/' + student.id,{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(r => {
             console.log(r)
             getStudents();
         }).catch(e => {
@@ -463,7 +478,7 @@ const getStudents= () => {
                                                             className="basic-single"
                                                             classNamePrefix="select"
                                                             // defaultValue={Options[0]}
-                                                            value={updateFormData.group }
+                                                            value={updateFormData.group}
                                                             onChange={handleSelectOptionChange}
                                                             name="group"
                                                             options={Options}

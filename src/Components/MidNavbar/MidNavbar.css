@@ -52,7 +52,7 @@
   line-height: 1.2;
 }
 
-.accountNameMid:hover {
+.accountNameMid.not-admin:hover {
   display: -webkit-box;
   -webkit-box-orient: horizontal;
   -webkit-line-clamp: 2;
