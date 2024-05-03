@@ -25,33 +25,49 @@ const Chat = ({session}) => {
     const socket = useSocket();
     const [messages, setMessages] = useState([]);
     // const [joined, setJoined] = useState(false);
-    const [sender, setSender] = useState("mongia");
-    const {user,currentUser} = useContext(CurrentUser);
+    const {currentUser} = useContext(CurrentUser);
     const [typing, setTyping] = useState('');
     const messagesEndRef = useRef(null);
     const [nbNestedReplies, setNbNestedReplies] = useState(0);
-
+    // join effect
     useEffect(() => {
         const join = () => {
-            socket?.emit('join', sender, () => {
-                console.log('joined');
+            socket?.emit('join', {
+                sessionId: session?.id,
+                user: currentUser,
             });
         };
         join();
+    }, [socket,session]);
+    // userJoined effect
+    useEffect(() => {
+        const handleUserJoined = (user) => {
+            console.log("userJoined", user)
+        };
+
+        socket?.on('userJoined', handleUserJoined);
+
+        return () => {
+            socket?.off('userJoined', handleUserJoined);
+        };
     }, [socket]);
 
 
     let timeout;
     const emitTyping = () => {
-        socket?.emit('typing', {isTyping: true});
+        socket?.emit('typing', {isTyping: true, sessionId: session?.id});
         timeout = setTimeout(() => {
-            socket?.emit('typing', {isTyping: false});
+            socket?.emit('typing', {isTyping: false, sessionId: session?.id});
         },2000);
     }
+    // typing effect
     useEffect(() => {
         const handleTyping = (data) => {
             if (data.isTyping) {
-                setTyping(data.user?.username);
+                console.log("rim data", data)
+                if(data?.sender?.id !== currentUser?.id){
+                    setTyping(data?.sender?.username);
+                }
             } else {
                 setTyping('');
             }
@@ -71,73 +87,100 @@ const Chat = ({session}) => {
         });
     };
     const deleteMsg = (id)=>{
-        console.log("message deleted", id)
-        socket?.emit('deleteMessage',id);
+        console.log("hello", session)
+        socket?.emit('deleteMessage', {id, session});
     }
 
-    const getAllMessages = () => {
-        socket?.emit('findAllMessages', (messages) => {
+    const getAllMessages = (session) => {
+        socket?.emit('findAllMessages',session, (messages) => {
             setMessages(messages);
         });
     };
+    // getAllMessages effect
     useEffect(() => {
-        getAllMessages();
-    }, [socket]);
+        getAllMessages(session);
+    }, [socket, session]);
+    // handleAllMessages effect
+    useEffect(() => {
+        const handleAllMessages = (messages, receivedSession) => {
+            if (receivedSession?.id === session?.id) {
+                setMessages(messages);
+            }
+        };
 
-    useEffect(() => {
-        socket?.on('allMessages', (messages) => {
-            setMessages(messages);
-        });
+        socket?.on('allMessages', handleAllMessages);
 
         return () => {
-            socket?.off('allMessages');
+            socket?.off('allMessages', handleAllMessages);
         };
-    }, [socket]);
+    }, [socket, session]);
+    // handleReply effect
+    useEffect(() => {
+        const messageListener = (data) => {
+            // Check if the incoming message's session matches the current session
+            if (data?.session?.id === session?.id) {
+                console.log("data", data);
 
+                setMessages((prevMessages) => {
+                    const handleReply = (messages) => {
+                        return messages.map((message) => {
+                            if (message?.id === data?.parent?.id) {
+                                return {
+                                    ...message,
+                                    replies: [...(message?.replies || []), data],
+                                };
+                            }
 
-    const messageListener = (data) => {
-        setMessages((prevMessages) => {
-            const handleReply = (messages) => {
-                return messages.map((message) => {
-                    if (message.id === data.parent?.id) {
-                        return {
-                            ...message,
-                            replies: [...(message.replies || []), data],
-                        };
+                            if (message?.replies) {
+                                return {
+                                    ...message,
+                                    replies: handleReply(message?.replies),
+                                };
+                            }
+
+                            return message;
+                        });
+                    };
+                    if (data.parent) {
+                        return handleReply(prevMessages);
+                    } else {
+                        return [...prevMessages, data];
                     }
-
-                    if (message.replies) {
-                        return {
-                            ...message,
-                            replies: handleReply(message.replies),
-                        };
-                    }
-
-                    return message;
                 });
-            };
-            if (data.parent) {
-                return handleReply(prevMessages);
-            } else {
-                return [...prevMessages, data];
+
+                // Scroll to the bottom (assuming this is defined elsewhere)
+                scrollToBottom();
             }
-        });
-
-        // Scroll to bottom (assuming this is defined elsewhere)
-        scrollToBottom();
-    };
-
-
-
-    useEffect(()=> {
+        };
+        // Attach the messageListener to the socket
         socket?.on('message', messageListener);
+
+        // Clean up the event listener on component unmount
         return () => {
             socket?.off('message', messageListener);
-        }
-    },[messageListener])
+        };
+    }, [session, socket]);
+
+
     const handleDeletedMessage = (id) => {
-        setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id));
+        const removeMessageAndReplies = (messages) => {
+            return messages
+                .filter((msg) => msg.id !== id) // Remove the message with the given ID
+                .map((msg) => {
+                    if (msg.replies && msg.replies.length > 0) {
+                        // Recursively remove the message and its replies
+                        return {
+                            ...msg,
+                            replies: removeMessageAndReplies(msg.replies)
+                        };
+                    }
+                    return msg;
+                });
+        };
+
+        setMessages((prevMessages) => removeMessageAndReplies(prevMessages));
     };
+    // delete effect
     useEffect(()=> {
         socket?.on('deletedMessage', handleDeletedMessage);
         return () => {
@@ -148,7 +191,7 @@ const Chat = ({session}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value.trim() !== "") {
-            send({content:value, author: currentUser});
+            send({ content:value, author: currentUser, session:session });
             setValue("");
         }
     }
@@ -184,6 +227,7 @@ const Chat = ({session}) => {
                                 emitTyping={emitTyping}
                                 nbNestedReplies={nbNestedReplies}
                                 pickerUnderInput={index === 0 || index === 1}
+                                session={session}
                             />
                         ))}
 

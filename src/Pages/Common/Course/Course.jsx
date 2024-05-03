@@ -37,7 +37,12 @@ const Course = () => {
 
             const allSessions = filteredSessionTypes?.map(sessionType => {
                 return sessionType?.sessions?.map((session, index) => {
-                    return { ...session, rank: index + 1, group: sessionType?.group?.group};
+                    return {
+                        ...session,
+                        rank: index + 1,
+                        group: sessionType?.group?.group,
+                        teacherId: sessionType?.teacherId
+                    };
                 });
             }).flat();
 
