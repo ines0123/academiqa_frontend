@@ -1,8 +1,8 @@
-import teacherPhoto from "../../assets/images/Sellaouti.jpg";
+import avatar from "../../assets/images/avatar.png";
 import {useState, useEffect, useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MidNavbar from "../MidNavbar/MidNavbar";
-
+import { FaCircleUser } from "react-icons/fa6";
 import "../Navbar/Navbar.css";
 import EmptyNavbar from "./EmptyNavbar";
 import FirstCalendar from "../Calendar/FirstCalendar";
@@ -11,13 +11,7 @@ import { Sessions } from "../../data/sessionsData";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState('');
-  const userContext = useContext(CurrentUser);
-  useEffect(() => {
-    setUser(userContext.currentUser);
-    setRole(userContext.currentUser?.role?.toLowerCase())
-  }, [userContext.currentUser]);
+  const {currentUser, user} = useContext(CurrentUser);
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const nav = useNavigate();
@@ -54,14 +48,14 @@ const Navbar = () => {
         <>
           <EmptyNavbar width={'22rem'}>
             <div className="profileNav">
-              <img src={user?.photo  } alt="teacher" className="profilePhoto" />
+              <img src={user?.photo || avatar } alt="teacher" className="profilephoto"/>
               <div className="accountName">{user?.username}</div>
-              <Link to={`/${role}/profile`} className="nameButton">
+              <Link to={`/${currentUser?.role}/profile`} className="nameButton">
                 My Profile
               </Link>
             </div>
-            <div title='go to calendar' className="calendar" onClick={() => nav(`/${role}/calendar`)}>
-              <SmallCalendar sessions={data} role={role} />
+            <div title='go to calendar' className="calendar" onClick={() => nav(`/${currentUser?.role}/calendar`)}>
+              <SmallCalendar sessions={data} role={currentUser?.role} />
             </div>
             <div className="calendardiv">
               <Link to="/calendar" className="calendarButton">

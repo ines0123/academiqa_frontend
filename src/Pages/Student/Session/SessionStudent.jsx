@@ -147,15 +147,15 @@ export default function SessionStudent() {
               {/*<AddButtonTask/>*/}
             </div>
           </div>
-          {/*<AddNote*/}
-          {/*  setIsOpen={setNewNote}*/}
-          {/*  isOpen={newNote}*/}
-          {/*  session={{*/}
-          {/*    subject: "Developpement web eet application reparties",*/}
-          {/*    type: "TP",*/}
-          {/*    sessionTime: "08:00 - 09:30",*/}
-          {/*  }}*/}
-          {/*/>*/}
+          <AddNote
+            setIsOpen={setNewNote}
+            isOpen={newNote}
+            session={{
+              subject: "Developpement web eet application reparties",
+              type: "TP",
+              sessionTime: "08:00 - 09:30",
+            }}
+          />
           {/*<div className="slider mt-2 d-flex justify-content-center">*/}
           {/*  {notes && notes.length > 2 ? (*/}
           {/*    <Slider ref={sliderRef} {...settings}>*/}
@@ -183,16 +183,16 @@ export default function SessionStudent() {
           {/*      </React.Fragment>*/}
           {/*    ))*/}
           {/*  )}*/}
-          {/*  /!*{notes.length === 0 && (*!/*/}
-          {/*  /!*  <div className="no-notes d-flex mt-5 justify-content-center align-items-center">*!/*/}
-          {/*  /!*    <img*!/*/}
-          {/*  /!*      src={NoNotes}*!/*/}
-          {/*  /!*      alt={"NoNotes"}*!/*/}
-          {/*  /!*      className="no-notes"*!/*/}
-          {/*  /!*      style={{ width: "100px", height: "auto" }}*!/*/}
-          {/*  /!*    />*!/*/}
-          {/*  /!*  </div>*!/*/}
-          {/*  /!*)}*!/*/}
+          {/*  {notes.length === 0 && (*/}
+          {/*    <div className="no-notes d-flex mt-5 justify-content-center align-items-center">*/}
+          {/*      <img*/}
+          {/*        src={NoNotes}*/}
+          {/*        alt={"NoNotes"}*/}
+          {/*        className="no-notes"*/}
+          {/*        style={{ width: "100px", height: "auto" }}*/}
+          {/*      />*/}
+          {/*    </div>*/}
+          {/*  )}*/}
           {/*</div>*/}
         </div>
       </div>

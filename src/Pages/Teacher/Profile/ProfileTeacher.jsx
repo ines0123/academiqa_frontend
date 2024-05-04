@@ -2,7 +2,6 @@ import './ProfileTeacher.css';
 import React, {useContext, useEffect, useState} from "react";
 import {useDate} from "../../../Context/DateContext.jsx";
 import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
-import {FaUser} from "react-icons/fa";
 import Profile from "../../../Components/Profile/Profile.jsx";
 import Course from "../../../Components/Course/Course.jsx";
 import axios from "axios";

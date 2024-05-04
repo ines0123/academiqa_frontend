@@ -21,3 +21,6 @@ export const TASK = 'task';
 
 // subjects
 export const SUBJECT = 'subject';
+
+//notif
+export const NOTIF = 'new-notification';

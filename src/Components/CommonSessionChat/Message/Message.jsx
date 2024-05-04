@@ -3,13 +3,13 @@ import {AiOutlineMessage} from "react-icons/ai";
 import {useContext, useState} from "react";
 import MessageInput from "../../Common/MessageInput/MessageInput.jsx";
 import './Message.css'
-import Sellaouti from "../../../assets/images/Sellaouti.jpg";
+import avatar from "../../../assets/images/avatar.png";
 import DeleteButton from "../../Common/DeleteButton/DeleteButton.jsx";
 import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 
 
 // eslint-disable-next-line react/prop-types
-const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnderInput, session}) => {
+const Message = ({deleteMsg, message, send,emitTyping,nbNestedReplies, pickerUnderInput, session}) => {
     const {user, currentUser} = useContext(CurrentUser);
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
@@ -24,7 +24,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
         e.preventDefault();
         if (value !== "") {
             console.log("message sent", message)
-            const newMessage = {content:value, parent:message, author:currentUser,session:session};
+            const newMessage = {content:value, parent:message, author:user,session:session};
             console.log("new message", newMessage)
             send(newMessage);
             console.log("message sent", message);
@@ -55,7 +55,7 @@ const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnde
             <div className="d-flex">
                 <img
                     className="rounded-circle img "
-                    src={Sellaouti}
+                    src={message?.author?.photo || avatar }
                     alt="sender"
                 />
                 <div className="sender-message">

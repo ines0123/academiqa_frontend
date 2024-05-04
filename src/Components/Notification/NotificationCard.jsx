@@ -4,32 +4,22 @@ import Notif from "./Notif/Notif.jsx";
 import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
 import {useSocket} from "../../Context/SocketContext.jsx";
 import {useNotification} from "../../Context/NotificationContext.jsx";
+import axios from "axios";
+import {baseURL, NOTIF} from "../../Api/Api.jsx";
 
 const NotificationCard = () => {
     const [notifications, setNotifications] = useState([]);
     const {isVisible, setIsVisible,toggleVisibility,setNotifCount} = useNotification();
     const notificationCardRef = useRef(null);
     const socket = useSocket();
-    const getNotifications = () => {
-        socket?.emit('getAllNotifications','1',(notifications) => {
-                    setNotifications(notifications);
-                });
-    }
+
     useEffect(() => {
-        getNotifications();
-        console.log('notif',notifications)
-    }, [socket]);
-    const messageListener = () => {
-        getNotifications();
-    }
-    useEffect(()=> {
-        socket?.on('message', messageListener);
-        return () => {
-            socket?.off('message', messageListener);
-        }
-    },[messageListener])
-
-
+        axios.get(`${baseURL}/${NOTIF}`).then((res)=>{
+            setNotifications(res.data);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }, []);
 
     const handleDocumentClick = (event) => {
         const clickedButtonClasses = ["BellbuttonMid", "BellbuttonNav","Bellbutton"];
@@ -53,8 +43,6 @@ const NotificationCard = () => {
         }
     };
 
-
-
     useEffect(() => {
         document.addEventListener('click', handleDocumentClick);
 
@@ -77,6 +65,36 @@ const NotificationCard = () => {
             socket?.off('notify', notifyListener);
         }
     },[notifyListener])
+
+
+
+    useEffect(() => {
+        const sseUrl = `http://localhost:5000/new-notification/events-for-user`; // Adjust the URL to match your backend endpoint
+
+        const eventSource = new EventSource(sseUrl, {
+            withCredentials: true, // Optional, depending on your authentication setup
+        });
+
+        // Listen for the 'message' event
+        eventSource.addEventListener('message', (event) => {
+            const notification = JSON.parse(event.data);
+            // Update state with new notification
+            setNotifications((prevNotifications) => [...prevNotifications, notification]);
+        });
+
+        // Handle potential errors
+        eventSource.addEventListener('error', (event) => {
+            console.error('SSE error:', event);
+            if (event.readyState === EventSource.CLOSED) {
+                console.log('EventSource connection closed');
+            }
+        });
+
+        // Clean up the EventSource connection when the component unmounts
+        return () => {
+            eventSource.close();
+        };
+    }, []);
 
     return (
         <div className="notification-card-container">

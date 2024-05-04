@@ -2,6 +2,7 @@ import {Fragment, useState} from 'react';
 import './Course.css';
 import Sellaouti from "../../assets/images/Sellaouti.jpg";
 import {NavLink} from "react-router-dom";
+import avatar from "../../assets/images/avatar.png";
 
 // eslint-disable-next-line react/prop-types
 const Course = ({maxWidth,course,color,placement}) => {
@@ -24,14 +25,6 @@ const Course = ({maxWidth,course,color,placement}) => {
                                 </div>
                             ))}
                         </h5>
-                        <img
-                            className={`rounded-circle img ${type === 'course' ? 'img-for-course' : 'img-for-absence'} `}
-                            src={Sellaouti}
-                            alt="Chatbot"
-                            width={75}
-                            height={75}
-                            style={{width: '50px', height: '50px'}}
-                        />
                     </div>
                     {type === 'absence' ? (
                         <h5 className="m-0  font-semibold text-center fs-5">Absence: {course?.nbAbsence} </h5>) : null}
