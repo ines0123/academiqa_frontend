@@ -15,7 +15,7 @@ import {
   import { registerLicense } from '@syncfusion/ej2-base';
   import '../../Components/Calendar/styles.css'
   
-  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
+  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
   
   
   const AdminCalendar = ({role, sessions}) => {

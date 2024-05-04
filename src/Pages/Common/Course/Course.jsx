@@ -10,6 +10,7 @@ import {useLocation} from "react-router-dom";
 const Course = () => {
     const date = useDate();
     const location = useLocation();
+    const {currentUser, user} = useContext(CurrentUser)
     const course = location.state?.course; // Accessing the course object
 
     // Now you can use the course object in your component
@@ -23,10 +24,10 @@ const Course = () => {
             <MidNavbar/>
             <div className="row">
                 <div className="col-sm-9 pl-10 course-name">
-                    <CourseName course={course} role="teacher"/>
+                    <CourseName course={course} role={currentUser?.role}/>
 
                     <div className="box-announcement">
-                        <SessionsAnnouncement course={course} role="teacher"/>
+                        <SessionsAnnouncement course={course} role={currentUser?.role}/>
                     </div>
                 </div>
                 <div className="col-sm-3 pr-2.5 my-3 box-sessions d-flex justify-end">
