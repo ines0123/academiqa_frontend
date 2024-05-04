@@ -203,6 +203,8 @@ export const Sessions = [
     type: "cours",
     StartTime: new Date(2018, 1, 15, 15, 0),
     EndTime: new Date(2018, 1, 15, 16, 0),
+    
+    
     //Color: "blue",
     LevelId: [25],
   },

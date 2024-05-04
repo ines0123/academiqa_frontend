@@ -4,8 +4,6 @@ import './Courses.css';
 import Course from "../../../Components/Course/Course.jsx";
 import axios from "axios";
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
-import NotificationCard from "../../../Components/Notification/NotificationCard.jsx";
-import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
 import Cookie from "cookie-universal";
 import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";

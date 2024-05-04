@@ -28,7 +28,7 @@ import {
     L10n.load({
       'en-US': {
           'schedule': {
-              'saveButton': 'Add',
+              'saveButton': 'Save',
               'cancelButton': 'Close',
               'deleteButton': 'Remove',
               'newEvent': 'Add Session',
@@ -37,14 +37,11 @@ import {
       }
   });
 
+
   const editTimeFormat = (data) => {
-    // Start time format edit
     const dateObject = new Date(data.StartTime);
-    // Format the Date object into the desired format (ISO 8601 format)
     data.StartTime = dateObject.toISOString();
-    // End time format edit
     const endDateObject = new Date(data.EndTime);
-    // Format the Date object into the desired format (ISO 8601 format)
     data.EndTime = endDateObject.toISOString();
     return data;
   }
@@ -60,6 +57,7 @@ import {
       },
     };
   
+
     return (
       <div>
       <ScheduleComponent

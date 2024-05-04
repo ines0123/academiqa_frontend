@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import { CurrentUser } from "../../Context/CurrentUserContext.jsx";
 import Cookie from "cookie-universal";
 
-function SessionsAnnouncement({ role }) {
+function SessionsAnnouncement({ role , course}) {
     // Define initial state for announcements
     const [announcementsForStudent, setAnnouncementsForStudent] = useState([]);
     const [announcementsForTeacher, setAnnouncementsForTeacher] = useState([]);

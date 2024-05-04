@@ -1,14 +1,16 @@
 import {BsReplyFill} from "react-icons/bs";
 import {AiOutlineMessage} from "react-icons/ai";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import MessageInput from "../../Common/MessageInput/MessageInput.jsx";
 import './Message.css'
 import Sellaouti from "../../../assets/images/Sellaouti.jpg";
 import DeleteButton from "../../Common/DeleteButton/DeleteButton.jsx";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 
 
 // eslint-disable-next-line react/prop-types
-const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies, pickerUnderInput}) => {
+const Message = ({deleteMsg,message, send,emitTyping,nbNestedReplies, pickerUnderInput}) => {
+    const {user} = useContext(CurrentUser);
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
@@ -22,7 +24,10 @@ const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies,
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value !== "") {
-            send({content:value, parent:message});
+            console.log("message sent", message)
+            const newMessage = {content:value, parent:message, author:user};
+            console.log("new message", newMessage)
+            send(newMessage);
             console.log("message sent", message);
             setValue("");
             setViewReplies(true);
@@ -30,6 +35,7 @@ const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies,
         }
     }
     const deleteMessage = () => {
+        console.log("message deleted", message?.id)
         deleteMsg(message?.id);
     }
 
@@ -54,11 +60,11 @@ const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies,
                 />
                 <div className="sender-message">
                     <div className="message-sender ms-3 mb-1">
-                        {message?.sender}
+                        {message?.author?.username}
                     </div>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex ">
                         <div
-                            className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}
+                            className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${message?.author?.role === "Student" ? 'light' : 'dark'}`}
                             title={dateString}
 
                         >

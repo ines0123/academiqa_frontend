@@ -47,7 +47,6 @@ export default function HomeStudent() {
     "247, 226, 224", // pink
     "246, 232, 214", // light orange
   ];
-  const menu = useContext(Menu);
 
   useEffect(() => {
     if(currentUser?.role === "Student"){
@@ -65,7 +64,7 @@ export default function HomeStudent() {
             console.error(`${err} - Failed to find courses`);
           });
     }
-  }, []);
+  }, [user, currentUser]);
 
   return (
     <div className="d-flex justify-content-between  student-home-page m-0 pe-0">

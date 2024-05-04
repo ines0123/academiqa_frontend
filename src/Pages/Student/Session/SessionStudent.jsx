@@ -69,38 +69,44 @@ export default function SessionStudent() {
     setNewNote(true);
   };
 
-  const { notes } = useContext(NoteContext);
+  // const { notes } = useContext(NoteContext);
 
   return (
     <div className="d-flex student-session-page">
       <div className="session-content flex-grow-1 mt-4 ps-4 pe-4">
         {screenWidth >= 1030 ? (
           <div className="d-flex justify-content-between">
-            <div className="the-course d-flex ms-3 p-3 ">
-              <div className="courses-icon">
-                <FaBookOpenReader size={35} />
+            <div className="the-course  ms-3 p-2 px-3">
+              <div className="d-flex">
+                <div className="courses-icon">
+                  <FaBookOpenReader size={30}/>
+                </div>
+                <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
               </div>
-              <h1 className="ms-2 fw-bold">Developpement Web</h1>
+              <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
             </div>
-            <div className="ms-3 d-flex flex-column justify-content-center">
-              <div className="date mb-2">{date}</div>
-              <div className="num-session">Session n° 1</div>
+            <div className="ms-3 mt-2 d-flex flex-column justify-content-start">
+              <div className="date mb-2">
+                Date: {date}
+              </div>
             </div>
           </div>
-        ) : (
-          <div className="">
-            <div className="ms-4 d-flex flex-column justify-content-center">
-              <div className="date mb-2">{date}</div>
-              <div className="num-session">Session n° 1</div>
-            </div>
-            <div className="the-course d-flex ms-3 p-3 ">
-              <div className="courses-icon">
-                <FaBookOpenReader size={35} />
-              </div>
-              <h1 className="ms-2 fw-bold">Developpement Web</h1>
+        ) : (<div className="">
+          <div className="ms-4 d-flex flex-column justify-content-center">
+            <div className="date mb-2">
+              {date}
             </div>
           </div>
-        )}
+          <div className="the-course  ms-3 p-2 ">
+            <div className="d-flex">
+              <div className="courses-icon">
+                <FaBookOpenReader size={30}/>
+              </div>
+              <h1 className="ms-2 fs-3 fw-bold">Session n° 1</h1>
+            </div>
+            <h1 className="ms-2 mt-1 fs-4 fw-bold">Developpement Web</h1>
+          </div>
+        </div>)}
         <div className="ressources-tasks row mt-4">
           <div className="col-lg-6 pe-lg-2 ps-lg-4 p-sm-0 tasks d-flex justify-content-lg-end justify-content-sm-center">
             <Task role={"student"} />
@@ -121,53 +127,53 @@ export default function SessionStudent() {
               {/*<AddButtonTask/>*/}
             </div>
           </div>
-          <AddNote
-            setIsOpen={setNewNote}
-            isOpen={newNote}
-            session={{
-              subject: "Developpement web eet application reparties",
-              type: "TP",
-              sessionTime: "08:00 - 09:30",
-            }}
-          />
-          <div className="slider mt-2 d-flex justify-content-center">
-            {notes && notes.length > 2 ? (
-              <Slider ref={sliderRef} {...settings}>
-                {notes.map((note, index) => (
-                  <div key={index} className="">
-                    <Note
-                      note={note}
-                      baseColor={NoteColors[index % NoteColors.length]}
-                    />
-                  </div>
-                ))}
-              </Slider>
-            ) : (
-              notes.map((note, index) => (
-                <React.Fragment key={index}>
-                  <div
-                    className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2  p-0 d-flex flex-column justify-content-center align-items-center note-container`}
-                  >
-                    <Note
-                      maxWidth={true}
-                      note={note}
-                      baseColor={NoteColors[index % NoteColors.length]}
-                    />
-                  </div>
-                </React.Fragment>
-              ))
-            )}
-            {notes.length === 0 && (
-              <div className="no-notes d-flex mt-5 justify-content-center align-items-center">
-                <img
-                  src={NoNotes}
-                  alt={"NoNotes"}
-                  className="no-notes"
-                  style={{ width: "100px", height: "auto" }}
-                />
-              </div>
-            )}
-          </div>
+          {/*<AddNote*/}
+          {/*  setIsOpen={setNewNote}*/}
+          {/*  isOpen={newNote}*/}
+          {/*  session={{*/}
+          {/*    subject: "Developpement web eet application reparties",*/}
+          {/*    type: "TP",*/}
+          {/*    sessionTime: "08:00 - 09:30",*/}
+          {/*  }}*/}
+          {/*/>*/}
+          {/*<div className="slider mt-2 d-flex justify-content-center">*/}
+          {/*  {notes && notes.length > 2 ? (*/}
+          {/*    <Slider ref={sliderRef} {...settings}>*/}
+          {/*      {notes.map((note, index) => (*/}
+          {/*        <div key={index} className="">*/}
+          {/*          <Note*/}
+          {/*            note={note}*/}
+          {/*            baseColor={NoteColors[index % NoteColors.length]}*/}
+          {/*          />*/}
+          {/*        </div>*/}
+          {/*      ))}*/}
+          {/*    </Slider>*/}
+          {/*  ) : (*/}
+          {/*    notes.map((note, index) => (*/}
+          {/*      <React.Fragment key={index}>*/}
+          {/*        <div*/}
+          {/*          className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2  p-0 d-flex flex-column justify-content-center align-items-center note-container`}*/}
+          {/*        >*/}
+          {/*          <Note*/}
+          {/*            maxWidth={true}*/}
+          {/*            note={note}*/}
+          {/*            baseColor={NoteColors[index % NoteColors.length]}*/}
+          {/*          />*/}
+          {/*        </div>*/}
+          {/*      </React.Fragment>*/}
+          {/*    ))*/}
+          {/*  )}*/}
+          {/*  /!*{notes.length === 0 && (*!/*/}
+          {/*  /!*  <div className="no-notes d-flex mt-5 justify-content-center align-items-center">*!/*/}
+          {/*  /!*    <img*!/*/}
+          {/*  /!*      src={NoNotes}*!/*/}
+          {/*  /!*      alt={"NoNotes"}*!/*/}
+          {/*  /!*      className="no-notes"*!/*/}
+          {/*  /!*      style={{ width: "100px", height: "auto" }}*!/*/}
+          {/*  /!*    />*!/*/}
+          {/*  /!*  </div>*!/*/}
+          {/*  /!*)}*!/*/}
+          {/*</div>*/}
         </div>
       </div>
       <Chat />
