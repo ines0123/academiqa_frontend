@@ -10,7 +10,7 @@ function CourseName({role, course}) {
       </div>
         <div className="course-info font-IstokWebBold">
             <div className="course-name-title font-IstokWebBold overflow-hidden"
-                 title="Protocoles de communication Web"
+                 title= {course?.name}
             >
                 {course?.name}
             </div>

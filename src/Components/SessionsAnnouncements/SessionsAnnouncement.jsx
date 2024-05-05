@@ -36,7 +36,7 @@ function SessionsAnnouncement({ role , course}) {
     }, [id, userToken]);
 
     useEffect(() => {
-        if (user.role === "teacher" && user.id) {
+        if (user && user.role === "teacher" && user.id) {
             axios.get(`${baseURL}/announcement/subject/${id}/teacher/${user.id}`, {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
@@ -49,7 +49,7 @@ function SessionsAnnouncement({ role , course}) {
                     console.error(`${err} - Failed to find announcements by subject and teacher`);
                 });
         }
-    }, [id, user.id, user.role, userToken]);
+    }, [id, user && user.id, user && user.role, userToken]);
 
     console.log("aT", announcementsForTeacher);
     console.log('AS', announcementsForStudent);
@@ -100,4 +100,3 @@ function SessionsAnnouncement({ role , course}) {
 }
 
 export default SessionsAnnouncement;
-
