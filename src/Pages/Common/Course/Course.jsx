@@ -87,7 +87,7 @@ const Course = () => {
             </div>
             <MidNavbar/>
             <div className="row">
-                <div className="col-sm-9 pl-10 course-name">
+                <div className="col-sm-9 pl-10 course-name -mt-5">
                     <CourseName course={course}/>
 
                     <div className="box-announcement">

@@ -15,11 +15,10 @@ function SessionsAnnouncement({ role , course}) {
     const [announcementsForStudent, setAnnouncementsForStudent] = useState([]);
     const [announcementsForTeacher, setAnnouncementsForTeacher] = useState([]);
     const { id } = useParams();
-    const { user } = useContext(CurrentUser);
+    const { currentUser, user } = useContext(CurrentUser);
     const userToken = Cookie().get('academiqa');
-    // State for tracking the input value
 
-    // Fetch announcements from the server
+    // Fetch announcements for students from the server
     useEffect(() => {
         axios.get(`${baseURL}/announcement/subject/${id}`, {
             headers: {
@@ -34,8 +33,9 @@ function SessionsAnnouncement({ role , course}) {
             });
     }, [id, userToken]);
 
+    // Fetch announcements for teachers from the server
     useEffect(() => {
-        if (user && user.role === "teacher" && user.id) {
+        if (user && role === "Teacher" && user.id) {
             axios.get(`${baseURL}/announcement/subject/${id}/teacher/${user.id}`, {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
@@ -48,12 +48,7 @@ function SessionsAnnouncement({ role , course}) {
                     console.error(`${err} - Failed to find announcements by subject and teacher`);
                 });
         }
-    }, [id, user && user.id, user && user.role, userToken]);
-
-    console.log("aT", announcementsForTeacher);
-    console.log('AS', announcementsForStudent);
-    console.log('user', user);
-    console.log('subid', id);
+    }, [id, user && user.id, user && role, userToken]);
 
     return (
         <div className="sessionsAnnouncement-box">
@@ -66,18 +61,27 @@ function SessionsAnnouncement({ role , course}) {
                     thumbColor={"#B5B5B5FF"}
                     maxHeight={"300px"}
                 >
-                    {announcementsForStudent?.length === 0 && (
+                    {role === "Student" && announcementsForStudent.length === 0 && (
                         <div className="no-announcement e-auto-fit-content position-absolute top-50 start-50 translate-middle">
                             <img src={noAnnouncement} alt="No Sessions" />
                         </div>
                     )}
                     {role === "Student" &&
-                        announcementsForStudent?.map((announcement, index) => (
+                        announcementsForStudent.map((announcement, index) => (
                             <AnnouncementMessage key={index} Announcement={announcement} />
-                        ))}
+                        )).reverse()}
+                    {role === "Teacher" && announcementsForTeacher.length === 0 && (
+                        <div className="no-announcement e-auto-fit-content position-absolute top-50 start-50 translate-middle">
+                            <img src={noAnnouncement} alt="No Sessions" />
+                        </div>
+                    )}
+                    {role === "Teacher" &&
+                        announcementsForTeacher.map((announcement, index) => (
+                            <AnnouncementMessage key={index} Announcement={announcement} />
+                        )).reverse()}
                 </Scrollbar>
             </div>
-            {(role === "Teacher") && <AnnouncementInput/>}
+            {role === "Teacher" && <AnnouncementInput course={course} user={user} setAnnouncementsForTeacher={setAnnouncementsForTeacher}/>}
         </div>
     );
 }
