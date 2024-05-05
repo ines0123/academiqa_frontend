@@ -1,10 +1,11 @@
-import Administration from '../../../assets/images/administration.svg'
+import avatar2 from "../../../assets/images/avatar2.png";
 import './Notif.css';
 import Markdown from "react-markdown";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 // eslint-disable-next-line react/prop-types
-const Notif = ({notification}) => {
-    const [senderImage, setSenderImage] = useState('');
+const Notif = ({notification, setIsVisible}) => {
     const notificationTypes = {
         "absence-limit": 0,
         "content": 1,
@@ -12,18 +13,33 @@ const Notif = ({notification}) => {
         "absent": 3,
         "new-announcement": 4,
     };
+    console.log("hffdfvcdhhhhhhhh",notification)
+    const {currentUser} = useContext(CurrentUser);
+    const navigate = useNavigate();
+    const handleClick = () => {
+        if (linkTo) {
+            navigate(linkTo);
+            setIsVisible(false);
+        }
+    };
 
     //yellow => new announcement red => admin Absences Limits, green => content added,blue => new msg, pink => marked absent
     const colors = ['#fdcdc9', '#f2f9f0', '#f5faf9', '#fbf2ef','#fbf4ea'];
+    let linkTo;
+    if (notification?.notificationType === 'new-announcement') {
+        linkTo = `/${currentUser?.role}/course/${notification.link}`;
+    } else if (notification?.notificationType === 'content' || notification?.notificationType === 'message') {
+        linkTo = `/${currentUser?.role}/session/${notification.link}`;
+    }
+
     return (
-        <div className="notif d-flex align-items-center" style={{backgroundColor: colors[notificationTypes[notification?.notificationType]]}}>
+        <div onClick={handleClick} className="notif d-flex align-items-center" style={{backgroundColor: colors[notificationTypes[notification?.notificationType]]}}>
             <div className="img" style={{ flex: 'none' }}>
                 <img
                     style={{ width: '100%', height: 'auto' }}
-                    // src={`http://localhost:5000/${notification?.senderImage}`}
                     className={`img ${notification?.senderImage === "administration.svg" ? "" : "rounded-circle"}`}
                     alt={notification?.senderImage}
-                    src="https://drive.google.com/thumbnail?id=1JFyGAYpVXYS_5R9QyBpkeXjQj098rWOo"
+                    src={notification?.senderImage || avatar2}
                 />
             </div>
             <div className="notification-content ms-3">
@@ -34,6 +50,7 @@ const Notif = ({notification}) => {
 
         </div>
     );
+
 };
 
 export default Notif;

@@ -13,7 +13,7 @@ export default function RequireRole({ allowedRole }) {
     const userToken = cookie.get('academiqa');
     const role = jwtDecode(userToken).role;
 
-    console.log("userContext: ", userContext);
+    // console.log("userContext: ", userContext);
     return  (
         allowedRole.includes (role.toLowerCase()) ? (
             <Outlet/>

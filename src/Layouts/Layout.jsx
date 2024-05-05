@@ -21,7 +21,7 @@ export default function Layout(){
     const { currentUser, loading, setLoading } = useContext(CurrentUser);
     const [role, setRole] = useState('');
     useEffect(() => {
-        console.log('loading', loading);
+        // console.log('loading', loading);
         setRole(currentUser?.role);
     }, [currentUser]);
 

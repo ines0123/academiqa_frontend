@@ -94,7 +94,6 @@ const Chat = ({session}) => {
     const getAllMessages = (session) => {
         socket?.emit('findAllMessages',session, (messages) => {
             setMessages(messages);
-            console.log("alllllllllllll", messages)
         });
     };
     // getAllMessages effect

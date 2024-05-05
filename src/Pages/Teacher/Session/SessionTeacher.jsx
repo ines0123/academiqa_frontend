@@ -26,7 +26,7 @@ export default function SessionTeacher() {
             })
             .then((res) => {
                 setSession(res.data);
-                console.log("Session from session: ", res.data);
+                // console.log("Session from session: ", res.data);
             })
             .catch((err) => {
                 console.error(`${err} - Failed to find session`);
