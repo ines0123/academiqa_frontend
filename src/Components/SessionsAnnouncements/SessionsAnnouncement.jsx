@@ -18,7 +18,6 @@ function SessionsAnnouncement({ role , course}) {
     const { user } = useContext(CurrentUser);
     const userToken = Cookie().get('academiqa');
     // State for tracking the input value
-    const [newAnnouncement, setNewAnnouncement] = useState("");
 
     // Fetch announcements from the server
     useEffect(() => {
@@ -56,18 +55,6 @@ function SessionsAnnouncement({ role , course}) {
     console.log('user', user);
     console.log('subid', id);
 
-    // Function to handle onChange event of the input field
-    const handleInputChange = (event) => {
-        setNewAnnouncement(event.target.value);
-    };
-
-    // Function to add a new announcement
-    const addAnnouncement = () => {
-        if (newAnnouncement.trim() !== "") {
-            // You can implement the logic to add a new announcement here
-        }
-    };
-
     return (
         <div className="sessionsAnnouncement-box">
             <div className="sessionsAnnouncement-title font-IstokWebBold">
@@ -90,11 +77,7 @@ function SessionsAnnouncement({ role , course}) {
                         ))}
                 </Scrollbar>
             </div>
-            {/*{(role === "teacher") &&*/}
-            {/*             <AnnouncementInput*/}
-            {/*    onChange={handleInputChange}*/}
-            {/*    onAdd={addAnnouncement}*/}
-            {/*/>}*/}
+            {(role === "Teacher") && <AnnouncementInput/>}
         </div>
     );
 }

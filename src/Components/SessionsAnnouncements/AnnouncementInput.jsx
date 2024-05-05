@@ -1,12 +1,25 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import "./AnnouncementInput.css";
 import { PiPaperPlaneTiltBold } from "react-icons/pi";
 
-function AnnouncementInput({ onChange, onAdd }) {
+function AnnouncementInput() {
     const inputRef = useRef(null);
+    const [newAnnouncement, setNewAnnouncement] = useState("");
+
+    const handleInputChange = (event) => {
+        setNewAnnouncement(event.target.value);
+    };
+
+    // Function to add a new announcement
+    const addAnnouncement = () => {
+        if (newAnnouncement.trim() !== "") {
+            // You can implement the logic to add a new announcement here
+        }
+    };
+
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevents default form submission behavior
-    onAdd(); // Call the onAdd function passed from the parent component
+    addAnnouncement(); // Call the onAdd function passed from the parent component
     inputRef.current.value = "";
   };
   const handleKeyPress = (event) => {
@@ -26,7 +39,7 @@ function AnnouncementInput({ onChange, onAdd }) {
                     ref={inputRef}
                   rows="1"
                   placeholder={"Type an announcement ..."}
-                  onChange={onChange}
+                  onChange={handleInputChange}
                   onKeyDown={handleKeyPress}
               />
               </div>

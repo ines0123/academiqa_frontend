@@ -20,7 +20,7 @@ function CourseName({course}) {
             <div className="course-additional-info font-IstokWebBold">
                 {course?.sectorLevel}
                 {course?.teachersUsernames && course.teachersUsernames?.map((teacherInfo, index) => (
-                    <div className="prof" key={index}>
+                    <div className="prof course-additional-info" key={index}>
                         {teacherInfo.username} - {teacherInfo.types.join(", ")}
                         <br/>
                     </div>
