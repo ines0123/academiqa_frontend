@@ -25,7 +25,7 @@ const Chat = ({session}) => {
     const socket = useSocket();
     const [messages, setMessages] = useState([]);
     // const [joined, setJoined] = useState(false);
-    const {currentUser} = useContext(CurrentUser);
+    const {currentUser, user} = useContext(CurrentUser);
     const [typing, setTyping] = useState('');
     const messagesEndRef = useRef(null);
     const [nbNestedReplies, setNbNestedReplies] = useState(0);
@@ -94,6 +94,7 @@ const Chat = ({session}) => {
     const getAllMessages = (session) => {
         socket?.emit('findAllMessages',session, (messages) => {
             setMessages(messages);
+            console.log("alllllllllllll", messages)
         });
     };
     // getAllMessages effect
@@ -191,7 +192,7 @@ const Chat = ({session}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value.trim() !== "") {
-            send({ content:value, author: currentUser, session:session });
+            send({ content:value, author: user, session:session });
             setValue("");
         }
     }

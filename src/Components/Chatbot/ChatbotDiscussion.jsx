@@ -1,14 +1,15 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import Scrollbar from "../Common/Scrollbar/Scrollbar";
 import Markdown from "react-markdown";
 import axios from "axios";
 import LoaderPen from "../Common/LoaderPencil/loader.jsx";
 import Loader from "../Common/Loader/loader.jsx";
 import MessageInput from "../Common/MessageInput/MessageInput.jsx";
-import Sellaouti from "../../assets/images/Sellaouti.jpg";
+import avatar from "../../assets/images/avatar2.png";
 import chatbotMsg from "../../assets/images/chatbot-msg.png";
 import NoDiscussions from "/src/assets/images/NoDiscussions.svg"
 import Cookie from "cookie-universal";
+import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
 // eslint-disable-next-line react/prop-types
 const ChatbotDiscussion = ({discussion,getDiscussions}) => {
@@ -19,7 +20,7 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
     const fileInputRef = useRef(null); // Reference to hidden file input
     const messagesEndRef = useRef(null);
     const {currentDiscussion} = useState(discussion || null);
-
+    const {user} = useContext(CurrentUser);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     useEffect(() => {
@@ -86,7 +87,7 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
                             <div className="d-flex align-items-start prompt p-2 px-3 me-1 mb-3 ">
                                 <img
                                     className=" p-0 rounded-circle img"
-                                    src={Sellaouti}
+                                    src={user?.photo || avatar}
                                     alt="sender"
                                     width={100}
                                     height={100}

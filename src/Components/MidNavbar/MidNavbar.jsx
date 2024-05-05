@@ -1,10 +1,11 @@
-import teacherPhoto from "../../assets/images/Sellaouti.jpg";
+import teacherphoto from "../../assets/images/Sellaouti.jpg";
 import {Link, useNavigate} from "react-router-dom";
 import "../MidNavbar/MidNavbar.css";
 import {useNotification} from "../../Context/NotificationContext.jsx";
 import Cookie from "cookie-universal";
 import {useContext} from "react";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
+import avatar from "../../assets/images/avatar.png";
 
 const MidNavbar = ({ children,role }) => {
   const {toggleVisibility,notifCount} = useNotification();
@@ -20,11 +21,11 @@ const MidNavbar = ({ children,role }) => {
       <div className="cont">
         {/* <Link to={`/${role}/profile`} className="profileMid"> */}
         {role !== "admin" ?(<Link to={`/${currentUser?.role}/profile`} className="profileMid" >
-          <img src={teacherPhoto} alt="teacher" className="profilePhotoMid"/>
+          <img src={user?.photo || avatar } alt="teacher" className="profilephotoMid"/>
           <div className="accountNameMid not-admin">{user?.username}</div>
         </Link>):(
             <div className="profileMid cursor-pointer"  >
-              <img src={teacherPhoto} alt="teacher" className="profilePhotoMid"/>
+              <img src={user?.photo || avatar } alt="teacher" className="profilephotoMid"/>
               <div className="accountNameMid">{user?.username}</div>
             </div>
         )}

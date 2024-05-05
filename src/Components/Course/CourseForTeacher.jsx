@@ -4,7 +4,7 @@ import teacher from "../../assets/images/training.png";
 import {NavLink} from "react-router-dom";
 import { MdOutlineMoreVert } from "react-icons/md";
 import PopUp from "../Common/PopUp/PopUp.jsx";
-import Sellaouti from "../../assets/images/Sellaouti.jpg";
+import avatar from "../../assets/images/avatar2.png";
 import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
 import { PiStudent } from "react-icons/pi";
 import axios from "axios";
@@ -89,7 +89,7 @@ const CourseForTeacher = ({course,color}) => {
                                         style={{width: "90%"}}>
                                         <img
                                             className="rounded-circle"
-                                            src={Sellaouti}
+                                            src={student?.photo || avatar}
                                             alt={"student"}
                                             style={{width: '35px', height: '35px'}}
                                         />

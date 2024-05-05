@@ -33,13 +33,6 @@ export const links = [
         role: 'teacher'
     },
     {
-        name: "My Messages",
-        path: "chat",
-        icon: faComments,
-        role: ['student', 'teacher'],
-        className: "sidebar-icon-button-messages"
-    },
-    {
         name: "My Notes",
         path: "/student/notes",
         icon: faNoteSticky,

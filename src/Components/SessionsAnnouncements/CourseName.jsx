@@ -1,6 +1,6 @@
 import "./CourseName.css";
 import { FaBookOpenReader } from "react-icons/fa6";
-import teacherPhoto from "../../assets/images/teacher-photo.svg";
+import teacherphoto from "../../assets/images/teacher-photo.svg";
 import {useContext} from "react";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
@@ -30,7 +30,7 @@ function CourseName({course}) {
         </div>
         {/*{ currentUser?.role === "Student" &&*/}
         {/*<div className="course-teacher-photo">*/}
-        {/*    <img src={teacherPhoto} alt="teacher" />*/}
+        {/*    <img src={teacherphoto} alt="teacher" />*/}
         {/*</div>*/}
         {/*}*/}
     </div>
