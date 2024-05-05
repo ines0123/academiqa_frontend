@@ -1,22 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CurrentUser } from "./CurrentUserContext";
+import Cookie from "cookie-universal";
 import axios from "axios";
+import { baseURL, NOTE } from "../Api/Api";
 
 const NoteContext = React.createContext();
 
-const NoteProvider = ({ children }) => {
+const NoteProvider = ({ children, sessionId }) => {
+  const { currentUser } = useContext(CurrentUser);
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/note/")
-      .then((res) => {
-        setNotes(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.error(`${err} - Failed to find note`);
-      });
-  }, []);
+    if (currentUser?.role === "Student") {
+      const userToken = Cookie().get("academiqa");
+      if (sessionId) {
+        axios
+          .get(`${baseURL}/${NOTE}/${sessionId}`, {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          })
+          .then((res) => {
+            setNotes(res.data);
+            console.log("Notes of session: ", res.data);
+          })
+          .catch((err) => {
+            console.error("Error: ", err); // Log the error
+            console.error(`${err} - Failed to find notes`);
+          });
+      } else {
+        axios
+          .get(`${baseURL}/${NOTE}/`, {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          })
+          .then((res) => {
+            setNotes(res.data);
+            console.log("Notes: ", res.data);
+          })
+          .catch((err) => {
+            console.error("Error: ", err); // Log the error
+            console.error(`${err} - Failed to find notes`);
+          });
+      }
+    }
+  }, [currentUser, sessionId]);
 
   const addNote = (note) => {
     setNotes((prevNotes) => [...prevNotes, note]);

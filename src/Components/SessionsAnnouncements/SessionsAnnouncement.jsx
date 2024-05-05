@@ -79,13 +79,13 @@ function SessionsAnnouncement({ role , course}) {
                     thumbColor={"#B5B5B5FF"}
                     maxHeight={"300px"}
                 >
-                    {announcementsForStudent.length === 0 && (
+                    {announcementsForStudent?.length === 0 && (
                         <div className="no-announcement e-auto-fit-content position-absolute top-50 start-50 translate-middle">
                             <img src={noAnnouncement} alt="No Sessions" />
                         </div>
                     )}
                     {role === "Student" &&
-                        announcementsForStudent.map((announcement, index) => (
+                        announcementsForStudent?.map((announcement, index) => (
                             <AnnouncementMessage key={index} Announcement={announcement} />
                         ))}
                 </Scrollbar>

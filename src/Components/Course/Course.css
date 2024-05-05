@@ -7,6 +7,7 @@
     border: none;
     transition: transform 0.3s ease;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 124px;
 }
 .course.card-teacher {
     height: 100px;
@@ -29,6 +30,10 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow-wrap: break-word;
+}
+.course.card .prof {
+    font-size: 14px;
+    width: 100%;
 }
 .card-title-teacher {
     overflow: hidden;

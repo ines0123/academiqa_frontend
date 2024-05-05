@@ -38,8 +38,8 @@ function Ressources({role}) {
     }
 
     return (
-        <div className="ressources-box h-56 ">
-            <div className="ressources-title pl-10 pr-5 flex font-IstokWebRegular font-semibold ">
+        <div className="ressources-box h-[250px] ">
+            <div className="ressources-title pl-4 pr-5 flex font-IstokWebRegular font-semibold ">
                 <div className="overflow-hidden max-w-40 mr-2.5 mb-2"
                      title="Ressources"
                 >
@@ -51,10 +51,10 @@ function Ressources({role}) {
                 <Scrollbar
                     trackColor="rgba(233, 177, 176, 0.25)"
                     thumbColor="rgba(233, 177, 176, 0.60)"
-                    maxHeight="150px"
+                    maxHeight="170px"
                 >
                     {files.length === 0 && (
-                        <div className="no-ressources max-h-52 max-w-40 mx-auto mt-10 ">
+                        <div className="no-ressources max-h-52 w-1/2 mx-auto mt-10 ">
                             <img src={noRessources} alt="No ressources"/>
                         </div>
                     )}

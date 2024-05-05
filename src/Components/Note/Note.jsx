@@ -21,10 +21,17 @@ const Note = ({ maxWidth, note, baseColor }) => {
     >
       <div className="noteHeader">
         <div className="noteSubjectType">
-          <div>{note?.session?.subject}</div>
-          <div>{note?.session?.type}</div>
+          <div>{note?.session?.name}</div>
+          <div>{note?.session?.sessionType?.type}</div>
         </div>
-        <div className="noteDate">{note?.date}</div>
+        <div className="noteDate">
+          {new Date(note?.session?.date).toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </div>
       </div>
       <div className="titleDivNote cursor-pointer" onClick={handleViewNote}>
         <div className="titleNote">{note?.title}</div>
@@ -122,7 +129,13 @@ const Note = ({ maxWidth, note, baseColor }) => {
               strokeLinecap="round"
             />
           </svg>
-          <div>{note?.session?.sessionTime}</div>
+          <div>{`${note?.session?.sessionType?.startHour
+            .split(":")
+            .slice(0, 2)
+            .join(":")} - ${note?.session?.sessionType?.endHour
+            .split(":")
+            .slice(0, 2)
+            .join(":")}`}</div>
         </div>
       </div>
       <EditNote note={note} isOpen={viewNote} setIsOpen={setViewNote} />

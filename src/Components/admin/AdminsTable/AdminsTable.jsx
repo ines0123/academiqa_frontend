@@ -22,92 +22,7 @@ import Scrollbar from "../../Common/Scrollbar/Scrollbar.jsx";
 
 const AdminsTable = () => {
 
-    const [admins, setAdmins] = useState([
-        {
-            id: 1,
-            username: "Admin1",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 2,
-            username: "Admin2",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 3,
-            username: "Admin3",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 4,
-            username: "Admin4",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 5,
-            username: "Admin5",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 6,
-            username: "Admin6",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 7,
-            username: "Admin7",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 8,
-            username: "Admin8",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 9,
-            username: "Admin9",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 10,
-            username: "Admin10",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 11,
-            username: "Admin11",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 12,
-            username: "Admin12",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 13,
-            username: "Admin13",
-            email: " admin.t@t.t",
-            cin: 123456,
-        },
-        {
-            id: 14,
-            username: "Admin14",
-            email: " admin.t@t.t",
-            cin: 123456,
-        }
-    ]);
+    const [admins, setAdmins] = useState([]);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -274,28 +189,31 @@ const AdminsTable = () => {
         }
     };
     const getAdmins = () => {
-        // axios.get('http://localhost:5000/admins').then(r => {
-        //     setTeachers(r.data)
-        // }).catch(e => {
-        //     console.log(e)
-        // })
+        axios.get('http://localhost:5000/admin/all').then(r => {
+            setAdmins(r.data)
+        }).catch(e => {
+            console.log(e)
+        })
     }
     const handleDeleteAdmin = (e) => {
         e.preventDefault();
         // Call the API to delete the admin
         // axios.delete('http://localhost:5000/admins/' + adminId).then(r => {
         //     console.log(r)
-        // getTeachers();
+        // getAdmins();
         // }).catch(e => {
         //     console.log(e)
         // })
 
     }
+    useEffect(() => {
+        getAdmins();
+    }, [done]);
 
     return (
         <Container fluid style={{marginBottom: '30px',marginLeft: '10px'}}>
             {/* Table */}
-            <Card className="shadow table-teacher h-[490px] p-2">
+            <Card className="shadow admins table-teacher h-[490px] p-2">
                 <CardHeader className="border-0 bg-white">
                     {/* Filter Dropdowns on Left */}
                     <div className='row pt-3 pb-2'>

@@ -4,6 +4,7 @@ import TableStudents from "../../../Components/admin/StudentsTable/TableStudents
 import axios from "axios";
 import {Button} from "reactstrap";
 import {IoMdCheckmarkCircleOutline} from "react-icons/io";
+import Cookie from "cookie-universal";
 
 const StudentsAdmin = () => {
     const [groups, setGroups] = useState([]);
@@ -12,6 +13,8 @@ const StudentsAdmin = () => {
     useEffect(() => {
         getGroups();
     }, []);
+    const cookie = Cookie();
+    const userToken = cookie.get('academiqa')
     const handleGroupFileCLick = () => {
         document.getElementById('csv-upload-group').click();
     }
@@ -25,6 +28,7 @@ const StudentsAdmin = () => {
     const config = {
         headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userToken}`,
         },
     };
     const handleGroupSubmit = (e) => {
@@ -43,10 +47,13 @@ const StudentsAdmin = () => {
             setFileGroup(null);
             document.getElementById('csv-upload-group').value = null;
         })
-
     }
     const getGroups = () => {
-        axios.get('http://localhost:5000/group').then(r => {
+        axios.get('http://localhost:5000/group',{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(r => {
             console.log(r)
             setGroups(r.data);
         }).catch(e => {

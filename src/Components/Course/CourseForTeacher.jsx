@@ -4,9 +4,11 @@ import teacher from "../../assets/images/training.png";
 import {NavLink} from "react-router-dom";
 import { MdOutlineMoreVert } from "react-icons/md";
 import PopUp from "../Common/PopUp/PopUp.jsx";
-import Sellaouti from "../../assets/images/Sellaouti.jpg";
+import avatar from "../../assets/images/avatar2.png";
 import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
 import { PiStudent } from "react-icons/pi";
+import axios from "axios";
+import Cookie from "cookie-universal";
 
 // eslint-disable-next-line react/prop-types
 const CourseForTeacher = ({course,color}) => {
@@ -26,14 +28,29 @@ const CourseForTeacher = ({course,color}) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-    const handleStudentList = () => {
+    const [students, setStudents] = useState();
+
+    const handleStudentList = async () => {
         setIsOpen(true);
-        setDisplay(false)
+        setDisplay(false);
+        try{
+            const cookie = Cookie();
+            const userToken = cookie.get('academiqa')
+            const res = await axios.get(`http://localhost:5000/student/all/${course?.sectorLevel}`,{
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            });
+            setStudents(res.data);
+            console.log("Students: ", res.data)
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
     return (
-        <div className="course card-teacher d-flex justify-content-start ps-3 pe-1 pt-3" style={{background: `${color}`}}>
-            <div className="d-flex">
-                <div className="card-content d-flex align-items-start justify-content-start">
+        <div className="course card-teacher d-flex justify-content-between ps-3 pe-1 pt-3" style={{background: `${color}`}}>
+            <div className="d-flex justify-content-between" style={{width:'100%'}}>
+                <div className="card-content d-flex align-items-start justify-content-center">
                     <div className="card-image" style={{marginTop: '3px'}}>
                         <img src={teacher} alt="teacher" className="img-fluid"
                              style={{
@@ -51,12 +68,13 @@ const CourseForTeacher = ({course,color}) => {
                 </div>
                 <div className="see-more mt-1 cursor-pointer ">
                     <MdOutlineMoreVert size={30} onClick={()=>setDisplay(!display)}/>
-                    {display &&(<div className="dropdown-course-content">
+                    {display && (<div className="dropdown-course-content">
                         <div  className="dropdown-course-item d-flex align-items-center justify-content-center">
                             <NavLink to={`/course/${course?.id}`} >Course Details</NavLink>
                         </div>
                         <div onClick={handleStudentList} className="dropdown-course-item d-flex align-items-center justify-content-center">Students List</div>
-                    </div>)}
+                    </div>
+                    )}
 
                     <PopUp fromCourse={true} width={`${screenWidth > 900 ? '30vw' : screenWidth > 600 ? '45vw' : '60vw'} `} isOpen={isOpen} setIsOpen={setIsOpen}>
                         <div className="d-flex align-items-center mb-1 ms-1">
@@ -65,120 +83,22 @@ const CourseForTeacher = ({course,color}) => {
                         </div>
                         <div className="student-list d-flex justify-content-center">
                             <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={'69vh'}>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
-                                        <div
-                                            className="student-item d-flex align-items-center justify-content-start ms-2 "
-                                            style={{width: "90%"}}>
-                                            <img
-                                                className="rounded-circle"
-                                                src={Sellaouti}
-                                                alt={"student"}
-                                                style={{width: '35px', height: '35px'}}
-                                            />
-                                            <p className="fs-6 px-3">Rym jbeli</p>
-                                        </div>
+                                {students?.map((student, index) => (
+                                    <div key={index}
+                                        className="student-item d-flex align-items-center justify-content-start ms-2 "
+                                        style={{width: "90%"}}>
+                                        <img
+                                            className="rounded-circle"
+                                            src={student?.photo || avatar}
+                                            alt={"student"}
+                                            style={{width: '35px', height: '35px'}}
+                                        />
+                                        <p className="fs-6 px-3">{student?.username}</p>
+                                    </div>
+                                ))}
 
-
-                                    </Scrollbar>
-                                </div>
+                            </Scrollbar>
+                        </div>
                     </PopUp>
 
                 </div>
