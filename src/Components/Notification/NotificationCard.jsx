@@ -5,7 +5,7 @@ import Scrollbar from "../Common/Scrollbar/Scrollbar.jsx";
 import {useSocket} from "../../Context/SocketContext.jsx";
 import {useNotification} from "../../Context/NotificationContext.jsx";
 import axios from "axios";
-import {baseURL, NOTIF, SESSION, STUDENTSFROMSESSION} from "../../Api/Api.jsx";
+import {baseURL, NOTIF, SECTORLEVEL, SESSION, STUDENTSFROMSESSION, SUBJECT} from "../../Api/Api.jsx";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 import Cookie from "cookie-universal";
 
@@ -21,7 +21,7 @@ const NotificationCard = () => {
             Authorization: `Bearer ${userToken}`,
         },
     };
-    const {currentUser} = useContext(CurrentUser);
+    const {currentUser, user} = useContext(CurrentUser);
     useEffect(() => {
         axios.get(`${baseURL}/${NOTIF}`).then((res)=>{
             const allNotifications = res.data;
@@ -60,16 +60,28 @@ const NotificationCard = () => {
                                 console.log(err);
                             });
                     }
-                } else if (notif.notificationType === 'content') {
-                    axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif.link}`, config)
-                        .then((res) => {
-                            if (res.data.map((student) => student?.id).includes(currentUser?.id)) {
-                                filteredNotifications.push(notif);
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
+                } else if (currentUser?.role === 'Student') {
+                    if (notif?.notificationType === 'content') {
+                        axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif.link}`, config)
+                            .then((res) => {
+                                if (res.data.map((student) => student?.id).includes(currentUser?.id)) {
+                                    filteredNotifications.push(notif);
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                    } else if (notif?.notificationType === 'new-announcement') {
+                        axios.get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`, config)
+                            .then((res) => {
+                                if (res.data.map((subject) => subject?.id).includes(notif.link)) {
+                                    filteredNotifications.push(notif);
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                    }
                 }
             });
 
@@ -162,7 +174,30 @@ const NotificationCard = () => {
 
         eventSource.addEventListener('message', (event) => {
             const notification = JSON.parse(event.data);
-            setNewNotificationsandCount(notification);
+            if(currentUser?.role === "Student"){
+                if (notification?.notificationType === 'content') {
+                    axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notification.link}`, config)
+                        .then((res) => {
+                            if (res.data.map((student) => student?.id).includes(currentUser?.id)) {
+                                setNewNotificationsandCount(notification);
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                } else if (notification?.notificationType === 'new-announcement'){
+                    axios.get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`, config)
+                        .then((res) => {
+                            if (res.data.map((subject) => subject?.id).includes(notification.link)) {
+                                setNewNotificationsandCount(notification);
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+            }
+
         });
 
         eventSource.addEventListener('error', (event) => {
