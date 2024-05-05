@@ -13,9 +13,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./Notes.css";
 import { useDate } from "../../../Context/DateContext.jsx";
 import { NoteContext } from "../../../Context/NoteContext.jsx";
+import { CurrentUser } from "../../../Context/CurrentUserContext.jsx";
+import Cookie from "cookie-universal";
+import axios from "axios";
+import { SUBJECT, baseURL } from "../../../Api/Api.jsx";
 
 export default function Notes() {
   const date = useDate();
+  const { currentUser, user } = useContext(CurrentUser);
   const { notes } = useContext(NoteContext);
   const [modulo, setModulo] = useState(4);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
@@ -24,6 +29,7 @@ export default function Notes() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [paginationUsed, setPaginationUsed] = useState(false);
+  const [subjects, setSubjects] = useState([]);
   const itemsPerPage = 12;
   const totalPages = Math.ceil(filteredNotes.length / itemsPerPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -39,6 +45,27 @@ export default function Notes() {
   ];
 
   useEffect(() => {
+    const userToken = Cookie().get("academiqa");
+    const param = user?.group?.sectorLevel;
+    console.log("param: ", param);
+    axios
+      .get(`${baseURL}/${SUBJECT}/SectorLevel/${param}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+      .then((res) => {
+        setSubjects(res.data);
+
+        console.log("subjects: ", res.data);
+      })
+      .catch((err) => {
+        console.error("Error: ", err); // Log the error
+        console.error(`${err} - Failed to find subjects`);
+      });
+  }, [currentUser, user]);
+
+  useEffect(() => {
     const filterNotes = (notes, selectedDate, selectedSubject) => {
       if (!selectedDate && !selectedSubject) {
         return notes;
@@ -46,7 +73,7 @@ export default function Notes() {
       return notes.filter(
         (note) =>
           (!selectedDate ||
-            new Date(note.date).toLocaleDateString("en-US", {
+            new Date(note?.session?.date).toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
               month: "long",
@@ -58,7 +85,7 @@ export default function Notes() {
                 month: "long",
                 day: "numeric",
               })) &&
-          (!selectedSubject || note.session.subject === selectedSubject)
+          (!selectedSubject || note.session.name === selectedSubject)
       );
     };
 
@@ -99,9 +126,12 @@ export default function Notes() {
     }
   }, [currentPage, paginationUsed]);
 
-  const getUniqueSubjects = (notes) => {
-    const subjects = new Set(notes.map((note) => note.session.subject));
-    return Array.from(subjects);
+  const getUniqueSubjects = () => {
+    const uniqueSubjectNames = [
+      ...new Set(subjects.map((subject) => subject.name)),
+    ];
+    // const subjects = new Set(notes.map((note) => note.session.subject));
+    return Array.from(uniqueSubjectNames);
   };
 
   return (
@@ -157,7 +187,7 @@ export default function Notes() {
           isClearButtonDisabled={!selectedSubject}
         >
           {() =>
-            getUniqueSubjects(notes).map((subject) => (
+            getUniqueSubjects().map((subject) => (
               <a
                 key={subject}
                 href="#"
