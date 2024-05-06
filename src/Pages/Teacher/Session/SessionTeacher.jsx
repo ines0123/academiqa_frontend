@@ -26,7 +26,7 @@ export default function SessionTeacher() {
             })
             .then((res) => {
                 setSession(res.data);
-                console.log("Session from session: ", res.data);
+                // console.log("Session from session: ", res.data);
             })
             .catch((err) => {
                 console.error(`${err} - Failed to find session`);
@@ -89,7 +89,7 @@ export default function SessionTeacher() {
                     <div className="ressources-tasks col-md-6 d-flex flex-column align-items-center ">
                         <div
                             className="row d-flex justify-content-center p-sm-0 mb-1 mb-md-3 tasks w-full" >
-                            <Task role={'teacher'} sessionID={"1"}/>
+                            <Task role={'teacher'} session={session}/>
                         </div>
                         <div
                             className="row px-lg-3 p-sm-0 mt-sm-3 mt-lg-0 ressources ">

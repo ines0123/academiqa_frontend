@@ -8,6 +8,7 @@ import { PiStudentBold } from "react-icons/pi";
 import axios from "axios";
 import Cookie from "cookie-universal";
 import MidNavbar from "../../MidNavbar/MidNavbar.jsx";
+import { baseURL, TEACHER, STUDENT, GROUP } from '../../../Api/Api.jsx';
 
 const Header = () => {
     const [nbStudents, setNbStudents] = useState(0);
@@ -16,39 +17,42 @@ const Header = () => {
     const cookie = Cookie();
     const userToken = cookie.get('academiqa')
     useEffect(() => {
-        axios.get('http://localhost:5000/teacher/count',{
+        axios
+          .get(`${baseURL}/${TEACHER}/count`, {
             headers: {
-                Authorization: `Bearer ${userToken}`,
+              Authorization: `Bearer ${userToken}`,
             },
-        }).then(
-            (response) => {
-                setNbTeachers(response.data);
-            }).catch((err) => {
-                console.log(err);
-            }
-        )
-        axios.get('http://localhost:5000/student/count',{
+          })
+          .then((response) => {
+            setNbTeachers(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        axios
+          .get(`${baseURL}/${STUDENT}/count`, {
             headers: {
-                Authorization: `Bearer ${userToken}`,
+              Authorization: `Bearer ${userToken}`,
             },
-        }).then(
-            (response) => {
-                setNbStudents(response.data);
-            }).catch((err) => {
-                console.log(err);
-            }
-        )
-        axios.get('http://localhost:5000/group/count',{
+          })
+          .then((response) => {
+            setNbStudents(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        axios
+          .get(`${baseURL}/${GROUP}/count`, {
             headers: {
-                Authorization: `Bearer ${userToken}`,
+              Authorization: `Bearer ${userToken}`,
             },
-        }).then(
-            (response) => {
-                setNbClasses(response.data);
-            }).catch((err) => {
-                console.log(err);
-            }
-        )
+          })
+          .then((response) => {
+            setNbClasses(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
     }, []);
 
