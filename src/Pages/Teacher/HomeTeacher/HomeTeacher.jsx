@@ -19,11 +19,11 @@ import StudentsList from "../../../Components/StudentsList/StudentsList.jsx";
 export default function HomeTeacher() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const { currentUser, user } = useContext(CurrentUser);
+    const userToken = Cookie().get('academiqa');
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
 
     // Cleanup function to remove the event listener when the component unmounts
@@ -62,137 +62,25 @@ export default function HomeTeacher() {
             },
         ],
     };
-    const [studentsList, setStudentsList ] = useState([
-        //generate students list by group and sector level
-        {
-            "group": 1,
-            "sectorLevel": "RT2",
-            "students": [
-                {
-                    "username": "Rym Jbeli Drine Samet",
-                    "image": "avatar1.png",
+    const [studentsList, setStudentsList ] = useState([]);
+    useEffect(() => {
+        axios
+            .get(`${baseURL}/student/group/teacher`, {
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
                 },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                }]
-},
-        {
-            "group": 2,
-            "sectorLevel": "GL3",
-            "students": [
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                }]
-        },
-        {
-            "group": 3,
-            "sectorLevel": "IIA4",
-            "students": [
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                }]
-        },
-        {
-            "group": 4,
-            "sectorLevel": "GL3",
-            "students": [
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                }]
-        },
-        {
-            "group": 5,
-            "sectorLevel": "GL3",
-            "students": [
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                },
-                {
-                    "username": "Rym Jbeli",
-                    "image": "avatar1.png",
-                }]
-        }
-    ])
+            })
+            .then((res) => {
+                setStudentsList(res.data);
+            })
+            .catch((err) => {
+                console.error(`${err} - Failed to fetch students list`);
+            });
+    }, []);
+    console.log("Students List: ", studentsList)
     useEffect(() => {
         if(currentUser?.role === "Teacher"){
-            const userToken = Cookie().get('academiqa');
+
             axios
                 .get(`${baseURL}/${SUBJECT}/${TEACHER}`,{
                     headers: {
