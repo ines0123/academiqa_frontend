@@ -24,6 +24,12 @@ export const SUBJECT = 'subject';
 
 //notif
 export const NOTIF = 'new-notification';
+
+//teacher
+export const TEACHER = 'teacher';
+
+//student
+export const STUDENT = 'student';
 // students from session
 export const STUDENTSFROMSESSION = 'session/students';
 
