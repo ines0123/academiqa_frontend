@@ -12,6 +12,7 @@ import {MdAutoGraph, MdGroups} from "react-icons/md";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Cookie from "cookie-universal";
 
 function MdAutoGra(props) {
     return null;
@@ -22,11 +23,16 @@ MdAutoGra.propTypes = {
     className: PropTypes.string
 };
 const Profile = () => {
+    const userToken = Cookie().get("academiqa");
     const {id} = useParams();
     const {role} = useParams();
     const [user, setUser] = useState({});
     useEffect(() => {
-        axios.get(`http://localhost:5000/${role}/${id}`).then(
+        axios.get(`http://localhost:5000/${role}/${id}`, {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(
             (response) => {
                 setUser(response.data);
             }).catch((err) => {

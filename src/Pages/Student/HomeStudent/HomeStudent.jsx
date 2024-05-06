@@ -106,7 +106,7 @@ export default function HomeStudent() {
           <div className="some-courses mt-4">
             <div className="header d-flex justify-content-between">
               <h5 className="fs-5 fw-bold">My Courses</h5>
-              <SeeMoreButton path={"courses"} />
+              <SeeMoreButton role={"student"} path={"courses"} />
             </div>
             <div className="container">
               <div className="row d-flex justify-content-center">
@@ -131,7 +131,7 @@ export default function HomeStudent() {
           <div className="some-notes mb-3">
             <div className="header d-flex justify-content-between">
               <h5 className="fs-5 fw-bold">My notes</h5>
-              <SeeMoreButton path={"notes"} />
+              <SeeMoreButton role={"student"} path={"notes"} />
             </div>
             <div className="container">
               <div className="row d-flex justify-content-center">

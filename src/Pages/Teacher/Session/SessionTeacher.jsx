@@ -89,7 +89,7 @@ export default function SessionTeacher() {
                     <div className="ressources-tasks col-md-6 d-flex flex-column align-items-center ">
                         <div
                             className="row d-flex justify-content-center p-sm-0 mb-1 mb-md-3 tasks w-full" >
-                            <Task role={'teacher'}/>
+                            <Task role={'teacher'} sessionID={"1"}/>
                         </div>
                         <div
                             className="row px-lg-3 p-sm-0 mt-sm-3 mt-lg-0 ressources ">

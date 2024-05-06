@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import PopUp from "../../Common/PopUp/PopUp";
 import axios from "axios";
 import Cookie from "cookie-universal";
@@ -34,7 +34,7 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
     axios
       .patch(`${baseURL}/${NOTE}/${note.id}`, editedNote, config)
       .then((res) => {
-        console.log("patch: ", res); // Log the response
+        // console.log("patch: ", res); // Log the response
         updateNote(res.data);
         setIsOpen(false);
       })
@@ -74,15 +74,28 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
               <BiBookReader size={17} fill="black" />
             </div>
             <div className="noteST pt-1 pl-2 pr-1 ">
-              <div className="s ">{note.session?.subject}</div>
-              <div className="t ">{note.session?.type}</div>
+              <div className="s ">{note.session?.name}</div>
+              <div className="t ">{note.session?.sessionType?.type}</div>
             </div>
           </div>
           <div className="noteDateTime">
-            <div className="noteDatePopUp">{note?.date}</div>
+            <div className="noteDatePopUp">
+              {new Date(note?.session?.date).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </div>
             <div className="noteSessionTimePopUp">
               <FiClock size={15} stroke="black" />
-              <div>{note.session?.sessionTime}</div>
+              <div>{`${note?.session?.sessionType?.startHour
+                .split(":")
+                .slice(0, 2)
+                .join(":")} - ${note?.session?.sessionType?.endHour
+                .split(":")
+                .slice(0, 2)
+                .join(":")}`}</div>
             </div>
           </div>
         </div>

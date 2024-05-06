@@ -6,8 +6,8 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import axios from "axios";
-import MidNavbar from "../../MidNavbar/MidNavbar.jsx";
 import Cookie from "cookie-universal";
+import MidNavbar from "../../MidNavbar/MidNavbar.jsx";
 
 const Header = () => {
     const [nbStudents, setNbStudents] = useState(0);
