@@ -54,7 +54,7 @@ const Navbar = () => {
                 My Profile
               </Link>
             </div>
-            <div title='go to calendar' className="calendar" onClick={() => nav(`/${currentUser?.role}/calendar`)}>
+            <div title='go to calendar' className="calendar mt-3" onClick={() => nav(`/${currentUser?.role}/calendar`)}>
               <SmallCalendar sessions={data} role={currentUser?.role} />
             </div>
             <div className="calendardiv">

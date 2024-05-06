@@ -91,7 +91,7 @@ const Profile = () => {
                 </div>
                 <h1 className="ms-2 fw-bold">Profile</h1>
             </div>
-            <div className="flex mx-auto mt-3">
+            <div className="flex mx-auto mb-4">
                 <img
                     src={userphoto}
                     alt="photo"

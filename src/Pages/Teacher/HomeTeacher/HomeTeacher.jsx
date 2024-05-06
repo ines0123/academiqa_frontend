@@ -1,5 +1,5 @@
 import Navbar from "../../../Components/Navbar/Navbar.jsx";
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import "./HomeTeacher.css";
 import SeeMoreButton from "../../../Components/Common/SeeMoreButton/SeeMoreButton.jsx";
 import axios from "axios";
@@ -11,6 +11,10 @@ import { useDate } from "../../../Context/DateContext.jsx";
 import { NavLink } from "react-router-dom";
 import { CurrentUser } from "../../../Context/CurrentUserContext.jsx";
 import { baseURL, TEACHER, SUBJECT  } from "../../../Api/Api";
+import Slider from "react-slick";
+import Note from "../../../Components/Note/Note.jsx";
+import NoNotes from "../../../assets/images/NoNotes.svg";
+import StudentsList from "../../../Components/StudentsList/StudentsList.jsx";
 
 export default function HomeTeacher() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -38,8 +42,154 @@ export default function HomeTeacher() {
     "#F3F6E0",
   ];
 
-  const menu = useContext(Menu);
 
+    const sliderRef = useRef(null);
+    var settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: false,
+                },
+            },
+        ],
+    };
+    const [studentsList, setStudentsList ] = useState([
+        //generate students list by group and sector level
+        {
+            "group": 1,
+            "sectorLevel": "RT2",
+            "students": [
+                {
+                    "username": "Rym Jbeli Drine Samet",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                }]
+},
+        {
+            "group": 2,
+            "sectorLevel": "GL3",
+            "students": [
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                }]
+        },
+        {
+            "group": 3,
+            "sectorLevel": "IIA4",
+            "students": [
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                }]
+        },
+        {
+            "group": 4,
+            "sectorLevel": "GL3",
+            "students": [
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                }]
+        },
+        {
+            "group": 5,
+            "sectorLevel": "GL3",
+            "students": [
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                },
+                {
+                    "username": "Rym Jbeli",
+                    "image": "avatar1.png",
+                }]
+        }
+    ])
     useEffect(() => {
         if(currentUser?.role === "Teacher"){
             const userToken = Cookie().get('academiqa');
@@ -61,7 +211,7 @@ export default function HomeTeacher() {
 
   return (
     <div className="d-flex justify-content-between  teacher-home-page m-0 pe-0">
-      <div className="body mt-3 px-4 flex-grow-1">
+      <div className="body mt-8 px-4 flex-grow-1">
         {screenWidth >= 1060 ? (
           <div className="px-3 d-flex justify-content-between">
             <div className={`p-0`}>
@@ -98,7 +248,7 @@ export default function HomeTeacher() {
         )}
         <div className="content">
           <div className="some-courses mt-4">
-            <div className="header d-flex justify-content-between">
+            <div className="header mt-9 mb-3 d-flex justify-content-between">
               <h5 className="fs-5 fw-bold">My Courses</h5>
               <SeeMoreButton role={"teacher"} path={"courses"} />
             </div>
@@ -122,31 +272,46 @@ export default function HomeTeacher() {
             </div>
           </div>
           <hr className="mt-2 mb-4" />
-          {/* <div className="some-tasks mb-3">
-            <div className="header d-flex justify-content-between">
-              <h5 className="fs-5 fw-bold">My Latest Tasks</h5>
+            <div className="groups mb-3">
+                <div className="header d-flex justify-content-between">
+                    <h5 className="fs-5 fw-bold">My Student Groups</h5>
+                </div>
+                <div className="slider mt-2 d-flex justify-content-center">
+                    {studentsList && studentsList.length > 3 ? (
+                        <Slider ref={sliderRef} {...settings}>
+                            {studentsList.map((group, index) => (
+                                <div key={index} className="">
+                                    <StudentsList group={group}/>
+                                </div>
+                            ))}
+                        </Slider>
+                    ) : (
+                        studentsList.map((group, index) => (
+                            <React.Fragment key={index}>
+                                <div
+                                    className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2  p-0 d-flex flex-column justify-content-center align-items-center note-container`}
+                                >
+                                    <StudentsList group={group} />
+                                </div>
+                            </React.Fragment>
+                        ))
+                    )}
+                    {studentsList.length === 0 && (
+                        <div className="no-notes d-flex mt-5 justify-content-center align-items-center">
+                            <img
+                                src={NoNotes}
+                                alt={"NoNotes"}
+                                className="no-notes"
+                                style={{width: "100px", height: "auto"}}
+                            />
+                        </div>
+                    )}
+                </div>
+
             </div>
-            <div className="container">
-              <div className="row d-flex justify-content-center">
-                {tasks.map((task, index) => (
-                  <React.Fragment key={index}>
-                    <div
-                      className={`col-lg-4 col-md-6 col-sm-12 course-${index} mt-2 mb-4 p-0 d-flex flex-column justify-content-center align-items-center`}
-                    >
-                      <Task
-                        maxWidth={true}
-                        color={colors[index % colors.length]}
-                        role="teacher"
-                      />
-                    </div>
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
-      <Navbar />
+        <Navbar/>
     </div>
   );
 }

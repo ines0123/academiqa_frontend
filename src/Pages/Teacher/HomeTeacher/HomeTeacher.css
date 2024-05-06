@@ -25,4 +25,11 @@
     }
 }
 
-
+.groups .slick-slide > div {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0;
+    width: 90% !important;
+    display: flex !important;
+    align-items: center !important;
+}

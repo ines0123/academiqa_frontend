@@ -69,7 +69,7 @@ export default function HomeStudent() {
 
   return (
     <div className="d-flex justify-content-between  student-home-page m-0 pe-0">
-      <div className="body mt-3 px-4 flex-grow-1">
+      <div className="body mt-8 px-4 flex-grow-1">
         {screenWidth >= 1060 ? (
           <div className="px-3 d-flex justify-content-between">
             <div className={`p-0`}>
@@ -104,7 +104,7 @@ export default function HomeStudent() {
         )}
         <div className="content">
           <div className="some-courses mt-4">
-            <div className="header d-flex justify-content-between">
+            <div className="header mt-9 mb-3 d-flex justify-content-between">
               <h5 className="fs-5 fw-bold">My Courses</h5>
               <SeeMoreButton role={"student"} path={"courses"} />
             </div>
