@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/styled": "^11.11.5",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.15.16",
     "@nivo/bar": "^0.85.1",
     "@nivo/calendar": "^0.85.1",
     "@nivo/line": "^0.85.1",
@@ -25,8 +27,8 @@
     "cookie-universal": "^2.2.2",
     "emoji-mart": "npm:panta82-emoji-mart@^3.0.1004",
     "gsap": "^3.12.5",
-    "prop-types": "^15.8.1",
     "jwt-decode": "^4.0.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-chartjs-2": "^5.2.0",

@@ -10,6 +10,7 @@ import NoAbsence from "../../../assets/images/NoAbsence.svg"
 import {FaBookOpenReader} from "react-icons/fa6";
 import Cookie from "cookie-universal";
 import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
+import {ToastContainer} from "react-toastify";
 export default function ProfileStudent() {
     const date = useDate();
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
@@ -55,6 +56,7 @@ export default function ProfileStudent() {
         }, []);
     return (
         <div className="container profile-student-page pt-3 pe-4">
+            {/*<ToastContainer/>*/}
             <MiniNavbar/>
             <div className={`date ms-3 ${screenWidth < 410 ? 'mt-5':''}`}>
                 {date}

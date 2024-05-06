@@ -14,14 +14,21 @@ import Cookie from "cookie-universal";
 import avatar from "../../assets/images/avatar.png";
 import {toast} from "react-toastify";
 import {IoMdCheckmarkCircleOutline} from "react-icons/io";
-import { ImCancelCircle } from "react-icons/im";
+import {ImCancelCircle} from "react-icons/im";
+import ChangePassword from "../Auth/ChangePassword.jsx";
 
 const Profile = () => {
     // use useState
-    const {currentUser,user} = useContext(CurrentUser);
+    const {currentUser, user} = useContext(CurrentUser);
     const [file, setFile] = useState(null);
     const [done, setDone] = useState(false);
     const [userphoto, setUserphoto] = useState(null);
+    const [changePassword, setChangePassword] = useState(false); // State variable to track whether ChangePassword component is open
+
+    // Function to toggle the state of changePassword
+    const toggleChangePassword = () => {
+        setChangePassword(!changePassword);
+    };
     useEffect(() => {
         setUserphoto(user?.photo || avatar);
     }, [user]);
@@ -31,7 +38,7 @@ const Profile = () => {
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         const newFileName = `${user?.id}.png`; // Assuming `user?.id` is the studentId
-        const newFile = new File([selectedFile], newFileName, { type: selectedFile.type });
+        const newFile = new File([selectedFile], newFileName, {type: selectedFile.type});
 
         setFile(newFile);
         console.log("fileee", newFile);
@@ -66,8 +73,7 @@ const Profile = () => {
     const userToken = Cookie().get('academiqa');
     const config = {
         headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "multipart/form-data", Authorization: `Bearer ${userToken}`,
         },
     };
 
@@ -78,7 +84,8 @@ const Profile = () => {
         document.getElementById('image-upload').value = null;
     }
     return (<div className="profile-box flex flex-col justify-center p-4 pt-2 rounded-2xl sm:px-12 md:w-72 lg:w-96">
-            <div className={`profile-teacher d-flex mt-4  p-2 px-3 ms-md-3 ms-sm-0 ${ currentUser?.role==="Teacher" ? 'mb-5':'mb-2'}`}>
+            <div
+                className={`profile-teacher d-flex mt-4  p-2 px-3 ms-md-3 ms-sm-0 ${currentUser?.role === "Teacher" ? 'mb-5' : 'mb-2'}`}>
                 <div className="courses-icon pt-1">
                     <FaUser size={30}/>
                 </div>
@@ -90,24 +97,20 @@ const Profile = () => {
                     alt="photo"
                     className="w-32 h-32 rounded-full"
                 />
-                {!done && (
-                    <button className="edit-photo-button relative" onClick={handleFileCLick}>
-                        <TbPhotoEdit className="min-h-6 min-w-6 absolute bottom-0.5"/>
-                    </button>
-                )}
-                {done && (
-                    <div className="d-flex relative">
-                        <div onClick={handleSubmit} className="relative check-button-profile ms-1">
-                            <IoMdCheckmarkCircleOutline size={23}
-                                                        className="d-flex align-items-center cursor-pointer min-h-6 absolute bottom-0.5"
-                            />
-                        </div>
-                        <ImCancelCircle onClick={cancel} size={20}
-                                        className="check-button-profile absolute bottom-0.5 mb-0.5"
-                                        style={{left: "30px"}}
+                {!done && (<button className="edit-photo-button relative" onClick={handleFileCLick}>
+                    <TbPhotoEdit className="min-h-6 min-w-6 absolute bottom-0.5"/>
+                </button>)}
+                {done && (<div className="d-flex relative">
+                    <div onClick={handleSubmit} className="relative check-button-profile ms-1">
+                        <IoMdCheckmarkCircleOutline size={23}
+                                                    className="d-flex align-items-center cursor-pointer min-h-6 absolute bottom-0.5"
                         />
                     </div>
-                )}
+                    <ImCancelCircle onClick={cancel} size={20}
+                                    className="check-button-profile absolute bottom-0.5 mb-0.5"
+                                    style={{left: "30px"}}
+                    />
+                </div>)}
                 <input
                     type="file"
                     name="file"
@@ -163,13 +166,17 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-                )}
+                </div>)}
                 <button
-                    className="profile-cp flex items-center justify-between w-full h-10 rounded-3xl p-2 my-4 text-sm">
+                    className="profile-cp flex items-center justify-between w-full h-10 rounded-3xl p-2 my-4 text-sm"
+                    onClick={toggleChangePassword} // Call toggleChangePassword function on button click
+                >
                     <div className="pl-3 font-bold">Change Password</div>
                     <GoPencil className="min-w-6 mr-1" size={25}/>
                 </button>
+
+                {/* Render the ChangePassword component if changePassword state is true */}
+                {changePassword && <ChangePassword isOpen={changePassword} setIsOpen={setChangePassword}/>}
             </div>
 
         </div>
