@@ -1,23 +1,42 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import Cookie from "cookie-universal";
 import { BiBookReader } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
-
+import axios from "axios";
 import PopUp from "../../Common/PopUp/PopUp";
 import "./AddNote.css";
+import { NoteContext } from "../../../Context/NoteContext.jsx";
+import { useDate } from "../../../Context/DateContext.jsx";
+import { baseURL, NOTE } from "../../../Api/Api";
 
 const AddNote = ({ isOpen, setIsOpen, session }) => {
   const [newNote, setNewNote] = useState({ title: "", content: "" });
+  const { addNote } = useContext(NoteContext);
 
   const handleInputChange = (event) => {
     setNewNote({ ...newNote, [event.target.name]: event.target.value });
   };
 
+  const userToken = Cookie().get("academiqa");
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(newNote);
-    setIsOpen(false);
-    // Add code here to handle the submission of the new note
+    const noteWithSession = { ...newNote, session: session };
+    axios
+      .post(`${baseURL}/${NOTE}`, noteWithSession, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+      .then((res) => {
+        addNote(res.data);
+        setIsOpen(false);
+        setNewNote({ title: "", content: "" });
+      })
+      .catch((err) => {
+        // console.log("session" , session)
+        console.error(`${err} - Failed to post note`);
+      });
   };
 
   const backgroundColor = "#FFFEFB";
@@ -38,15 +57,28 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
               <BiBookReader size={17} fill="black" />
             </div>
             <div className="noteST pt-1 pl-2 pr-1">
-              <div className="s ">{session?.subject}</div>
-              <div className="t ">{session?.type}</div>
+              <div className="s ">{session?.name}</div>
+              <div className="t ">{session?.sessionType?.type}</div>
             </div>
           </div>
           <div className="noteDateTime">
-            <div className="noteDatePopUp">{session?.date}</div>
+            <div className="noteDatePopUp">
+              {new Date(session?.date).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </div>
             <div className="noteSessionTimePopUp">
               <FiClock size={15} stroke="black" />
-              <div>{session?.sessionTime}</div>
+              <div>{`${session?.sessionType?.startHour
+                .split(":")
+                .slice(0, 2)
+                .join(":")} - ${session?.sessionType?.endHour
+                .split(":")
+                .slice(0, 2)
+                .join(":")}`}</div>
             </div>
           </div>
         </div>
@@ -61,7 +93,7 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
               placeholder="Type your note's title ..."
             />
           </div>
-          <hr className="addNoteHr"/>
+          <hr className="addNoteHr" />
           <textarea
             name="content"
             value={newNote.content}

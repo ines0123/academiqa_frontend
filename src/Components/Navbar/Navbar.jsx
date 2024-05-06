@@ -1,8 +1,8 @@
-import teacherPhoto from "../../assets/images/sellaouti.svg";
-import { useState, useEffect, useContext } from "react";
+import avatar from "../../assets/images/avatar.png";
+import {useState, useEffect, useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MidNavbar from "../MidNavbar/MidNavbar";
-
+import { FaCircleUser } from "react-icons/fa6";
 import "../Navbar/Navbar.css";
 import EmptyNavbar from "./EmptyNavbar";
 import FirstCalendar from "../Calendar/FirstCalendar";
@@ -17,6 +17,8 @@ import axios from "axios";
 
 
 const Navbar = () => {
+  const {currentUser, user} = useContext(CurrentUser);
+
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const nav = useNavigate();
   const cookie = Cookie();
@@ -57,7 +59,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 600);
+      setIsSmallScreen(window.innerWidth < 760);
     };
     handleResize();
 
@@ -80,9 +82,9 @@ const Navbar = () => {
         <>
           <EmptyNavbar width={'22rem'}>
             <div className="profileNav">
-              <img src={teacherPhoto} alt="teacher" className="profilePhoto" />
-              <div className="accountName">Aymen Sellaouti</div>
-              <Link to="/profile" className="nameButton">
+              <img src={user?.photo || avatar } alt="teacher" className="profilephoto"/>
+              <div className="accountName">{user?.username}</div>
+              <Link to={`/${currentUser?.role}/profile`} className="nameButton">
                 My Profile
               </Link>
             </div>

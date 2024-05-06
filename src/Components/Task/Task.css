@@ -3,17 +3,17 @@
   padding-right: 13px;
   display: grid;
   grid-template-rows: 0.4fr 1.6fr;
-  /*width: 100%;*/
-  max-width: 370px;
-  /*height: 270px;*/
-  height: 224px;
+  /* max-width: 370px; */
   /*margin: 10px;*/
+  width: 100%;
+  max-width: 355px;
   border-radius: 40px;
   background-color: rgba(233, 177, 176, 0.36);
+  height: 250px;
 }
 
 .tasks-title {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   justify-content: space-between;
   padding-top: 5px;
   padding-left: 22px;
@@ -23,7 +23,7 @@
 }
 
 .emptyTasks {
-  height: 150px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,9 +35,10 @@
 }
 
 .emptyTasks div {
-  margin-top: 10px;
+  margin-top: 5px;
   color: #a8a8a8;
   font-size: 20px;
+  font-weight: 600;
 }
 
 div.row.d-flex.justify-content {
@@ -59,7 +60,7 @@ div.row.d-flex.justify-content {
 .Content {
   /*!*font-size: large;*!*/
   /*padding-left: 8px;*/
-  /*width: 100%;*/
+  width: 100%;
   overflow: hidden;
   scrollbar-width: none;
   -webkit-line-clamp: 1;
@@ -125,15 +126,12 @@ div.row.d-flex.justify-content {
 .custom .deleteTask {
   display: none;
   /* cursor: pointer; */
-  padding :0 5px;
+  padding: 0 5px;
   width: 15%;
+  height: 24px;
 }
 .custom:hover .deleteTask {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-
-
-
-
-

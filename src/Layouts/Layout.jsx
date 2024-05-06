@@ -1,28 +1,25 @@
 import SideBar from "../Components/SideBar/SideBar";
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import '../App.css'
 import { Menu } from "../Context/MenuContext";
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { WindowSize } from '../Context/WindowContext'
 import NotificationCard from "../Components/Notification/NotificationCard.jsx";
 import { CurrentUser } from "../Context/CurrentUserContext.jsx";
+import MidNavbar from "../Components/MidNavbar/MidNavbar.jsx";
 import Cookie from 'cookie-universal';
 import { jwtDecode } from "jwt-decode";
 import Loading from "../Components/Loading/Loading.jsx";
-import axios from "axios";
-import { baseURL } from "../Api/Api.jsx";
+import Preloader from "../Components/Preloader/Preloader.jsx";
 
 
 export default function Layout(){
 
-    const [loading, setLoading] = useState(true);
     const menu = useContext(Menu);
     const isOpen = menu.isOpen;
     const windowContext = useContext(WindowSize);
-    const userContext = useContext(CurrentUser);
+    const { currentUser, loading, setLoading } = useContext(CurrentUser);
     const [role, setRole] = useState('');
-    console.log(userContext);
-
     useEffect(() => {
         const cookie = Cookie();
         if (!cookie.get('academiqa')) { 
@@ -56,9 +53,9 @@ export default function Layout(){
 
     return (
       <>
-      {loading && <Loading  />}      
-      <div className='layout-container'>
-      <SideBar role={role} />
+          <div className='layout-container'>
+              {loading && <Preloader onPreloaderEnd={()=>setLoading(false)} />}
+              <SideBar role={role} />
         <div
             className='layout-content'
             style={{
@@ -68,6 +65,7 @@ export default function Layout(){
     }}>
           <Outlet />
         </div>
+          {role === "admin" && <MidNavbar role={role}/>}
           <NotificationCard />
       </div>
       </>

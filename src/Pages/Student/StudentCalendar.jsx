@@ -30,7 +30,7 @@ export default function StudentCalendar() {
     useEffect(() => {
       if (user) {
         axios.get(
-            `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user.group.sector}/${user.group.level}/${user.group.group}`
+            `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user?.group?.sector}/${user?.group?.level}/${user?.group?.group}`
             // `${baseURL}/${SESSION}`
             , {
           headers: {
@@ -53,7 +53,7 @@ export default function StudentCalendar() {
       }
     }, [user]);
     
-  
+
 
     return(
         <div className="px-5 pt-4 " style={{ width: '100%' }}>

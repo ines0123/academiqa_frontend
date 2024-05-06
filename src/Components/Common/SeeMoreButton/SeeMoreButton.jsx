@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './SeeMoreButton.css';
 import {useNavigate} from "react-router-dom";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 const SeeMoreButton = ({path}) => {
     const navigate = useNavigate();
+    const {currentUser} = useContext(CurrentUser);
+    const navigateTo = () =>{
+        if(currentUser?.role === "Teacher") {
+            navigate(`/teacher/profile`);
+        }
+        else if(currentUser?.role === "Student") {
+            navigate(`/student/${path}`);
+        }
+    }
     return (
-        <button className="cta d-flex justify-content-center" onClick={()=> {navigate(`/student/${path}`)}}>
+        <button className="cta d-flex justify-content-center" onClick={navigateTo}>
             <span className="span">See More</span>
             <span className="second">
                                     <svg width="40px" height="15px" viewBox="0 0 66 43"

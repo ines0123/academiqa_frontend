@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { FaBookOpenReader } from "react-icons/fa6";
 import './Courses.css';
 import Course from "../../../Components/Course/Course.jsx";
 import axios from "axios";
 import MidNavbar from "../../../Components/MidNavbar/MidNavbar.jsx";
-import NotificationCard from "../../../Components/Notification/NotificationCard.jsx";
-import MiniNavbar from "../../../Components/MiniNavbar/MiniNavbar.jsx";
 import {useDate} from "../../../Context/DateContext.jsx";
+import Cookie from "cookie-universal";
+import { CurrentUser } from "../../../Context/CurrentUserContext.jsx";
+import { baseURL, SECTORLEVEL, SUBJECT } from "../../../Api/Api";
+
 export default function Courses() {
     const date = useDate();
+    const [courses, setCourses] = useState([]);
     const[modulo, setModulo] = useState(4);
+    const {currentUser,user} = useContext(CurrentUser);
     useEffect(() => {
         const handleResize = () => {
             if(window.innerWidth < 799){
@@ -34,28 +38,34 @@ export default function Courses() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-
+    useEffect(() => {
+        if(currentUser?.role === "Student"){
+            const userToken = Cookie().get('academiqa');
+            axios
+                .get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`,{
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                })
+                .then((res) => {
+                    setCourses(res.data);
+                    console.log("Courses: ", res.data)
+                })
+                .catch((err) => {
+                    console.error(`${err} - Failed to find courses`);
+                });
+        }
+    }, [ currentUser, user]);
 
     const colors = ['#F7E2E0', '#E8F5F7', '#F6E8D6', '#D8ECD6', '#E1E2F0', '#F3F6E0'];
-    const [courses, setCourses] = useState([]);
-    useEffect(()=>{
-            axios.get('http://localhost:5000/GetCoursesByClass/GL3').then(
-                (response) => {
-                    console.log(response.data);
-                    setCourses(response.data);
-                }).catch((err) => {
-                    console.log(err);
-                }
-            )
 
-    },[])
     return (
         <div className="container courses-page pt-3">
             <MidNavbar/>
             <div className="date ms-3">
                 {date}
             </div>
-            <div className={`my-courses d-flex mt-4 p-3 ms-3 ${isSmallScreen ? 'more-margin':''}`}>
+            <div className={`my-courses d-flex mt-3 p-3 ms-3 ${isSmallScreen ? 'more-margin':''}`}>
                 <div className="courses-icon">
                     <FaBookOpenReader size={35} />
                 </div>
@@ -63,7 +73,7 @@ export default function Courses() {
             </div>
             <div className="container all-courses mt-4">
                 <div className="row d-flex justify-content-center">
-                    {courses.map((course, index) => (
+                    {courses && courses.map((course, index) => (
                         <React.Fragment key={index}>
                             {index % modulo === 0 && index !== 0 &&
                                 <>

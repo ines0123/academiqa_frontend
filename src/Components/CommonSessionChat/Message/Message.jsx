@@ -1,28 +1,32 @@
 import {BsReplyFill} from "react-icons/bs";
 import {AiOutlineMessage} from "react-icons/ai";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import MessageInput from "../../Common/MessageInput/MessageInput.jsx";
 import './Message.css'
-import Sellaouti from "../../../assets/images/Sellaouti.jpg";
+import avatar from "../../../assets/images/avatar.png";
 import DeleteButton from "../../Common/DeleteButton/DeleteButton.jsx";
+import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 
 
 // eslint-disable-next-line react/prop-types
-const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies, pickerUnderInput}) => {
+const Message = ({deleteMsg, message, send,emitTyping,nbNestedReplies, pickerUnderInput, session}) => {
+    const {user, currentUser} = useContext(CurrentUser);
     const [viewReplies, setViewReplies] = useState(false);
     const [viewReplyForm, setViewReplyForm] = useState(false);
     const [value, setValue] = useState("");
     const dateOptions = {month: 'long', day: 'numeric' };
     const timeOptions = { hour: '2-digit', minute: '2-digit' };
 
-    const date = new Date(message.createdAt);
+    const date = new Date(message?.createdAt);
     const dateString = `${date.toLocaleDateString('en-US', dateOptions)}, ${date.toLocaleTimeString('en-US', timeOptions)}`;
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value !== "") {
-            send({content:value, parent:message});
+            console.log("message sent", message)
+            const newMessage = {content:value, parent:message, author:user,session:session};
+            console.log("new message", newMessage)
+            send(newMessage);
             console.log("message sent", message);
             setValue("");
             setViewReplies(true);
@@ -30,7 +34,9 @@ const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies,
         }
     }
     const deleteMessage = () => {
+        console.log("message deleted", message?.id)
         deleteMsg(message?.id);
+
     }
 
     const handleValueChange = (e) => {
@@ -49,30 +55,33 @@ const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies,
             <div className="d-flex">
                 <img
                     className="rounded-circle img "
-                    src={Sellaouti}
+                    src={message?.author?.photo || avatar }
                     alt="sender"
                 />
                 <div className="sender-message">
                     <div className="message-sender ms-3 mb-1">
-                        {message.sender}
+                        {message?.author?.id === currentUser?.id ? "You": message?.author?.username}
                     </div>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex ">
                         <div
-                            className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${isStudent ? 'light' : 'dark'}`}
+                            className={`message-content rounded-4 px-3 pt-1 pb-1 ms-2 ${message?.author?.role === "Student" ? 'light' : 'dark'}`}
                             title={dateString}
+
                         >
-                            {message.content}
+                            {message?.content}
                         </div>
-                        <div className="delete-msg" onClick={deleteMessage} >
+                        {currentUser?.id === message?.author?.id && (
+                            <div className="delete-msg" onClick={deleteMessage}>
                             <DeleteButton/>
                         </div>
+                        )}
                     </div>
 
                 </div>
             </div>
             <div className="under-msg">
                 <div className="reply-view d-flex align-items-center mt-1">
-                    {message.replies?.length > 0 && (
+                    {message?.replies?.length > 0 && (
                         <div className="view-button d-flex align-items-center me-4" onClick={handleViewReplies}>
                             <div className={`view-replies me-1 ms-2 ${viewReplies ? '' : 'active'}`}
                                  style={{transform: 'rotate(190deg)', color: `${viewReplies ? '' : '#717171'}`}}>
@@ -102,6 +111,7 @@ const Message = ({deleteMsg,message, isStudent, send,emitTyping,nbNestedReplies,
                                     send={send}
                                     nbNestedReplies={nbNestedReplies + 1}
                                     deleteMsg={deleteMsg}
+                                    session={session}
                                 />
                             ))}
                     </div>

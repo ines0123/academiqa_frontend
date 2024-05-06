@@ -15,16 +15,15 @@ import { AUTH, LOGIN, baseURL } from '../../Api/Api';
 import Cookie from 'cookie-universal';
 import {jwtDecode} from "jwt-decode";
 import { CurrentUser } from '../../Context/CurrentUserContext'
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import Preloader from "../../Components/Preloader/Preloader.jsx";
 
 
 
 export default function Login() {
-    const [destination, setDestination]= useState("");
-
-
     // current user context:
     const userContext = useContext(CurrentUser);
-
     // ref
     const focus = useRef(null);
 
@@ -38,10 +37,8 @@ export default function Login() {
     })
 
      // loading state
-     const [loading, setLoading] = useState(false);
-         // navigate 
+         // navigate
     const navigate = useNavigate();
-
     const [error, setError] = useState('');
 
         // handle change form
@@ -51,17 +48,16 @@ export default function Login() {
                 [e.target.id]: e.target.value
             })
         }
-    
+
         // handle focus
         useEffect(() => {
             focus.current.focus();
         }, [])
-    
-        // handle submit    
+
+        // handle submit
         async function handleSubmit(e) {
             e.preventDefault();
-            setLoading(true);
-            
+
             try {
                 await axios.post(`${baseURL}/${AUTH}/${LOGIN}`, form).then(res => {
                     console.log(res);
@@ -88,29 +84,45 @@ export default function Login() {
                             window.location.pathname = path;
                             setLoading(false);
                         }, 2500)
+
+
+                    const path = user.role.toLowerCase() === "admin" ? '/admin/home' : user.role.toLowerCase() === "teacher" ? '/teacher/home' : user.role.toLowerCase() === "student" ? '/student/home' : '/';
+                    userContext.setLoading(true);
+                    console.log("Path:", path);
+                    // window.location.pathname = path;
+                    navigate(path);
+
                 })
             }
             catch (error) {
-                setLoading(false);
-                console.log(error);
-                if (error.response.status === 401) {
-                    setError("Wrong email or password")
+                userContext.setLoading(false);
+                console.log(error.response);
+                console.log(error.response.status);
+                if (error.response.status === 404) {
+                    toast.error(error.response.data.message);
                 }
                 else {
-                    setError("Internal Server Error");
+                    toast.error("Internal server error. Please try again later.");
                 }
             }
         }
+
+
+    useEffect(() => {
+        if (userContext.currentUser) {
+            console.log("Current user set in context:", userContext.currentUser);
+        }
+    }, [userContext.currentUser]);
+
 
         function validateEmail(email) {
             // Regular expression for basic email format validation
             const emailRegex = /^[^\s@]+@[^\s@]+[^\s@]+$/;
             return emailRegex.test(email);
           }
-    
+
     return (
         <>
-        {loading && <Loading path={destination} />}
         <div className='login-layout-container'>
             <div className="login-side-bar pt-5" >
                 {/* Logo */}
@@ -152,14 +164,14 @@ export default function Login() {
             <div className='login-layout-content' >
                 <h1 className='login-title' >Sign in</h1>
 
-                <Form className='form form-login' 
+                <Form className='form form-login'
                 onSubmit={handleSubmit}
                 >
                         <div className="custom-form">
                             <Form.Group className="mb-3 form-custom" controlId="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" name="email" placeholder="example@example.com" value={form.email}
-                                    onChange={handleChange} 
+                                    onChange={handleChange}
                                     required ref={focus} />
                                 {/* <Form.Text className="text-muted">
                                             We'll never share your email with anyone else.
@@ -169,7 +181,7 @@ export default function Login() {
                             <Form.Group className="mb-3 form-custom" controlId="password">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" name="password" placeholder="" value={form.password}
-                                    onChange={handleChange} 
+                                    onChange={handleChange}
                                     required minLength="6" />
                                 <div className=" mt-3">
                                     <a href='#' className=' text-muted text-decoration-none '>Forgot Password
@@ -198,9 +210,14 @@ export default function Login() {
                     <ChangePassword isOpen={changePassword} setIsOpen={setChangePassword}/>
 
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose="4000"
+                theme="colored"
+            />
         </div>
-        
-        
+
+
         </>
         )
 

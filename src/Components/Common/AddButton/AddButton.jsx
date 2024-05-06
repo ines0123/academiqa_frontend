@@ -89,7 +89,7 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
                     <p className="fs-5 fw-bold ms-1 mb-1 "> Enter The link:</p>
                     <form onSubmit={handleLinkAdd} onReset={handleCancel} className="link-form">
                         <input onChange={(e)=> setLink(e.target.value)} value={link}  />
-                        <div className="d-flex justify-content-between mt-4">
+                        <div className="end d-flex justify-content-between mt-4">
                             <button type="submit" className="me-1">
                                 Submit
                             </button>

@@ -102,7 +102,7 @@ export default function TeacherCalendar() {
             </select>
         <AdminCalendar role="teacher" sessions={sessionsData}/>
         </div>
-    <MidNavbar/>
+    <MidNavbar role={"teacher"}/>
     </div>
     )
 }

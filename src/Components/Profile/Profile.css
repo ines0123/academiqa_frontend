@@ -35,14 +35,10 @@
     font-size: 1rem; /* 16px */
 }
 
-.edit-photo-button {
+.edit-photo-button, .check-button-profile {
     transition: transform 0.5s ease;
 }
 
-.edit-photo-button:hover {
-    transform: scale(1.05);
-}
-
-.edit-photo-button:active {
+.edit-photo-button:active, .check-button-profile:active{
     transform: scale(0.96);
 }
