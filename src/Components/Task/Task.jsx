@@ -11,31 +11,33 @@ import Cookie from "cookie-universal";
 import DeleteButton from "../Common/DeleteButtonForResTask/DeleteButton.jsx";
 import { baseURL, TASK } from "../../Api/Api";
 
-const Task = ({ role, sessionID }) => {
+const Task = ({ role, session }) => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [showNewTask, setShowNewTask] = useState(false);
   const newTaskRef = useRef(null);
   const { currentUser } = useContext(CurrentUser);
+  const userToken = Cookie().get("academiqa");
 
   //get all tasks
   useEffect(() => {
     if (currentUser?.role === "Student" || currentUser?.role === "Teacher") {
-      const userToken = Cookie().get("academiqa");
-      axios
-        .get(`${baseURL}/${TASK}`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        })
-        .then((response) => {
-          setTasks(response.data);
-        })
-        .catch((error) => {
-          console.error(`${error} - Failed to find task`);
-        });
+      if (session?.id) {
+        axios
+          .get(`${baseURL}/${TASK}/${session?.id}`, {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          })
+          .then((response) => {
+            setTasks(response.data);
+          })
+          .catch((error) => {
+            console.error(`${error} - Failed to find task`);
+          });
+      }
     }
-  }, [currentUser, sessionID]);
+  }, [currentUser, session?.id]);
 
   //add new task (addButton)
   const handleAddTask = () => {
@@ -47,6 +49,7 @@ const Task = ({ role, sessionID }) => {
             {
               content: newTask,
               isDone: false,
+              session: session,
             },
             {
               headers: {

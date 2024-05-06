@@ -10,7 +10,7 @@ import { Menu } from "../../../Context/MenuContext.jsx";
 import { useDate } from "../../../Context/DateContext.jsx";
 import { NavLink } from "react-router-dom";
 import { CurrentUser } from "../../../Context/CurrentUserContext.jsx";
-import { baseURL, TASK } from "../../../Api/Api";
+import { baseURL, TEACHER, SUBJECT  } from "../../../Api/Api";
 
 export default function HomeTeacher() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -44,7 +44,7 @@ export default function HomeTeacher() {
         if(currentUser?.role === "Teacher"){
             const userToken = Cookie().get('academiqa');
             axios
-                .get(`http://localhost:5000/subject/teacher`,{
+                .get(`${baseURL}/${SUBJECT}/${TEACHER}`,{
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },
@@ -122,12 +122,12 @@ export default function HomeTeacher() {
             </div>
           </div>
           <hr className="mt-2 mb-4" />
-          <div className="some-tasks mb-3">
+          {/* <div className="some-tasks mb-3">
             <div className="header d-flex justify-content-between">
               <h5 className="fs-5 fw-bold">My Latest Tasks</h5>
             </div>
             <div className="container">
-              {/* <div className="row d-flex justify-content-center">
+              <div className="row d-flex justify-content-center">
                 {tasks.map((task, index) => (
                   <React.Fragment key={index}>
                     <div
@@ -141,9 +141,9 @@ export default function HomeTeacher() {
                     </div>
                   </React.Fragment>
                 ))}
-              </div> */}
+              </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <Navbar />

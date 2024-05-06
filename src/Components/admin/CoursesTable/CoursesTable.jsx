@@ -19,6 +19,8 @@ import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../Common/PopUp/PopUp.jsx";
 import Select from "react-select";
 import Cookie from "cookie-universal";
+import { SUBJECT, baseURL } from "../../../Api/Api";
+
 
 const TableCourses = () => {
     const [courses, setCourses] = useState([])
@@ -90,7 +92,7 @@ const TableCourses = () => {
         console.log(file)
         //read csv file
         formData.append('file', file);
-        axios.post('http://localhost:5000/subject/CreateAll', formData, config).then(r => {
+        axios.post(`${baseURL}/${SUBJECT}/CreateAll`, formData, config).then(r => {
             console.log(r)
             getCourses();
             setDone(false);
@@ -110,7 +112,7 @@ const TableCourses = () => {
         e.preventDefault();
         console.log(updateFormData)
 
-        axios.patch('http://localhost:5000/subject/' + course.id, updateFormData,{
+        axios.patch(`${baseURL}/${SUBJECT}/` + course.id, updateFormData,{
             headers: {
                 Authorization: `Bearer ${userToken}`,
             },
@@ -250,7 +252,7 @@ const TableCourses = () => {
 
         if(!Object.values(newErrors).some(error => error !== "")){
             // Call the API to update the teacher
-            axios.post('http://localhost:5000/subject/CreateOne', newFormData,{
+            axios.post(`${baseURL}/${SUBJECT}/CreateOne`, newFormData,{
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
@@ -272,15 +274,18 @@ const TableCourses = () => {
         }
     };
     const getCourses = () => {
-        axios.get('http://localhost:5000/subject/GroupedByModule',{
+        axios
+          .get(`${baseURL}/${SUBJECT}/GroupedByModule`, {
             headers: {
-                Authorization: `Bearer ${userToken}`,
+              Authorization: `Bearer ${userToken}`,
             },
-        }).then(r => {
+          })
+          .then((r) => {
             setCourses(r.data);
-        }).catch(e => {
-            console.log(e)
-        })
+          })
+          .catch((e) => {
+            console.log(e);
+          });
 
     }
     useEffect(() => {
@@ -288,7 +293,7 @@ const TableCourses = () => {
     },[])
 
     const handleDeleteCourse =async (subject) => {
-       await axios.delete('http://localhost:5000/subject/' + subject.id,{
+       await axios.delete(`${baseURL}/${SUBJECT}/` + subject.id,{
            headers: {
                Authorization: `Bearer ${userToken}`,
            },

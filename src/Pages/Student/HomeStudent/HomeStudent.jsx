@@ -10,6 +10,7 @@ import { NoteContext } from "../../../Context/NoteContext.jsx";
 import Note from "../../../Components/Note/Note.jsx";
 import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
 import Cookie from "cookie-universal";
+import { baseURL, SECTORLEVEL, SUBJECT } from "../../../Api/Api.jsx";
 
 export default function HomeStudent() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -52,7 +53,7 @@ export default function HomeStudent() {
     if(currentUser?.role === "Student"){
       const userToken = Cookie().get('academiqa');
       axios
-          .get(`http://localhost:5000/subject/SectorLevel/${user?.group?.sectorLevel}`,{
+          .get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`,{
             headers: {
               Authorization: `Bearer ${userToken}`,
             },

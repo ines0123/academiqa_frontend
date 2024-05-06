@@ -34,7 +34,7 @@ const AddNote = ({ isOpen, setIsOpen, session }) => {
         setNewNote({ title: "", content: "" });
       })
       .catch((err) => {
-        console.log("session" , session)
+        // console.log("session" , session)
         console.error(`${err} - Failed to post note`);
       });
   };
