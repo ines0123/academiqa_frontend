@@ -10,6 +10,8 @@ import chatbotMsg from "../../assets/images/chatbot-msg.png";
 import NoDiscussions from "/src/assets/images/NoDiscussions.svg"
 import Cookie from "cookie-universal";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
+import remarkGfm from "remark-gfm";
+import ReactMarkdown from 'react-markdown';
 
 // eslint-disable-next-line react/prop-types
 const ChatbotDiscussion = ({discussion,getDiscussions}) => {
@@ -112,7 +114,7 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
                                 />
 
                                 <div className="response-ul ps-3">
-                                    <Markdown>{message?.response}</Markdown>
+                                    <ReactMarkdown className="markdown-content" remarkPlugins={[remarkGfm]}>{message?.response}</ReactMarkdown>
                                 </div>
                             </div>
                         </div>

@@ -84,10 +84,46 @@
     border-radius: 18px;
 }
 
-.response-ul ul{
+.response-ul ul {
     list-style: initial !important;
     margin: 8px 0 0 23px!important;
     padding: 3px !important;
+}
+.response-ul {
+    max-width: 98%; /* Adjust the max-width as needed */
+    word-wrap: break-word; /* Allows long lines to wrap */
+    overflow-wrap: break-word; /* Similar to word-wrap, handles line breaks */
+    padding: 3px; /* Adjust padding as needed */
+}
+/* CSS styles for markdown content */
+.markdown-content {
+    /* Adjust the styles as desired */
+    line-height: 1.5;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* CSS styles for markdown tables */
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.markdown-content th, .markdown-content td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.markdown-content th {
+    background-color: #eee8f1;
+    font-weight: bold;
+}
+
+.markdown-content tr {
+    background-color: #f9f9f9;
+    border-radius: 30px;
 }
 
 .to-delete button {
