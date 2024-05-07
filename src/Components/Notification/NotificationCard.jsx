@@ -12,6 +12,7 @@ import Cookie from "cookie-universal";
 const NotificationCard = () => {
     const [notifications, setNotifications] = useState([]);
     const {isVisible, setIsVisible,toggleVisibility,setNotifCount} = useNotification();
+    const [allNotifications, setAllNotifications] = useState([]); // All notifications
     const notificationCardRef = useRef(null);
     const socket = useSocket();
     const cookie = Cookie();
@@ -24,66 +25,68 @@ const NotificationCard = () => {
     const {currentUser, user} = useContext(CurrentUser);
     useEffect(() => {
         axios.get(`${baseURL}/${NOTIF}`).then((res)=>{
-            const allNotifications = res.data;
+            setAllNotifications(res.data);
             let filteredNotifications = [];
+            if(allNotifications?.length > 0){
+                console.log("allNotifications",allNotifications)
+                allNotifications.forEach((notif) => {
+                    // If the sender of the notification is the current user, skip this iteration
+                    if (notif?.sender === currentUser?.id) {
+                        console.log("sender is currentUser", currentUser?.id)
+                        return;
+                    }
 
-            allNotifications.forEach((notif) => {
-                // If the sender of the notification is the current user, skip this iteration
-                if (notif?.sender === currentUser?.id) {
-                    console.log("sender is currentUser",currentUser?.id)
-                    return;
-                }
-
-                if (notif?.notificationType === 'message') {
-                    console.log("message",notif?.link)
-                    if (currentUser?.role === 'Teacher') {
-                        axios.get(`${baseURL}/${SESSION}/${notif?.link}`, config)
-                            .then((res) => {
-                                console.log("session teacher",res.data)
-                                if (res.data?.teacher?.id === currentUser?.id) {
-                                    filteredNotifications.push(notif);
-                                }
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
+                    if (notif?.notificationType === 'message') {
+                        if (currentUser?.role === 'Teacher') {
+                            axios.get(`${baseURL}/${SESSION}/${notif?.link}`, config)
+                                .then((res) => {
+                                    console.log("session teacher", res.data)
+                                    if (res.data?.teacher?.id === currentUser?.id) {
+                                        filteredNotifications.push(notif);
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        } else if (currentUser?.role === 'Student') {
+                            axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif.link}`, config)
+                                .then((res) => {
+                                    console.log("session students", res.data)
+                                    console.log("current user", currentUser?.id)
+                                    if (res.data.map((student) => student?.id).includes(currentUser?.id)) {
+                                        filteredNotifications.push(notif);
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        }
                     } else if (currentUser?.role === 'Student') {
-                        axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif.link}`, config)
-                            .then((res) => {
-                                console.log("session students",res.data)
-                                console.log("current user",currentUser?.id)
-                                if (res.data.map((student) => student?.id).includes(currentUser?.id)) {
-                                    filteredNotifications.push(notif);
-                                }
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
-                    }
-                } else if (currentUser?.role === 'Student') {
-                    if (notif?.notificationType === 'content') {
-                        axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif.link}`, config)
-                            .then((res) => {
-                                if (res.data.map((student) => student?.id).includes(currentUser?.id)) {
-                                    filteredNotifications.push(notif);
-                                }
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
-                    } else if (notif?.notificationType === 'new-announcement') {
-                        axios.get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`, config)
-                            .then((res) => {
-                                if (res.data.map((subject) => subject?.id).includes(notif.link)) {
-                                    filteredNotifications.push(notif);
-                                }
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
+                        if (notif?.notificationType === 'content') {
+                            axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif.link}`, config)
+                                .then((res) => {
+                                    if (res.data.map((student) => student?.id).includes(currentUser?.id)) {
+                                        filteredNotifications.push(notif);
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        } else if (notif?.notificationType === 'new-announcement') {
+                            axios.get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`, config)
+                                .then((res) => {
+                                    if (res.data.map((subject) => subject?.id).includes(notif.link)) {
+                                        filteredNotifications.push(notif);
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        }
                     }
                 }
-            });
+            )
+            }
 
             setNotifications(filteredNotifications);
         }).catch((err)=>{
@@ -135,6 +138,7 @@ const NotificationCard = () => {
                 })
 
             } else if (currentUser?.role === 'Student'){
+                console.log("notif link",notif?.link)
                 axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif?.link}`,config).then((res)=>{
                     console.log("session students",res.data)
                     if(res.data?.map((student)=>student.id).includes(currentUser?.id)){
