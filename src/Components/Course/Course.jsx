@@ -26,7 +26,7 @@ const Course = ({maxWidth,course,color,placement}) => {
                         </h5>
                     </div>
                     {type === 'absence' ? (
-                        <h5 className="m-0  font-semibold text-center fs-5">Absence: {course?.nbAbsence} </h5>) : null}
+                        <h5 className="m-0  font-semibold text-center fs-5">Absence: {course?.numberOfAbsence} </h5>) : null}
                 </div>
             </NavLink>
         </div>

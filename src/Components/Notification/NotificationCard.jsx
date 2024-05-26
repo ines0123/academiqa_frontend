@@ -43,8 +43,7 @@ const NotificationCard = () => {
                         if (currentUser?.role === 'Teacher') {
                             try {
                                 const sessionRes = await axios.get(`${baseURL}/${SESSION}/${notif?.link}`, config);
-                                console.log("session teacher", sessionRes.data);
-                                if (sessionRes.data?.teacher?.id === currentUser?.id) {
+                                    if (sessionRes.data?.sessionType?.teacher?.id === currentUser?.id) {
                                     filteredNotifications.push(notif);
                                 }
                             } catch (err) {
@@ -141,7 +140,7 @@ const NotificationCard = () => {
             if(currentUser?.role === 'Teacher'){
                 await axios.get(`${baseURL}/${SESSION}/${notif?.link}`,config).then((res)=>{
                     console.log("session teacher",res.data)
-                    if(res.data?.teacher.id === currentUser?.id){
+                    if(res.data?.sessionType?.teacher?.id === currentUser?.id){
                         setNewNotificationsandCount(notif);
                 }
                 }).catch((err)=>{

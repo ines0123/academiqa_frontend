@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Card,
     CardHeader,
@@ -7,28 +7,30 @@ import {
 } from "reactstrap";
 import {faCheck, faPen} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import Cookie from "cookie-universal";
+import {baseURL, PRESENCE, STUDENTSABSENCE} from "../../../Api/Api.jsx";
 
 
-const TableAbsence = () => {
-    const [courses, setCourses] = useState([
-        { id: 1, name: 'Analyse', module: 'Mathématique', numberOfAbsence: '3' },
-        { id: 2, name: 'Programmation', module: 'Informatique', numberOfAbsence: '3' },
-        { id: 3, name: 'Réseau', module: 'Réseau', numberOfAbsence: '3' },
-        { id: 4, name: 'Base de données', module: 'Informatique', numberOfAbsence: '3' },
-    ]);
-    const [editingId, setEditingId] = useState(null);
-    const [tempAbsence, setTempAbsence] = useState('');
-
-    const handleEditClick = (id, numberOfAbsence) => {
-        setEditingId(id);
-        setTempAbsence(numberOfAbsence);
+const TableAbsence = ({id}) => {
+    const [courses, setCourses] = useState([]);
+    const cookie = Cookie();
+    const userToken = cookie.get('academiqa')
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userToken}`,
+        },
     };
-
-    const handleCheckClick = (id) => {
-        setCourses(courses.map(course => course.id === id ? {...course, numberOfAbsence: tempAbsence} : course));
-        setEditingId(null);
-        setTempAbsence('');
-    };
+    useEffect(() => {
+        try{
+            axios.get(`${baseURL}/${PRESENCE}/${STUDENTSABSENCE}/${id}`, config)
+                .then((response) => {
+                    setCourses(response.data);
+                });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }, []);
     return (
         <Container className="all-teachers" fluid style={{padding:"0 48px",height:'100%', marginBottom:'30px'}}>
             <Card className="shadow table-teacher">
@@ -53,21 +55,8 @@ const TableAbsence = () => {
                                 <td>{course.name}</td>
                                 <td>{course.module}</td>
                                 <td>
-                                    <div className="d-flex justify-content-between" style={{width: '50%'}}>
-                                        {editingId === course.id ? (
-                                            <>
-                                                <input style={{width:"90%", marginRight:"10px"}} type="number" value={tempAbsence}
-                                                       onChange={(e) => setTempAbsence(e.target.value)}/>
-                                                <FontAwesomeIcon icon={faCheck}
-                                                                 onClick={() => handleCheckClick(course.id)}/>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span>{course.numberOfAbsence}</span>
-                                                <FontAwesomeIcon icon={faPen}
-                                                                 onClick={() => handleEditClick(course.id, course.numberOfAbsence)}/>
-                                            </>
-                                        )}
+                                    <div className="d-flex justify-content-center" style={{width: '50%'}}>
+                                        <span>{course.numberOfAbsence}</span>
                                     </div>
                                 </td>
                             </tr>
