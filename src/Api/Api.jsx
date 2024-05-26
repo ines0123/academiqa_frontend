@@ -33,3 +33,6 @@ export const STUDENT = 'student';
 // students from session
 export const STUDENTSFROMSESSION = 'session/students';
 
+export const PRESENCE = 'presence';
+
+export const STUDENTSABSENCE = 'studentsAbsence';

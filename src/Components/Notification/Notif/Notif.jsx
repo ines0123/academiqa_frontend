@@ -5,6 +5,7 @@ import Markdown from "react-markdown";
 import {useContext, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
+import {SESSION} from "../../../Api/Api.jsx";
 // eslint-disable-next-line react/prop-types
 const Notif = ({notification, setIsVisible}) => {
     const notificationTypes = {
@@ -29,9 +30,18 @@ const Notif = ({notification, setIsVisible}) => {
     if (notification?.notificationType === 'new_announcement') {
         linkTo = `/course/${notification.link}`;
     } else if (notification?.notificationType === 'content' || notification?.notificationType === 'message') {
-        linkTo = `/${currentUser?.role}/session/${notification.link}`;
+        linkTo = `/${currentUser?.role}/${SESSION}/${notification.link}`;
     }
+    const formattedDate = new Date(notification?.createdAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    });
 
+    const formattedTime = new Date(notification?.createdAt).toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+    });
     return (
         <div onClick={handleClick} className="notif d-flex align-items-center" style={{backgroundColor: colors[notificationTypes[notification?.notificationType]]}}>
             <div className="img" style={{ flex: 'none' }}>
@@ -53,6 +63,9 @@ const Notif = ({notification, setIsVisible}) => {
                 <Markdown>
                     {notification.content}
                 </Markdown>
+                <div className="notification-date">
+                    {formattedDate} {formattedTime}
+                </div>
             </div>
 
         </div>

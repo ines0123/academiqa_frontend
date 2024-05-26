@@ -30,6 +30,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow-wrap: break-word;
+    word-break: break-all;
 }
 .course.card .prof {
     font-size: 14px;

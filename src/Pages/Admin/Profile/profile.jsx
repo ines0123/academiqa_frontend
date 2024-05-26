@@ -111,7 +111,7 @@ const Profile = () => {
                         </Card>
                     </Col>
                     <Col className="order-xl-1" xl="8">
-                        {role === 'student' ? <AbsenceTable/> : <TeacherCourses/>}
+                        {role === 'student' ? <AbsenceTable id={id}/> : <TeacherCourses/>}
                     </Col>
                 </Row>
             </Container>
