@@ -419,17 +419,7 @@ const AdminsTable = () => {
 
                         />
                         {errors.cin && <p style={{color: "#b41b1b", fontSize: '14px'}}>{errors.cin}</p>}
-                        <input type={"file"} name="photo" id="teacher-image" accept="image/*"
-                               onChange={handleImageChange}
-                               style={{display: "none"}}/>
-                        {errors.image && <p style={{color: "#b41b1b", fontSize: '14px'}}>{errors.image}</p>}
-                        <div className={`d-flex justify-content-start ${errors.username ? 'mb-0 mt-0' : ''}`}
-                             style={{width: "100%"}}>
-                            <Button className="d-flex align-items-center add-photo ms-3" onClick={handleImageClick}>
-                                <LuImagePlus size={30}/>
-                                <p className="ms-2"> {!formData.image ? ("Add photo") : formData.image.name} </p>
-                            </Button>
-                        </div>
+
 
 
                         <div className="end d-flex justify-content-between mt-4" style={{width: '70%'}}>

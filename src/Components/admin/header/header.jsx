@@ -14,6 +14,7 @@ const Header = () => {
     const [nbStudents, setNbStudents] = useState(0);
     const [nbTeachers, setNbTeachers] = useState(0);
     const [nbClasses, setNbClasses] = useState(0);
+    const [avgAbsence, setAvgAbsence] = useState(0);
     const cookie = Cookie();
     const userToken = cookie.get('academiqa')
     useEffect(() => {
@@ -53,9 +54,21 @@ const Header = () => {
           .catch((err) => {
             console.log(err);
           });
+        axios
+            .get(`${baseURL}/presence/sectorAvrageAbsence`, {
+                headers: {
+                Authorization: `Bearer ${userToken}`,
+                },
+            })
+            .then((response) => {
+                setAvgAbsence(response.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
     }, []);
-
+    console.log(avgAbsence);
     return (
         <div className="admin-header p-5">
             <MidNavbar role={"admin"}/>
@@ -141,7 +154,7 @@ const Header = () => {
                                     >
                                         Average absence
                                     </CardTitle>
-                                    <span className="h2 font-weight-bold mb-0">49%</span>
+                                    <span className="h2 font-weight-bold mb-0">{100- avgAbsence.Absence} %</span>
                                 </div>
                                 <Col className="col-4 p-0">
                                     <div className="icon icon-shape  text-white mr-2 rounded-circle shadow d-flex justify-content-center align-items-center position-absolute top-50 end-0 translate-middle-y">
