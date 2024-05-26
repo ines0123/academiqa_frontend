@@ -1,4 +1,3 @@
-import React from 'react';
 import "./AbsenceChart.css"
 import {
     Chart as ChartJS,
@@ -9,7 +8,12 @@ import {
     Legend,
     Title
 } from 'chart.js';
-import {Bar} from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
+import{
+    LineElement,
+    PointElement,
+} from 'chart.js';
+ChartJS.register(LineElement,CategoryScale,LinearScale,PointElement);
 
 const AbsenceChart = () => {
     ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
@@ -146,7 +150,7 @@ const AbsenceChart = () => {
 
     return (
 
-        <Bar className="absence-chart p-1 w-full bg-gray-50 ml-6 shadow rounded-2xl mb-4 "
+        <Line className="absence-chart p-1 w-full bg-gray-50 ml-6 shadow rounded-2xl mb-4 "
              data={data}
              options={options}
         />

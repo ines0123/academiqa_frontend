@@ -11,7 +11,7 @@ const Notif = ({notification, setIsVisible}) => {
         "content": 1,
         "message": 2,
         "absent": 3,
-        "new-announcement": 4,
+        "new_announcement": 4,
     };
     console.log("hffdfvcdhhhhhhhh",notification)
     const {currentUser} = useContext(CurrentUser);

@@ -2,7 +2,6 @@
     box-shadow:  0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 1.5em;
     background-color: #F0EDF2;
-    height: 40vh;
 }
 .students-list .student-item-home {
     border-radius: 15px;
@@ -15,7 +14,6 @@
     height: 33px;
 }
 .scroll-students{
-    max-height: 33vh;
     overflow-y: auto;
     width: 100%;
     scrollbar-width: none;

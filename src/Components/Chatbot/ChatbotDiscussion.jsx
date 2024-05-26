@@ -12,6 +12,9 @@ import Cookie from "cookie-universal";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from 'react-markdown';
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import 'katex/dist/katex.min.css';
 
 // eslint-disable-next-line react/prop-types
 const ChatbotDiscussion = ({discussion,getDiscussions}) => {
@@ -82,7 +85,7 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
     return (
         <div className="discussion container p-3 pt-0 pb-2 d-flex flex-column justify-content-between">
 
-            <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={"310px"}>
+            <Scrollbar thumbColor={"#692E5F"} trackColor={"#F0EDF2"} maxHeight={"335px"}>
                 <div ref={discussionContainerRef} className="container p-0" id="discussion-container">
                     {discussion && discussion.messages ? discussion.messages.map((message, index) => (
                         <div key={index}>
@@ -114,7 +117,7 @@ const ChatbotDiscussion = ({discussion,getDiscussions}) => {
                                 />
 
                                 <div className="response-ul ps-3">
-                                    <ReactMarkdown className="markdown-content" remarkPlugins={[remarkGfm]}>{message?.response}</ReactMarkdown>
+                                    <ReactMarkdown className="markdown-content" remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>{message?.response}</ReactMarkdown>
                                 </div>
                             </div>
                         </div>

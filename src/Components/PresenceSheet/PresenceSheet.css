@@ -23,3 +23,31 @@
     overflow-x: scroll;
     scrollbar-width: none;
 }
+
+.presence-sheet-box .dropdown-course-content {
+    position: absolute;
+    z-index: 1;
+    background: #FFFEFC;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.16);
+    margin-left: -115px;
+    margin-top: -31px;
+    border-radius: 15px;
+}
+.presence-sheet-box .dropdown-course-content .dropdown-course-item {
+    width: 100%;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    height: 35px;
+    padding: 16px 10px;
+}
+
+.presence-sheet-box .dropdown-course-content .dropdown-course-item:hover {
+    color: white;
+    background-color: #733c6b;
+    border-radius: 0 0 15px 15px;
+    font-weight: bold;
+}
+.presence-sheet-box  .dropdown-course-content .dropdown-course-item:first-child {
+    border-radius: 15px 15px 0 0;
+}

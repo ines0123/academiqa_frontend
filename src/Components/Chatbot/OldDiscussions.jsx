@@ -37,7 +37,7 @@ const OldDiscussions = ({onDiscussionSelect, discussions,getDiscussions}) => {
      const handleDelete = async (index) =>{
         try {
             console.log("index",index)
-           await axios.delete(`http://localhost:5000/chatbot/DeleteDiscussion/${index}`,config);
+           await axios.delete(`http://localhost:5000/chatbot/${index}`,config);
             getDiscussions();
         } catch (error) {
             console.error('Error:', error);

@@ -17,7 +17,7 @@ const Chatbot = ({isOpen, setIsOpen}) => {
         try{
             const cookie = Cookie();
             const userToken = cookie.get('academiqa')
-            const res = await axios.get('http://localhost:5000/chatbot/GetAllDiscussions',{
+            const res = await axios.get('http://localhost:5000/chatbot',{
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
