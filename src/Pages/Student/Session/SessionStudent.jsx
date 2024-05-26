@@ -148,7 +148,7 @@ export default function SessionStudent() {
             <Task role={"student"} session={session} />
           </div>
           <div className="col-lg-6 ps-2 pe-lg-4 p-sm-0 mt-sm-3 mt-lg-0 ressources d-flex justify-content-center">
-            <Ressources role={"student"} />
+            <Ressources role={"student"} sessionId={id} />
           </div>
         </div>
         <div className=" notes" style={{ marginTop: "20px" }}>

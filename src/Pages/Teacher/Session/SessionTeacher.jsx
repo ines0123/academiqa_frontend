@@ -94,7 +94,7 @@ export default function SessionTeacher() {
                         </div>
                         <div
                             className="row px-lg-3 p-sm-0 mt-sm-3 mt-lg-0 ressources ">
-                            <Ressources role={"teacher"}/>
+                            <Ressources role={"teacher"} sessionId={id}/>
                         </div>
                     </div>
                 </div>
