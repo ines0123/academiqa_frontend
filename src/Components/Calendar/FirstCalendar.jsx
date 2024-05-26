@@ -16,8 +16,6 @@ import "./styles.css";
 import { Internationalization } from "@syncfusion/ej2-base";
 import { useNavigate } from "react-router-dom";
 import { registerLicense } from '@syncfusion/ej2-base';
-import {groups} from '../../data/LevelsData';
-import { Sessions } from "../../data/sessionsData";
 import { useContext } from "react";
 import { CurrentUser } from "../../Context/CurrentUserContext";
 
@@ -74,7 +72,7 @@ const FirstCalendar = ({role, sessions}) => {
       }}
       showQuickInfo={false}
       eventClick={(args) => {
-        nav(`/teacher/session/${+args.event.Id}`);
+        nav(`/student/session/${+args.event.Id}`);
       }}
       
 

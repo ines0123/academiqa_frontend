@@ -81,7 +81,7 @@ import { useEffect } from "react";
         allowResizing={true}
         showQuickInfo = {false}
         hover={(args) => {
-          if( !(sector && year && group)) {args.element.setAttribute('title', 'select a group');}
+          if( role == "admin" && !(sector && year && group)) {args.element.setAttribute('title', 'select a group');}
           else{
             if(role != "teacher" ) {
             if (args.element.classList[0]=="e-work-cells" ) {
