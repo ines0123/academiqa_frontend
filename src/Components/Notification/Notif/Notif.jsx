@@ -1,4 +1,5 @@
 import avatar2 from "../../../assets/images/avatar2.png";
+import admin from "../../../assets/images/administration.svg"
 import './Notif.css';
 import Markdown from "react-markdown";
 import {useContext, useState} from "react";
@@ -13,7 +14,6 @@ const Notif = ({notification, setIsVisible}) => {
         "absent": 3,
         "new_announcement": 4,
     };
-    console.log("hffdfvcdhhhhhhhh",notification)
     const {currentUser} = useContext(CurrentUser);
     const navigate = useNavigate();
     const handleClick = () => {
@@ -26,8 +26,8 @@ const Notif = ({notification, setIsVisible}) => {
     //yellow => new announcement red => admin Absences Limits, green => content added,blue => new msg, pink => marked absent
     const colors = ['#fdcdc9', '#f2f9f0', '#f5faf9', '#fbf2ef','#fbf4ea'];
     let linkTo;
-    if (notification?.notificationType === 'new-announcement') {
-        linkTo = `/${currentUser?.role}/course/${notification.link}`;
+    if (notification?.notificationType === 'new_announcement') {
+        linkTo = `/course/${notification.link}`;
     } else if (notification?.notificationType === 'content' || notification?.notificationType === 'message') {
         linkTo = `/${currentUser?.role}/session/${notification.link}`;
     }
@@ -35,12 +35,19 @@ const Notif = ({notification, setIsVisible}) => {
     return (
         <div onClick={handleClick} className="notif d-flex align-items-center" style={{backgroundColor: colors[notificationTypes[notification?.notificationType]]}}>
             <div className="img" style={{ flex: 'none' }}>
-                <img
-                    style={{ width: '100%', height: 'auto' }}
-                    className={`img ${notification?.senderImage === "administration.svg" ? "" : "rounded-circle"}`}
-                    alt={notification?.senderImage}
-                    src={notification?.senderImage || avatar2}
-                />
+                {notification?.senderImage === "admin" ? (<img
+                        style={{width: '100%', height: 'auto'}}
+                        className={`img`}
+                        alt={"admin"}
+                        src={admin}
+                    />) :
+                    <img
+                        style={{width: '100%', height: 'auto'}}
+                        className={`img rounded-circle`}
+                        alt={notification?.senderImage}
+                        src={notification?.senderImage || avatar2}
+                    />
+                }
             </div>
             <div className="notification-content ms-3">
                 <Markdown>

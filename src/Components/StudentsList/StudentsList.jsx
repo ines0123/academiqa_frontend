@@ -5,7 +5,7 @@ import avatar from "../../assets/images/avatar2.png";
 import React from "react";
 const StudentsList = ({group, presence}) => {
     return (
-        <div className="students-list p-2 pt-2" style={{height:presence? "70vh":"40vh"}}>
+        <div className="students-list p-2 pt-2" style={{height:presence? "75vh":"40vh"}}>
             <div className="d-flex align-items-center mb-1 ms-1">
                 <PiStudent size={25}/>
                 {presence ? (
@@ -19,7 +19,7 @@ const StudentsList = ({group, presence}) => {
                 )}
             </div>
             <div className="student-list d-flex justify-content-center">
-                {!presence ? (<div style={{maxHeight: presence ? "63vh" : "33vh"}}
+                {!presence ? (<div style={{maxHeight: presence ? "60vh" : "33vh"}}
                                    className="scroll-students pt-2 d-flex flex-column align-items-center">
                         {group && group.students?.map((student, index) => (
                             <div key={index}

@@ -31,6 +31,7 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("editedNote: ", editedNote); // Log the edited note
     axios
       .patch(`${baseURL}/${NOTE}/${note.id}`, editedNote, config)
       .then((res) => {
