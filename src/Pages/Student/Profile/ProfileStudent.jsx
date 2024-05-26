@@ -34,6 +34,7 @@ export default function ProfileStudent() {
                 })
                 .then((res) => {
                     setCourses(res.data);
+                    console.log("Coursesssssssssssssss: ", res.data)
                 })
                 .catch((err) => {
                     console.error(`${err} - Failed to find courses`);

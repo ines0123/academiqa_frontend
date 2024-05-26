@@ -85,7 +85,7 @@ export default function SessionTeacher() {
                 }
                 <div className="row mt-5 mb-2">
                     <div className="presence-sheet col-md-6 mb-3">
-                        <PresenceSheet sessionId={id}/>
+                        <PresenceSheet sessionId={id} session={session}/>
                     </div>
                     <div className="ressources-tasks col-md-6 d-flex flex-column align-items-center ">
                         <div
@@ -94,7 +94,7 @@ export default function SessionTeacher() {
                         </div>
                         <div
                             className="row px-lg-3 p-sm-0 mt-sm-3 mt-lg-0 ressources ">
-                            <Ressources role={"teacher"}/>
+                            <Ressources role={"teacher"} sessionId={id}/>
                         </div>
                     </div>
                 </div>
