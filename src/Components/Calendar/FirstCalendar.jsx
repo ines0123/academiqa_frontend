@@ -34,7 +34,6 @@ const FirstCalendar = ({role, sessions}) => {
 
 
   const eventTemplate = (props) => {
-    // console.log(props);
     return (
       <div
         className={`e-appointment ${props?.type == "Lecture" ? "beige" : props?.type == "TP" ? "green" : "blue"} `}
@@ -46,7 +45,6 @@ const FirstCalendar = ({role, sessions}) => {
         <div className="subject"><b>{props?.Subject}</b>: {props?.type}</div>
         <div className="time">{getTimeString(props?.StartTime)} :{getTimeString(props?.EndTime)}</div>
         <div className="time">{user?.group?.sectorLevel} </div>
-        {/* <div className="time">{props.sessionType.subject.sectorLevel} </div> */}
       </div>
     );
   };
@@ -54,9 +52,12 @@ const FirstCalendar = ({role, sessions}) => {
 
   const eventSettings = {
     dataSource: sessions,
-    
-
-    template: role === 'student' ? eventTemplate : null,
+    fields: {
+      id: 'Id',
+      subject: { name: 'Subject', title: 'Subject' },
+      location: { name: 'type', title: 'Session Type' },
+    }
+    // template: role === 'student' ? eventTemplate : null,
   };
 
   return (

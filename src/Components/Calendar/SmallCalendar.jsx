@@ -25,10 +25,17 @@ import {
       return instance.formatDate(value, { skeleton: "hm" });
     };
     
+    const typeOrGroup = sessions[0]?.sessionType?.group? "group": "type";
   
     const eventSettings = {
       dataSource: sessions,
+      fields: {
+        id: 'Id',
+        subject: { name: 'Subject', title: 'Subject' },
+        location: { name: typeOrGroup, title: `Session ${typeOrGroup=="group"?"Group":"Type"}` },
+      },
     };
+
   
     return (
       <div>

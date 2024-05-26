@@ -23,6 +23,12 @@ import { useEffect } from "react";
   
   
   const AdminCalendar = ({role, sessions, sector, year, group, reload, setReload}) => {
+
+    useEffect(() => {
+      // console.log("props received in AdminCalendar:", role, sessions, sector, year, group, reload);
+    }, [role, sessions, sector, year, group, reload]);
+    
+
     const nav = useNavigate();
     const instance = new Internationalization();
     const getTimeString = (value) => {
@@ -53,7 +59,7 @@ import { useEffect } from "react";
   }
 
   const typeOrGroup = sessions[0]?.sessionType?.group? "group": "type";
-  
+
     const eventSettings = {
       dataSource: sessions,
       fields: {
@@ -75,7 +81,7 @@ import { useEffect } from "react";
         allowResizing={true}
         showQuickInfo = {false}
         hover={(args) => {
-          if( sessions.length == 0) {args.element.setAttribute('title', 'select a group');}
+          if( !(sector && year && group)) {args.element.setAttribute('title', 'select a group');}
           else{
             if(role != "teacher" ) {
             if (args.element.classList[0]=="e-work-cells" ) {
@@ -88,7 +94,7 @@ import { useEffect } from "react";
         }}
         }
         popupOpen={(args) => {
-          if (role === "teacher" || sessions.length === 0) {
+          if (role === "teacher" || !(sector && year && group)) {
             args.cancel = true;
           }
           args.duration = 90; // set the default duration of the event to 90 minutes
@@ -138,7 +144,7 @@ import { useEffect } from "react";
               name: args.data[0].Subject}
             const getGroupDto= {
               sector: sector,
-              level: year,
+              level: year+'ème année',
               group: group
             }
             const dto = {
@@ -155,8 +161,6 @@ import { useEffect } from "react";
               (response) => {
                 console.log("response.data:", response.data);
                 setReload(!reload);
-
-
               }).catch((err) => {
                 console.log(err);
               });

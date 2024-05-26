@@ -28,6 +28,7 @@ export default function Calendar() {
     const token = cookie.get('academiqa');
 
     const [sessionsData, setSessionsData] = useState("");
+    const [reload, setReload] = useState(false);
     
     const [year, setYear] = useState("");
     const [sector, setSector] = useState("");
@@ -86,7 +87,7 @@ export default function Calendar() {
               console.log(err);
             });
         }
-      }, [sector, year, group]);
+      }, [sector, year, group, reload]);
       
     
   
@@ -393,7 +394,7 @@ export default function Calendar() {
                     </div>
                 </div>
             </div>
-            <AdminCalendar role={role} sessions={sessionsData}/>
+            <AdminCalendar role={role} sessions={sessionsData} sector={sector} year={year} group={group} reload={reload} setReload={setReload}/>
         </div>
         <MidNavbar/>
         <PopUp fromCourse={true}  width={`${screenWidth > 740 ? '35vw':'60vw'} `} isOpen={isOpen} setIsOpen={setIsOpen}>

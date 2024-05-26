@@ -13,32 +13,23 @@ export default function StudentCalendar() {
 
 
     const userContext = useContext(CurrentUser);
-    const user = userContext.currentUser;
+    const user = userContext.user;
     const [sessionsData, setSessionsData] = useState("");
     const cookie = Cookie();
     const token = cookie.get('academiqa');
-
-
-    // convert date format from iso to js
-    const convertDate = (date) => {
-      const result =  new Date(date);
-        return result;
-    }
-
   
     //get the sessions by user groupID
     useEffect(() => {
       if (user) {
         axios.get(
             `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user?.group?.sector}/${user?.group?.level}/${user?.group?.group}`
-            // `${baseURL}/${SESSION}`
             , {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }).then(
           (response) => {
-            console.log(response.data);
+            console.log("sessions:",response.data);
             response.data.forEach((session) => {
               session.Subject = session.name;
               if(!session.StartTime){
