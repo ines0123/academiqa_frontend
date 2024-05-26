@@ -65,7 +65,7 @@ export default function Calendar() {
     useEffect(() => {
         if (sector && year && group) {
           axios.get(
-              `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${sector}/${year}/${group}`
+              `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${sector}/${year}ème année/${group}`
               , {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -81,6 +81,7 @@ export default function Calendar() {
                     session.EndTime = session.endTime}
               })
               setSessionsData(response.data);
+              console.log("sessions:", sessionsData);
             }).catch((err) => {
               console.log(err);
             });

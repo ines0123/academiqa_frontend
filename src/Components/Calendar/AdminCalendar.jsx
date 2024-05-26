@@ -19,7 +19,7 @@ import { ADD_SESSION, SESSION, baseURL } from "../../Api/Api";
 import Cookie from 'cookie-universal';
 import { useEffect } from "react";
 
-  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
+  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
   
   
   const AdminCalendar = ({role, sessions, sector, year, group, reload, setReload}) => {
@@ -52,14 +52,14 @@ import { useEffect } from "react";
     return data;
   }
 
-
+  const typeOrGroup = sessions[0]?.sessionType?.group? "group": "type";
   
     const eventSettings = {
       dataSource: sessions,
       fields: {
         id: 'Id',
         subject: { name: 'Subject', title: 'Subject' },
-        location: { name: 'type', title: 'Session Type' },
+        location: { name: typeOrGroup, title: `Session ${typeOrGroup=="group"?"Group":"Type"}` },
       },
     };
   
@@ -69,7 +69,7 @@ import { useEffect } from "react";
       <ScheduleComponent
         width="100%"
         height="70vh"
-        selectedDate={new Date(2018, 1, 15)}
+        // selectedDate={new Date(2018, 1, 15)}
         eventSettings={eventSettings}
         allowDragAndDrop={true}
         allowResizing={true}

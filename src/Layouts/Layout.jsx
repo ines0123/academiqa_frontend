@@ -11,6 +11,9 @@ import Cookie from 'cookie-universal';
 import { jwtDecode } from "jwt-decode";
 import Loading from "../Components/Loading/Loading.jsx";
 import Preloader from "../Components/Preloader/Preloader.jsx";
+import axios from "axios";
+import { baseURL } from "../Api/Api";
+
 
 
 export default function Layout(){

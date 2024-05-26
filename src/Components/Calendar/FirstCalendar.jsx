@@ -21,7 +21,7 @@ import { Sessions } from "../../data/sessionsData";
 import { useContext } from "react";
 import { CurrentUser } from "../../Context/CurrentUserContext";
 
-registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCekxwWmFZfVpgdVRMYF5bRXBPMyBoS35RckVgWn9fcXRXR2ZUVUV2');
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
 
 const FirstCalendar = ({role, sessions}) => {
   const nav = useNavigate();
@@ -65,7 +65,7 @@ const FirstCalendar = ({role, sessions}) => {
     <ScheduleComponent
       width="100%"
       height="70vh"
-      selectedDate={new Date(2018, 1, 15)}
+      // selectedDate={new Date(2018, 1, 15)}
       eventSettings={eventSettings}
       readOnly={true}
       popupOpen={(args) => {

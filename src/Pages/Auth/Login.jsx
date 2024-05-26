@@ -77,16 +77,9 @@ export default function Login() {
                     // context
                     userContext.setCurrentUser(user);
                     console.log("userContext:", userContext.currentUser);
-                    const path = user.role.toLowerCase() == "admin" ? '/admin/calendar' : user.role.toLowerCase() == "teacher" ? '/teacher/home' : user.role.toLowerCase() == "student" ? '/student/home' : '/';
-                    setDestination(path);
-                    setTimeout(
-                        ()=>{
-                            window.location.pathname = path;
-                            setLoading(false);
-                        }, 2500)
 
 
-                    const path = user.role.toLowerCase() === "admin" ? '/admin/home' : user.role.toLowerCase() === "teacher" ? '/teacher/home' : user.role.toLowerCase() === "student" ? '/student/home' : '/';
+                    const path = user.role === "Admin" ? '/admin/home' : user.role === "Teacher" ? '/teacher/home' : user.role === "Student" ? '/student/home' : '/';
                     userContext.setLoading(true);
                     console.log("Path:", path);
                     // window.location.pathname = path;
@@ -201,9 +194,9 @@ export default function Login() {
                                     </div>
                                 </div>
                                 {error !== "" &&
-                                    <div className='error-span'>
+                                    <span className='error'>
                                         {error}
-                                    </div>}
+                                    </span>}
                             </div>
                         </div>
                     </Form>

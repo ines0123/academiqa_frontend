@@ -13,7 +13,7 @@ import {
   import { Internationalization } from "@syncfusion/ej2-base";
   import { useNavigate } from "react-router-dom";
   import { registerLicense } from '@syncfusion/ej2-base';
-  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmRCekx1RXxbf1x0ZFxMYFRbQHFPMyBoS35RckVnWX5ed3RTRWdeWEJy');
+  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
   
   
   const SmallCalendar = ({role, sessions}) => {
@@ -36,7 +36,7 @@ import {
       <ScheduleComponent
         height="340px"
         style={{borderRadius: '30px'}}
-        selectedDate={new Date(2018, 1, 14)}
+        // selectedDate={new Date(2018, 1, 14)}
         eventSettings={eventSettings}
         readOnly={true}
         popupOpen={(args) => {

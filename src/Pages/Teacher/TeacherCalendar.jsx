@@ -18,7 +18,7 @@ export default function TeacherCalendar() {
 
     // get groups of teacher
     useEffect(() => {
-        axios.get(`${baseURL}/${SESSION_TYPE}/GroupsByTeacher/${jwtDecode(token).id}`, {
+        axios.post(`${baseURL}/${SESSION_TYPE}/GroupsByTeacher/${jwtDecode(token).id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -45,12 +45,13 @@ export default function TeacherCalendar() {
                 }).then(
                     (response) => {
                         console.log("selected group", selectedGroup);
-                        console.log("sessions by group", response.data);
                         response.data.forEach(
                             (session) => {
-                                session.Subject = session.name;}
+                                session.Subject = session.name;
+                            }
                         )
                         setSessionsData(response.data);
+                        console.log("sessions:", response.data);
 
                     }).catch((err) => {
                         console.log(err);
@@ -70,6 +71,7 @@ export default function TeacherCalendar() {
                                 session.Subject = session.name;
                                 session.StartTime = session.date;
                                 session.EndTime = session.endTime;
+                                session.group = session.sessionType.group.sectorLevel;
                             }
                         )
                         setSessionsData(response.data);
