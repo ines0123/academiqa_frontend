@@ -36,3 +36,4 @@ export const STUDENTSFROMSESSION = 'session/students';
 export const PRESENCE = 'presence';
 
 export const STUDENTSABSENCE = 'studentsAbsence';
+export const RESOURCE = 'ressource';

@@ -80,8 +80,8 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
             </button>
 
                 <div className="dropdown-content w-16 rounded-2xl ">
-                    <button className="d-flex align-items-center justify-content-center" onClick={handleFileSelect}>Add File</button>
-                    <button className="d-flex align-items-center justify-content-center" onClick={addLink}>Add Link</button>
+                    <button className="d-flex align-items-center justify-content-center" onClick={handleFileSelect}> File </button>
+                    <button className="d-flex align-items-center justify-content-center" onClick={addLink}> Link </button>
                 </div>
 
             <PopUp width={`${screenWidth > 740 ? '35vw':'60vw'} `} isOpen={isOpen} setIsOpen={setIsOpen}>
