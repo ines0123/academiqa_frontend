@@ -61,6 +61,7 @@
     position: absolute !important;
     z-index: 9999 !important;
     width: 95% !important;
+    padding: 9px 0 !important;
 }
 .slick-slide > div  {
     display: flex !important;

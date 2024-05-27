@@ -10,7 +10,7 @@ import NoAbsence from "../../../assets/images/NoAbsence.svg"
 import {FaBookOpenReader} from "react-icons/fa6";
 import Cookie from "cookie-universal";
 import {CurrentUser} from "../../../Context/CurrentUserContext.jsx";
-import { baseURL, SUBJECT, SECTORLEVEL } from '../../../Api/Api.jsx';
+import {baseURL, SUBJECT, SECTORLEVEL, STUDENTSABSENCE, PRESENCE} from '../../../Api/Api.jsx';
 export default function ProfileStudent() {
     const date = useDate();
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 860);
@@ -27,7 +27,7 @@ export default function ProfileStudent() {
         if(currentUser?.role === "Student"){
             const userToken = Cookie().get('academiqa');
             axios
-                .get(`${baseURL}/${SUBJECT}/${SECTORLEVEL}/${user?.group?.sectorLevel}`,{
+                .get(`${baseURL}/${PRESENCE}/${STUDENTSABSENCE}/${currentUser?.id}`,{
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },

@@ -76,6 +76,10 @@ const Course = () => {
         })
     }, [currentUser?.role, currentUser?.group?.id]);
 
+    if (!currentUser) {
+        return <div>Loading...</div>; // Render a loading state while currentUser is awaited
+    }
+    console.log(currentUser.role);
     return (
         <div className="course-page container-fluid pt-6">
             <div className="row date pl-10 mb-12">
@@ -83,11 +87,11 @@ const Course = () => {
             </div>
             <MidNavbar/>
             <div className="row">
-                <div className="col-sm-9 pl-10 course-name">
+                <div className="col-sm-9 pl-10 course-name -mt-5">
                     <CourseName course={course}/>
 
                     <div className="box-announcement">
-                        <SessionsAnnouncement course={course} role="teacher"/>
+                        <SessionsAnnouncement course={course} role={currentUser.role}/>
                     </div>
                 </div>
                 <div className="col-sm-3 pr-2.5 my-3 box-sessions d-flex justify-end">

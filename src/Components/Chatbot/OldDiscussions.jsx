@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import Discussion from "../../assets/images/old-discussion.svg";
 import DeleteButton from "../Common/DeleteButtonForResTask/DeleteButton.jsx";
 import axios from "axios";
+import Cookie from "cookie-universal";
 
 // eslint-disable-next-line react/prop-types
 const OldDiscussions = ({onDiscussionSelect, discussions,getDiscussions}) => {
@@ -25,10 +26,18 @@ const OldDiscussions = ({onDiscussionSelect, discussions,getDiscussions}) => {
             onDiscussionSelect(null);
         }
     }
+    const cookie = Cookie();
+    const userToken = cookie.get('academiqa')
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userToken}`,
+        },
+    };
 
      const handleDelete = async (index) =>{
         try {
-           await axios.delete(`http://localhost:5000/chatbot/DeleteDiscussion/${index}`);
+            console.log("index",index)
+           await axios.delete(`http://localhost:5000/chatbot/${index}`,config);
             getDiscussions();
         } catch (error) {
             console.error('Error:', error);

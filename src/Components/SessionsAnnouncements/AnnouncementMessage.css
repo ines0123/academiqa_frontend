@@ -27,7 +27,7 @@
 .announcement-element {
     display: inline-block;
     vertical-align: top;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-left: 20px;
 }
 
@@ -35,6 +35,11 @@
     font-size: 13px;
     color: #747270;
     margin-bottom: 5px;
+}
+
+.announcement-teacher {
+    font-size: 16px;
+    color: #514e4e;
 }
 
 .announcement-description {

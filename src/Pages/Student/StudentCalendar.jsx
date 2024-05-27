@@ -21,6 +21,7 @@ export default function StudentCalendar() {
     //get the sessions by user groupID
     useEffect(() => {
       if (user) {
+          console.log("user", user);
         axios.get(
             `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user?.group?.sector}/${user?.group?.level}/${user?.group?.group}`
             , {

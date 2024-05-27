@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import { FaLink } from "react-icons/fa6";
 import Scrollbar from "../Common/Scrollbar/Scrollbar";
@@ -7,21 +7,45 @@ import './ChangePassword.css';
 import {PiPaperPlaneTiltBold} from "react-icons/pi";
 import {FaStar} from "react-icons/fa";
 import chatbotRecommend from "../../assets/images/chatbotRecommend.svg";
+import Cookie from "cookie-universal";
+import {baseURL} from "../../Api/Api.jsx";
+import {toast, ToastContainer} from "react-toastify";
+import {ToastContext} from "../../Context/ToastContext.jsx";
 // Modal.setAppElement(document.getElementById('__next'));
 
 // eslint-disable-next-line react/prop-types
 const ChangePassword = ({isOpen, setIsOpen}) => {
     const [course, setCourse] = useState('');
-    const [email, setEmail] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [courses, setCourses] = useState([])
     const [numRec, setNumRec] = useState(0);
+    const userToken = Cookie().get('academiqa');
+    const {showToast} = useContext(ToastContext);
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
-            alert("Passwords don't match");
-            return;
+            showToast("New passwords don't match", 'error');
+        } else {
+            // Send a PATCH request to the backend
+            axios.patch(`${baseURL}/user/change-password`, { oldPassword: oldPassword, newPassword: confirmPassword }, {
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            })
+                .then((res) => {
+                    // Handle the response here. For example, you could clear the input fields
+                    setOldPassword('');
+                    setNewPassword('');
+                    setConfirmPassword('');
+                    setIsOpen(false);
+                    showToast('Password changed successfully', 'success');
+                })
+                .catch((err) => {
+                    console.log(err);
+                    showToast(err.response.data.message, 'error');
+                });
         }
     };
 
@@ -45,6 +69,8 @@ const ChangePassword = ({isOpen, setIsOpen}) => {
 
 
     return (
+        <div>
+
         <PopUp width={!isMediumScreen ? "45vw": "65vw"} isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className="container d-flex flex-column justify-content-center align-items-center">
                 <div className={`
@@ -55,23 +81,24 @@ const ChangePassword = ({isOpen, setIsOpen}) => {
                 d-flex
                 flex-column 
                 justify-content-center align-items-center 
-                rounded-5`
+                rounded-4`
                 }>
                     {!isSmallScreen && <div className="col-2 p-0"></div>}
                     <h1 className={` m-0 font-bold text-center ${isMediumScreen ? 'medium-h1 col ' : 'col-10'}`}> Change Password </h1>
                 </div>
                 <div className="container">
                     <div className="row">
-                        <form onSubmit={handleSubmit} 
+                        <form onSubmit={handleSubmit}
                         // className="recommend-form"
                         >
                             <div className="row mb-2 mt-2">
                                 <div className="course-input mb-1 p-0 d-flex justify-content-center">
                                     <input
                                         style={{color: 'black'}}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder={"Type Email ..."}
+                                        value={oldPassword}
+                                        type='password'
+                                        onChange={(e) => setOldPassword(e.target.value)}
+                                        placeholder={"Type Old Password ..."}
                                     />
                                 </div>
                                 <div
@@ -95,7 +122,7 @@ const ChangePassword = ({isOpen, setIsOpen}) => {
                                     />
                                 </div>
                                 <div className="mt-2 d-flex justify-content-center">
-                                    <button type="submit" className="btn btn-outline-dark">
+                                    <button type="submit" className="change-pwd-submit-btn">
                                         Submit
                                     </button>
 
@@ -108,6 +135,7 @@ const ChangePassword = ({isOpen, setIsOpen}) => {
                 </div>
             </div>
         </PopUp>
+        </div>
     );
 };
 

@@ -6,7 +6,7 @@ import './popup.css'
 import Scrollbar from "../Scrollbar/Scrollbar.jsx";
 Modal.setAppElement('body');
 // eslint-disable-next-line react/prop-types
-const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC",fromCourse}) => {
+const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC",fromCourse,fromPresence}) => {
     function closeModal() {
             setIsOpen(false);
     }
@@ -17,8 +17,8 @@ const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC",
             right: "auto",
             bottom: "auto",
             marginRight: "-50%",
-            padding: "1.5rem",
-            paddingBottom: "1.5rem",
+            padding: fromPresence? '0':"1.5rem",
+            paddingBottom: fromPresence? '0':"1.5rem",
             paddingTop: fromCourse ? '0' : '1.5rem',
             transform: "translate(-50%, -50%)",
             backgroundColor: backgroundColor,
@@ -40,17 +40,22 @@ const PopUp = ({children, width, isOpen, setIsOpen, backgroundColor = "#FFFEFC",
                     isOpen={isOpen}
                     onRequestClose={closeModal}
                     style={customStyles}>
-                    <Scrollbar thumbColor={"#692E5F"} trackColor={"#D1C4D8"} maxHeight={"81vh"}>
                     <IconContext.Provider
                         value={{ color: "#262626", className: "close-modal" }}
                     >
                         <div onClick={closeModal}>
                             <IoCloseCircleOutline />
                         </div>
-
                     </IconContext.Provider>
-                    {children}
+                    {!fromPresence ? (
+                        <Scrollbar thumbColor={"#692E5F"} trackColor={"#D1C4D8"} maxHeight={"81vh"}>
+                            {children}
                         </Scrollbar>
+                    ) : (
+                        <>
+                            {children}
+                        </>
+                    )}
                 </Modal>
 
         </div>

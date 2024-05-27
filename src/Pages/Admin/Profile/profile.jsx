@@ -1,7 +1,7 @@
 import './profile.css';
 import Header from "../../../Components/admin/header/header.jsx";
 import {Card, CardBody, Col, Container, Row} from "reactstrap";
-import image from "../../../assets/images/Sellaouti.jpg";
+import avatar from "../../../assets/images/avatar2.png";
 import AbsenceTable from "../../../Components/admin/AbsenceTable/AbsenceTable.jsx";
 import TeacherCourses from "../../../Components/admin/TeacherCourses/TeacherCourses.jsx";
 import {FaChalkboardUser} from "react-icons/fa6";
@@ -40,6 +40,10 @@ const Profile = () => {
             }
         )
     }, []);
+    const [userphoto, setUserphoto] = useState(null);
+    useEffect(() => {
+        setUserphoto(user?.photo || avatar);
+    }, [user]);
     return (
         <div>
             <Header/>
@@ -52,7 +56,7 @@ const Profile = () => {
                                             <img
                                                 alt="..."
                                                 className="rounded-circle"
-                                                src={image}
+                                                src={userphoto}
                                                 style={{width: "150px", height: "150px", marginTop:"-30px"}}
                                             />
                                         </a>
@@ -107,7 +111,7 @@ const Profile = () => {
                         </Card>
                     </Col>
                     <Col className="order-xl-1" xl="8">
-                        {role === 'student' ? <AbsenceTable/> : <TeacherCourses/>}
+                        {role === 'student' ? <AbsenceTable id={id}/> : <TeacherCourses/>}
                     </Col>
                 </Row>
             </Container>

@@ -10,6 +10,7 @@ import {SocketProvider} from "./Context/SocketContext.jsx";
 import {NotificationProvider} from "./Context/NotificationContext.jsx";
 import {DateProvider} from "./Context/DateContext.jsx";
 import CurrentUserContext from "./Context/CurrentUserContext.jsx";
+import {ToastProvider} from "./Context/ToastContext.jsx";
 
 // registerLicense(
 //   "ORg4AjUWIQA/Gnt2VVhhQlFaclhJWHxMYVF2R2FJeFRycF9FaEwgOX1dQl9hSXpTcEVmWn9feHVRQWY="
@@ -20,19 +21,22 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+
     <DateProvider>
         <SocketProvider>
-            <NotificationProvider>
+            <ToastProvider>
+                <NotificationProvider>
                 <WindowContext>
                     <MenuContext>
-                    <CurrentUserContext>
-                        <Router>
-                            <App />
-                        </Router>
+                        <CurrentUserContext>
+                            <Router>
+                                <App />
+                            </Router>
                         </CurrentUserContext>
                     </MenuContext>
                 </WindowContext>
             </NotificationProvider>
+            </ToastProvider>
         </SocketProvider>
     </DateProvider>
   </React.StrictMode>

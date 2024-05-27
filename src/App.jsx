@@ -18,7 +18,7 @@ import Attendance from "./Pages/Teacher/Attendance.jsx";
 import { NoteProvider } from "./Context/NoteContext.jsx";
 import PageNotFound from "./Pages/Auth/PageNotFound.jsx";
 import RequireLogin from "./Pages/Auth/RequireLogin.jsx";
-
+import WebcamCapture from  "./Components/FaceRecognition/WebcamCapture.jsx"
 import HomeAdmin from "./Pages/Admin/Home/HomeAdmin.jsx";
 import ProfessorsAdmin from "./Pages/Admin/Professor/ProfessorsAdmin.jsx";
 import StudentsAdmin from "./Pages/Admin/Student/StudentsAdmin.jsx";
@@ -39,6 +39,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/login" element={<RequireLogin />} />
+        <Route path="/face-recognition" element={<WebcamCapture />} />
         <Route element={<RequireLogin />}>
           <Route element={<Layout />}>
             <Route element={<RequireRole allowedRole={["student"]} />}>

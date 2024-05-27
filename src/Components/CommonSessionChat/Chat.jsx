@@ -92,7 +92,7 @@ const Chat = ({session}) => {
     }
 
     const getAllMessages = (session) => {
-        socket?.emit('findAllMessages',session, (messages) => {
+        socket?.emit('messages',session, (messages) => {
             setMessages(messages);
         });
     };

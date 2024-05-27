@@ -7,7 +7,6 @@ import avatar from "../../assets/images/avatar.png";
 // eslint-disable-next-line react/prop-types
 const Course = ({maxWidth,course,color,placement}) => {
     const [type,setType] = useState(placement);
-    console.log('course',course)
     return (
         <div className="course card d-flex justify-content-center ps-4 pe-3 pb-3" style={{background: `${color}`,maxWidth: maxWidth ? '301px':''}}>
             <NavLink to={`/course/${course?.id}`} className="text-decoration-none">
@@ -27,7 +26,7 @@ const Course = ({maxWidth,course,color,placement}) => {
                         </h5>
                     </div>
                     {type === 'absence' ? (
-                        <h5 className="m-0  font-semibold text-center fs-5">Absence: {course?.nbAbsence} </h5>) : null}
+                        <h5 className="m-0  font-semibold text-center fs-5">Absence: {course?.numberOfAbsence} </h5>) : null}
                 </div>
             </NavLink>
         </div>
