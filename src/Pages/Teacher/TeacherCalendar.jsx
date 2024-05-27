@@ -53,7 +53,12 @@ export default function TeacherCalendar() {
     //                     console.log("selected group", selectedGroup);
     //                     response.data.forEach(
     //                         (session) => {
+    //                             if (session.holidayName!=null) {
+    //                                 session.Subject = session.holidayName
+    //                             }
+    //                             else {
     //                             session.Subject = session.name;
+    //                             }
     //                         }
     //                     )
     //                     setSessionsData(response.data);

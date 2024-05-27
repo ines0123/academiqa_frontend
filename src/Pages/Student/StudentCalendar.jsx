@@ -32,7 +32,12 @@ export default function StudentCalendar() {
           (response) => {
             console.log("sessions:",response.data);
             response.data.forEach((session) => {
-              session.Subject = session.name;
+              if (session.holidayName !=null) {
+                session.Subject = session.holidayName
+              }
+              else {
+                session.Subject = session.name;
+              }
               if(!session.StartTime){
                 session.StartTime = session.date}
                 if(!session.EndTime){

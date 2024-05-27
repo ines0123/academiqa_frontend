@@ -14,7 +14,7 @@
 // import { jwtDecode } from "jwt-decode";
 
 
-// export default function Calendar() { 
+// export default function Calendar() {
 //     const {id} = useParams();
 //     const context = useContext(WindowSize);
 //     const windowSize = context.windowSize;
@@ -64,7 +64,12 @@
 //             (response) => {
 //               console.log(response.data);
 //               response.data.forEach((session) => {
+//                 if (session.holidayName !=null) {
+//                   session.Subject = session.holidayName
+//                 }
+//                 else {
 //                 session.Subject = session.name;
+//                 }
 //                 if(!session.StartTime){
 //                   session.StartTime = session.date}
 //                   if(!session.EndTime){
