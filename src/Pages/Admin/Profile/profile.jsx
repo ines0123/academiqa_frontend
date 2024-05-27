@@ -1,7 +1,7 @@
 import './profile.css';
 import Header from "../../../Components/admin/header/header.jsx";
 import {Card, CardBody, Col, Container, Row} from "reactstrap";
-import avatar from "../../../assets/images/avatar2.png";
+import avatar from "../../../assets/images/avatar3.png";
 import AbsenceTable from "../../../Components/admin/AbsenceTable/AbsenceTable.jsx";
 import TeacherCourses from "../../../Components/admin/TeacherCourses/TeacherCourses.jsx";
 import {FaChalkboardUser} from "react-icons/fa6";

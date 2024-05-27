@@ -1,15 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Header from "../../../Components/admin/header/header.jsx";
 import TableStudents from "../../../Components/admin/StudentsTable/TableStudents.jsx";
 import axios from "axios";
 import {Button} from "reactstrap";
 import {IoMdCheckmarkCircleOutline} from "react-icons/io";
 import Cookie from "cookie-universal";
+import {ToastContext} from "../../../Context/ToastContext.jsx";
 
 const StudentsAdmin = () => {
     const [groups, setGroups] = useState([]);
     const [fileGroup, setFileGroup] = useState(null);
     const [isHovered, setIsHovered] = useState(false);
+    const {showToast} = useContext(ToastContext);
     useEffect(() => {
         getGroups();
     }, []);
@@ -38,6 +40,7 @@ const StudentsAdmin = () => {
         axios.post('http://localhost:5000/group/CreateAll', formData, config).then(r => {
             console.log(r)
             getGroups();
+            showToast('Groups imported successfully', 'success');
             setGroupDone(false);
             setFileGroup(null);
             document.getElementById('csv-upload-group').value = null;

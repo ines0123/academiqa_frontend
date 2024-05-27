@@ -35,9 +35,9 @@ const FirstCalendar = ({role, sessions}) => {
     return (
       <div
         className={`e-appointment ${props?.type == "Lecture" ? "beige" : props?.type == "TP" ? "green" : "blue"} `}
-        onClick={() => { 
-          // window.location.pathname = `${role}/session/${props.Id}`; 
-          nav(`/${role}/session/${props?.id}`);
+        onClick={() => {
+          // window.location.pathname = `${role}/session/${props.Id}`;
+          // nav(`/${role}/session/${props?.id}`);
       }}
       >
         <div className="subject"><b>{props?.Subject}</b>: {props?.type}</div>
@@ -72,7 +72,7 @@ const FirstCalendar = ({role, sessions}) => {
       }}
       showQuickInfo={false}
       eventClick={(args) => {
-        nav(`/student/session/${+args.event.Id}`);
+        nav(`/student/session/${+args.event.id}`);
       }}
       
 

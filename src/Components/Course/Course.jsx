@@ -8,7 +8,7 @@ import avatar from "../../assets/images/avatar.png";
 const Course = ({maxWidth,course,color,placement}) => {
     const [type,setType] = useState(placement);
     return (
-        <div className="course card d-flex justify-content-center ps-4 pe-3 pb-3" style={{background: `${color}`,maxWidth: maxWidth ? '301px':''}}>
+        <div className="course card d-flex justify-content-center ps-4 pe-3 pb-3 pt-4" style={{background: `${color}`,maxWidth: maxWidth ? '301px':''}}>
             <NavLink to={`/course/${course?.id}`} className="text-decoration-none">
                 <div className="card-content d-flex flex-column justify-content-evenly">
                     <div className="card-top">

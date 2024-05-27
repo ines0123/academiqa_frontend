@@ -1,5 +1,5 @@
 // TableStudents.js
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
     Button,
     Card,
@@ -23,6 +23,7 @@ import {PiStudentBold} from "react-icons/pi";
 import {NavLink} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import Cookie from "cookie-universal";
+import ToastContext from "react-bootstrap/ToastContext";
 
 // eslint-disable-next-line react/prop-types
 const TableStudents = ({groups}) => {
@@ -34,6 +35,7 @@ const TableStudents = ({groups}) => {
             label: `${group.sectorLevel} group ${group.group}`
         })));
     }, [groups]);
+    const {showToast} = useContext(ToastContext);
 
     const [students, setStudents] = useState([]);
     const [isHovered, setIsHovered] = useState(false);
@@ -121,6 +123,7 @@ const TableStudents = ({groups}) => {
             getStudents();
             setDone(false)
             setFile(null)
+            showToast('Students imported successfully', 'success');
             document.getElementById('csv-upload').value = null;
         }).catch(e => {
             console.log(e)

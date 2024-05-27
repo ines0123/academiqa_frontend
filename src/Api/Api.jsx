@@ -7,6 +7,7 @@ export const AUTH= 'auth';
 
 //session types
 export const SESSION_TYPE = 'session-type';
+export const RIM = 'GroupsByTeacherRim'
 
 // sessions
 export const SESSION = 'session';

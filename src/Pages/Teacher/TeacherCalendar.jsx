@@ -4,85 +4,91 @@ import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
 import AdminCalendar from "../../Components/Calendar/AdminCalendar.jsx";
 import axios from "axios";
-import { baseURL, SESSION, SESSION_TYPE, SESSIONS_BY_GROUP, SESSIONS_BY_TEACHER } from "../../Api/Api";
+import {baseURL, RIM, SESSION, SESSION_TYPE, SESSIONS_BY_GROUP, SESSIONS_BY_TEACHER} from "../../Api/Api";
 import Cookie from 'cookie-universal';
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
+import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
 export default function TeacherCalendar() {
-    const cookie = Cookie();
-    const token = cookie.get('academiqa');
     const [groups, setGroups] = useState([]);
     const [selectedGroupId, setSelectedGroupId] = useState(-1);
     const [sessionsData, setSessionsData] = useState([]);
+    const {currentUser,user} = useContext(CurrentUser);
 
     // get groups of teacher
     useEffect(() => {
-        axios.post(`${baseURL}/${SESSION_TYPE}/GroupsByTeacher/${jwtDecode(token).id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }).then(
-            (response) => {
-                console.log("teacher groups",response.data);
-                setGroups(response.data);
-            }
-        ).catch((err) => {
-            console.log(err);
+        const cookie = Cookie();
+        const token = cookie.get('academiqa');
+        console.log("token", token);
+        try {
+            axios.get(`${baseURL}/${SESSION_TYPE}/GroupsByTeacher/${jwtDecode(token).id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }).then(
+                (response) => {
+                    console.log("groups:", response.data);
+                    setGroups(response.data);
+                }).catch((err) => {
+                    console.log(err);
+                }
+            );
+        } catch (e) {
+            console.log(e);
         }
-        );
-    }, []);
+    }, [currentUser]);
 
     //get the sessions by groupID
-    useEffect(
-        () => {
-            if (selectedGroupId && selectedGroupId != -1) {
-                const selectedGroup = groups.find((group) => group.id == selectedGroupId);
-                axios.get(`${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${selectedGroup.sector}/${selectedGroup.level}/${selectedGroup.group}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }).then(
-                    (response) => {
-                        console.log("selected group", selectedGroup);
-                        response.data.forEach(
-                            (session) => {
-                                session.Subject = session.name;
-                            }
-                        )
-                        setSessionsData(response.data);
-                        console.log("sessions:", response.data);
-
-                    }).catch((err) => {
-                        console.log(err);
-                    }
-                );
-            }
-            if (selectedGroupId == -1) {
-                axios.get(`${baseURL}/${SESSION}/${SESSIONS_BY_TEACHER}/${jwtDecode(token).id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }).then(
-                    (response) => {
-                        console.log("sessions by teacher", response.data);
-                        response.data.forEach(
-                            (session) => {
-                                session.Subject = session.name;
-                                session.StartTime = session.date;
-                                session.EndTime = session.endTime;
-                                session.group = session.sessionType.group.sectorLevel;
-                            }
-                        )
-                        setSessionsData(response.data);
-                    }).catch((err) => {
-                        console.log(err);
-                    }
-                );
-            }
-        }
-        , [selectedGroupId]
-    )
+    // useEffect(
+    //     () => {
+    //         if (selectedGroupId && selectedGroupId != -1) {
+    //             const selectedGroup = groups.find((group) => group.id == selectedGroupId);
+    //             axios.get(`${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${selectedGroup.sector}/${selectedGroup.level}/${selectedGroup.group}`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             }).then(
+    //                 (response) => {
+    //                     console.log("selected group", selectedGroup);
+    //                     response.data.forEach(
+    //                         (session) => {
+    //                             session.Subject = session.name;
+    //                         }
+    //                     )
+    //                     setSessionsData(response.data);
+    //                     console.log("sessions:", response.data);
+    //
+    //                 }).catch((err) => {
+    //                     console.log(err);
+    //                 }
+    //             );
+    //         }
+    //         if (selectedGroupId == -1) {
+    //             axios.get(`${baseURL}/${SESSION}/${SESSIONS_BY_TEACHER}/${jwtDecode(token).id}`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             }).then(
+    //                 (response) => {
+    //                     console.log("sessions by teacher", response.data);
+    //                     response.data.forEach(
+    //                         (session) => {
+    //                             session.Subject = session.name;
+    //                             session.StartTime = session.date;
+    //                             session.EndTime = session.endTime;
+    //                             session.group = session.sessionType.group.sectorLevel;
+    //                         }
+    //                     )
+    //                     setSessionsData(response.data);
+    //                 }).catch((err) => {
+    //                     console.log(err);
+    //                 }
+    //             );
+    //         }
+    //     }
+    //     , [selectedGroupId]
+    // )
 
 
     return(

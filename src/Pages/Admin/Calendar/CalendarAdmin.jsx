@@ -80,7 +80,7 @@ export default function Calendar() {
     useEffect(() => {
         console.log("sector:", sector, ",year: ", year, ",group:", group);
         if (sector && year && group) {
-            const yearString =  year==1? "ère année": "ème année";
+            const yearString =  year == 1? "ère année": "ème année";
           axios.get(
               `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${sector}/${year}${yearString}/${group}`
               , {

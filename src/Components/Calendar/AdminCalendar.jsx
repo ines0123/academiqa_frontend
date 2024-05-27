@@ -107,7 +107,7 @@ import { useEffect } from "react";
         eventClick={
           (args) => {
             if (role === "teacher") {
-              nav(`/teacher/session/${args.event.Id}`);
+              nav(`/teacher/session/${args.event.id}`);
             }
           }
         }
