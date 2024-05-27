@@ -7,21 +7,16 @@ import { useContext, useEffect, useState } from "react"
 import { CurrentUser } from "../../Context/CurrentUserContext";
 import axios from "axios";
 import { baseURL, SESSION, SESSIONS_BY_GROUP } from "../../Api/Api";
-import Cookie from "cookie-universal";
+import Cookie from 'cookie-universal';
 
 export default function StudentCalendar() {
 
+
+    const userContext = useContext(CurrentUser);
+    const user = userContext.user;
     const [sessionsData, setSessionsData] = useState("");
-    const {currentUser, user} = useContext(CurrentUser);
-
-    // convert date format from iso to js
-    const convertDate = (date) => {
-      const result =  new Date(date);
-        return result;
-    }
     const cookie = Cookie();
-    const userToken = cookie.get('academiqa')
-
+    const token = cookie.get('academiqa');
   
     //get the sessions by user groupID
     useEffect(() => {
@@ -29,14 +24,13 @@ export default function StudentCalendar() {
           console.log("user", user);
         axios.get(
             `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user?.group?.sector}/${user?.group?.level}/${user?.group?.group}`
-            // `${baseURL}/${SESSION}`
             , {
           headers: {
-            Authorization: `Bearer ${userToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }).then(
           (response) => {
-            console.log(response.data);
+            console.log("sessions:",response.data);
             response.data.forEach((session) => {
               session.Subject = session.name;
               if(!session.StartTime){

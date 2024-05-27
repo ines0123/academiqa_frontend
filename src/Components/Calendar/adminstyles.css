@@ -12,29 +12,6 @@
 
 .e-appointment:hover {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.07);
-
-}
-
-
-
-.subject,
-.time {
-    /* color: black; */
-}
-
-.green {
-    padding: 10px;
-    background: #D8ECD6 !important;
-}
-
-.beige {
-    background: #F5F5DC !important;
-    padding: 10px;
-}
-
-.blue {
-    padding: 10px;
-    background: #ADD8E6 !important;
 }
 
 .e-add {

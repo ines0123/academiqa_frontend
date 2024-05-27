@@ -2,26 +2,85 @@ import avatar from "../../assets/images/avatar.png";
 import {useState, useEffect, useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MidNavbar from "../MidNavbar/MidNavbar";
-import { FaCircleUser } from "react-icons/fa6";
 import "../Navbar/Navbar.css";
 import EmptyNavbar from "./EmptyNavbar";
-import FirstCalendar from "../Calendar/FirstCalendar";
 import SmallCalendar from "../Calendar/SmallCalendar";
-import { Sessions } from "../../data/sessionsData";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
+import Cookie from 'cookie-universal';
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import { baseURL, SESSION, SESSIONS_BY_TEACHER, SESSIONS_BY_GROUP } from "../../Api/Api";
+
+
+
 
 const Navbar = () => {
   const {currentUser, user} = useContext(CurrentUser);
+  const [sessionsData, setSessionsData] = useState("");
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const nav = useNavigate();
-  const student = {
-    id: 1,
-    name: "John Doe",
-    level: 1
-}
-  const data = Sessions.filter((session) => session.LevelId.includes(+student.level));
-  console.log(data);
+  const cookie = Cookie();
+  const token = cookie.get('academiqa');
+
+
+  // get sessions for small calendar 
+  useEffect(() => {  
+  // for a teacher
+  if (jwtDecode(token).role.toLowerCase() === 'teacher') {
+    axios.get(`${baseURL}/${SESSION}/${SESSIONS_BY_TEACHER}/${jwtDecode(token).id}`, {
+      headers: {
+          Authorization: `Bearer ${token}`,
+      },
+  }).then(
+      (response) => {
+          console.log("sessions by teacher", response.data);
+          response.data.forEach(
+              (session) => {
+                  session.Subject = session.name;
+                  session.StartTime = session.date;
+                  session.EndTime = session.endTime;
+                  session.group = session.sessionType.group.sectorLevel;
+              }
+          )
+          setSessionsData(response.data);
+      }).catch((err) => {
+          console.log(err);
+      }
+  );
+  }
+  // for a student
+  if (jwtDecode(token).role.toLowerCase() === 'student') {
+    if (user) {
+      console.log("user:", user);
+      axios.get(
+          `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user?.group?.sector}/${user?.group?.level}/${user?.group?.group}`
+          , {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(
+        (response) => {
+          console.log("sessions:",response.data);
+          response.data.forEach((session) => {
+            session.Subject = session.name;
+            if(!session.StartTime){
+              session.StartTime = session.date}
+              if(!session.EndTime){
+                session.EndTime = session.endTime}
+          })
+          setSessionsData(response.data);
+        }).catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+  
+
+
+  }
+  , []);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,7 +114,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div title='go to calendar' className="calendar mt-3" onClick={() => nav(`/${currentUser?.role}/calendar`)}>
-              <SmallCalendar sessions={data} role={currentUser?.role} />
+              <SmallCalendar sessions={sessionsData} role={currentUser?.role} />
             </div>
             <div className="calendardiv">
               <Link to="/calendar" className="calendarButton">

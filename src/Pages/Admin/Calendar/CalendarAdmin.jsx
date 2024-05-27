@@ -28,6 +28,7 @@ export default function Calendar() {
     const token = cookie.get('academiqa');
 
     const [sessionsData, setSessionsData] = useState("");
+    const [reload, setReload] = useState(false);
     
     const [year, setYear] = useState("");
     const [sector, setSector] = useState("");
@@ -37,6 +38,20 @@ export default function Calendar() {
     const levels = [ 2, 3,4,5] ;
     const amphis = [1,2,3,4];
     // extract the unique sectors from the groups:
+
+
+    function transform(sector){
+        switch(sector){
+            case "Génie logiciel": return "GL";
+            case "Réseaux Informatiques et Télécommunications": return "RT";
+            case "Informatique Industrielle et Automatique": return "IIA";
+            case "Biologie Industrielle": return "BIO";
+            case "Chimie Industrielle": return "CH";
+            case "Math Physique Informatique": return "MPI";
+            case "Chimie et Biologie Appliquées": return "CBA";
+        }
+    }
+    
 
     useEffect(() => {
     axios.get(`${baseURL}/${GROUP}`, {
@@ -63,9 +78,11 @@ export default function Calendar() {
       
     //get the sessions by user groupID
     useEffect(() => {
+        console.log("sector:", sector, ",year: ", year, ",group:", group);
         if (sector && year && group) {
+            const yearString =  year==1? "ère année": "ème année";
           axios.get(
-              `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${sector}/${year}/${group}`
+              `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${sector}/${year}${yearString}/${group}`
               , {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -81,34 +98,13 @@ export default function Calendar() {
                     session.EndTime = session.endTime}
               })
               setSessionsData(response.data);
+              console.log("sessions:", sessionsData);
             }).catch((err) => {
               console.log(err);
             });
         }
-      }, [sector, year, group]);
+      }, [sector, year, group, reload]);
       
-    
-  
-
-    // const handleSubmit = (e)=>{
-    //     e.preventDefault();
-    //     // const data = {
-    //     //     sector: sector,
-    //     //     year:year,
-    //     //     amphi: amphi,
-    //     //     group: group
-    //     // }
-    //     // post request 
-    //     let result = 
-    //     groups.filter(g => g.sector== sector  
-    //         && (g.year== year) 
-    //         && g.group==group
-    //     );
-    //     if (result.length>1) result= result.filter(g=> g.amphi== amphi);
-    //     console.log("group:", result);
-
-    //     navigate("/admin/calendar/"+result[0].id);
-    // }
     const [isHovered, setIsHovered] = useState(false);
     const [isHoveredHolidays, setIsHoveredHolidays] = useState(false);
     const [groupDone, setGroupDone] = useState(false);
@@ -236,7 +232,9 @@ export default function Calendar() {
                         <select name="level" id="level" className="form-select"
                                 onChange={(e) => {
                                     setSector(e.target.value);
-
+                                    if(e.target.value=="Math Physique Informatique" || e.target.value=="Chimie et Biologie Appliquées"){
+                                        setYear(1);
+                                    }
                                 }
                                 }>
                             <option value="" hidden>Select sector</option>
@@ -245,12 +243,12 @@ export default function Calendar() {
                                 sectors.map((sector) => {
                                     return <option value={sector} key={sector}
                                         // selected={sector==selectedGroup?.sector}
-                                    >{sector}</option>;
+                                    >{transform(sector)}</option>;
                                 })
                             }
                         </select>
 
-                        {sector != "MPI" && (
+                        {(transform(sector)!="MPI" && transform(sector)!="CBA") && (
                             <select name="level" id="level" className="form-select"
                                     onChange={(e) => {
                                         setAmphi("");
@@ -281,27 +279,8 @@ export default function Calendar() {
                             </select>)}
 
                         {
-                            sector == "MPI" && (
-                                <select name="amphi" id="amphi" className="form-select"
-                                        onChange={(e) => {
-                                            setYear("1");
-                                            setAmphi(e.target.value);
-
-                                            // window.location.pathname = `/admin/calendar/${e.target.value}`;
-                                        }
-                                        }>
-                                    <option value="" hidden>Select Amphi</option>
-                                    {/*{
-                        groups
-                        .filter((l) => l.sector == sector && l.group==1)
-                        .map((level) => {
-                            return <option value={level.amphi} key={level.amphi}
-                            // selected={level.amphi==selectedGroup?.amphi}
-                            >{level.amphi}</option>
-                        }
-                        )
-                    } */}
-
+                            (transform(sector) == "MPI" || sector=="CBA" )&& (
+                                <select name="year" id="year" className="form-select" value={"1"} hidden>
                                     {
                                         amphis.map((level) => {
                                             return <option value={level} key={level}
@@ -317,7 +296,7 @@ export default function Calendar() {
                                 onChange={(e) => {
                                     setGroup(e.target.value);
                                     console.log(
-                                        "year:", year,
+                                        "group:", group,
                                         ",sector:", sector,
                                         ",year: ", year,
                                         ",amphi:", amphi);
@@ -392,12 +371,11 @@ export default function Calendar() {
                     </div>
                 </div>
             </div>
-            <AdminCalendar role={role} sessions={sessionsData}/>
+            <AdminCalendar role={role} sessions={sessionsData} sector={sector} year={year} group={group} reload={reload} setReload={setReload}/>
         </div>
         <MidNavbar/>
         <PopUp fromCourse={true}  width={`${screenWidth > 740 ? '35vw':'60vw'} `} isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className="pt-3">
-
                 <form onSubmit={handleSessionsAdd} className="link-form">
                     <label className="fs-5  ms-1 mb-1 "> Enter The number of weeks in the semester:</label>
                     <input name={"numberOfWeeks"} type={"number"} onChange={handleHolidaysDataChange}/>

@@ -1,13 +1,12 @@
 .e-appointment {
     border-radius: 10px !important;
-    background: #dff3de !important;
+    background: #e8d5a766 !important;
     color: rgba(0, 0, 0, 0.721) !important;
     font-size: 12px;
     font-weight: 500;
-    /* width: 98% !important; */
+    border: 0.5px solid #ffffff !important;
     height: 99%;
     cursor: pointer !important;
-    border: none !important;
 }
 
 .e-selected-cell{
@@ -50,9 +49,10 @@
 .green {
     padding: 10px;
     margin-left: -5%;
-    background: #D8ECD6 !important;
+    background: #d8ecd6df !important;
     height: 100% !important;
     width: 105% !important;
+    border: none !important;
 }
 
 .beige {
@@ -60,17 +60,20 @@
     padding: 10px;
     margin-left: -5%;
     width: 105% !important;
+    border: none !important;
 
 }
 
 .blue {
     padding: 10px;
-    background: #ADD8E6 !important;
+    background: #75ddff6c !important;
     height: 100% !important;
     width: 105% !important;
     margin-left: -5%;
+    border: none !important;
 
 }
+
 
 .e-add {
     display: none !important;
@@ -134,4 +137,19 @@
 }
 #_dialog_wrapper_dialog-content{
     padding-bottom: 0px !important;
+}
+
+.error-span{
+    border-radius: 10px;
+    background: #ff0000a0;
+    color: white;
+    padding: 5px 20px;
+    width: fit-content;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 12px;   
+}
+
+.e-location-container {
+    display: none !important;
 }

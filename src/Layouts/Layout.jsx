@@ -11,6 +11,9 @@ import Cookie from 'cookie-universal';
 import { jwtDecode } from "jwt-decode";
 import Loading from "../Components/Loading/Loading.jsx";
 import Preloader from "../Components/Preloader/Preloader.jsx";
+import axios from "axios";
+import { baseURL } from "../Api/Api";
+
 
 
 export default function Layout(){
@@ -21,9 +24,34 @@ export default function Layout(){
     const { currentUser, loading, setLoading } = useContext(CurrentUser);
     const [role, setRole] = useState('');
     useEffect(() => {
-        // console.log('loading', loading);
-        setRole(currentUser?.role);
-    }, [currentUser]);
+        const cookie = Cookie();
+        if (!cookie.get('academiqa')) { 
+         ; userContext.setCurrentUser(null); }
+        else{
+        const userToken = cookie.get('academiqa');
+        setRole(jwtDecode(userToken).role);
+        const userPath = jwtDecode(userToken).role === 'admin' ? 'admin' : (jwtDecode(userToken).role === 'teacher' ? 'teacher' : 'student');
+
+        // if (jwtDecode(userToken).role.toLowerCase() === 'student') {
+        axios.get(`${baseURL}/${userPath}/${jwtDecode(userToken).id}`, {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then(
+            (response) => {
+                userContext.setCurrentUser(response.data);
+                console.log('current user:', userContext.currentUser);
+            }).catch((err) => {
+                console.log(err);
+            });
+        // }
+        
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);}
+    }
+    ,[])
 
 
     return (

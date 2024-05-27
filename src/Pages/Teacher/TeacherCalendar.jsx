@@ -1,43 +1,88 @@
-import FirstCalendar from "../../Components/Calendar/FirstCalendar";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { Sessions } from "../../data/sessionsData";
-import { Subjects } from "../../data/SubjectsData";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import MidNavbar from "../../Components/MidNavbar/MidNavbar.jsx";
-import { groups } from "../../data/LevelsData.jsx";
 import AdminCalendar from "../../Components/Calendar/AdminCalendar.jsx";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseURL, SESSION, SESSION_TYPE, SESSIONS_BY_GROUP, SESSIONS_BY_TEACHER } from "../../Api/Api";
+import Cookie from 'cookie-universal';
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 
 export default function TeacherCalendar() {
-    const {id} = useParams();
-    const nav=useNavigate();
-    const teacher ={
-        Id: 2,
-        Name: "Sellaouti"
-    }
-    let data = [];
+    const cookie = Cookie();
+    const token = cookie.get('academiqa');
+    const [groups, setGroups] = useState([]);
+    const [selectedGroupId, setSelectedGroupId] = useState(-1);
+    const [sessionsData, setSessionsData] = useState([]);
 
-       // subjects of teacher
-       const subjects = Subjects.filter((subject) => subject.TeacherId == teacher.Id);
-       console.log('subjects of teacher:', subjects);
-
-    if (id){
-        // sessions of selected level
-        data = Sessions.filter((session) => session.LevelId.includes(+id));
-        console.log('sessions:', data);
+    // get groups of teacher
+    useEffect(() => {
+        axios.post(`${baseURL}/${SESSION_TYPE}/GroupsByTeacher/${jwtDecode(token).id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then(
+            (response) => {
+                console.log("teacher groups",response.data);
+                setGroups(response.data);
+            }
+        ).catch((err) => {
+            console.log(err);
         }
-    else{
-        //all sessions of teacher
-        data  = Sessions.filter((session) => subjects.map((subject) => subject.Id).includes(session.SubjectId));
-        console.log('sessions of teacher:', data);    
-    }
- 
-    // groups of teacher== groups of subjects of teacher
-    const groupsOfTeacher = groups.filter((group) => subjects.map((subject) => subject.LevelId).flat().includes(group.id));
-    console.log('groups of teacher:', groupsOfTeacher); 
-    
+        );
+    }, []);
+
+    //get the sessions by groupID
+    useEffect(
+        () => {
+            if (selectedGroupId && selectedGroupId != -1) {
+                const selectedGroup = groups.find((group) => group.id == selectedGroupId);
+                axios.get(`${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${selectedGroup.sector}/${selectedGroup.level}/${selectedGroup.group}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }).then(
+                    (response) => {
+                        console.log("selected group", selectedGroup);
+                        response.data.forEach(
+                            (session) => {
+                                session.Subject = session.name;
+                            }
+                        )
+                        setSessionsData(response.data);
+                        console.log("sessions:", response.data);
+
+                    }).catch((err) => {
+                        console.log(err);
+                    }
+                );
+            }
+            if (selectedGroupId == -1) {
+                axios.get(`${baseURL}/${SESSION}/${SESSIONS_BY_TEACHER}/${jwtDecode(token).id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }).then(
+                    (response) => {
+                        console.log("sessions by teacher", response.data);
+                        response.data.forEach(
+                            (session) => {
+                                session.Subject = session.name;
+                                session.StartTime = session.date;
+                                session.EndTime = session.endTime;
+                                session.group = session.sessionType.group.sectorLevel;
+                            }
+                        )
+                        setSessionsData(response.data);
+                    }).catch((err) => {
+                        console.log(err);
+                    }
+                );
+            }
+        }
+        , [selectedGroupId]
+    )
 
 
     return(
@@ -50,18 +95,14 @@ export default function TeacherCalendar() {
                 <h1 className="fs-2 ms-2 fw-bold" style={{marginBottom:"0" }}>Teacher Calendar</h1>
             </div>            <select name="level" id="level" className="form-select"
              onChange={(e) => {
-                nav(`/teacher/calendar/${e.target.value}`);
-
+                setSelectedGroupId(e.target.value);
             }
             }>
-                <option value="">My Calendar </option>
-                {/* <option value="1" selected={id === 1}>Génie logiciel 2ème année</option>
-                <option value="2" selected={id === 2}>Génie logiciel 3ème année</option> */}
-                {groupsOfTeacher.map((level) => (
-                    <option value={level.id} selected={id == level.id}>{level.abbreviation}</option>
-                ))}
+                <option value="-1">My Calendar </option>
+                {groups.map((group) => (
+                    <option key={group.id} value={group.id}>{group.sectorLevel}</option>))}
             </select>
-        <AdminCalendar role="teacher" sessions={data}/>
+        <AdminCalendar role="teacher" sessions={sessionsData}/>
         </div>
     <MidNavbar role={"teacher"}/>
     </div>
