@@ -19,9 +19,10 @@ import PopUp from "../../Common/PopUp/PopUp.jsx";
 import {PiStudentBold} from "react-icons/pi";
 import {LuImagePlus} from "react-icons/lu";
 import Scrollbar from "../../Common/Scrollbar/Scrollbar.jsx";
+import Cookie from "cookie-universal";
 
 const AdminsTable = () => {
-
+    const userToken = Cookie().get('academiqa');
     const [admins, setAdmins] = useState([]);
     const [formData, setFormData] = useState({
         username: "",
@@ -138,56 +139,51 @@ const AdminsTable = () => {
         cin: "",
     });
     const handleSubmitAdmin = (e) => {
-        e.preventDefault();
-        console.log(formData);
-        let newErrors = {
+    e.preventDefault();
+    console.log(formData);
+    let newErrors = {
+        username: "",
+        email: "",
+        password: "",
+        cin: "",
+    };
+    if (!formData.username) {
+        newErrors.username = "Username is required";
+    }
+    if (!formData.email) {
+        newErrors.email = "Email is required";
+    }
+    if (formData.password.length < 6) {
+        newErrors.password = "Password must be at least 6 characters long.";
+    }
+    if (!formData.password) {
+        newErrors.password = "Password is required";
+    }
+    if (!formData.cin) {
+        newErrors.cin = "CIN is required";
+    }
+    setErrors(newErrors);
+    if (!Object.values(newErrors).some(error => error !== "")) {
+        //Call the API to register the admin
+        axios.post('http://localhost:5000/auth/register', formData,{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            }
+        }).then(r => {
+            setAdmins([...admins, r.data])
+        }).catch(e => {
+            console.log(e)
+        })
+        //Reset the form data
+        setFormData({
             username: "",
             email: "",
             password: "",
-            image: "",
-            cin: "",
-        };
-        if (!formData.username) {
-            newErrors.username = "Username is required";
-        }
-        if (!formData.email) {
-            newErrors.email = "Email is required";
-        }
-        if (formData.password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters long.";
-        }
-        if (!formData.password) {
-            newErrors.password = "Password is required";
-        }
-        if (!formData.image) {
-            newErrors.image = "Image is required";
-        }
-        if (!formData.cin) {
-            newErrors.cin = "CIN is required";
-        }
-        if (!formData.image) {
-            newErrors.image = "Image is required";
-        }
-        setErrors(newErrors);
-        if (!Object.values(newErrors).some(error => error !== "")) {
-            // Call the API to update the admin
-            // axios.put('http://localhost:5000/admins/' + adminId, updateFormData, config).then(r => {
-            //     console.log(r)
-            //     getAdmins();
-            // }).catch(e => {
-            //     console.log(e)
-            // })
-            // Reset the form data
-            setFormData({
-                username: "",
-                email: "",
-                password: "",
-                image: null,
-                cin: 0,
-            });
-            toggleModal();
-        }
-    };
+            cin: 0,
+        });
+        toggleModal();
+    }
+};
     const getAdmins = () => {
         axios.get('http://localhost:5000/admin/all').then(r => {
             setAdmins(r.data)
