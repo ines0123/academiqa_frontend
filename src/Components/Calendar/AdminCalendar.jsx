@@ -138,13 +138,14 @@ import { useEffect } from "react";
             editTimeFormat(args.data[0]);
             console.log(args.data[0]);
             alert("Session Created");
+            const yearString = year==1 ? "ère":"ème";
             const addSessionDto= {
               date: args.data[0].StartTime,
               endTime : args.data[0].EndTime,
               name: args.data[0].Subject}
             const getGroupDto= {
               sector: sector,
-              level: year+'ème année',
+              level: year+yearString+" année",
               group: group
             }
             const dto = {
