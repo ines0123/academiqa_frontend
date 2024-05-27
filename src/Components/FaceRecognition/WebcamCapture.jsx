@@ -28,15 +28,15 @@ const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentS
         newSocket.send("S" + sessionId);
       } else if(event.data !== "0"){
         const data = JSON.parse(event.data);
-        try{
+        // try{
           console.log("Student found", data)
           setStudents(prevStudents => [...prevStudents, {'id':data.id,'username': data.username, 'isPresent': true}]);
           setAbsentStudents(absentStudents.filter(s => s.id !== data?.id));
           setWaitingForAnswer(false);
 
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
-        }
+        // } catch (error) {
+        //     console.error('Error parsing JSON:', error);
+        // }
       } else {
         setWaitingForAnswer(false);
       }
