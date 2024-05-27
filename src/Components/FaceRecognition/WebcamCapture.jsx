@@ -5,6 +5,7 @@ import {toast} from "react-toastify";
 import {ToastContext} from "../../Context/ToastContext.jsx";
 import Select from "react-select";
 
+// eslint-disable-next-line react/prop-types
 const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentStudents}) => {
   const webcamRef = useRef(null);
   const [socket, setSocket] = useState(null);
@@ -28,15 +29,10 @@ const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentS
         newSocket.send("S" + sessionId);
       } else if(event.data !== "0"){
         const data = JSON.parse(event.data);
-        // try{
           console.log("Student found", data)
           setStudents(prevStudents => [...prevStudents, {'id':data.id,'username': data.username, 'isPresent': true}]);
           setAbsentStudents(absentStudents.filter(s => s.id !== data?.id));
           setWaitingForAnswer(false);
-
-        // } catch (error) {
-        //     console.error('Error parsing JSON:', error);
-        // }
       } else {
         setWaitingForAnswer(false);
       }
@@ -46,10 +42,7 @@ const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentS
       newSocket.close();
     }
   }, []);
-  useEffect(() => {
-    console.log("absentStudentsssssssssssss", absentStudents);
-    console.log("studentssssssssssss", students);
-  }, [absentStudents, students]);
+
   useEffect(() => {
     const captureFrame = async () => {
       if(WaitingForAnswer===false){
@@ -60,7 +53,7 @@ const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentS
       console.log('Image sent to server.');
       setWaitingForAnswer(true);
     } catch (error) {
-      console.error('Error sendingg image to sserver:', error);
+      console.error('Error sending image to server:', error);
       socket.close();
       return;
     }
@@ -71,14 +64,14 @@ const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentS
 
    return () => clearInterval(intervalId);
   }, [socket, WaitingForAnswer]);
-  const [deviceoptions, setdeviceoptions] = useState();
+  const [deviceOptions, setdeviceOptions] = useState();
   const [selectedDevice, setSelectedDevice] = useState();
   const handleDevices = React.useCallback(
       mediaDevices =>{
         const devices = mediaDevices.filter(({ kind }) => kind === "videoinput");
         const options = devices.map(device => ({ ["value"]: device.deviceId, ["label"]:device.label }));
         console.log(options);
-        setdeviceoptions(options)
+        setdeviceOptions(options)
         setSelectedDevice({deviceId:options[0].value})
         console.log(devices);
       },
@@ -95,7 +88,7 @@ const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentS
     <div className="d-flex justify-content-start">
       <Webcam forceScreenshotSourceSize={true} mirrored={true} style={{width:"70%", height:"100%"}} audio={false} ref={webcamRef} screenshotFormat="image/jpeg"/>
       <div style={{width:"30%"}} className="mt-12 mx-3">
-        <Select className="mb-2" options={deviceoptions} onChange={
+        <Select className="mb-2" options={deviceOptions} onChange={
           (e)=>{
             setSelectedDevice({deviceId:e.value});
             console.log(selectedDevice);
