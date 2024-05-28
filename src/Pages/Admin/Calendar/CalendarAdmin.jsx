@@ -45,6 +45,7 @@ export default function Calendar() {
             case "Génie logiciel": return "GL";
             case "Réseaux Informatiques et Télécommunications": return "RT";
             case "Informatique Industrielle et Automatique": return "IIA";
+            case "Instrumentation et Maintenance Industrielle": return "IMI";
             case "Biologie Industrielle": return "BIO";
             case "Chimie Industrielle": return "CH";
             case "Math Physique Informatique": return "MPI";
@@ -90,8 +91,14 @@ export default function Calendar() {
           }).then(
             (response) => {
               console.log(response.data);
-              response.data.forEach((session) => {
-                session.Subject = session.name;
+                  response.data.forEach((session) => {
+                      if (session.holidayName!=null) {
+                            session.Subject = session.holidayName;
+                      }
+                      else {
+                          session.Subject = session.name;
+                      }
+                
                 if(!session.StartTime){
                   session.StartTime = session.date}
                   if(!session.EndTime){

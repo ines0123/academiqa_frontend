@@ -36,9 +36,14 @@ const Navbar = () => {
       (response) => {
           console.log("sessions by teacher", response.data);
           response.data.forEach(
-              (session) => {
-                  session.Subject = session.name;
-                  session.StartTime = session.date;
+            (session) => {
+              if (session.holidayName!=null) {
+                session.Subject = session.holidayName
+              }
+              else {
+                session.Subject = session.name;
+              }
+              session.StartTime = session.date;
                   session.EndTime = session.endTime;
                   session.group = session.sessionType.group.sectorLevel;
               }
