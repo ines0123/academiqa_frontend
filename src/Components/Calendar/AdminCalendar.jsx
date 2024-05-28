@@ -15,9 +15,10 @@ import {
   import { registerLicense } from '@syncfusion/ej2-base';
   import '../../Components/Calendar/styles.css'
 import axios from "axios";
-import { ADD_SESSION, SESSION, baseURL } from "../../Api/Api";
+import {ADD_SESSION, SESSION, baseURL, SESSION_TYPE} from "../../Api/Api";
 import Cookie from 'cookie-universal';
-import { useEffect } from "react";
+import {useContext, useEffect} from "react";
+import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
   registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
   
@@ -68,8 +69,8 @@ import { useEffect } from "react";
         location: { name: typeOrGroup, title: `Session ${typeOrGroup=="group"?"Group":"Type"}` },
       },
     };
-  
 
+    const {user, currentUser} = useContext(CurrentUser);
     return (
       <div>
       <ScheduleComponent
@@ -105,9 +106,25 @@ import { useEffect } from "react";
         }}
 
         eventClick={
-          (args) => {
+          async (args) => {
+            let teacherId
             if (role === "teacher") {
-              nav(`/teacher/session/${args.event.id}`);
+              console.log("args.event.teacherId:", args.event);
+                console.log("currentUser.id:", currentUser.id);
+                await axios.get(`${baseURL}/${SESSION_TYPE}/${args.event?.sessionType?.id || args.event?.sessionTypeId}/teacher-id`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    }).then(
+                    (response) => {
+                      teacherId = response.data;
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+              console.log("teacherId:", teacherId);
+              if(teacherId === currentUser?.id) {
+                nav(`/teacher/session/${args.event.id}`);
+              }
             }
           }
         }

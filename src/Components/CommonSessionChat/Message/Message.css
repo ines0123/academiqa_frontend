@@ -30,7 +30,6 @@
 .message-content {
     word-break: break-all;
     white-space: normal;
-
 }
 .message-content.light{
     background-color: #F0EDF2;

@@ -171,10 +171,10 @@ const PresenceSheet = ({sessionId, session}) => {
                     </Scrollbar>
                 </div>
             </div>
-            <div className="d-flex justify-content-evenly items-center h-10">
+            <div className="d-flex justify-content-evenly items-center h-10 ">
                 <button
-                    className="session-buttons d-flex justify-content-between align-items-center ps-3 p-2 p-s-btn rounded-2xl h-11 max-w-48 w-full my-3 ">
-                    <span className="font-bold">Take attendance</span>
+                    className="session-buttons d-flex justify-content-between align-items-center ps-3 p-2 p-s-btn rounded-2xl h-11 max-w-48 w-full my-3">
+                    <span className="font-bold take-attendance">Take attendance</span>
                     <div className="see-more cursor-pointer ">
                         <MdOutlineMoreVert fill={'white'} size={30} onClick={() => setDisplay(!display)}/>
                         {display && (<div className="dropdown-course-content">
@@ -243,7 +243,7 @@ const PresenceSheet = ({sessionId, session}) => {
                     </div>
                 </button>
                 <button onClick={finishSession}
-                    className="session-buttons d-flex justify-content-between align-items-center  p-3 p-s-btn rounded-2xl h-11 max-w-48 my-3 ">
+                    className="session-buttons d-flex justify-content-between align-items-center  p-3 p-s-btn rounded-2xl h-11 max-w-48 my-3">
                     <span className="font-bold">Finish Session</span>
 
                 </button>

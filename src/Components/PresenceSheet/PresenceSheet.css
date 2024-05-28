@@ -58,3 +58,10 @@
     background-color: rgba(105, 46, 95, 90%);
     box-shadow: rgb(105, 46, 95) 0px 1px 5px 0px;
 }
+.take-attendance {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
