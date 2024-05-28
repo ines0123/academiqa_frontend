@@ -21,7 +21,7 @@ export default function StudentCalendar() {
     //get the sessions by user groupID
     useEffect(() => {
       if (user) {
-          console.log("user", user);
+          //console.log("user", user);
         axios.get(
             `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user?.group?.sector}/${user?.group?.level}/${user?.group?.group}`
             , {
@@ -30,7 +30,7 @@ export default function StudentCalendar() {
           },
         }).then(
           (response) => {
-            console.log("sessions:",response.data);
+            //console.log("sessions:",response.data);
             response.data.forEach((session) => {
               if (session.holidayName !=null) {
                 session.Subject = session.holidayName
@@ -45,7 +45,7 @@ export default function StudentCalendar() {
             })
             setSessionsData(response.data);
           }).catch((err) => {
-            console.log(err);
+            //console.log(err);
           });
       }
     }, [user]);

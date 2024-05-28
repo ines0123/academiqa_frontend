@@ -43,7 +43,7 @@ const Profile = () => {
     });
 
     setFile(newFile);
-    console.log("fileee", newFile);
+    //console.log("fileee", newFile);
 
     setDone(true);
 
@@ -78,7 +78,7 @@ const Profile = () => {
         data,
         config
       );
-      console.log(res);
+      //console.log(res);
       setDone(false);
       setFile(null);
       document.getElementById("image-upload").value = null;
@@ -100,8 +100,8 @@ const Profile = () => {
   return (
     <div className="profile-box flex flex-col justify-center p-4 pt-2 rounded-2xl sm:px-12 md:w-72 lg:w-96">
       <div
-        className={`profile-teacher d-flex mt-4  p-2 px-3 ms-md-3 ms-sm-0 ${
-          currentUser?.role === "Teacher" ? "mb-5" : "mb-2"
+        className={`profile-teacher d-flex mt-3.5  p-2 px-3 ms-md-3 ms-sm-0 ${
+          currentUser?.role === "Teacher" ? "mb-5" : "mb-10"
         }`}
       >
         <div className="courses-icon pt-1">

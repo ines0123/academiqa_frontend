@@ -34,6 +34,7 @@ export default function ProfileStudent() {
                 })
                 .then((res) => {
                     setCourses(res.data);
+                    setCourses(res.data.filter((course) => course.numberOfAbsence > 0));
                 })
                 .catch((err) => {
                     console.error(`${err} - Failed to find courses`);
@@ -68,11 +69,11 @@ export default function ProfileStudent() {
                     {courses.length > 0 ?(
                                 <div
                                     className="absence d-flex flex-column align-items-sm-center align-items-md-start col-xl-8 col-lg-7 col-md-6 row p-1 pt-3 mb-3 rounded-2xl">
-                                        <div className="my-courses d-flex  mt-2 p-3 ms-3 mb-4" style={{height:'fit-content'}}>
+                                        <div className="my-courses d-flex  mt-1 p-3 ms-3 mb-2" style={{height:'fit-content'}}>
                                             <div className="courses-icon d-flex align-items-center">
                                                 <img src={absence} alt={"absence"} style={{width: "25px", height: "auto"}}/>
                                             </div>
-                                            <h1 className="ms-2 fw-bold">My absence</h1>
+                                            <h1 className="ms-2 fw-bold">My absences</h1>
                                         </div>
                                         <div className="row">
                                             {courses.map((course, index) => (
@@ -91,7 +92,7 @@ export default function ProfileStudent() {
                             <>
                                 <div
                                     className="absence col-xl-8 col-lg-7 col-md-6 d-flex flex-column  mb-3 rounded-2xl">
-                                    <div className="my-courses d-flex mt-2 p-3 ms-3 mb-4" style={{height:'fit-content'}}>
+                                    <div className="my-courses d-flex mt-1 p-3 ms-3 mb-4" style={{height:'fit-content'}}>
                                         <div className="courses-icon d-flex align-items-center">
                                             <img src={absence} alt={"absence"} style={{width:"25px",height:"auto"}}/>
                                         </div>

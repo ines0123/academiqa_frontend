@@ -23,18 +23,18 @@ const Message = ({deleteMsg, message, send,emitTyping,nbNestedReplies, pickerUnd
     const handleSubmit = (e) => {
         e.preventDefault();
         if (value !== "") {
-            console.log("message sent", message)
+            //console.log("message sent", message)
             const newMessage = {content:value, parent:message, author:user,session:session};
-            console.log("new message", newMessage)
+            //console.log("new message", newMessage)
             send(newMessage);
-            console.log("message sent", message);
+            //console.log("message sent", message);
             setValue("");
             setViewReplies(true);
             setViewReplyForm(false);
         }
     }
     const deleteMessage = () => {
-        console.log("message deleted", message?.id)
+        //console.log("message deleted", message?.id)
         deleteMsg(message?.id);
 
     }

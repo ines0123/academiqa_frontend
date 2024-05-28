@@ -26,7 +26,7 @@ export default function TeacherCalendar() {
                 },
             }).then(
                 (response) => {
-                    console.log("groups:", response.data);
+                    //console.log("groups:", response.data);
                     setGroups(response.data);
                 }).catch((err) => {
                     console.log(err);
@@ -48,14 +48,14 @@ export default function TeacherCalendar() {
                     },
                 }).then(
                     (response) => {
-                        console.log("selected group", selectedGroup);
+                        //console.log("selected group", selectedGroup);
                         response.data.forEach(
                             (session) => {
                                 session.Subject = session.name;
                             }
                         )
                         setSessionsData(response.data);
-                        console.log("sessions:", response.data);
+                        //console.log("sessions:", response.data);
 
                     }).catch((err) => {
                         console.log(err);
@@ -69,7 +69,7 @@ export default function TeacherCalendar() {
                     },
                 }).then(
                     (response) => {
-                        console.log("sessions by teacher", response.data);
+                        //console.log("sessions by teacher", response.data);
                         response.data.forEach(
                             (session) => {
                                 session.Subject = session.name;

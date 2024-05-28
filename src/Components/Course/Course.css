@@ -7,7 +7,7 @@
     border: none;
     transition: transform 0.3s ease;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 135px;
+    height: 120px;
 }
 .course.card-teacher {
     height: 100px;
@@ -15,7 +15,7 @@
 
 .card-title, .card-title-teacher {
     padding-bottom: 0.5px;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 
@@ -33,7 +33,7 @@
     word-break: break-all;
 }
 .course.card .prof {
-    font-size: 14px;
+    font-size: 15px;
     width: 100%;
 }
 .card-title-teacher {

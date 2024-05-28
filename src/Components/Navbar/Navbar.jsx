@@ -34,7 +34,7 @@ const Navbar = () => {
       },
   }).then(
       (response) => {
-          console.log("sessions by teacher", response.data);
+          //console.log("sessions by teacher", response.data);
           response.data.forEach(
             (session) => {
               if (session.holidayName!=null) {
@@ -57,7 +57,7 @@ const Navbar = () => {
   // for a student
   if (jwtDecode(token).role.toLowerCase() === 'student') {
     if (user) {
-      console.log("user:", user);
+      //console.log("user:", user);
       axios.get(
           `${baseURL}/${SESSION}/${SESSIONS_BY_GROUP}/${user?.group?.sector}/${user?.group?.level}/${user?.group?.group}`
           , {
@@ -66,7 +66,7 @@ const Navbar = () => {
         },
       }).then(
         (response) => {
-          console.log("sessions:",response.data);
+          //console.log("sessions:",response.data);
           response.data.forEach((session) => {
             session.Subject = session.name;
             if(!session.StartTime){

@@ -42,7 +42,7 @@ const AdminsTable = () => {
     };
     const handleUpdateInputChange = (event) => {
         const {name, value} = event.target;
-        console.log(event)
+        //console.log(event)
         setUpdateFormData({...updateFormData, [name]: value});
     }
     const [done, setDone] = useState(false);
@@ -75,7 +75,7 @@ const AdminsTable = () => {
 
     const handleUpdateSubmit = (e, admin) => {
         e.preventDefault();
-        console.log(updateFormData)
+        //console.log(updateFormData)
 
         // axios.post('http://localhost:5000/admins', formData, config).then(r => {
         //     console.log(r)

@@ -25,17 +25,17 @@ const NotificationCard = () => {
     const getNotifications = async () => {
 
         try {
-            console.log("currentUser", currentUser?.id)
+            //console.log("currentUser", currentUser?.id)
             const res = await axios.get(`${baseURL}/${NOTIF}`);
             const allNotifications = res.data;
             let filteredNotifications = [];
-            console.log("allNotifications", allNotifications);
+            //console.log("allNotifications", allNotifications);
 
             if (allNotifications?.length > 0) {
                 for (const notif of allNotifications) {
                     // If the sender of the notification is the current user, skip this iteration
                     if (notif?.sender === currentUser?.id) {
-                        console.log("sender is currentUser", currentUser?.id);
+                        //console.log("sender is currentUser", currentUser?.id);
                         continue;
                     }
 
@@ -52,8 +52,8 @@ const NotificationCard = () => {
                         } else if (currentUser?.role === 'Student') {
                             try {
                                 const sessionRes = await axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif.link}`, config);
-                                console.log("session students", sessionRes.data);
-                                console.log("current user", currentUser?.id);
+                                //console.log("session students", sessionRes.data);
+                                //console.log("current user", currentUser?.id);
                                 if (sessionRes.data.map((student) => student?.id).includes(currentUser?.id)) {
                                     filteredNotifications.push(notif);
                                 }
@@ -135,11 +135,11 @@ const NotificationCard = () => {
     }, [isVisible]);
 
     const notifyListener = async (notif) => {
-        console.log("notifyListener",notif)
+        //console.log("notifyListener",notif)
         if(notif?.notificationType === 'message') {
             if(currentUser?.role === 'Teacher'){
                 await axios.get(`${baseURL}/${SESSION}/${notif?.link}`,config).then((res)=>{
-                    console.log("session teacher",res.data)
+                    //console.log("session teacher",res.data)
                     if(res.data?.sessionType?.teacher?.id === currentUser?.id){
                         setNewNotificationsandCount(notif);
                 }
@@ -148,9 +148,9 @@ const NotificationCard = () => {
                 })
 
             } else if (currentUser?.role === 'Student'){
-                console.log("notif link",notif?.link)
+                //console.log("notif link",notif?.link)
                await axios.get(`${baseURL}/${STUDENTSFROMSESSION}/${notif?.link}`,config).then((res)=>{
-                    console.log("session students",res.data)
+                    //console.log("session students",res.data)
                     if(res.data?.map((student)=>student.id).includes(currentUser?.id)){
                         setNewNotificationsandCount(notif);
                     }
@@ -223,7 +223,7 @@ const NotificationCard = () => {
         eventSource.addEventListener('error', (event) => {
             console.error('SSE error:', event);
             if (event.readyState === EventSource.CLOSED) {
-                console.log('EventSource connection closed');
+                //console.log('EventSource connection closed');
             }
         });
 

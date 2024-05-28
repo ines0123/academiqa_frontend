@@ -12,7 +12,7 @@ export const NotificationProvider = ({ children }) => {
     const [notifCount, setNotifCount] = useState(initialNotifCount);
     const toggleVisibility = () => {
         setIsVisible((prevVisible) => !prevVisible);
-        console.log(isVisible)
+        //console.log(isVisible)
         localStorage.removeItem("notifCount");
         setNotifCount(0);
     };

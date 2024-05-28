@@ -76,7 +76,7 @@ export default function Login() {
 
                     // context
                     userContext.setCurrentUser(user);
-                    console.log("userContext:", userContext.currentUser);
+                    //console.log("userContext:", userContext.currentUser);
 
 
                     const path = user.role === "Admin" ? '/admin/home' : user.role === "Teacher" ? '/teacher/home' : user.role === "Student" ? '/student/home' : '/';
@@ -103,7 +103,7 @@ export default function Login() {
 
     useEffect(() => {
         if (userContext.currentUser) {
-            console.log("Current user set in context:", userContext.currentUser);
+            //console.log("Current user set in context:", userContext.currentUser);
         }
     }, [userContext.currentUser]);
 

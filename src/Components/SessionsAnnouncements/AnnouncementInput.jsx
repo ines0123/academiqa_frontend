@@ -25,7 +25,7 @@ function AnnouncementInput({course,user, setAnnouncementsForTeacher}) {
             })
                 .then((res) => {
                     // Handle the response here, if needed
-                    console.log("Announcement created:", res.data);
+                    //console.log("Announcement created:", res.data);
                     setAnnouncementsForTeacher((prevState) => [...prevState, res.data]);
                     // Clear the input field
                     setNewAnnouncement('');

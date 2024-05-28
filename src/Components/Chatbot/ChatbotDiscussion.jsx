@@ -32,7 +32,7 @@ const ChatbotDiscussion = ({ discussion, getDiscussions }) => {
     const img = new Image();
     img.onload = () => setIsImageLoaded(true);
     img.src = NoDiscussions;
-    console.log("hello", discussion);
+    //console.log("hello", discussion);
   }, []);
 
   const scrollToBottom = () => {
@@ -58,7 +58,7 @@ const ChatbotDiscussion = ({ discussion, getDiscussions }) => {
       discussionId: discussion?.id,
       image: image,
     };
-    console.log("Form Data:", data);
+    //console.log("Form Data:", data);
 
     try {
       const res = await axios.post(
@@ -67,12 +67,12 @@ const ChatbotDiscussion = ({ discussion, getDiscussions }) => {
         config
       );
       setIsLoading(false);
-      console.log("Response:", res.data);
+      //console.log("Response:", res.data);
       getDiscussions();
       setImage(null);
       fileInputRef.current.value = "";
       setPrompt("");
-      console.log("Discussion:", discussion);
+      //console.log("Discussion:", discussion);
     } catch (error) {
       console.error("Error:", error);
       setIsLoading(false);

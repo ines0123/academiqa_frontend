@@ -42,7 +42,7 @@ const CourseForTeacher = ({course,color}) => {
                 },
             });
             setStudents(res.data);
-            console.log("Students: ", res.data)
+            //console.log("Students: ", res.data)
         } catch (error) {
             console.error('Error:', error);
         }

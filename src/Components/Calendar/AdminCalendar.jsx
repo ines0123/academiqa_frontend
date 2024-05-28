@@ -109,8 +109,8 @@ import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
           async (args) => {
             let teacherId
             if (role === "teacher") {
-              console.log("args.event.teacherId:", args.event);
-                console.log("currentUser.id:", currentUser.id);
+              //console.log("args.event.teacherId:", args.event);
+                //console.log("currentUser.id:", currentUser.id);
                 await axios.get(`${baseURL}/${SESSION_TYPE}/${args.event?.sessionType?.id || args.event?.sessionTypeId}/teacher-id`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
                     }).catch((err) => {
                         console.log(err);
                     });
-              console.log("teacherId:", teacherId);
+              //console.log("teacherId:", teacherId);
               if(teacherId === currentUser?.id) {
                 nav(`/teacher/session/${args.event.id}`);
               }
@@ -131,7 +131,7 @@ import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
         actionComplete={(args) => {
           if (args.requestType === "eventChanged") {
             editTimeFormat(args.data[0]);
-            console.log(args.data[0]);
+            //console.log(args.data[0]);
             const dto = {
               date: args.data[0].StartTime,
               endTime : args.data[0].EndTime,
@@ -143,7 +143,7 @@ import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
               },
             }).then(
               (response) => {
-                console.log("response.data:", response.data);
+                //console.log("response.data:", response.data);
                 alert("Session Updated");
                 setReload(!reload);
               }).catch((err) => {
@@ -153,7 +153,7 @@ import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
           }
           if (args.requestType === "eventCreated") {
             editTimeFormat(args.data[0]);
-            console.log(args.data[0]);
+            //console.log(args.data[0]);
             alert("Session Created");
             const yearString = year==1 ? "ère":"ème";
             const addSessionDto= {
@@ -169,7 +169,7 @@ import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
               addSessionDto: addSessionDto,
               getGroupDto: getGroupDto
             }
-            console.log("dto:", dto);
+            //console.log("dto:", dto);
             // Post request to add the session to the database
             axios.post(`${baseURL}/${SESSION}/${ADD_SESSION}`, dto, {
               headers: {

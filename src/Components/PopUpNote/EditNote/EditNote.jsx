@@ -31,7 +31,7 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("editedNote: ", editedNote); // Log the edited note
+    //console.log("editedNote: ", editedNote); // Log the edited note
     axios
       .patch(`${baseURL}/${NOTE}/${note.id}`, editedNote, config)
       .then((res) => {
@@ -48,7 +48,7 @@ const EditNote = ({ note, isOpen, setIsOpen }) => {
     axios
       .delete(`${baseURL}/${NOTE}/${note.id}`, config)
       .then((res) => {
-        console.log("delete: ", res); // Log the response
+        //console.log("delete: ", res); // Log the response
         deleteNote(res.data.id);
         setIsOpen(false);
       })

@@ -49,7 +49,7 @@ export default function Courses() {
                 })
                 .then((res) => {
                     setCourses(res.data);
-                    console.log("Courses: ", res.data)
+                    //console.log("Courses: ", res.data)
                 })
                 .catch((err) => {
                     console.error(`${err} - Failed to find courses`);

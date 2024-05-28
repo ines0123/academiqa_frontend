@@ -128,7 +128,7 @@ const AbsenceChart = () => {
             },
         },
     };
-    console.log('ddddddddaaaaaaaaaaaaattttttttaaaaaaaaaaaa',data);
+    //console.log('ddddddddaaaaaaaaaaaaattttttttaaaaaaaaaaaa',data);
     return (
         <Line
             className="absence-chart p-1 w-full bg-gray-50 ml-6 shadow rounded-2xl mb-4"

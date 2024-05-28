@@ -123,7 +123,7 @@ const Task = ({ role, session }) => {
         })
         .then((response) => {
           setTasks((prevTasks) => prevTasks.filter((t, i) => i !== index));
-          console.log(response.data);
+          //console.log(response.data);
         })
         .catch((error) => {
           console.error(`${error} - Failed to delete task`);
@@ -155,7 +155,7 @@ const Task = ({ role, session }) => {
         <Scrollbar
           thumbColor={"rgba(233, 177, 176, 0.62)"}
           trackColor={"#F5D8D6"}
-          maxHeight={"150px"}
+          maxHeight={"165px"}
         >
           <div className="contentTask">
             <div className="row p-0 d-flex justify-content">

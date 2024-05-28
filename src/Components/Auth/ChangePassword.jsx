@@ -43,7 +43,7 @@ const ChangePassword = ({isOpen, setIsOpen}) => {
                     showToast('Password changed successfully', 'success');
                 })
                 .catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                     showToast(err.response.data.message, 'error');
                 });
         }

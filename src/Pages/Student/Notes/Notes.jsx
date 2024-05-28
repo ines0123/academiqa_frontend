@@ -47,7 +47,7 @@ export default function Notes() {
   useEffect(() => {
     const userToken = Cookie().get("academiqa");
     const param = user?.group?.sectorLevel;
-    console.log("param: ", param);
+    //console.log("param: ", param);
     axios
       .get(`${baseURL}/${SUBJECT}/SectorLevel/${param}`, {
         headers: {
@@ -57,7 +57,7 @@ export default function Notes() {
       .then((res) => {
         setSubjects(res.data);
 
-        console.log("subjects: ", res.data);
+        //console.log("subjects: ", res.data);
       })
       .catch((err) => {
         console.error("Error: ", err); // Log the error

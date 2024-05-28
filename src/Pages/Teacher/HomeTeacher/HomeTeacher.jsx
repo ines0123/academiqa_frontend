@@ -77,7 +77,7 @@ export default function HomeTeacher() {
                 console.error(`${err} - Failed to fetch students list`);
             });
     }, []);
-    console.log("Students List: ", studentsList)
+    //console.log("Students List: ", studentsList)
     useEffect(() => {
         if(currentUser?.role === "Teacher"){
 
@@ -89,7 +89,7 @@ export default function HomeTeacher() {
                 })
                 .then((res) => {
                     setCourses(res.data.slice(0, 3));
-                    console.log("Courses: ", res.data)
+                    //console.log("Courses: ", res.data)
                 })
                 .catch((err) => {
                     console.error(`${err} - Failed to find courses`);

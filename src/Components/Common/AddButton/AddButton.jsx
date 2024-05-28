@@ -35,7 +35,7 @@ const AddButton = ({ onFileSelect, onLinkAdd }) => {
             onFileSelect(file);
         } else {
             // Handle case where user clicks "Add File" but doesn't select a file
-            console.log("No file selected");
+            //console.log("No file selected");
         }
     };
 

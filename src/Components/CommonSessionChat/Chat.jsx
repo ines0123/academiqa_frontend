@@ -42,7 +42,7 @@ const Chat = ({session}) => {
     // userJoined effect
     useEffect(() => {
         const handleUserJoined = (user) => {
-            console.log("userJoined", user)
+            //console.log("userJoined", user)
         };
 
         socket?.on('userJoined', handleUserJoined);
@@ -64,7 +64,7 @@ const Chat = ({session}) => {
     useEffect(() => {
         const handleTyping = (data) => {
             if (data.isTyping) {
-                console.log("rim data", data)
+                //console.log("rim data", data)
                 if(data?.sender?.id !== currentUser?.id){
                     setTyping(data?.sender?.username);
                 }
@@ -87,7 +87,7 @@ const Chat = ({session}) => {
         });
     };
     const deleteMsg = (id)=>{
-        console.log("hello", session)
+        //console.log("hello", session)
         socket?.emit('deleteMessage', {id, session});
     }
 
@@ -119,7 +119,7 @@ const Chat = ({session}) => {
         const messageListener = (data) => {
             // Check if the incoming message's session matches the current session
             if (data?.session?.id === session?.id) {
-                console.log("data", data);
+                //console.log("data", data);
 
                 setMessages((prevMessages) => {
                     const handleReply = (messages) => {

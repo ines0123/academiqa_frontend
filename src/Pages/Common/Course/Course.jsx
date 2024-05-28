@@ -18,10 +18,10 @@ const Course = () => {
     const {currentUser, user} = useContext(CurrentUser);
     const userToken = Cookie().get('academiqa');
     useEffect(() => {
-        console.log("Sessionssssssssssssss: ", course?.sessionTypes);
+        //console.log("Sessionssssssssssssss: ", course?.sessionTypes);
         if (course?.sessionTypes) {
             let filteredSessionTypes = course?.sessionTypes;
-            console.log("filteredSessionTypes: ", filteredSessionTypes);
+            //console.log("filteredSessionTypes: ", filteredSessionTypes);
 
             if (currentUser?.role === 'Student') {
                 filteredSessionTypes = course?.sessionTypes.filter(
@@ -70,7 +70,7 @@ const Course = () => {
             },
         }).then(res => {
             setCourse(res.data);
-            console.log("Course: ", res.data);
+            //console.log("Course: ", res.data);
         }).catch(err => {
             console.error(`${err} - Failed to find session`);
         })
@@ -79,7 +79,7 @@ const Course = () => {
     if (!currentUser) {
         return <div>Loading...</div>; // Render a loading state while currentUser is awaited
     }
-    console.log(currentUser.role);
+    //console.log(currentUser.role);
     return (
         <div className="course-page container-fluid pt-6">
             <div className="row date pl-10 mb-12">
