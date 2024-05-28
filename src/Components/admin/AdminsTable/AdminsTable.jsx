@@ -248,7 +248,6 @@ const AdminsTable = () => {
                         <th scope="col">cin</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Actions</th>
                     </tr>
                     </thead>
 
@@ -264,99 +263,6 @@ const AdminsTable = () => {
                                 <td>{admin.cin}</td>
                                 <td>{admin.username}</td>
                                 <td>{admin.email}</td>
-                                <td>
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            className="btn-icon-only text-light"
-                                            href="#pablo"
-                                            role="button"
-                                            size="sm"
-                                            color=""
-                                            onClick={(e) => e.preventDefault()}
-                                        >
-                                            <FaEllipsisVertical fill={"#606060"}/>
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" style={{
-                                            boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
-                                            border: 'none'
-                                        }} end>
-
-                                            <DropdownItem
-                                                href="/admin/profile"
-                                                className="d-flex align-items-center"
-                                            >
-                                                <FaEye size={20} className="me-1"/>
-                                                View profile
-                                            </DropdownItem>
-
-                                            <DropdownItem
-                                                href=""
-                                                onClick={() => handleUpdateClick(admin)}
-                                                className="d-flex align-items-center"
-                                            >
-                                                <FontAwesomeIcon icon={faPen} className="me-2"/>
-                                                Update
-                                            </DropdownItem>
-
-                                            {/* Update admin Modal */}
-
-                                            <DropdownItem
-                                                href=""
-                                                onClick={handleDeleteAdmin}
-                                            >
-                                                <FontAwesomeIcon icon={faTrash} className="me-2"/>
-                                                Delete
-                                            </DropdownItem>
-                                            <PopUp width={`${screenWidth > 740 ? '35vw' : '60vw'} `}
-                                                   isOpen={adminModalOpen[admin.id] || false}
-                                                   setIsOpen={() => toggleAdminModal(admin.id)}
-                                                   fromCourse={true}>
-                                                <div className="d-flex align-items-center ms-4">
-                                                    <PiStudentBold size={25} className="mb-1 me-2"/>
-                                                    <p className="fs-5 fw-bold ms-1 mb-1 add-teacher"> Update
-                                                        admin:</p>
-                                                </div>
-                                                <form onSubmit={(e) => handleUpdateSubmit(e, admin)}
-                                                      onReset={() => handleCancelUpdate(admin)}
-                                                      className="link-form add-new d-flex flex-column align-items-center">
-                                                    <input
-                                                        type={"text"}
-                                                        name="username"
-                                                        value={updateFormData.username}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter username"
-                                                    />
-                                                    <input
-                                                        type={"email"}
-                                                        name="email"
-                                                        value={updateFormData.email}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter email: example@example.com"
-                                                    />
-                                                    <input
-                                                        type={"number"}
-                                                        name="cin"
-                                                        value={updateFormData.cin}
-                                                        onChange={handleUpdateInputChange}
-                                                        placeholder="Enter cin"
-                                                    />
-                                                    <div className="end d-flex justify-content-between mt-4"
-                                                         style={{width: '70%'}}>
-                                                        <button type="submit" className="me-1">
-                                                            Update
-                                                        </button>
-                                                        <button type="reset" className="ms-1">
-                                                            Cancel
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </PopUp>
-
-
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </td>
-
                             </tr>
                         ))
                     )}
