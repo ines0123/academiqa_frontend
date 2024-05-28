@@ -45,6 +45,7 @@ export default function Calendar() {
             case "Génie logiciel": return "GL";
             case "Réseaux Informatiques et Télécommunications": return "RT";
             case "Informatique Industrielle et Automatique": return "IIA";
+            case "Instrumentation et Maintenance Industrielle": return "IMI";
             case "Biologie Industrielle": return "BIO";
             case "Chimie Industrielle": return "CH";
             case "Math Physique Informatique": return "MPI";
