@@ -19,7 +19,7 @@ import { registerLicense } from '@syncfusion/ej2-base';
 import { useContext } from "react";
 import { CurrentUser } from "../../Context/CurrentUserContext";
 
-registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXlec3VRRWhcUUBxWEI=');
 
 const FirstCalendar = ({role, sessions}) => {
   const nav = useNavigate();

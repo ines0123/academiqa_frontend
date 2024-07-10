@@ -13,7 +13,7 @@ import {
   import { Internationalization } from "@syncfusion/ej2-base";
   import { useNavigate } from "react-router-dom";
   import { registerLicense } from '@syncfusion/ej2-base';
-  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
+  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXlec3VRRWhcUUBxWEI=');
   
   
   const SmallCalendar = ({role, sessions}) => {
@@ -53,7 +53,7 @@ import {
         showHeaderBar={false}
       >
         <ViewsDirective>
-          <ViewDirective option='Day' interval={3} displayName='3 Days'startHour="08:00" endHour="18:00" isSelected={true} />
+          <ViewDirective option='Day' interval={3} displayName='3 Days' startHour="08:00" endHour="18:00" isSelected={true} />
         </ViewsDirective>
         <Inject services={[Day, Week, WorkWeek, Month]} />
       </ScheduleComponent>

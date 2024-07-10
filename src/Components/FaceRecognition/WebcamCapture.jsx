@@ -86,7 +86,7 @@ const WebcamCapture = ({sessionId,students,setStudents,setAbsentStudents,absentS
   );
   return (
     <div className="d-flex justify-content-start">
-      <Webcam forceScreenshotSourceSize={true} mirrored={true} style={{width:"70%", height:"100%"}} audio={false} ref={webcamRef} screenshotFormat="image/jpeg"/>
+      <Webcam forceScreenshotSourceSize={true} mirrored={true} style={{width:"70%", height:"100%"}} audio={false} ref={webcamRef} videoConstraints={selectedDevice} screenshotFormat="image/jpeg"/>
       <div style={{width:"30%"}} className="mt-12 mx-3">
         <Select className="mb-2" options={deviceOptions} onChange={
           (e)=>{

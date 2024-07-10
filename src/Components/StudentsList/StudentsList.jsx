@@ -41,7 +41,7 @@ const StudentsList = ({group, presence}) => {
                                  className="student-item-home d-flex align-items-center justify-content-start ">
                                 <p className="fs-6 ms-2 px-0.5 student-username">{student?.username}</p>
                             </div>
-                        ))}
+                        )).reverse()}
                     </div>
                 }
             </div>

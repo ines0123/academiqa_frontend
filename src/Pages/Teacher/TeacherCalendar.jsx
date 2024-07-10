@@ -104,7 +104,7 @@ export default function TeacherCalendar() {
             }>
                 <option value="-1">My Calendar </option>
                 {groups.map((group) => (
-                    <option key={group.id} value={group.id}>{group.sectorLevel}</option>))}
+                    <option key={group.id} value={group.id}>{group.sectorLevel +' ' +group.group}</option>))}
             </select>
         <AdminCalendar role="teacher" sessions={sessionsData}/>
         </div>

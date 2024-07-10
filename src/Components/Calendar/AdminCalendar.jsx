@@ -20,7 +20,7 @@ import Cookie from 'cookie-universal';
 import {useContext, useEffect} from "react";
 import {CurrentUser} from "../../Context/CurrentUserContext.jsx";
 
-  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWFCeEx1WmFZfVpgcl9GYVZSTGY/P1ZhSXxXdkBjXX5WcXRVT2RUVkc=');
+  registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXlec3VRRWhcUUBxWEI=');
   
   
   const AdminCalendar = ({role, sessions, sector, year, group, reload, setReload}) => {
