@@ -281,7 +281,7 @@ const getTeachers = () => {
                         <h1 className="col-12 d-flex fs-2 fw-bold justify-content-center listEnseignant">Teachers</h1>
 
                     </div>
-                    <div className='mb-1 d-flex justify-content-between'>
+                    <div className='mb-1 content-teacher-table d-flex justify-content-between'>
                         <div className='col-lg-3 col-md-4 col-sm-2 d-flex filter'>
                             <div className="container-input">
                                 <input type="text" placeholder="Search" name="text" className="input" value={searchTerm}
